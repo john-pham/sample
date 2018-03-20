@@ -1,0 +1,102 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_stock_main_stock">{{'mainMenu.mn-stocks' | translate}}</a></li>
+                <li><a routerLink="/mn_stock_inputs_stock">{{'menu.stock.ManageIO' | translate}}</a></li>
+                <li>{{'menu.stock.SumaryInput' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="navbar action-box">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="toolbaritem">
+                    <a href="javascript:;" (click)="search()">
+                        <i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row control-box">
+    <div class="col-sm-6">
+        <div class="form-group has-feedback">
+            <label class="control-label col-md-4">{{'label.deptslist.FromDate' | translate}}</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" bsDatepicker [(ngModel)]="fromDate">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-group has-feedback">
+            <label class="control-label col-md-4">{{'label.deptslist.ToDate' | translate}}</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="material colored-header sm table-hover"
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [columns]="columns"
+                   [scrollbarV]="verticalScrollbar"
+                   
+                   >
+    </ngx-datatable>
+    <div [@fadeInOut]>
+        <page-controller></page-controller>
+    </div>
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #statusTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #totalPriceTemplate let-row="row" let-value="value">
+        <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #actionsTemplate let-row="row">
+        <a class="btn btn-link btn-xs" routerLink="/iostudent/?id={{value}}" (click)="goDetails(template, row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+    </ng-template>
+</div>
+
+<ng-template #template>
+
+</ng-template>
+

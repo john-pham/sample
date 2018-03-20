@@ -1,0 +1,48 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_accountant_main_accountant">{{'mainMenu.mn-finances' | translate}}</a></li>
+                <li>{{'menu.accountant.UpdateProfitDes' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-4">{{'label.inventorieslist.FromDate' | translate}}</label>
+                <div class="col-md-8">
+                    <input class="form-control" type="text" bsDatepicker [(ngModel)]="fromDate">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-5">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-4">{{'label.inventorieslist.ToDate' | translate}}</label>
+                <div class="col-md-8">
+                    <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="navbar action-box">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="toolbaritem">
+                        <a href="javascript:;" (click)="updated()">
+                            <i class="fa fa-plus-circle"></i> {{'button.Update' | translate}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

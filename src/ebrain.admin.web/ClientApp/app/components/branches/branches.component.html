@@ -1,0 +1,139 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_stock_main_stock">{{'mainMenu.mn-stocks' | translate}}</a></li>
+                <li><a routerLink="/mn_stock_categories_stock">{{'menu.stock.Categroies' | translate}}</a></li>
+                <li>{{'pageMain.branch.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.branch.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="navbar action-box">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="toolbaritem">
+                    <a href="javascript:;" (click)="addBranch(template)">
+                        <i class="fa fa-plus-circle"></i> {{'pageMain.branch.newBranch' | translate}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [columns]="columns"
+                   [scrollbarV]="verticalScrollbar"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="page.totalElements"
+                   [offset]="page.pageNumber"
+                   [limit]="page.size"
+                   (page)='setPage($event)'>
+    </ngx-datatable>
+
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #statusTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #logoTemplate let-row="row" let-value="value">
+        <img src="/uploads/logos/{{value}}" />
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #actionsTemplate let-row="row" let-value="value">
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editBranch(template, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+        |
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteBranch(value)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+    </ng-template>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="subbranch-modal" tabindex="-1" role="dialog" aria-labelledby="subbranch-modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="subbranch-modalLabel">Chí nhánh cơ sở</h4>
+            </div>
+            <div class="modal-body">
+                <div><label>HQ - HEAD QUARTER</label><input type="checkbox" /></div>
+                <div><label>CN2 - Chi nhánh 2</label><input type="checkbox" /></div>
+                <div><label>CN3 - Chi nhánh 3</label><input type="checkbox" /></div>
+                <div><label>CN3 - Chi nhánh 4</label><input type="checkbox" /></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.branch.HeaderAdd' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <img [src]="src" [hidden]="!src">
+            <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+            <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+        </div>
+        <div class="form-group">
+            <label for="pointer.code" class="control-label">{{'label.branch.Code' | translate}}</label>
+            <input type="text" class="form-control" [(ngModel)]="pointer.code">
+        </div>
+        <div class="form-group">
+            <label for="pointer.name" class="control-label">{{'label.branch.Name' | translate}}</label>
+            <input type="text" class="form-control" [(ngModel)]="pointer.name">
+        </div>
+        <div class="form-group">
+            <label for="pointer.email" class="control-label">{{'label.branch.Email' | translate}}</label>
+            <input type="text" class="form-control" [(ngModel)]="pointer.email">
+        </div>
+        <div class="form-group">
+            <label for="pointer.address" class="control-label">{{'label.branch.Address' | translate}}</label>
+            <textarea class="form-control" [(ngModel)]="pointer.address"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="save()">{{'button.Save' | translate}}</button>
+    </div>
+</ng-template>

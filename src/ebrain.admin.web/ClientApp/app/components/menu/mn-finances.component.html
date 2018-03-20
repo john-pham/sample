@@ -1,0 +1,78 @@
+﻿<header class="pageHeader">
+    <h3><i class="fa fa-lg page-caption" aria-hidden="true"></i> </h3>
+</header>
+
+<div [@fadeInOut]>
+    <div class="statistic">
+        <div class="row">
+            <div class="panel-heading"> Học Phí</div>
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/?mod=ketoan!History-registry" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-primary hover-rotate"></i>
+                        <i class="i i-history icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">Hóa Đơn</span>
+                        <small class="text-muted text-u-c">Đăng ký khóa học</small>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/?mod=ketoan!hocphi_log" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-lt hover-rotate"></i>
+                        <i class="fa fa-money text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">Học Phí</span>
+                        <small class="text-muted text-u-c">Phiếu thu học phí</small>
+                    </span>
+                </a>
+            </div>
+
+        </div>
+        <div><br /></div>
+        <div class="row">
+            <div class="panel-heading"> Thu Chi</div>
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a href="javascript:Ketoan_phieuthu()" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-warning hover-rotate"></i>
+                        <i class="fa fa-plus text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">Phiếu Thu</span>
+                        <small class="text-muted text-u-c">Thêm mới </small>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a href="javascript:Ketoan_phieuchi()" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-warning hover-rotate"></i>
+                        <i class="fa fa-plus icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">Phiếu Chi</span>
+                        <small class="text-muted text-u-c">Thêm mới</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/?mod=ketoan!thongke_thuchi" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-primary hover-rotate"></i>
+                        <i class="fa fa fa-bar-chart-o icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">Thống kê Thu Chi</span>
+                        <small class="text-muted text-u-c">Lịch sử  thu chi</small>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

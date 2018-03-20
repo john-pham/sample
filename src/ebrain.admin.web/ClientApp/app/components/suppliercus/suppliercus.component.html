@@ -1,0 +1,232 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_accountant_main_accountant">{{'mainMenu.mn-finances' | translate}}</a></li>
+                <li>{{'menu.accountant.Customer' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.supplier.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="navbar action-box">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="toolbaritem">
+                    <a href="javascript:;" (click)="addSupplier(template)">
+                        <i class="fa fa-plus-circle"></i> {{'pageMain.supplier.newSupplier' | translate}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="supplier colored-header sm table-hover"
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [rowHeight]="auto"
+                   [columns]="columns"
+                   [scrollbarV]="verticalScrollbar"
+                   [columnMode]="'force'">
+    </ngx-datatable>
+
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #statusTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #actionsTemplate let-row="row">
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+        |
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+    </ng-template>
+</div>
+
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.supplier.HeaderAdd' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.GrpSupplier' | translate}}</label>
+                        <div class="col-md-8">
+                            <select id="grps-user-info" name="gender" [(ngModel)]="pointer.grpSupplierId" class="form-control" required
+                                    data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                <option *ngFor="let grp of allGrpSuppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                    {{grp.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.Code' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.code">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.Name' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.Birthday' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="{{'label.supplier.Birthday' | translate}}" 
+                                   bsDatepicker [(ngModel)]="pointer.birthday" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.Phone' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.phone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.Email' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="{{'label.supplier.Email' | translate}}" 
+                                   [(ngModel)]="pointer.email" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.TaxCode' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.taxCode">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.Fax' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="{{'label.supplier.Fax' | translate}}" 
+                                   [(ngModel)]="pointer.fax" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-2">{{'label.supplier.Address' | translate}}</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" [(ngModel)]="pointer.address"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-2">{{'label.supplier.Note' | translate}}</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                <button type="button" class="btn btn-primary" (click)="save()">{{'button.Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+

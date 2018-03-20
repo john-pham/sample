@@ -1,0 +1,171 @@
+﻿<div id="app_container" class="{{configurations.theme | lowercase}}-theme">
+    <ng2-toasty></ng2-toasty>
+    <div class='container'>
+        <nav id="header" class="app-component navbar navbar-inner navbar-fixed-top">
+            <nav class="container">
+                <div class="navbar-header">
+                    <button type="button" class="app-component navbar-toggle collapsed" data-toggle="collapse" data-target=".menuItemsContainer.app-component" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="app-component navbar-brand" routerLink="/">
+                        <img [src]="appLogo" alt="logo">
+                        <span class="app-component appTitle">{{appTitle}}</span>
+                    </a>
+                </div>
+                <div *ngIf="isUserLoggedIn" class="app-component collapse navbar-collapse menuItemsContainer">
+                    <ul class="app-component nav navbar-nav nav-pills navBarPadding">
+                        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a routerLink=""><span class="glyphicon glyphicon-home"></span></a></li>
+                        <li routerLinkActive="active" *ngIf="canViewCustomers"><a routerLink="/students">{{'mainMenu.mn-students' | translate}}</a></li>
+                        <li routerLinkActive="active" *ngIf="canViewCustomers"><a routerLink="/iostudents">{{'mainMenu.PaymentStudent' | translate}}</a></li>
+                        <li routerLinkActive="active" *ngIf="canViewCustomers"><a routerLink="/payments">{{'mainMenu.Payment' | translate}}</a></li>
+                       
+                        <li routerLinkActive="active" *ngIf="canViewCustomers"><a routerLink="/mn-finances">{{'mainMenu.mn-finances' | translate}}</a></li>
+                        <!--<li routerLinkActive="active" *ngIf="canViewCustomers"><a routerLink="/mn-humans">{{'mainMenu.mn-humans' | translate}}</a></li>
+                        <li routerLinkActive="active" *ngIf="canViewCustomers"><a routerLink="/branches">{{'mainMenu.Branches' | translate}}</a></li>
+                        <li routerLinkActive="active" *ngIf="canViewCustomers"><a routerLink="/categories">{{'mainMenu.Categories' | translate}}</a></li>
+                        <li routerLinkActive="active" *ngIf="canViewProducts"><a routerLink="/products">{{'mainMenu.Products' | translate}}</a></li>
+                        <li routerLinkActive="active" *ngIf="canViewOrders"><a routerLink="/orders">{{'mainMenu.Orders' | translate}}</a></li>-->
+                        <!--<li routerLinkActive="active"><a routerLink="/about">{{'mainMenu.About' | translate}}</a></li>-->
+                    </ul>
+                    <ul class="app-component nav navbar-nav nav-pills navBarPadding navbar-right">
+                        <li (click)="logout()"><a href="javascript:;"><span class="glyphicon glyphicon-log-out"></span> {{'mainMenu.Logout' | translate}}</a></li>
+                    </ul>
+                    <p class="app-component navbar-text navbar-right notifications-popup">
+                        {{'app.Welcome' | translate}}
+                        <a class="app-component navbar-link user-name" [popover]="popTemplate" (onHidden)="markNotificationsAsRead()" placement="bottom" [popoverTitle]="notificationsTitle" href="javascript:;" triggers="focus">
+                            {{userName}}
+                            <span *ngIf="newNotificationCount > 0" class="badge">{{newNotificationCount}}</span>
+                        </a>,
+                    </p>
+
+                    <ng-template #popTemplate>
+                        <notifications-viewer [isViewOnly]="true"></notifications-viewer>
+                    </ng-template>
+
+
+                    <ul class="app-component nav navbar-nav nav-pills navBarPadding navbar-right">
+                        <li routerLinkActive="active"><a routerLink="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+                    </ul>
+                </div>
+                <div *ngIf="!isUserLoggedIn && router.isActive('/about', false)" class="app-component collapse navbar-collapse menuItemsContainer">
+                    <ul class="app-component nav navbar-nav nav-pills navBarPadding navbar-right">
+                        <li routerLinkActive="active"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span></a></li>
+                    </ul>
+                </div>
+                <div *ngIf="!isUserLoggedIn && router.isActive('/login', false) || false" class="app-component collapse navbar-collapse menuItemsContainer">
+                    <ul class="app-component nav navbar-nav nav-pills navBarPadding navbar-right">
+                        <li routerLinkActive="active"><a routerLink="/about"><span class="glyphicon glyphicon-info-sign"></span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </nav>
+
+        <div id="pre-bootstrap" *ngIf="!removePrebootScreen" [class.prebootShow.app-component]="!isAppLoaded" class="app-component prebootStep">
+            <div class="messaging">
+                <h1>
+                    Loaded!
+                </h1>
+                <p>
+                    SUPERBRAIN - <span class="appName" style="font-style:italic">ebrain</span><span class="appName">App</span> &copy; <a href="http://supperbrain.visualstudio.com">supperbrain.visualstudio.com</a>
+                </p>
+
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="app-component navbar-fixed-bottom navbar-inner footer">
+                <div class="container">
+                    <footer>
+                        <div class="app-component vcenter_text center-block">
+                            <p class="text-center text-muted">
+                                <span class="appName" style="font-style:italic">ebrain</span><span class="appName">App</span> &copy; {{getYear()}}
+                                <a href="http://supperbrain.visualstudio.com" target="_blank">supperbrain.visualstudio.com</a>
+                                <!--<span class="small display-none">- Powered by <a href="http://superbrain.edu.vn/app" target="_blank"><span class="appName" style="font-style:italic">ebrain</span><span class="appName">App</span></a></span>-->
+                            </p>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <div *ngIf="isUserLoggedIn" class="container1">
+            <div class="row">
+                <div class="col-sm-3 col-md-2">
+                    <nav class="navbar navbar-default sidebar" role="navigation">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a routerLink="/">Tổng quan<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+                                    <li class="dropdown">
+                                        <a routerLink="/mn_student_main_student" class="dropdown-toggle" data-toggle="dropdown">{{'mainMenu.mn-students' | translate}}<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                                        <ul class="dropdown-menu forAnimate" role="menu">
+                                            <li><a routerLink="/mn_student_categories">{{'menu.student.Categories.Header' | translate}}<span style="font-size:16px;" class="fa fa-tasks pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn-students">{{'menu.student.Categories.Student' | translate}}<span style="font-size:16px;" class="fa fa-user-o pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn_student_reports_student">{{'menu.student.Report' | translate}}<span style="font-size:16px;" class="fa fa-clipboard pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn_student_sms_student">{{'menu.student.SMS' | translate}}<span style="font-size:16px;" class="fa fa-envelope-square pull-right hidden-xs showopacity"></span></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a routerLink="/mn_stock_main_stock" class="dropdown-toggle" data-toggle="dropdown">{{'mainMenu.mn-stocks' | translate}}<span class="caret"></span><span style="font-size:16px;" class="fa fa-truck pull-right hidden-xs showopacity"></span></a>
+                                        <ul class="dropdown-menu forAnimate" role="menu">
+                                            <li><a routerLink="/mn_stock_categories_stock">{{'menu.stock.Categroies' | translate}}<span style="font-size:16px;" class="fa fa-tasks pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn_stock_inputs_stock">{{'menu.stock.IOInputDes' | translate}}<span style="font-size:16px;" class="fa fa-inbox pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn_stock_manages_stock">{{'menu.stock.ManageIO' | translate}}<span style="font-size:16px;" class="fa fa-cogs pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn_stock_reports_stock">{{'menu.stock.ReportIO' | translate}}<span style="font-size:16px;" class="fa fa-clipboard pull-right hidden-xs showopacity"></span></a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a routerLink="/mn_accountant_main_accountant" class="dropdown-toggle" data-toggle="dropdown">{{'mainMenu.mn-finances' | translate}}<span class="caret"></span><span style="font-size:16px;" class="fa fa-credit-card pull-right hidden-xs showopacity"></span></a>
+                                        <ul class="dropdown-menu forAnimate" role="menu">
+                                            <li><a routerLink="/mn_accountant_promotion_accountant">{{'menu.accountant.Promotions' | translate}}<span style="font-size:16px;" class="fa fa-tasks pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn_accountant_payment_accountant">{{'menu.accountant.Payment' | translate}}<span style="font-size:16px;" class="fa fa-inbox pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn_accountant_main_accountant">{{'menu.accountant.Dept' | translate}}<span style="font-size:16px;" class="fa fa-cogs pull-right hidden-xs showopacity"></span></a></li>
+                                            <li><a routerLink="/mn_accountant_main_accountant">{{'menu.accountant.Report' | translate}}<span style="font-size:16px;" class="fa fa-clipboard pull-right hidden-xs showopacity"></span></a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Người Dùng<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                                        <ul class="dropdown-menu forAnimate" role="menu">
+                                            <li><a routerLink="/#">Thông báo<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+                                            <li><a routerLink="/#">Email, Sms<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+                                            <li><a routerLink="/#">Tài liệu<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+                                            <li><a routerLink="/#">Cài đặt<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+                                            <li><a routerLink="/#">Quản trị User<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+                                            <li><a routerLink="/#">Cơ sở<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-sm-9 col-md-10">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+        <router-outlet *ngIf="!isUserLoggedIn"></router-outlet>
+    </div>
+
+    <div *ngIf="shouldShowLoginModal" class="modal fade" bsModal #loginModal="bs-modal" (onShown)="onLoginModalShown()" (onHidden)="onLoginModalHidden()" (onHide)="onLoginModalHide()"
+         [config]="{backdrop: 'static'}" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <app-login #loginControl isModal="true"></app-login>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_stock_main_stock">{{'mainMenu.mn-stocks' | translate}}</a></li>
+                <li><a routerLink="/mn_stock_categories_stock">{{'menu.stock.Categroies' | translate}}</a></li>
+                <li>{{'pageMain.typeMaterial.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.typeMaterial.searchBox' | translate}}"></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="navbar action-box">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="toolbaritem">
+                    <a href="javascript:;" (click)="addTypeMaterials(template)">
+                        <i class="fa fa-plus-circle"></i> {{'pageMain.typeMaterial.newGrp' | translate}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="material colored-header sm table-hover"
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [rowHeight]="auto"
+                   [columns]="columns"
+                   [scrollbarV]="verticalScrollbar"
+                   [columnMode]="'force'">
+    </ngx-datatable>
+
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #statusTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #actionsTemplate let-row="row" let-value="value">
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+        |
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+    </ng-template>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.typeMaterial.HeaderAdd' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">{{'label.typeMaterial.Code' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="pointer.code">
+            </div>
+            <div class="form-group">
+                <label for="message-text" class="control-label">{{'label.typeMaterial.Name' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="pointer.name">
+            </div>
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">{{'label.typeMaterial.Note' | translate}}</label>
+                <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="pointer.IsLearning">
+                        {{'label.typeMaterial.IsLearning' | translate}}
+                    </label>
+                    <label>
+                        <input type="checkbox" [(ngModel)]="pointer.IsDocument">
+                        {{'label.typeMaterial.IsDocument' | translate}}
+                    </label>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="save()">{{'button.Save' | translate}}</button>
+        </div>
+    </div>
+</ng-template>

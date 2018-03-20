@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=vietnamese');
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import '../assets/styles/ori-core.css';
+@import '../assets/styles/icon.css';
+@import '../assets/styles/ebrain.css';
+
+.btn-manager {
+}
+
+    .btn-manager.disabled a {
+        background-color: #fcfcfd !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+        .btn-manager.disabled a * {
+            color: #d2dae1 !important;
+        }
+
+        .btn-manager.disabled a .icon {
+            color: #fff !important;
+        }
+
+        .btn-manager.disabled a:hover .hover-rotate {
+            -webkit-transform: none !important;
+            -ms-transform: none !important;
+            transform: none !important;
+        }
+
+.padder-v {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.m-t {
+    margin-top: 15px;
+}
+
+.i-s-2x {
+    width: 2em;
+    height: 2em;
+    font-size: 2em;
+    line-height: 2em;
+}
+
+.i-s-1-5x .i-s-base {
+    font-size: 1.5em;
+}
+
+.i-s-2x .i-s-base {
+    font-size: 2em;
+}
+
+.i-s-3x .i-s-base {
+    font-size: 2.5em;
+}
+
+.i-s-4x .i-s-base {
+    font-size: 3em;
+}
+
+.i-s-5x .i-s-base {
+    font-size: 3.5em;
+}
+
+.text-success-dker {
+    color: #138265;
+}
+
+.hover-rotate {
+    -webkit-transition: all .2s ease-in-out .1s;
+    transition: all .2s ease-in-out .1s;
+}
+
+.hover:hover .hover-rotate,
+.hover:active .hover-rotate {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.m-t-xs {
+    margin-top: 5px;
+}

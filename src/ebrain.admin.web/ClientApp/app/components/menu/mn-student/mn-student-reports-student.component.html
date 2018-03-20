@@ -1,0 +1,68 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_student_main_student">{{'mainMenu.mn-students' | translate}}</a></li>
+                <li>{{'menu.student.Report' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div [@fadeInOut]>
+    <div class="statistic">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a routerLink="#" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
+                        <i class="fa fa-tasks icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.report.Summarize' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.report.SummarizeDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/grpmateriallearns" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
+                        <i class="fa fa-level-up icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.report.StatusStudent' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.report.StatusStudentDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/materiallearns" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
+                        <i class="fa fa-graduation-cap icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.report.SummaryStudent' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.report.SummaryStudentDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/grpmateriallearns" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
+                        <i class="fa fa-file-text icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.report.DetailStudent' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.report.DetailStudentDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

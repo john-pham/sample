@@ -1,0 +1,373 @@
+
+#mainContent.app-component {
+    position: relative;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.navbar-fixed-left {
+    width: 160px;
+    position: fixed;
+  
+    height: 100%;
+}
+
+    .navbar-fixed-left .navbar-nav > li {
+        float: none; /* Cancel default li float: left */
+        width: 139px;
+    }
+
+    .navbar-fixed-left + .container {
+        padding-left: 160px;
+    }
+
+    /* On using dropdown menu (To right shift popuped) */
+    .navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+        margin-top: -50px;
+        margin-left: 140px;
+    }
+
+.appTitle.app-component {
+    line-height: 50px;
+}
+
+
+.navbar-fixed-top.app-component, .navbar-fixed-bottom.app-component {
+    z-index: 1000;
+}
+
+
+.navbar-brand.app-component {
+    float: none;
+    color: #fff;
+}
+
+    .navbar-brand.app-component > img {
+        display: inline;
+        height: 35px;
+    }
+
+.navbar-inner.app-component {
+    padding-left: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: #027FF4;
+    background-image: none;
+}
+
+.navbar-inner.toolbar.app-component {
+    background-color: #fafafa;
+}
+
+
+.navbar.app-component .nav > .active > a, .navbar.app-component .nav > .active > a:hover, .navbar.app-component .nav > .active > a:focus {
+    background-color: #efefef;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #808080;
+}
+
+.navbar.app-component .nav > li {
+    cursor: pointer;
+}
+
+    .navbar.app-component .nav > li > a {
+        color: white;
+        font-weight: bold;
+        -webkit-text-shadow: none;
+        text-shadow: none;
+        height: 30px;
+        padding-top: 6px;
+        padding-bottom: 0px;
+    }
+
+
+.navbar-fixed-top.app-component .navbar-inner.app-component,
+.navbar-static-top.app-component .navbar-inner.app-component {
+    -webkit-box-shadow: 0 1px 00px rgba(0, 0, 0, 0);
+    -moz-box-shadow: 0 1px 00px rgba(0, 0, 0, 0);
+    box-shadow: 0 1px 00px rgba(0, 0, 0, 0);
+}
+
+.nav.navBarPadding.app-component {
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+p.navbar-text.app-component {
+    color: #fff;
+}
+
+    p.navbar-text.app-component a {
+        color: #fff;
+    }
+
+.navbar.app-component .brand {
+    margin-top: 2px;
+    color: #fff;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
+.navbar-toggle.app-component {
+    border: 1px solid white;
+}
+
+    .navbar-toggle.app-component .icon-bar {
+        background-color: white;
+    }
+
+
+
+
+
+@media screen and (max-width: 992px) {
+    #mainContent.app-component {
+        /*padding-top: 200px;*/
+    }
+
+    .navbar-brand.app-component {
+        font-size: 12pt;
+    }
+
+    /*.nav.navBarPadding.app-component {
+        margin-left: -10px;
+    }*/
+
+    .nav.app-component > li > a {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .nav-pills.app-component > li {
+        float: none;
+        margin: 0;
+    }
+
+        .nav-pills.app-component > li + li {
+            margin-left: 0;
+            margin-top: 1px;
+        }
+
+    .navbar-collapse.app-component {
+        padding-right: 30px;
+    }
+}
+
+
+@media (min-width: 768px) {
+    a.user-name.app-component {
+        max-width: 45px;
+    }
+}
+
+
+@media (min-width: 992px) {
+    .navbar-toggle.app-component {
+        display: none;
+    }
+
+    a.user-name.app-component {
+        max-width: 100px;
+    }
+}
+
+@media (min-width: 1200px) {
+    a.user-name.app-component {
+        max-width: 250px;
+    }
+    .container {
+    width: 76%;
+  }
+}
+
+
+a.user-name.app-component {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
+
+
+
+/*footer.app-component {
+    margin-top: 10px;
+    font-weight: bold;
+}*/
+
+
+.navbar-inner.footer.app-component {
+    background-color: #f5f5f5;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    height: 40px;
+}
+
+
+
+.vcenter_text.app-component {
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+.prebootShow.app-component {
+    opacity: 1 !important;
+}
+
+.prebootStep.app-component {
+    opacity: 0;
+    transition: .5s ease-in-out all;
+}
+
+.control-box {
+    margin-bottom: 5px;
+}
+
+.search-box {
+    margin: 0;
+}
+
+.action-box {
+    margin: 0 50px 0 0;
+    min-height: 0;
+}
+
+    .action-box .toolbaritem a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        min-width: 100px;
+    }
+
+
+@media (max-width: 768px) {
+    .action-box {
+        margin: 0 14px;
+    }
+}
+
+
+nav.sidebar, .main {
+    -webkit-transition: margin 200ms ease-out;
+    -moz-transition: margin 200ms ease-out;
+    -o-transition: margin 200ms ease-out;
+    transition: margin 200ms ease-out;
+}
+
+.main {
+    padding: 10px 10px 0 10px;
+}
+
+@media (min-width: 765px) {
+
+    .main {
+        position: absolute;
+        width: calc(100% - 40px);
+        margin-left: 40px;
+        float: right;
+    }
+
+    nav.sidebar:hover + .main {
+        margin-left: 200px;
+    }
+
+    nav.sidebar.navbar.sidebar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+        margin-left: 0px;
+    }
+
+    nav.sidebar .navbar-brand, nav.sidebar .navbar-header {
+        text-align: center;
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    nav.sidebar a {
+        padding-right: 13px;
+    }
+
+    nav.sidebar .navbar-nav > li:first-child {
+        border-top: 1px #e5e5e5 solid;
+    }
+
+    nav.sidebar .navbar-nav > li {
+        border-bottom: 1px #e5e5e5 solid;
+    }
+
+    nav.sidebar .navbar-nav .open .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    nav.sidebar .navbar-collapse, nav.sidebar .container-fluid {
+        padding: 0 0px 0 0px;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+
+    nav.sidebar {
+        width: 200px;
+        height: 100%;
+        margin-left: -160px;
+        float: left;
+        margin-bottom: 0px;
+    }
+
+        nav.sidebar li {
+            width: 100%;
+        }
+
+        nav.sidebar:hover {
+            margin-left: 0px;
+        }
+
+    .forAnimate {
+        opacity: 0;
+    }
+}
+
+@media (min-width: 1330px) {
+    navbar-nav .main {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+    }
+
+    nav.sidebar {
+        margin-left: 0px;
+        float: left;
+    }
+
+        nav.sidebar .forAnimate {
+            opacity: 1;
+        }
+}
+
+nav.sidebar .navbar-nav .open .dropdown-menu > li > a:hover, nav.sidebar .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #CCC;
+    background-color: transparent;
+}
+
+nav:hover .forAnimate {
+    opacity: 1;
+}
+
+section {
+    padding-left: 15px;
+}
+  
+ 

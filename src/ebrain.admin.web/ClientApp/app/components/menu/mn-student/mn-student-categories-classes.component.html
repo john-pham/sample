@@ -1,0 +1,69 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_student_main_student">{{'mainMenu.mn-students' | translate}}</a></li>
+                <li><a routerLink="/mn_student_categories">{{'menu.student.Categories.Header' | translate}}</a></li>
+                <li><a routerLink="/mn_student_categories_classes">{{'menu.student.Categories.Class' | translate}}</a></li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div [@fadeInOut]>
+    <div class="statistic">
+        <div class="row">
+            <div class="col-lg-2 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/rooms" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
+                        <i class="fa fa-university icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Detail.Room' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Room' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/shiftclasses" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
+                        <i class="fa fa-hourglass icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Detail.Shiftclass' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Shiftclass' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/classes" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
+                        <i class="fa fa-users icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Detail.Class' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Class' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/classlists" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
+                        <i class="fa fa-users icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Detail.ClassList' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.ClassListDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

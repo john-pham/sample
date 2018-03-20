@@ -1,0 +1,239 @@
+﻿// ======================================
+// Author: Ebrain Team
+// Email:  johnpham@ymail.com
+// Copyright (c) 2017 supperbrain.visualstudio.com
+// 
+// ==> Contact Us: supperbrain@outlook.com
+// ======================================
+
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+import { fadeInOut } from '../../services/animations';
+import { AppTranslationService } from "../../services/app-translation.service";
+import { BranchesService } from "../../services/branches.service";
+import { AlertService, MessageSeverity, DialogType } from '../../services/alert.service';
+import { Utilities } from '../../services/utilities';
+import { File } from '../../models/file.model';
+import { Branch } from '../../models/branch.model';
+import { Results } from '../../models/results.model';
+import { Page } from '../../models/page.model';
+
+@Component({
+    selector: 'branches',
+    templateUrl: './branches.component.html',
+    styleUrls: ['./branches.component.css'],
+    animations: [fadeInOut]
+})
+
+export class BranchesComponent implements OnInit, OnDestroy {
+    rows = [];
+    columns = [];
+    loadingIndicator: boolean = true;
+
+    filterName: string;
+    filterValue: string;
+
+    private pointer: Branch;
+    private page: Page;
+
+    public changesSavedCallback: () => void;
+    public changesFailedCallback: () => void;
+    public changesCancelledCallback: () => void;
+
+    modalRef: BsModalRef;
+
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: BranchesService, private modalService: BsModalService) {
+        this.pointer = new Branch();
+        this.page = new Page();
+
+        //
+        this.pointer.logo = new File();
+        //
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    ngOnInit() {
+
+        let gT = (key: string) => this.translationService.getTranslation(key);
+
+        this.columns = [
+            { prop: "code", name: gT('label.branch.Code'), width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { prop: "logo.name", name: '', width: 30, cellTemplate: this.logoTemplate },
+            { prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate },
+            { prop: 'email', name: gT('label.branch.Email'), cellTemplate: this.descriptionTemplate },
+            { prop: 'address', name: gT('label.branch.Address'), cellTemplate: this.descriptionTemplate },
+            { prop: 'id', name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+        ];
+
+        //
+    }
+
+    ngOnDestroy() {
+        //this.saveToDisk();
+    }
+
+    //
+    src: string = "";
+
+    onFileChange(event) {
+        let reader = new FileReader();
+        if (event.target.files && event.target.files.length > 0) {
+            let file = event.target.files[0];
+            //
+            reader.onload = () => {
+                this.src = reader.result;
+                this.pointer.logo.name = file.name;
+                this.pointer.logo.type = file.type;
+                this.pointer.logo.value = reader.result.split(',')[1];
+            };
+            //
+            reader.onloadend = (loadEvent: any) => {
+                this.src = loadEvent.target.result;
+            };
+            //
+            reader.readAsDataURL(file);
+        }
+    }
+
+    //
+    addBranch(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+    }
+
+    editBranch(template: TemplateRef<any>, index: string) {
+
+        var disp = this.localService.get(index).subscribe(
+            item => {
+                //
+                this.pointer.id = item.id;
+                this.pointer.code = item.code;
+                this.pointer.name = item.name;
+                this.pointer.email = item.email;
+                this.pointer.address = item.address;
+
+                //
+                this.modalRef = this.modalService.show(template);
+            },
+            error => {
+            },
+            () => { disp.unsubscribe(); });
+
+
+    }
+
+    onSearchChanged(value: string) {
+        this.getFromServer();
+    }
+
+    deleteBranch(index: string) {
+        this.alertService.showDialog('Bạn có muốn xóa chi nhánh này không?', DialogType.confirm, () => this.deleteHelper(index));
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getFromServer();
+    }
+
+    private getFromServer() {
+        this.loadingIndicator = true;
+        //
+        var disp = this.localService.search(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(
+            resulted => this.onDataLoadSuccessful(resulted),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
+    }
+
+    private onDataLoadSuccessful(resulted: Results<Branch>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
+        this.alertService.stopLoadingMessage();
+    }
+
+    private onDataLoadFailed(error: any) {
+        this.alertService.stopLoadingMessage();
+        this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
+            MessageSeverity.error, error);
+
+    }
+
+    private save() {
+        this.alertService.startLoadingMessage("Saving changes...");
+
+        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+    }
+
+    private saveSuccessHelper(branch?: Branch) {
+        this.alertService.stopLoadingMessage();
+        //this.resetForm();
+        this.modalRef.hide();
+        //
+        this.getFromServer();
+        //
+        //if (this.isNewUser)
+        this.alertService.showMessage("Success", `User \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
+        //else if (!this.isEditingSelf)
+        //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.Name}\" was saved successfully`, MessageSeverity.success);
+
+        if (this.changesSavedCallback)
+            this.changesSavedCallback();
+    }
+
+    private saveFailedHelper(error: any) {
+        this.alertService.stopLoadingMessage();
+        this.alertService.showStickyMessage("Save Error", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
+        this.alertService.showStickyMessage(error, null, MessageSeverity.error);
+
+        if (this.changesFailedCallback)
+            this.changesFailedCallback();
+    }
+
+    private deleteHelper(index: string) {
+        this.localService.delete(index).subscribe(result => this.deleteSuccessHelper(result), error => this.deleteFailedHelper(error));
+    }
+
+    private deleteSuccessHelper(value: Boolean) {
+        this.getFromServer();
+        this.alertService.showMessage("Success", `Branch was deleted successfully`, MessageSeverity.success);
+        if (this.changesSavedCallback)
+            this.changesSavedCallback();
+    }
+
+
+    private deleteFailedHelper(error: any) {
+        this.alertService.stopLoadingMessage();
+        this.alertService.showStickyMessage("Delete Error", "The below errors occured whilst deleting your changes:", MessageSeverity.error, error);
+        this.alertService.showStickyMessage(error, null, MessageSeverity.error);
+
+        if (this.changesFailedCallback)
+            this.changesFailedCallback();
+    }
+
+    close() {
+        this.modalRef.hide();
+    }
+
+    @ViewChild('statusHeaderTemplate')
+    statusHeaderTemplate: TemplateRef<any>;
+
+    @ViewChild('logoTemplate')
+    logoTemplate: TemplateRef<any>;
+
+    @ViewChild('nameTemplate')
+    nameTemplate: TemplateRef<any>;
+
+    @ViewChild('descriptionTemplate')
+    descriptionTemplate: TemplateRef<any>;
+
+    @ViewChild('actionsTemplate')
+    actionsTemplate: TemplateRef<any>;
+
+    @ViewChild('statusTemplate')
+    statusTemplate: TemplateRef<any>;
+}

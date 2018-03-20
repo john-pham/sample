@@ -1,0 +1,260 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_stock_main_stock">{{'mainMenu.mn-stocks' | translate}}</a></li>
+                <li><a routerLink="/mn_stock_categories_stock">{{'menu.stock.Categroies' | translate}}</a></li>
+                <li>{{'pageMain.material.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.material.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="navbar action-box">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="toolbaritem">
+                    <a href="javascript:;" (click)="addMaterial(template)">
+                        <i class="fa fa-plus-circle"></i> {{'pageMain.material.newMaterial' | translate}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="material colored-header sm table-hover"
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [rowHeight]="auto"
+                   [columns]="columns"
+                   [scrollbarV]="verticalScrollbar"
+                   [columnMode]="'force'">
+    </ngx-datatable>
+
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #priceTemplate let-row="row" let-value="value">
+
+        <span class="currency-pipe" attr.title="{{value}}">
+            {{value | currencypipe }}
+        </span>
+        <!--<input class="form-control" currencyMask type="tel" [(ngModel)]="{{value}}">-->
+
+    </ng-template>
+    <ng-template #actionsTemplate let-row="row" let-value="value">
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editMaterial(template, row.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+        |
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(value)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+    </ng-template>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.material.HeaderAdd' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.TypeMaterial' | translate}}</label>
+                    <div class="col-md-8">
+                        <select id="types-info" name="types" [(ngModel)]="pointer.typeMaterialId"
+                                class="form-control" required
+                                (change)="onChangeMaterial($event.target.value)"
+                                data-live-search="true" data-actions-box="false"
+                                data-live-search-placeholder="Search..."
+                                title="{{'label.material.SelectTypeMaterial' | translate}}">
+                            <option *ngFor="let type of allTypes"
+                                    attr.data-content="<span title='{{type.note}}' class='badge'>{{type.name}}</span>"
+                                    attr.value="{{type.id}}">
+                                {{type.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.GrpMaterial' | translate}}</label>
+                    <div class="col-md-8">
+                        <select id="types-info" name="types" [(ngModel)]="pointer.grpMaterialId" class="form-control" required
+                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="{{'label.material.SelectGrpMaterial' | translate}}">
+                            <option *ngFor="let type of allGrps" 
+                                    attr.data-content="<span title='{{type.note}}' class='badge'>{{type.name}}</span>"
+                                    attr.value="{{type.id}}">
+                                {{type.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.Code' | translate}}</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" [(ngModel)]="pointer.code">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.Name' | translate}}</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" [(ngModel)]="pointer.name">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.Unit' | translate}}</label>
+                    <div class="col-md-8">
+                        <select id="types-info" name="types" [(ngModel)]="pointer.unitId"
+                                class="form-control" required
+                                data-live-search="true" data-actions-box="false"
+                                data-live-search-placeholder="Search..."
+                                title="{{'label.material.SelectUnit' | translate}}">
+                            <option *ngFor="let unit of allUnits"
+                                    attr.data-content="<span title='{{unit.note}}' class='badge'>{{unit.name}}</span>"
+                                    attr.value="{{unit.id}}">
+                                {{unit.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.Supplier' | translate}}</label>
+                    <div class="col-md-8">
+                        <select id="types-info" name="types" [(ngModel)]="pointer.supplierId" class="form-control" required
+                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="{{'label.material.SelectSupplier' | translate}}">
+                            <option *ngFor="let sup of allSups" attr.data-content="<span title='{{sup.note}}' class='badge'>{{sup.name}}</span>" attr.value="{{sup.id}}">
+                                {{sup.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="false" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.Price' | translate}}</label>
+                    <div class="col-md-8">
+                        <input class="form-control" currencyMask type="tel" [(ngModel)]="pointer.price">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.SellPrice' | translate}}</label>
+                    <div class="col-md-8">
+                        <input class="form-control" currencyMask type="tel" [(ngModel)]="pointer.sellPrice">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="false" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.material.WholePrice' | translate}}</label>
+                    <div class="col-md-8">
+                        <input class="form-control" currencyMask type="tel" [(ngModel)]="pointer.wholePrice">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-2">{{'label.material.Note' | translate}}</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="save()">{{'button.Save' | translate}}</button>
+        </div>
+    </div>
+</ng-template>
+
