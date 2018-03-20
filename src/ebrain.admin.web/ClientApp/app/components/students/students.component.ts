@@ -259,6 +259,10 @@ export class StudentsComponent implements OnInit, OnDestroy {
         this.modalRef.hide();
     }
 
+    closeStudent() {
+        this.modalStudentRef.hide();
+    }
+
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
 

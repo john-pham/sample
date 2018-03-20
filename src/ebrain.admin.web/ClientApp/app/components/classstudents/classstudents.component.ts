@@ -111,8 +111,12 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
+        this.getClassByStudentId();
+       
+    }
 
-        disp = this.localService.getClassByStudentId("", "", "", "", "", this.studentId).subscribe(
+    private getClassByStudentId() {
+        var disp = this.localService.getClassByStudentId("", "", "", "", "", this.studentId).subscribe(
             items => this.onDataLoadAllClassStudentSuccessful(items),
             error => this.onDataLoadFailed(error),
             () => {
@@ -159,6 +163,7 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
 
     private onDataLoadAllClassStudentSuccessful(items: ClassList[]) {
         this.rows = items;
+        this.rows = [...this.rows];
         this.alertService.stopLoadingMessage();
     }
 
@@ -189,6 +194,29 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);
 
+    }
+
+    private save() {
+
+        var cls = [];
+        this.rows.forEach(row => {
+            var itemNew = new Class();
+            itemNew.id = row.id;
+            itemNew.studentId = this.studentId;
+            cls.push(itemNew);
+        });
+
+        var disp = this.localService.saveStudent(cls).subscribe(
+            items => this.onDataSaveSuccessful(items),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
+    }
+
+    private onDataSaveSuccessful(item: Class) {
+        this.getClassByStudentId();
     }
 
     ngOnDestroy() {

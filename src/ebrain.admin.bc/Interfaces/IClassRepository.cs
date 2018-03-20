@@ -18,10 +18,9 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     public interface IClassRepository : IRepository<Class>
     {
         IEnumerable<Class> GetTopActive(int count);
-
         Task<IEnumerable<Class>> Search(string filter, string value, string branchIds);
-
         Task<Class> Save(Class value, ClassTime[] classTimes, ClassStudent[] classStudents, Guid? index);
+        void SaveStudent(Class[] classes, Guid? studentId, Guid createById, string branchIds);
         Task<Boolean> Delete(string id);
         Task<Class> Get(Guid? index);
         List<ClassList> GetClasses(string branchIds, string value, Guid? statusId, Guid? supplierId);

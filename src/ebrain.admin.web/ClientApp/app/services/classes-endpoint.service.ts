@@ -58,6 +58,20 @@ export class ClassesEndpoint extends EndpointFactory {
             });
     }
 
+    saveStudent(value: any): Observable<Response> {
+        let url = this.getUrl('updatestudent');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
     delete(id: string): Observable<Response> {
         let url = this.getUrl('remove');
         let header = this.getAuthHeader(true);

@@ -35,6 +35,11 @@ export class ClassesService {
             .map((response: Response) => <Class>response.json());
     }
 
+    saveStudent(value: Class[]) {
+        return this.endpointFactory.saveStudent(value)
+            .map((response: Response) => <Class>response.json());
+    }
+
     delete(id: string) {
         return this.endpointFactory.delete(id);
     }

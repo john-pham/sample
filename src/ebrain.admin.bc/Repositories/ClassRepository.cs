@@ -38,6 +38,57 @@ namespace ebrain.admin.bc.Repositories
                 ).ToListAsync();
         }
 
+        public async void SaveStudent(Class[] classes, Guid? studentId, Guid createById, string branchIds)
+        {
+            var branchId = createById.GetBranchOfCurrentUser(this.appContext);
+
+            var classOfStudents = GetClassStudent(branchIds, null, null, null, null, studentId);
+
+            var classIds = classes.Select(p => p.ClassId);
+
+            var iodStNotExists = classOfStudents.Where(p => !classIds.Contains(p.ClassId));
+
+            //Isdeleted = true 
+            foreach (var itemDetail in iodStNotExists)
+            {
+                var itemStudent = await this.appContext.ClassStudent.FirstOrDefaultAsync(p => p.ClassId == itemDetail.ClassId && p.StudentId == studentId && p.IsDeleted == false);
+                if (itemStudent != null)
+                {
+                    itemStudent.IsDeleted = true;
+                }
+            }
+
+            //set students 
+            foreach (var item in classOfStudents)
+            {
+                var itemClassExist = await this.appContext.ClassStudent.FirstOrDefaultAsync(p => p.ClassId == item.ClassId && p.StudentId == studentId && p.IsDeleted == false);
+                if (itemClassExist != null)
+                {
+                    itemClassExist.BranchId = branchId;
+                    itemClassExist.StudentId = studentId;
+                    itemClassExist.ClassId = item.ClassId;
+                }
+                else
+                {
+                    itemClassExist = new ClassStudent
+                    {
+                        StudentId = studentId,
+                        ClassStudentId = Guid.NewGuid(),
+                        ClassId = item.ClassId,
+                        CreatedBy = createById,
+                        UpdatedBy = createById,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now,
+
+                    };
+                    await this.appContext.ClassStudent.AddAsync(itemClassExist);
+                }
+            }
+
+            await appContext.SaveChangesAsync();
+
+        }
+
         public async Task<Class> Save(Class value, ClassTime[] classTimes, ClassStudent[] classStudents, Guid? index)
         {
             value.BranchId = value.CreatedBy.GetBranchOfCurrentUser(this.appContext);
