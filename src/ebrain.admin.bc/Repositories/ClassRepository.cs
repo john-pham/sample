@@ -64,9 +64,9 @@ namespace ebrain.admin.bc.Repositories
                 var itemClassExist = await this.appContext.ClassStudent.FirstOrDefaultAsync(p => p.ClassId == item.ClassId && p.StudentId == studentId && p.IsDeleted == false);
                 if (itemClassExist != null)
                 {
-                    itemClassExist.BranchId = branchId;
-                    itemClassExist.StudentId = studentId;
-                    itemClassExist.ClassId = item.ClassId;
+                    //itemClassExist.BranchId = branchId;
+                    //itemClassExist.StudentId = studentId;
+                    //itemClassExist.ClassId = item.ClassId;
                 }
                 else
                 {
