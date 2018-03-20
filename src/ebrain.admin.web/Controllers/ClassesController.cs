@@ -317,12 +317,12 @@ namespace Ebrain.Controllers
             if (ModelState.IsValid && values != null && values.Count > 0)
             {
                 var studentId = values[0].StudentId;
-                var ret = this._unitOfWork.Classes.SaveStudent(values.Select(p => new Class
+                this._unitOfWork.Classes.SaveStudent(values.Select(p => new Class
                 {
                     ClassId = p.ID.HasValue ? p.ID.Value : Guid.Empty
                 }).ToArray(), studentId, userId,
                 this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
-                //return Ok(ret);
+                return Ok(new Class());
             }
             return Ok(null);
         }
