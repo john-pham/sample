@@ -57,3 +57,48 @@ input.form-control {
         margin-left: 40px;
     }
 }
+
+/* fixed ui */
+.classes .modal-footer {
+    padding-right: 0;
+}
+
+.classes .control-label {
+    white-space: nowrap;
+}
+
+.classes .has-feedback select.form-control {
+    padding-right: 20px;
+}
+
+.classes textarea.form-control {
+    resize: vertical;
+    margin-left: 2px;
+}
+
+.classes .wrap-inp .form-control {
+    margin-bottom: 10px;
+}
+
+.classes .wrap-table.student {
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.pd-l-10 {
+    padding-left: 10px;
+}
+
+.no-pd {
+    padding: 0;
+}
+
+.mg-bt-10 {
+    margin-bottom: 10px;
+}
+
+/* css for table */
+.classes .wrap-table .datatable-header-cell-wrapper {
+    color: #FFF;
+}
