@@ -173,10 +173,10 @@ namespace ebrain.admin.bc.Repositories
             {
                 List<ClassList> someTypeList = new List<ClassList>();
                 this.appContext.LoadStoredProc("dbo.sp_Classes")
-                               .WithSqlParam("statusId", (statusId != null ? statusId.ToString() : null))
-                               .WithSqlParam("supplierId", (supplierId != null ? supplierId.ToString() : null))
-                               .WithSqlParam("filterValue", value)
-                               .WithSqlParam("BranchIds", branchIds)
+                               .WithSqlParam("@statusId", (statusId != null ? statusId.ToString() : null))
+                               .WithSqlParam("@supplierId", (supplierId != null ? supplierId.ToString() : null))
+                               .WithSqlParam("@filterValue", value)
+                               .WithSqlParam("@BranchIds", branchIds)
                                .ExecuteStoredProc((handler) =>
                                {
                                    someTypeList = handler.ReadToList<ClassList>().ToList();
@@ -188,6 +188,55 @@ namespace ebrain.admin.bc.Repositories
             {
                 throw ex;
             }
+        }
+
+        public List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId)
+        {
+            try
+            {
+                List<ClassList> someTypeList = new List<ClassList>();
+                this.appContext.LoadStoredProc("dbo.sp_ClassSummary")
+                               .WithSqlParam("@statusId", (statusId != null ? statusId.ToString() : null))
+                               .WithSqlParam("@supplierId", (supplierId != null ? supplierId.ToString() : null))
+                               .WithSqlParam("@filterValue", value)
+                               .WithSqlParam("@BranchIds", branchIds)
+                               .WithSqlParam("@classId", classId)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<ClassList>().ToList();
+                               });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<ClassList> GetClassStudent(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, Guid? studentId)
+        {
+            try
+            {
+                List<ClassList> someTypeList = new List<ClassList>();
+                this.appContext.LoadStoredProc("dbo.sp_ClassStudent")
+                               .WithSqlParam("@statusId", (statusId != null ? statusId.ToString() : null))
+                               .WithSqlParam("@supplierId", (supplierId != null ? supplierId.ToString() : null))
+                               .WithSqlParam("@filterValue", value)
+                               .WithSqlParam("@BranchIds", branchIds)
+                               .WithSqlParam("@classId", classId)
+                               .WithSqlParam("@studentId", studentId)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<ClassList>().ToList();
+                               });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         private ApplicationDbContext appContext

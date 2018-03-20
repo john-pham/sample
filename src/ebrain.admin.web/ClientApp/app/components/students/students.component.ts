@@ -7,6 +7,7 @@
 // ======================================
 
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+
 import { Observable } from 'rxjs/Observable';
 import { fadeInOut } from '../../services/animations';
 import { AppTranslationService } from "../../services/app-translation.service";
@@ -27,6 +28,7 @@ import { GrpMaterial } from "../../models/grpMaterial.model";
 import { Supplier } from "../../models/supplier.model";
 import { Studentstatus } from "../../models/studentstatus.model";
 import { GenderStudent } from "../../models/genderstudent.model";
+import { Class } from "../../models/class.model";
 
 @Component({
     selector: 'students',
@@ -36,6 +38,11 @@ import { GenderStudent } from "../../models/genderstudent.model";
 })
 
 export class StudentsComponent implements OnInit, OnDestroy {
+    /*
+        Class Student
+    */
+    studentId: string;
+
     rows = [];
     columns = [];
     loadingIndicator: boolean = true;
@@ -56,7 +63,10 @@ export class StudentsComponent implements OnInit, OnDestroy {
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
 
+
     modalRef: BsModalRef;
+
+    modalStudentRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: StudentsService, private modalService: BsModalService,
@@ -74,7 +84,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
             { prop: 'className', name: gT('label.student.Classname'), cellTemplate: this.grpnameTemplate },
             { prop: 'userName', name: gT('label.student.UserName'), cellTemplate: this.grpnameTemplate },
             { prop: 'note', name: gT('label.student.Note'), cellTemplate: this.descriptionTemplate },
-            { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //
@@ -110,7 +120,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
     }
 
     addMaterialLearn(template: TemplateRef<any>) {
-      
+
         //student status
         this.getStudentStatus();
         //gender
@@ -196,6 +206,11 @@ export class StudentsComponent implements OnInit, OnDestroy {
         this.alertService.startLoadingMessage("Saving changes...");
 
         this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+    }
+
+    private editClass(template: TemplateRef<any>, index: string) {
+        this.studentId = index;
+        this.modalStudentRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
     edit(template: TemplateRef<any>, index: string) {

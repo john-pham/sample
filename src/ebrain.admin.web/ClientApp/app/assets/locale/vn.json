@@ -24,6 +24,19 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "classstudent": {
+      "HeaderAdd": "Học viên",
+      "FullName": "Tên",
+      "Birthday": "Ngày sinh",
+      "Note": "Ghi chú",
+      "Address": "Địa chỉ",
+      "Classes": "Lớp học",
+      "ClassName": "Tên lớp",
+      "ClassCode": "Mã lớp",
+      "MaterialLearn": "Khóa học",
+      "MaxStudent": "Tối đa",
+      "LearnStudent": "Đã đăng ký"
+    },
     "classlist": {
       "Code": "Mã lớp",
       "Name": "Tên lớp",
@@ -611,7 +624,8 @@
     "IOStockInput": "Phiếu nhập",
     "IOStockOutput": "Phiếu xuất",
     "AddNew": "Tạo mới",
-    "Update": "Cập nhật"
+    "Update": "Cập nhật",
+    "Class": "Lớp học"
   },
   "menu": {
     "stock": {

@@ -7,6 +7,8 @@
 // ======================================
 
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { fadeInOut } from '../../services/animations';
 import { AppTranslationService } from "../../services/app-translation.service";
@@ -71,7 +73,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         private localService: ClassesService, private modalService: BsModalService,
         private materialService: MaterialLearnsService, private classStatusService: ClassStatusService,
         private studentService: StudentsService, private supplierService: SuppliersService,
-        private todayService: TodayService, private roomService: RoomsService) {
+        private todayService: TodayService, private roomService: RoomsService, private route: ActivatedRoute, private router: Router) {
 
         this.pointer = new Class();
     }
@@ -91,11 +93,11 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.columnStudents = [
             { prop: "fullName", name: gT('label.class.Student'), cellTemplate: this.nameTemplate },
             { prop: 'address', name: gT('label.class.Address'), cellTemplate: this.nameTemplate },
-            { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { name: '', width: 150, cellTemplate: this.actionStudentsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //
-        this.getFromServer();
+        this.getFromServer(false);
         this.filterValue = "";
         //
     }
@@ -151,7 +153,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.alertService.showMessage("Success", `Class \"${this.pointer.name}\" was deleted successfully`, MessageSeverity.success);
         if (this.changesSavedCallback)
             this.changesSavedCallback();
-        this.getDefault('');
+        this.getDefault('', false);
     }
 
 
@@ -164,7 +166,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
             this.changesFailedCallback();
     }
 
-    private getFromServer() {
+    private getFromServer(isReset: boolean) {
         this.loadingIndicator = true;
 
         var disp = this.localService.search(this.filterName, this.filterValue).subscribe(
@@ -222,40 +224,46 @@ export class ClassesComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
         //get default
-        this.getDefault("");
+        this.getDefault("", isReset);
 
     }
 
-    private getDefault(index: string) {
-        var disp = this.localService.getDefault(index).subscribe(
-            list => this.onDataLoadDefaultSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+    private getDefault(index: string, isReset: boolean) {
+        this.route.paramMap
+            .switchMap((params: ParamMap) => {
+                var id = '';
+                if (isReset == false) {
+                    id = params.get('id');
+                }
+                return this.localService.getDefault(id);
+            })
+            .subscribe(results => this.mappingDetail(results), error => this.onDataLoadFailed(error));
+
+        //var disp = this.localService.getDefault(index).subscribe(
+        //    list => this.onDataLoadDefaultSuccessful(list),
+        //    error => this.onDataLoadFailed(error),
+        //    () => {
+        //        disp.unsubscribe();
+        //        setTimeout(() => { this.loadingIndicator = false; }, 1500);
+        //    });
     }
 
-    private onDataLoadDefaultSuccessful(item: Class) {
-        if (item != null) {
-            this.pointer.id = item.id;
-            this.pointer.code = item.code;
-            this.pointer.name = item.code;
-            this.pointer.startDate = new Date();
-            this.pointer.endDate = new Date();
-            this.pointer.endTime = new Date();
-            this.pointer.startTime = new Date();
-            this.pointer.longLearn = 0;
-            this.pointer.maxStudent = 0;
-            if (item.times != null) {
-                this.pointer.times = [...item.times];
-            }
-            if (item.students != null) {
-                this.pointer.students = [...item.students];
-            }
-        }
+    //private onDataLoadDefaultSuccessful(item: Class) {
+    //    if (item != null) {
+    //        this.pointer.id = item.id;
+    //        this.pointer.code = item.code;
+    //        this.pointer.name = item.code;
+    //        this.pointer.startDate = new Date();
+    //        this.pointer.endDate = new Date();
+    //        this.pointer.endTime = new Date();
+    //        this.pointer.startTime = new Date();
+    //        this.pointer.longLearn = 0;
+    //        this.pointer.maxStudent = 0;
 
-    }
+    //        this.saveSuccessHelper(this.pointer);
+    //    }
+
+    //}
 
     private onDataLoadStudentSuccessful(list: Student[]) {
         if (list.length > 0) {
@@ -328,9 +336,29 @@ export class ClassesComponent implements OnInit, OnDestroy {
         //set item for pointer
         if (item != null) {
             this.pointer = item;
-            this.getDefault(item.id);
-            var itemPointer = this.pointer;
+            this.getDefault(item.id, false);
+            this.pointer = item;
+            this.mappingDetail(item);
+        }
+    }
 
+    private mappingDetail(item?: Class) {
+        if (item != null) {
+            this.pointer.id = item.id;
+            this.pointer.code = item.code;
+            this.pointer.name = item.code;
+            this.pointer.startDate = new Date();
+            this.pointer.endDate = new Date();
+            this.pointer.endTime = new Date();
+            this.pointer.startTime = new Date();
+            this.pointer.longLearn = 0;
+            this.pointer.maxStudent = 0;
+            
+        }
+        
+        var itemPointer = this.pointer;
+
+        if (item != null) {
             //set times
             var times = item.times;
             this.rowTimes = [];
@@ -363,7 +391,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
         if (this.changesSavedCallback)
             this.changesSavedCallback();
     }
-
 
     private saveFailedHelper(error: any) {
         this.alertService.stopLoadingMessage();
@@ -433,7 +460,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.alertService.showDialog('Are you sure you want to delete the row?', DialogType.confirm, () => this.deleteStudentHelper(row));
     }
 
-    private deleteStudentHelper(row) {
+    deleteStudentHelper(row) {
         this.rowStudents = this.rowStudents.filter(obj => obj !== row);
         this.rowStudents = [...this.rowStudents];
     }
@@ -442,7 +469,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.pointer = new Class();
         this.rowStudents = [];
         this.rowTimes = [];
-        this.getFromServer();
+        this.getFromServer(true);
     }
 
     close() {
@@ -460,6 +487,9 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
     @ViewChild('actionsTemplate')
     actionsTemplate: TemplateRef<any>;
+
+    @ViewChild('actionStudentsTemplate')
+    actionStudentsTemplate: TemplateRef<any>;
 
     @ViewChild('statusTemplate')
     statusTemplate: TemplateRef<any>;

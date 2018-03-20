@@ -38,7 +38,7 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<SupplierViewModel>> Search(string filter, string value, int isOption)
+        public async Task<IActionResult> Search(string filter, string value, int isOption)
         {
             var userId = new Guid(Utilities.GetUserId(this.User));
             var ret = from c in await this._unitOfWork.Suppliers.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), isOption)
@@ -57,7 +57,7 @@ namespace Ebrain.Controllers
                           GrpSupplierId = c.GrpSupplierId
                       };
 
-            return ret;
+            return Ok(ret);
         }
 
         [HttpPost("update")]

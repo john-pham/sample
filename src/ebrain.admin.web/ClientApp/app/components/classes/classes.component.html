@@ -334,7 +334,7 @@
                         <div class="form-group has-feedback">
                             <label class="control-label col-md-4">{{'label.class.Student' | translate}}</label>
                             <div class="col-md-8">
-                                <select id="grps-user-info" name="gender" [(ngModel)]="pointer.studentId" class="form-control" required
+                                <select [(ngModel)]="pointer.studentId" class="form-control" required
                                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                     <option *ngFor="let grp of students" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                         {{grp.name}}
@@ -389,7 +389,7 @@
                                 {{value}}
                             </span>
                         </ng-template>
-                        <ng-template #actionsTemplate let-row="row">
+                        <ng-template #actionStudentsTemplate let-row="row">
                             <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteStudent(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
                         </ng-template>
                     </div>

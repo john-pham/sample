@@ -23,5 +23,7 @@ namespace ebrain.admin.bc.Report
         public string FullName { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialName { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int CountStudent { get; set; }
     }
 }

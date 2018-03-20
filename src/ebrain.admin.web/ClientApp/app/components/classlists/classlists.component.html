@@ -37,7 +37,7 @@
         <div class="form-group has-feedback">
             <label class="control-label col-md-4">{{'label.classlist.Status' | translate}}</label>
             <div class="col-md-8">
-                <select id="grps-user-info" name="gender" [(ngModel)]="statusId" class="form-control" 
+                <select [(ngModel)]="statusId" class="form-control" 
                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                     <option [value]="1">{{'label.classlist.AllFiles' | translate}}</option>
                     <option *ngFor="let grp of status" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -52,7 +52,7 @@
         <div class="form-group has-feedback">
             <label class="control-label col-md-4">{{'label.classlist.Supplier' | translate}}</label>
             <div class="col-md-8">
-                <select id="grps-user-info" name="gender" [(ngModel)]="supplierId" class="form-control" 
+                <select [(ngModel)]="supplierId" class="form-control" 
                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                     <option [value]="1">{{'label.classlist.AllFiles' | translate}}</option>
                     <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -103,7 +103,8 @@
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row" let-value="value">
-        <a class="btn btn-link btn-xs" routerLink="/payment/?id={{value}}" (click)="goDetails(template, row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+        <a class="btn btn-link btn-xs" 
+            routerLink="/classdetails/?id={{value}}" (click)="goDetails(template, row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
     </ng-template>
 </div>
 

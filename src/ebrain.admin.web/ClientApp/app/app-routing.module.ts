@@ -169,6 +169,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
             
             { path: "classlists", component: ClassListsComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
+            { path: "classdetails/:id", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Class" } },
             { path: "classes", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
             { path: "rooms", component: RoomsComponent, canActivate: [AuthGuard], data: { title: "rooms" } },
             { path: "levelclasses", component: LevelclassesComponent, canActivate: [AuthGuard], data: { title: "LevelClasses" } },

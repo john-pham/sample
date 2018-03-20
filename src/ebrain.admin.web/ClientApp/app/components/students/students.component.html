@@ -64,11 +64,22 @@
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row">
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editClass(templateStudent, row.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Class' | translate}}</a>
+        |
         <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
         |
         <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
     </ng-template>
 </div>
+
+<!--[@fadeInOut] *ngIf="isProfileActived"-->
+
+<ng-template #templateStudent>
+    <div class="modal-body">
+        <classstudents [StudentId]="studentId"></classstudents>
+
+    </div>
+</ng-template>
 
 <ng-template #template>
     <div class="modal-header">

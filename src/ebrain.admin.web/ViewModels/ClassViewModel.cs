@@ -41,5 +41,7 @@ namespace Ebrain.ViewModels
         public string SupplierName { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialName { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int CountStudent { get; set; }
     }
 }

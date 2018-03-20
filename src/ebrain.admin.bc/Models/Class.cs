@@ -24,5 +24,6 @@ namespace ebrain.admin.bc.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public Guid? SupplierId { get; set; }
+        public string MaterialName { get; set; }
     }
 }

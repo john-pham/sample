@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using ebrain.admin.bc.Utilities;
+using ebrain.admin.bc.Report;
 
 namespace Ebrain.Controllers
 {
@@ -83,16 +84,24 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IEnumerable<ClassViewModel>> Search(string filter, string value)
         {
-            var ret = from c in await this._unitOfWork.Classes.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
-                      select new ClassViewModel
-                      {
-                          ID = c.ClassId,
-                          Code = c.ClassCode,
-                          Name = c.ClassName,
-                          Note = c.Note
-                      };
+            var ret = await this._unitOfWork.Classes.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+            List<ClassViewModel> list = new List<ClassViewModel>();
+            if (ret != null)
+            {
+                foreach (var c in ret)
+                {
+                    var item = new ClassViewModel();
+                    var material = await this._unitOfWork.Materials.Get(c.MaterialId);
+                    item.MaterialName = material != null ? material.MaterialName : string.Empty;
+                    item.ID = c.ClassId;
+                    item.Code = c.ClassCode;
+                    item.Name = c.ClassName;
+                    item.Note = c.Note;
+                    list.Add(item);
+                }
 
-            return ret;
+            }
+            return list;
         }
 
         [HttpPost("update")]
@@ -165,6 +174,8 @@ namespace Ebrain.Controllers
             return BadRequest(ModelState);
         }
 
+
+
         [HttpGet("get")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> Get(Guid? index)
@@ -223,19 +234,11 @@ namespace Ebrain.Controllers
             return Ok(itemExist);
         }
 
-        [HttpGet("getclasses")]
-        [Produces(typeof(UserViewModel))]
-        public async Task<IActionResult> GetClasses(string filter, string value, Guid? statusId, Guid? supplierId)
+        private IEnumerable<ClassViewModel> MappingClassViewModel(List<ClassList> list)
         {
-            var list = this._unitOfWork.Classes.GetClasses(
-                    this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
-                    value,
-                    statusId,
-                    supplierId
-                    );
             if (list != null && list.Count > 0)
             {
-                return Ok(list.Select(p => new ClassViewModel
+                return list.Select(p => new ClassViewModel
                 {
                     Code = p.ClassCode,
                     Name = p.ClassName,
@@ -248,8 +251,62 @@ namespace Ebrain.Controllers
                     SupplierName = p.SupplierName,
                     Address = p.Address,
                     FullName = p.FullName,
-                    MaterialName = p.MaterialName
-                }));
+                    MaterialName = p.MaterialName,
+                    CreatedDate = p.CreatedDate,
+                    CountStudent = p.CountStudent
+                });
+            }
+            return null;
+        }
+
+        [HttpGet("getclasses")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetClasses(string filter, string value, Guid? statusId, Guid? supplierId)
+        {
+            var list = this._unitOfWork.Classes.GetClasses(
+                    this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                    value,
+                    statusId,
+                    supplierId
+                    );
+            if (list != null && list.Count > 0)
+            {
+                return Ok(MappingClassViewModel(list));
+            }
+            return Ok(null);
+        }
+
+        [HttpGet("getsummaries")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetSummaries(string filter, string value, Guid? statusId, Guid? supplierId, Guid? classId)
+        {
+            var list = this._unitOfWork.Classes.GetClassSummary(
+                    this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                   value,
+                    statusId,
+                    supplierId,
+                    classId);
+            if (list != null && list.Count > 0)
+            {
+                return Ok(MappingClassViewModel(list));
+            }
+            return Ok(null);
+        }
+
+        [HttpGet("getclassbystudentid")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetClassByStudentId(string filter, string value, Guid? statusId, Guid? supplierId, Guid? classId, Guid? studentId)
+        {
+            var list = this._unitOfWork.Classes.GetClassStudent(
+                    this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                    value,
+                    statusId,
+                    supplierId,
+                    classId,
+                    studentId);
+            if (list != null && list.Count > 0)
+            {
+                return Ok(MappingClassViewModel(list));
             }
             return Ok(null);
         }

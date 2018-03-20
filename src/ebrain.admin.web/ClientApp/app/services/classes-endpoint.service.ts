@@ -108,6 +108,31 @@ export class ClassesEndpoint extends EndpointFactory {
             });
     }
 
+    getsummaries(filter: string, value: string, statusId: string, supplierId: string, classId: string): Observable<Response> {
+
+        let url = this.getUrl('getsummaries?filter=' + filter + '&value=' + value + '&statusId=' + statusId + '&supplierId=' + supplierId + '&classId=' + classId + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getsummaries(filter, value, statusId, supplierId, classId));
+            });
+    }
+
+    getClassByStudentId(filter: string, value: string, statusId: string, supplierId: string, classId: string, studentId: string): Observable<Response> {
+
+        let url = this.getUrl('getclassbystudentid?filter=' + filter + '&value=' + value + '&statusId=' + statusId + '&supplierId=' + supplierId + '&classId=' + classId
+            + '&studentId=' + studentId + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getClassByStudentId(filter, value, statusId, supplierId, classId, studentId));
+            });
+    }
+
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {

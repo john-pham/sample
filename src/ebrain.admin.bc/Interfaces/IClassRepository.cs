@@ -25,5 +25,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<Boolean> Delete(string id);
         Task<Class> Get(Guid? index);
         List<ClassList> GetClasses(string branchIds, string value, Guid? statusId, Guid? supplierId);
+        List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId);
+        List<ClassList> GetClassStudent(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, Guid? studentId);
     }
 }

@@ -29,9 +29,10 @@ export class ClassList {
     public studentId: string;
     public startTime: Date;
     public endTime: Date;
-
+    public createdDate: Date;
     public supplierName: string;
     public address: string;
     public fullName: string;
     public materialName: string;
+    public countStudent: number;
 }

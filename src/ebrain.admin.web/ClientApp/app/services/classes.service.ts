@@ -54,6 +54,16 @@ export class ClassesService {
             .map((response: Response) => <ClassList[]>response.json());
     }
 
+    getsummaries(filter: string, value: string, statusId: string, supplierId: string, classId: string) {
+        return this.endpointFactory.getsummaries(filter, value, statusId, supplierId, classId)
+            .map((response: Response) => <ClassList[]>response.json());
+    }
+
+    getClassByStudentId(filter: string, value: string, statusId: string, supplierId: string, classId: string, studentId: string) {
+        return this.endpointFactory.getClassByStudentId(filter, value, statusId, supplierId, classId, studentId)
+            .map((response: Response) => <ClassList[]>response.json());
+    }
+
     private initializeStatus() {
 
     }

@@ -20,6 +20,7 @@ export class Class {
     public code: string;
     public note: string;
     public materialId: string;
+    public materialName: string;
     public longLearn: number;
     public statusId: string;
     public maxStudent: number;
@@ -32,7 +33,14 @@ export class Class {
     public studentId: string;
     public startTime: Date;
     public endTime: Date;
-    
+    public countStudent: number;
+
     public times: ClassTime[];
     public students: ClassStudent[];
+
+    public studentName: string;
+    public studentBirthday: Date;
+    public studentAddress: string;
+    
+
 }

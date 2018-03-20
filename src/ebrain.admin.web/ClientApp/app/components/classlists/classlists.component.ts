@@ -46,7 +46,7 @@ export class ClassListsComponent implements OnInit, OnDestroy {
     supplierId: string;
 
     status = [];
-    suppliers: Supplier[] = [];
+    suppliers = [];
 
     private pointer: Grpsupplier;
 
@@ -69,7 +69,7 @@ export class ClassListsComponent implements OnInit, OnDestroy {
             { prop: 'code', name: gT('label.classlist.Code'), cellTemplate: this.nameTemplate },
             { prop: 'name', name: gT('label.classlist.Name'), cellTemplate: this.nameTemplate },
             { prop: 'materialName', name: gT('label.classlist.MaterialName'), cellTemplate: this.nameTemplate },
-            { prop: 'createDate', name: gT('label.classlist.CreateDate'), cellTemplate: this.nameTemplate },
+            { prop: 'createdDate', name: gT('label.classlist.CreatedDate'), cellTemplate: this.nameTemplate },
             { prop: 'fullName', name: gT('label.classlist.CreatedBy'), cellTemplate: this.nameTemplate },
 
             { prop: 'supplierName', name: gT('label.classlist.SupplierName'), cellTemplate: this.nameTemplate },
@@ -79,7 +79,15 @@ export class ClassListsComponent implements OnInit, OnDestroy {
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
-        var disp = this.supplierService.search("", "", 4).subscribe(
+        var disp = this.classStatusService.getAll().subscribe(
+            list => this.onDataLoadClassStatusSuccessful(list),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
+
+        this.supplierService.search("", "", 4).subscribe(
             list => this.onDataLoadSupplierSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
@@ -87,13 +95,6 @@ export class ClassListsComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
 
-        this.classStatusService.getAll().subscribe(
-            list => this.onDataLoadClassStatusSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
 
 
         this.getFromServer();
@@ -104,9 +105,7 @@ export class ClassListsComponent implements OnInit, OnDestroy {
     }
 
     goDetails(template: TemplateRef<any>, value: ClassList) {
-        //var url = '';
-        //if (value != null && value.paymentTypeId == 1) url = '/payment'; else '/paymentvouchers';
-        //this.router.navigate([url, value.id]);
+        this.router.navigate(['/classdetails', value.id]);
     }
 
     onRemoved(file: any) {
@@ -134,13 +133,15 @@ export class ClassListsComponent implements OnInit, OnDestroy {
 
     }
 
-
     private onDataLoadSupplierSuccessful(list: Supplier[]) {
         this.suppliers = list;
+        this.suppliers = [...this.suppliers];
+        this.alertService.stopLoadingMessage();
     }
 
     private onDataLoadClassStatusSuccessful(list: ClassStatus[]) {
         this.status = list;
+        this.status = [...this.status];
         this.alertService.stopLoadingMessage();
 
     }
