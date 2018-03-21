@@ -14,14 +14,14 @@
     </div>
 </header>
 
-<div class="row control-box">
+<div class="control-box classes">
     <div class="row">
         <div class="col-sm-12">
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" (click)="addnew()">
                     <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
                 </button>
-               
+
                 <button type="button" class="btn btn-primary" (click)="save()">
                     <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
                 </button>
@@ -40,16 +40,16 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.Code' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.Code' | translate}}</label>
+                    <div class="col-md-10">
                         <input class="form-control" type="text" [(ngModel)]="pointer.code">
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.Name' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.Name' | translate}}</label>
+                    <div class="col-md-10">
                         <input class="form-control" type="text" [(ngModel)]="pointer.name">
                     </div>
                 </div>
@@ -65,8 +65,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.MaterialLearn' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.MaterialLearn' | translate}}</label>
+                    <div class="col-md-10">
                         <select id="grps-user-info" name="gender" [(ngModel)]="pointer.materialId" class="form-control" required
                                 data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                             <option *ngFor="let grp of materials" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -79,8 +79,8 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.CountLearn' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.CountLearn' | translate}}</label>
+                    <div class="col-md-10">
                         <input class="form-control" type="text" [(ngModel)]="pointer.longLearn">
                     </div>
 
@@ -97,8 +97,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.Status' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.Status' | translate}}</label>
+                    <div class="col-md-10">
                         <select id="grps-user-info" name="gender" [(ngModel)]="pointer.statusId" class="form-control" required
                                 data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                             <option *ngFor="let grp of status" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -111,8 +111,8 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.CountClass' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.CountClass' | translate}}</label>
+                    <div class="col-md-10">
                         <input class="form-control" type="text" [(ngModel)]="pointer.maxStudent">
                     </div>
 
@@ -129,16 +129,16 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.StartDate' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.StartDate' | translate}}</label>
+                    <div class="col-md-10">
                         <input type="text" class="form-control" placeholder="{{'label.class.StartDate' | translate}}" bsDatepicker [(ngModel)]="pointer.startDate" />
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.EndDate' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.EndDate' | translate}}</label>
+                    <div class="col-md-10">
                         <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endDate" />
                     </div>
                 </div>
@@ -154,8 +154,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.class.TeacherMain' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.class.TeacherMain' | translate}}</label>
+                    <div class="col-md-10">
                         <select id="grps-user-info" name="gender" [(ngModel)]="pointer.supplierId" class="form-control" required
                                 data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                             <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -177,8 +177,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-2">{{'label.class.Note' | translate}}</label>
-                    <div class="col-md-10">
+                    <label class="control-label col-md-1">{{'label.class.Note' | translate}}</label>
+                    <div class="col-md-11 pd-l-10">
                         <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
                     </div>
                 </div>
@@ -197,11 +197,11 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-4">
+                <div class="col-md-6 no-pd">
+                    <div class="wrap-inp">
                         <div class="form-group has-feedback">
-                            <label class="control-label col-md-4">{{'label.class.Today' | translate}}</label>
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">{{'label.class.Today' | translate}}</label>
+                            <div class="col-md-10">
                                 <select id="grps-user-info" name="gender" [(ngModel)]="pointer.todayId" class="form-control" required
                                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                     <option *ngFor="let grp of todays" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -211,36 +211,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="wrap-inp">
                         <div class="form-group has-feedback">
-                            <label class="control-label col-md-4">{{'label.class.StartTime' | translate}}</label>
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">{{'label.class.StartTime' | translate}}</label>
+                            <div class="col-md-10">
                                 <input type="text" class="form-control" placeholder="{{'label.class.StartTime' | translate}}" bsDatepicker [(ngModel)]="pointer.startTime" />
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="wrap-inp">
                         <div class="form-group has-feedback">
-                            <label class="control-label col-md-4">{{'label.class.EndTime' | translate}}</label>
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">{{'label.class.EndTime' | translate}}</label>
+                            <div class="col-md-10">
                                 <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endTime" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-sm-6">
+                <div class="col-md-6 no-pd">
+                    <div class="wrap-inp">
                         <div class="form-group has-feedback">
-                            <label class="control-label col-md-4">{{'label.class.Room' | translate}}</label>
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">{{'label.class.Room' | translate}}</label>
+                            <div class="col-md-10">
                                 <select id="grps-user-info" name="gender" [(ngModel)]="pointer.roomId" class="form-control" required
                                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                     <option *ngFor="let grp of rooms" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -250,10 +243,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="wrap-inp">
                         <div class="form-group has-feedback">
-                            <label class="control-label col-md-4">{{'label.class.Teacher' | translate}}</label>
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">{{'label.class.Teacher' | translate}}</label>
+                            <div class="col-md-10">
                                 <select id="grps-user-info" name="gender" [(ngModel)]="pointer.teacherTodayId" class="form-control" required
                                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                     <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -271,13 +264,11 @@
                     </div>
                 </div>
 
-                <div class="row pull-right">
-                    <div class="col-sm-8">
-                        <div class="form-group has-feedback">
-                            <button type="button" class="btn btn-primary form-control" (click)="addClassTime()">
-                                {{'button.Add' | translate}}
-                            </button>
-                        </div>
+                <div class="mg-bt-10 text-center">
+                    <div class="form-group has-feedback">
+                        <button type="button" class="btn btn-primary" (click)="addClassTime()">
+                            {{'button.Add' | translate}}
+                        </button>
                     </div>
                 </div>
 
@@ -288,7 +279,7 @@
                 </div>
 
 
-                <div class="row">
+                <div class="wrap-table">
                     <div class="col-sm-12">
                         <div class="form-group has-feedback">
                             <div [@fadeInOut]>
@@ -332,9 +323,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group has-feedback">
-                            <label class="control-label col-md-4">{{'label.class.Student' | translate}}</label>
-                            <div class="col-md-8">
-                                <select [(ngModel)]="pointer.studentId" class="form-control" required
+                            <label class="control-label col-md-2">{{'label.class.Student' | translate}}</label>
+                            <div class="col-md-10">
+                                <select id="grps-user-info" name="gender" [(ngModel)]="pointer.studentId" class="form-control" required
                                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                     <option *ngFor="let grp of students" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                         {{grp.name}}
@@ -351,13 +342,11 @@
                     </div>
                 </div>
 
-                <div class="row pull-right">
-                    <div class="col-sm-8">
-                        <div class="form-group has-feedback">
-                            <button type="button" class="btn btn-primary form-control" (click)="addClassStudent()">
-                                {{'button.Add' | translate}}
-                            </button>
-                        </div>
+                <div class="text-center">
+                    <div class="form-group has-feedback">
+                        <button type="button" class="btn btn-primary" (click)="addClassStudent()">
+                            {{'button.Add' | translate}}
+                        </button>
                     </div>
                 </div>
 
@@ -367,7 +356,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="wrap-table student">
                     <div [@fadeInOut]>
                         <!--DATA TABLE-->
                         <ngx-datatable class="material colored-header sm table-hover"
