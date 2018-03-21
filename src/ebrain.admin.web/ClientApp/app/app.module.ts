@@ -158,7 +158,9 @@ import { GrpMaterialLearnsComponent } from "./components/grpMaterialLearns/grpMa
 import { UnitsComponent } from "./components/units/units.component";
 import { StudentstatusComponent } from "./components/studentstatus/studentstatus.component";
 
+import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
 import { StudentsComponent } from "./components/students/students.component";
+
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
 import { IOStudenListComponent } from "./components/iostudentlists/iostudentlists.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
@@ -185,6 +187,7 @@ import { MaterialsComponent } from "./components/materials/materials.component";
 import { SuppliersComponent } from "./components/suppliers/suppliers.component";
 import { SupplierCusComponent } from "./components/suppliercus/suppliercus.component";
 import { SupplierEmpsComponent } from "./components/supplieremps/supplieremps.component";
+import { SupplierTeacherComponent } from "./components/supplierteachs/supplierteachs.component";
 
 import { GrpsuppliersComponent } from "./components/grpsuppliers/grpsuppliers.component";
 import { TypeMaterialLearnsComponent } from "./components/typeMaterialLearns/typeMaterialLearns.component";
@@ -278,6 +281,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         UnitsComponent,
         StudentstatusComponent,
         StudentsComponent,
+        StudentBirthdaysComponent,
         IOStudentsComponent,
         IOInputsComponent,
 
@@ -304,6 +308,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         SuppliersComponent,
         SupplierCusComponent,
         SupplierEmpsComponent,
+        SupplierTeacherComponent,
+
         TypeMaterialLearnsComponent,
         TypeMaterialsComponent,
         GrpMaterialsComponent,

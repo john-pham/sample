@@ -40,7 +40,7 @@ namespace Ebrain.ViewModels
         public Guid? SupplierId { get; set; }
         public string TypeMaterialId { get; set; }
         public string GrpMaterialId { get; set; }
-
+        public int TotalDay { get; set; }
         public string FaUsername { get; set; }
         public DateTime? FaBirthday { get; set; }
         public string FaPhone { get; set; }
@@ -50,5 +50,6 @@ namespace Ebrain.ViewModels
         public string FaJob { get; set; }
         public string FaRelationship { get; set; }
         public string Fawanted { get; set; }
+        public string GenderName { get; set; }
     }
 }

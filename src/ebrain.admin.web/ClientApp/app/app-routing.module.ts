@@ -23,6 +23,7 @@ import { UnitsComponent } from "./components/units/units.component";
 import { StudentstatusComponent } from "./components/studentstatus/studentstatus.component";
 
 import { StudentsComponent } from "./components/students/students.component";
+import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
 import { PaymentsComponent } from "./components/payments/payments.component";
 import { PaymentVouchersComponent } from "./components/paymentvouchers/paymentvouchers.component";
@@ -46,6 +47,7 @@ import { GrpsuppliersComponent } from "./components/grpsuppliers/grpsuppliers.co
 import { SuppliersComponent } from "./components/suppliers/suppliers.component";
 import { SupplierCusComponent } from "./components/suppliercus/suppliercus.component";
 import { SupplierEmpsComponent } from "./components/supplieremps/supplieremps.component";
+import { SupplierTeacherComponent } from "./components/supplierteachs/supplierteachs.component";
 
 import { MaterialsComponent } from "./components/materials/materials.component";
 import { MaterialLearnsComponent } from "./components/materialLearns/materialLearns.component";
@@ -132,7 +134,8 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "studentstatus", component: StudentstatusComponent, canActivate: [AuthGuard], data: { title: "studentstatus" } },
             
             { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
-           
+            { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },
+
             { path: "payments", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
             { path: "payment/:id", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment Details" } },
             { path: "paymentio/:ioid", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment" } },
@@ -166,7 +169,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "suppliers", component: SuppliersComponent, canActivate: [AuthGuard], data: { title: "supplier" } },
             { path: "suppliercus", component: SupplierCusComponent, canActivate: [AuthGuard], data: { title: "customers" } },
             { path: "supplieremps", component: SupplierEmpsComponent, canActivate: [AuthGuard], data: { title: "employes" } },
-
+            { path: "supplierteachs", component: SupplierTeacherComponent, canActivate: [AuthGuard], data: { title: "teachers" } },
             
             { path: "classlists", component: ClassListsComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
             { path: "classdetails/:id", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Class" } },

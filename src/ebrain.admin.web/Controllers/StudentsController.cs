@@ -18,7 +18,7 @@ using ebrain.admin.bc.Models;
 using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using Ebrain.Policies;
+using ebrain.admin.bc.Utilities;
 
 namespace Ebrain.Controllers
 {
@@ -44,7 +44,7 @@ namespace Ebrain.Controllers
             var list = await MappingMaterial(students);
             return Ok(list);
         }
-        
+
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
         public async Task<IEnumerable<StudentViewModel>> Search(string filter, string value)
@@ -94,7 +94,7 @@ namespace Ebrain.Controllers
                 ClassName = item.ClassName,
                 Birthday = item.Birthday,
                 StudentStatusId = item.StudentStatusId,
-
+                Phone = item.Phone,
                 FaUsername = itemStudentRe != null ? itemStudentRe.FullName : string.Empty,
                 FaAddress = itemStudentRe != null ? itemStudentRe.Address : string.Empty,
                 FaEmail = itemStudentRe != null ? itemStudentRe.Email : string.Empty,
@@ -129,7 +129,7 @@ namespace Ebrain.Controllers
                     StudentName = value.Name,
                     AccountBank = value.AccountBank,
                     Address = value.Address,
-                    Birthday = DateTime.Now,//value.Birthday,
+                    Birthday = value.Birthday,
                     ClassName = value.ClassName,
                     SchoolName = value.SchoolName,
                     Phone = value.Phone,
@@ -137,7 +137,7 @@ namespace Ebrain.Controllers
                     Email = value.Email,
                     GenderId = value.GenderId,
                     StudentStatusId = value.StudentStatusId,
-
+                    
                     UserName = value.Username,
                     Password = value.Password,
                     Note = value.Note,
@@ -171,12 +171,37 @@ namespace Ebrain.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpGet("getbirthdaytudents")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetBirthdayStudent(string filter, string value, string fromDate, string toDate)
+        {
+            // var results = await this._unitOfWork.IOStocks.Search(filter, value);
+            var results = this._unitOfWork.Students.GetStudentBirthday
+                        (
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            fromDate.BuildDateTimeFromSEFormat(),
+                            toDate.BuildLastDateTimeFromSEFormat()
+                        );
+            return Ok(results.Select(p => new StudentViewModel
+            {
+                ID = p.StudentId,
+                Code = p.StudentCode,
+                Name = p.StudentName,
+                Birthday = p.Birthday,
+                Phone = p.Phone,
+                Email = p.Email,
+                GenderName = p.GenderName,
+                TotalDay = p.TotalDay
+            }));
+
+        }
+
         [HttpPost("remove")]
         public async Task<IActionResult> Remove([FromBody] String id)
         {
             if (ModelState.IsValid)
             {
-                var ret = await this._unitOfWork.Materials.Delete(id);
+                var ret = await this._unitOfWork.Students.Delete(id);
                 return Ok(ret);
             }
             return BadRequest(ModelState);

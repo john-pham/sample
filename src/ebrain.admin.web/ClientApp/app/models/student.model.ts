@@ -48,4 +48,6 @@ export class Student {
     public faRelationship: string;
     public faWanted: string;
     public studentId: string;
+    public genderName: string;
+    public totalDay: number;
 }

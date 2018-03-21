@@ -7,6 +7,7 @@
 // ======================================
 
 using ebrain.admin.bc.Models;
+using ebrain.admin.bc.Report;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,5 +23,6 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<Student> Get(Guid? index);
         Task<Student> Save(Student value, StudentRelationShip valueReltion, Guid? index);
         Task<Boolean> Delete(string id);
+        List<StudentList> GetStudentBirthday(string branchIds, DateTime? fromDate, DateTime? toDate);
     }
 }

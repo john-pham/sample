@@ -52,7 +52,9 @@
       "HeaderAdd": "Quản lý cơ sở",
       "Status": "Trạng thái",
       "Supplier": "Giáo viên",
-      "AllFiles": "Tất cả"
+      "AllFiles": "Tất cả",
+      "MaxStudent": "Sỉ số",
+      "LearnStudent": "Đăng ký"
     },
     "branch": {
       "Code": "Mã",
@@ -188,7 +190,7 @@
     "supplier": {
       "Unit": "Đơn vị tính",
       "GrpMaterial": "Nhóm hàng",
-      "GrpSupplier": "Nhóm NCC",
+      "GrpSupplier": "Nhóm ",
       "Code": "Mã",
       "Name": "Tên",
       "CreatedDate": "Ngày tạo",
@@ -201,7 +203,8 @@
       "TaxCode": "TaxCode",
       "Birthday": "Ngày sinh",
       "AccountBank": "Ngân hàng",
-      "HeaderAdd": "Quản lý nhà cung cấp"
+      "HeaderAdd": "Quản lý nhà cung cấp",
+      "HeaderTeacher": "Quản lý giáo viên"
     },
     "grpsupplier": {
       "Unit": "Đơn vị tính",
@@ -319,7 +322,8 @@
       "SchoolName": "Học trường",
       "Birthday": "Ngày sinh",
       "Sex": "Giới tính",
-
+      "TotalDay": "Còn cách ngày hiện tại",
+      "Phone":  "Điện thoại",
       "Classname": "Học lớp",
       "UserName": "Tên đăng nhập",
       "Password": "Mật khẩu",
@@ -692,7 +696,8 @@
       "UpdateProfit": "Cập nhật",
       "UpdateProfitDes": "Cập nhật lợi nhuận",
       "Customer": "Khách hàng",
-      "Employee": "Nhân viên"
+      "Employee": "Nhân viên",
+      "Teacher": "Giáo viên"
     },
     "class": {
       "Class": "Lớp học",

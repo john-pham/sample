@@ -215,6 +215,11 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
     edit(template: TemplateRef<any>, index: string) {
 
+        //student status
+        this.getStudentStatus();
+        //gender
+        this.getGender();
+
         var disp = this.localService.get(index).subscribe(
             item => {
                 //
@@ -225,8 +230,6 @@ export class StudentsComponent implements OnInit, OnDestroy {
             error => {
             },
             () => { disp.unsubscribe(); });
-
-
     }
 
     private saveSuccessHelper(user?: Student) {

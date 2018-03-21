@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using ebrain.admin.bc.Models;
 using ebrain.admin.bc.Repositories.Interfaces;
 using ebrain.admin.bc.Utilities;
+using ebrain.admin.bc.Report;
 
 namespace ebrain.admin.bc.Repositories
 {
@@ -64,7 +65,7 @@ namespace ebrain.admin.bc.Repositories
                 itemExist.StudentName = value.StudentName;
                 itemExist.AccountBank = value.AccountBank;
                 itemExist.Address = value.Address;
-                itemExist.Birthday = DateTime.Now;//value.Birthday,
+                itemExist.Birthday = value.Birthday;
                 itemExist.ClassName = value.ClassName;
                 itemExist.SchoolName = value.SchoolName;
                 itemExist.Phone = value.Phone;
@@ -89,7 +90,7 @@ namespace ebrain.admin.bc.Repositories
                     itemRelation.Email = valueRelationShip.Email;
                     itemRelation.Job = valueRelationShip.Job;
                     itemRelation.Phone = valueRelationShip.Phone;
-                    itemRelation.Birthday = DateTime.Now;//value.Birthday,
+                    itemRelation.Birthday = value.Birthday;
                     itemRelation.BranchId = Guid.NewGuid();
                     itemRelation.RelationRequire = valueRelationShip.RelationRequire;
                     itemRelation.CreatedDate = DateTime.Now;
@@ -118,6 +119,28 @@ namespace ebrain.admin.bc.Repositories
             }
             await appContext.SaveChangesAsync();
             return true;
+        }
+
+        public List<StudentList> GetStudentBirthday(string branchIds, DateTime? fromDate, DateTime? toDate)
+        {
+            try
+            {
+                List<StudentList> someTypeList = new List<StudentList>();
+                this.appContext.LoadStoredProc("dbo.sp_StudentBirthday")
+                               .WithSqlParam("@fromDate", fromDate)
+                               .WithSqlParam("@toDate", toDate)
+                               .WithSqlParam("@BranchIds", branchIds)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<StudentList>().ToList();
+                               });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private ApplicationDbContext appContext

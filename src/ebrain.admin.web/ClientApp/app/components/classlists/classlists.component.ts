@@ -73,9 +73,11 @@ export class ClassListsComponent implements OnInit, OnDestroy {
             { prop: 'fullName', name: gT('label.classlist.CreatedBy'), cellTemplate: this.nameTemplate },
 
             { prop: 'supplierName', name: gT('label.classlist.SupplierName'), cellTemplate: this.nameTemplate },
-            { prop: 'address', name: gT('label.classlist.Address'), cellTemplate: this.nameTemplate },
             { prop: 'startDate', name: gT('label.classlist.StartDate'), cellTemplate: this.totalPriceTemplate },
             { prop: 'endDate', name: gT('label.classlist.EndDate'), cellTemplate: this.descriptionTemplate },
+
+            { prop: 'maxStudent', name: gT('label.classlist.MaxStudent'), cellTemplate: this.nameTemplate },
+            { prop: 'countStudent', name: gT('label.classlist.LearnStudent'), cellTemplate: this.nameTemplate },
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
@@ -122,7 +124,7 @@ export class ClassListsComponent implements OnInit, OnDestroy {
 
     private getFromServer() {
         this.loadingIndicator = true;
-        var disp = this.localService.getClasses(this.filterName, this.filterValue, this.statusId, this.supplierId).subscribe(
+        var disp = this.localService.getsummaries(this.filterName, this.filterValue, this.statusId, this.supplierId,"").subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

@@ -47,7 +47,7 @@ export class StudentsEndpoint extends EndpointFactory {
     getAll(page?: number, pageSize?: number): Observable<Response> {
 
         let url = this.getUrl('getall?page=' + page + '&pageSize=' + pageSize);
-       
+
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
@@ -61,7 +61,7 @@ export class StudentsEndpoint extends EndpointFactory {
         let url = this.getUrl('update');
         let header = this.getAuthHeader(true);
         let params = JSON.stringify(value);
-        
+
         return this.http.post(url, params, header)
             .map((response: Response) => {
                 return response;
@@ -98,10 +98,21 @@ export class StudentsEndpoint extends EndpointFactory {
             });
     }
 
+    getBirthdayStudent(fromDate: Date, toDate: Date): Observable<Response> {
+        let url = this.getUrl('getbirthdaytudents?fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getBirthdayStudent(fromDate, toDate));
+            });
+    }
+
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {
-            
+
         }
 
         if (error.url && error.url.toLowerCase().includes(this.serviceUrl.toLowerCase())) {
