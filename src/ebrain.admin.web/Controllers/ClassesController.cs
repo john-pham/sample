@@ -97,6 +97,8 @@ namespace Ebrain.Controllers
                     item.Code = c.ClassCode;
                     item.Name = c.ClassName;
                     item.Note = c.Note;
+                    item.StartDate = c.StartDate;
+                    item.EndDate = c.EndDate;
                     list.Add(item);
                 }
 

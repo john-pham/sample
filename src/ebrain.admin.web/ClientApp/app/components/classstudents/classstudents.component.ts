@@ -112,7 +112,7 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
         this.getClassByStudentId();
-       
+        this.changedClasses();
     }
 
     private getClassByStudentId() {
@@ -141,7 +141,8 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
             if (item != null) {
                 var itemNew = new ClassList();
                 itemNew.id = this.classId;
-
+                itemNew.code = item.code;
+                itemNew.name = item.name;
                 itemNew.maxStudent = item.maxStudent;
                 itemNew.startDate = item.startDate;
                 itemNew.endDate = item.endDate;
@@ -169,7 +170,7 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
 
     private onDataLoadClassSuccessful(items: ClassList[]) {
         if (items != null && items.length > 0) {
-            var item = item[0];
+            var item = items[0];
 
             this.pointer.code = item.code;
             this.pointer.name = item.name;

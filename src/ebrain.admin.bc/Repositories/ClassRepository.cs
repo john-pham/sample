@@ -51,7 +51,7 @@ namespace ebrain.admin.bc.Repositories
             //Isdeleted = true 
             foreach (var itemDetail in iodStNotExists)
             {
-                var itemStudent = await this.appContext.ClassStudent.FirstOrDefaultAsync(p => p.ClassId == itemDetail.ClassId && p.StudentId == studentId && p.IsDeleted == false);
+                var itemStudent = this.appContext.ClassStudent.FirstOrDefault(p => p.ClassId == itemDetail.ClassId && p.StudentId == studentId && p.IsDeleted == false);
                 if (itemStudent != null)
                 {
                     itemStudent.IsDeleted = true;
@@ -59,9 +59,9 @@ namespace ebrain.admin.bc.Repositories
             }
 
             //set students 
-            foreach (var item in classOfStudents)
+            foreach (var item in classes)
             {
-                var itemClassExist = await this.appContext.ClassStudent.FirstOrDefaultAsync(p => p.ClassId == item.ClassId && p.StudentId == studentId && p.IsDeleted == false);
+                var itemClassExist = this.appContext.ClassStudent.FirstOrDefault(p => p.ClassId == item.ClassId && p.StudentId == studentId && p.IsDeleted == false);
                 if (itemClassExist != null)
                 {
                     //itemClassExist.BranchId = branchId;
