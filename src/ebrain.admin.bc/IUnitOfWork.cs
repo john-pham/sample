@@ -32,6 +32,7 @@ namespace ebrain.admin.bc
         IStudentRepository Students { get; }
         IGrpSupplierRepository GrpSuppliers { get; }
         IUnitRepository Units { get; }
+        IExamineRepository Examines { get; }
         IStudentStatusRepository StudentStatus { get; }
         IConfigNumberOfCodeRepository ConfigNumberOfCodes { get; }
         ISupplierRepository Suppliers { get; }

@@ -20,6 +20,8 @@ import { TypeMaterialsComponent } from "./components/typeMaterials/typeMaterials
 import { GrpMaterialsComponent } from "./components/grpMaterials/grpMaterials.component";
 import { GrpMaterialLearnsComponent } from "./components/grpMaterialLearns/grpMaterialLearns.component";
 import { UnitsComponent } from "./components/units/units.component";
+import { ExamineComponent } from "./components/examines/examines.component";
+
 import { StudentstatusComponent } from "./components/studentstatus/studentstatus.component";
 
 import { StudentsComponent } from "./components/students/students.component";
@@ -131,6 +133,8 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "grpmaterials", component: GrpMaterialsComponent, canActivate: [AuthGuard], data: { title: "grpMaterials" } },
             { path: "grpmateriallearns", component: GrpMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "grpMaterialLearns" } },
             { path: "units", component: UnitsComponent, canActivate: [AuthGuard], data: { title: "units" } },
+            { path: "examines", component: ExamineComponent, canActivate: [AuthGuard], data: { title: "examines" } },
+
             { path: "studentstatus", component: StudentstatusComponent, canActivate: [AuthGuard], data: { title: "studentstatus" } },
             
             { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },

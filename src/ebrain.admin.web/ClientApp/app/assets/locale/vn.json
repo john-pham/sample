@@ -133,6 +133,16 @@
       "Address": "Địa chỉ",
       "HeaderAdd": "Quản lý đơn vị tính"
     },
+    "examine": {
+      "Code": "Mã",
+      "Name": "Tên kỳ thi",
+      "CreatedDate": "Ngày tạo",
+      "CreatedBy": "Người tạo",
+      "Note": "Ghi chú",
+      "Email": "E-mail",
+      "Address": "Địa chỉ",
+      "HeaderAdd": "Định nghĩa kỳ thi"
+    },
     "studentstatus": {
       "Code": "Mã",
       "Name": "Tên",
@@ -323,7 +333,7 @@
       "Birthday": "Ngày sinh",
       "Sex": "Giới tính",
       "TotalDay": "Còn cách ngày hiện tại",
-      "Phone":  "Điện thoại",
+      "Phone": "Điện thoại",
       "Classname": "Học lớp",
       "UserName": "Tên đăng nhập",
       "Password": "Mật khẩu",
@@ -515,6 +525,11 @@
       "header": "Danh sách đơn vị tính",
       "searchBox": "Tìm kiếm đơn vị tính",
       "newUnit": "Tạo mới"
+    },
+    "examine": {
+      "header": "Danh sách kỳ thi",
+      "searchBox": "Tìm kiếm kỳ thi",
+      "newExamine": "Tạo mới"
     },
     "studentstatus": {
       "header": "Danh sách trạng thái học viên",

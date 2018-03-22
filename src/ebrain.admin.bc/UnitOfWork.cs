@@ -25,6 +25,7 @@ namespace ebrain.admin.bc
         IStockRepository _stocks;
         IPaymentTypeRepository _paymentTypes;
         IUnitRepository _units;
+        IExamineRepository _Examines;
         IClassRepository _classes;
         IClassStatusRepository _ClassStatus;
         ITypeMaterialRepository _typeMaterial;
@@ -121,7 +122,7 @@ namespace ebrain.admin.bc
                 return _Depts;
             }
         }
-        
+
         public ITodayRepository Today
         {
             get
@@ -294,6 +295,16 @@ namespace ebrain.admin.bc
                     _supplier = new SupplierRepository(_context);
 
                 return _supplier;
+            }
+        }
+
+        public IExamineRepository Examines
+        {
+            get
+            {
+                if (_Examines == null)
+                    _Examines = new ExamineRepository(_context);
+                return _Examines;
             }
         }
 

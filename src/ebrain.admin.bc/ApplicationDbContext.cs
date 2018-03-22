@@ -28,6 +28,8 @@ namespace ebrain.admin.bc
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Gender> Gender { get; set; }
+        public DbSet<Examine> Examine { get; set; }
+        public DbSet<Examine> ClassExamine { get; set; }
         public DbSet<Branch> Branch { get; set; }
         public DbSet<ConfigNumberOfCode> ConfigNumberOfCode { get; set; }
 
@@ -119,7 +121,9 @@ namespace ebrain.admin.bc
             builder.Entity<OrderDetail>().ToTable($"App{nameof(this.OrderDetails)}");
 
             builder.Entity<Branch>().ToTable(nameof(this.Branch));
+            builder.Entity<ClassExamine>().ToTable(nameof(this.ClassExamine));
             builder.Entity<Gender>().ToTable(nameof(this.Gender));
+            builder.Entity<Examine>().ToTable(nameof(this.Examine));
             builder.Entity<ConfigNumberOfCode>().ToTable(nameof(this.ConfigNumberOfCode));
 
             builder.Entity<BranchHead>().ToTable(nameof(this.BranchHeads));

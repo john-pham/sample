@@ -72,6 +72,9 @@ import { GrpMaterialLearnsEndpoint } from './services/grpMaterialLearns-endpoint
 import { UnitsService } from './services/units.service';
 import { UnitsEndpoint } from './services/units-endpoint.service';
 
+import { ExaminesService } from './services/examines.service';
+import { ExaminesEndpoint } from './services/examines-endpoint.service';
+
 import { StudentstatusService } from './services/studentstatus.service';
 import { StudentstatusEndpoint } from './services/studentstatus-endpoint.service';
 
@@ -156,6 +159,8 @@ import { StocksComponent } from "./components/stocks/stocks.component";
 import { GrpMaterialsComponent } from "./components/grpMaterials/grpMaterials.component";
 import { GrpMaterialLearnsComponent } from "./components/grpMaterialLearns/grpMaterialLearns.component";
 import { UnitsComponent } from "./components/units/units.component";
+import { ExamineComponent } from "./components/examines/examines.component";
+
 import { StudentstatusComponent } from "./components/studentstatus/studentstatus.component";
 
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
@@ -279,6 +284,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         BranchesComponent,
         StocksComponent,
         UnitsComponent,
+        ExamineComponent,
         StudentstatusComponent,
         StudentsComponent,
         StudentBirthdaysComponent,
@@ -408,6 +414,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         UnitsService,
         UnitsEndpoint,
+        ExaminesService,
+        ExaminesEndpoint,
 
         StudentstatusService,
         StudentstatusEndpoint,
