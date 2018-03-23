@@ -84,3 +84,17 @@
 .m-t-xs {
     margin-top: 5px;
 }
+
+/* general style */
+.control-box {
+    margin-bottom: 10px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+label.control-label {
+    white-space: nowrap;
+}
