@@ -52,6 +52,10 @@ input.form-control {
     margin-left: 34px;
 }
 
+.control-box {
+    margin-bottom: 10px;
+}
+
 @media (min-width: 992px) {
     .user-enabled {
         margin-left: 40px;
