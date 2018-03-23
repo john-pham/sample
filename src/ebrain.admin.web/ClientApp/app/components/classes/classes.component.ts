@@ -61,13 +61,16 @@ export class ClassesComponent implements OnInit, OnDestroy {
     filterValue: string;
     isEditMode: boolean = true;
 
-    private pointer: Class;
+    studentId: string;
+    classId: string;
 
+    private pointer: Class;
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
+    classExamineRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: ClassesService, private modalService: BsModalService,
@@ -93,7 +96,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.columnStudents = [
             { prop: "fullName", name: gT('label.class.Student'), cellTemplate: this.nameTemplate },
             { prop: 'address', name: gT('label.class.Address'), cellTemplate: this.nameTemplate },
-            { name: '', width: 150, cellTemplate: this.actionStudentsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { name: '', width: 100, cellTemplate: this.actionStudentsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //
@@ -217,7 +220,11 @@ export class ClassesComponent implements OnInit, OnDestroy {
             });
 
         this.studentService.search("", "").subscribe(
-            list => this.onDataLoadStudentSuccessful(list),
+            list => {
+                this.onDataLoadStudentSuccessful(list);
+                //get default
+                this.getDefault("", isReset);
+            },
             error => this.onDataLoadFailed(error),
             () => {
                 disp.unsubscribe();
@@ -353,9 +360,9 @@ export class ClassesComponent implements OnInit, OnDestroy {
             this.pointer.startTime = new Date();
             this.pointer.longLearn = 0;
             this.pointer.maxStudent = 0;
-            
+
         }
-        
+
         var itemPointer = this.pointer;
 
         if (item != null) {
@@ -472,8 +479,18 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.getFromServer(true);
     }
 
+    private markExamine(row, template: TemplateRef<any>) {
+        this.studentId = row.studentId;
+        this.classId = this.pointer.id;
+        this.classExamineRef = this.modalService.show(template, { class: 'modal-lg' });
+    }
+
     close() {
         this.modalRef.hide();
+    }
+
+    closeExamine() {
+        this.classExamineRef.hide();
     }
 
     @ViewChild('statusHeaderTemplate')

@@ -176,7 +176,34 @@ namespace Ebrain.Controllers
             return BadRequest(ModelState);
         }
 
-
+        [HttpGet("getfirstclass")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetFirstClass(Guid? index)
+        {
+            var c = await this._unitOfWork.Classes.Get(index);
+            var itemExist = new ClassViewModel();
+            if (c != null)
+            {
+                var itemMate = await this._unitOfWork.Materials.Get(c.MaterialId);
+                itemExist = new ClassViewModel
+                {
+                    ID = c.ClassId,
+                    Code = c.ClassCode,
+                    Name = c.ClassName,
+                    Note = c.Note,
+                    BranchId = c.BranchId,
+                    EndDate = c.EndDate,
+                    StartDate = c.StartDate,
+                    LongLearn = c.LongLearn,
+                    MaterialId = c.MaterialId,
+                    MaxStudent = c.MaxStudent,
+                    StatusId = c.StatusId,
+                    SupplierId = c.SupplierId,
+                    MaterialName = itemMate != null ? itemMate.MaterialName : string.Empty
+                };
+            }
+            return Ok(itemExist);
+        }
 
         [HttpGet("get")]
         [Produces(typeof(UserViewModel))]
@@ -309,6 +336,51 @@ namespace Ebrain.Controllers
             if (list != null && list.Count > 0)
             {
                 return Ok(MappingClassViewModel(list));
+            }
+            return Ok(null);
+        }
+
+        [HttpGet("getclassexamine")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetClassExamine(Guid? classId, Guid? studentId)
+        {
+            var list = this._unitOfWork.Classes.GetClassExamine(
+                    this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                    classId,
+                    studentId);
+            if (list != null && list.Count > 0)
+            {
+                return Ok(list.Select(p => new ClassExamineViewModel
+                {
+                    ExamineId = p.ExamineId,
+                    ExamineCode = p.ExamineCode,
+                    ExamineName = p.ExamineName,
+                    Mark = p.Mark,
+                    StudentId = p.StudentId,
+                    ClassId = p.ClassId
+                }));
+            }
+            return Ok(null);
+        }
+
+        [HttpPost("updateclassexamine")]
+        public IActionResult SaveClassExamine([FromBody]ClassExamineViewModel[] examines)
+        {
+            if (ModelState.IsValid)
+            {
+                this._unitOfWork.Classes.SaveClassExamine(examines.Select(p => new ClassExamine
+                {
+                    ClassExamineId = Guid.NewGuid(),
+                    ExamineId = p.ExamineId,
+                    ClassId = p.ClassId,
+                    StudentId = p.StudentId,
+                    Mark = p.Mark,
+                    CreatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    UpdatedBy = userId,
+                    UpdatedDate = DateTime.Now
+                }).ToArray());
+                return Ok(new ClassExamineViewModel());
             }
             return Ok(null);
         }

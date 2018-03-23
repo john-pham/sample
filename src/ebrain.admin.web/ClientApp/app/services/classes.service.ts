@@ -17,6 +17,7 @@ import { ClassesEndpoint } from './classes-endpoint.service';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
 import { ClassList } from "../models/classlists.model";
+import { ClassExamine } from "../models/classexamine.model";
 
 @Injectable()
 export class ClassesService {
@@ -40,6 +41,11 @@ export class ClassesService {
             .map((response: Response) => <Class>response.json());
     }
 
+    saveExamine(value: ClassExamine[]) {
+        return this.endpointFactory.saveExamine(value)
+            .map((response: Response) => <ClassExamine>response.json());
+    }
+
     delete(id: string) {
         return this.endpointFactory.delete(id);
     }
@@ -51,6 +57,11 @@ export class ClassesService {
 
     get(index: string) {
         return this.endpointFactory.get(index)
+            .map((response: Response) => <Class>response.json());
+    }
+
+    getFirstClass(index: string) {
+        return this.endpointFactory.getFirstClass(index)
             .map((response: Response) => <Class>response.json());
     }
 
@@ -67,6 +78,11 @@ export class ClassesService {
     getClassByStudentId(filter: string, value: string, statusId: string, supplierId: string, classId: string, studentId: string) {
         return this.endpointFactory.getClassByStudentId(filter, value, statusId, supplierId, classId, studentId)
             .map((response: Response) => <ClassList[]>response.json());
+    }
+
+    getClassExamines(classId: string, studentId: string) {
+        return this.endpointFactory.getClassExamines(classId, studentId)
+            .map((response: Response) => <ClassExamine[]>response.json());
     }
 
     private initializeStatus() {

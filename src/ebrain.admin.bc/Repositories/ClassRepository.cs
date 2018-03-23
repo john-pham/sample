@@ -89,6 +89,28 @@ namespace ebrain.admin.bc.Repositories
 
         }
 
+        public async void SaveClassExamine(ClassExamine[] examines)
+        {
+            foreach (var item in examines)
+            {
+                var itemExist = this.appContext.ClassExamine.FirstOrDefault
+                                    (
+                                        p => p.StudentId == item.StudentId
+                                        && p.ClassId == item.ClassId
+                                    );
+                if (itemExist != null)
+                {
+                    itemExist.Mark = item.Mark;
+                }
+                else
+                {
+                    await this.appContext.ClassExamine.AddAsync(item);
+                }
+
+            }
+            this.appContext.SaveChanges();
+        }
+
         public async Task<Class> Save(Class value, ClassTime[] classTimes, ClassStudent[] classStudents, Guid? index)
         {
             value.BranchId = value.CreatedBy.GetBranchOfCurrentUser(this.appContext);
@@ -279,6 +301,29 @@ namespace ebrain.admin.bc.Repositories
                                .ExecuteStoredProc((handler) =>
                                {
                                    someTypeList = handler.ReadToList<ClassList>().ToList();
+                               });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public List<ClassExamineList> GetClassExamine(string branchIds, Guid? classId, Guid? studentId)
+        {
+            try
+            {
+                List<ClassExamineList> someTypeList = new List<ClassExamineList>();
+                this.appContext.LoadStoredProc("dbo.sp_ClassExamine")
+                               .WithSqlParam("@BranchIds", branchIds)
+                               .WithSqlParam("@classId", classId)
+                               .WithSqlParam("@studentId", studentId)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<ClassExamineList>().ToList();
                                });
 
                 return someTypeList;

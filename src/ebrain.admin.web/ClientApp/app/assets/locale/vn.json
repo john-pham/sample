@@ -141,7 +141,8 @@
       "Note": "Ghi chú",
       "Email": "E-mail",
       "Address": "Địa chỉ",
-      "HeaderAdd": "Định nghĩa kỳ thi"
+      "HeaderAdd": "Định nghĩa kỳ thi",
+      "Mark": "Điểm"
     },
     "studentstatus": {
       "Code": "Mã",
@@ -644,7 +645,8 @@
     "IOStockOutput": "Phiếu xuất",
     "AddNew": "Tạo mới",
     "Update": "Cập nhật",
-    "Class": "Lớp học"
+    "Class": "Lớp học",
+    "Mark":  "Điểm"
   },
   "menu": {
     "stock": {

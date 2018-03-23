@@ -72,6 +72,20 @@ export class ClassesEndpoint extends EndpointFactory {
             });
     }
 
+    saveExamine(value: any): Observable<Response> {
+        let url = this.getUrl('updateclassexamine');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
     delete(id: string): Observable<Response> {
         let url = this.getUrl('remove');
         let header = this.getAuthHeader(true);
@@ -88,6 +102,18 @@ export class ClassesEndpoint extends EndpointFactory {
 
     get(index: string): Observable<Response> {
         let url = this.getUrl('get?index=' + index + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.get(index));
+            });
+    }
+
+    getFirstClass(index: string): Observable<Response> {
+        let url = this.getUrl('getfirstclass?index=' + index + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
@@ -144,6 +170,18 @@ export class ClassesEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.getClassByStudentId(filter, value, statusId, supplierId, classId, studentId));
+            });
+    }
+
+    getClassExamines(classId: string, studentId: string): Observable<Response> {
+
+        let url = this.getUrl('getclassexamine?classId=' + classId + '&studentId=' + studentId + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getClassExamines(classId, studentId));
             });
     }
 

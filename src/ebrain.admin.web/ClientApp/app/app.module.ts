@@ -248,6 +248,7 @@ import { UserPreferencesComponent } from "./components/controls/user-preferences
 import { UsersManagementComponent } from "./components/controls/users-management.component";
 import { RolesManagementComponent } from "./components/controls/roles-management.component";
 import { ClassStudentComponent } from "./components/classstudents/classstudents.component";
+import { ClassExamineComponent } from "./components/classexamines/classexamines.component";
 import { RoleEditorComponent } from "./components/controls/role-editor.component";
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CURRENCY_MASK_CONFIG } from "ng2-currency-mask/src/currency-mask.config";
@@ -325,6 +326,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         ClassListsComponent,
         ClassesComponent,
         ClassStudentComponent,
+        ClassExamineComponent,
 
         RoomsComponent,
         LevelclassesComponent,

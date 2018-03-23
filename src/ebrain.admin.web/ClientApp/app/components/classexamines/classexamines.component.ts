@@ -34,15 +34,16 @@ import { StudentsService } from "../../services/students.service";
 import { ClassTime } from "../../models/classtime.model";
 import { ClassStudent } from "../../models/classstudent.model";
 import { ClassList } from "../../models/classlists.model";
+import { ClassExamine } from "../../models/classexamine.model";
 
 @Component({
-    selector: 'classstudents',
-    templateUrl: './classstudents.component.html',
-    styleUrls: ['./classstudents.component.css'],
+    selector: 'classexamines',
+    templateUrl: './classexamines.component.html',
+    styleUrls: ['./classexamines.component.css'],
     animations: [fadeInOut]
 })
 
-export class ClassStudentComponent implements OnInit, OnDestroy {
+export class ClassExamineComponent implements OnInit, OnDestroy {
 
     loadingIndicator: boolean = true;
     isEditMode: boolean = true;
@@ -51,8 +52,18 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
     private columns = [];
     private rows = [];
     private classes = [];
+
     studentId: string;
     classId: string;
+
+    @Input()
+    set ClassId(id: string) {
+        this.classId = (id && id.trim()) || null;
+    }
+
+    get ClassId() {
+        return this.classId;
+    }
 
     @Input()
     set StudentId(id: string) {
@@ -64,7 +75,6 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
     }
 
     modalRef: BsModalRef;
-    classExamineRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: ClassesService, private modalService: BsModalService,
@@ -80,18 +90,30 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "code", name: gT('label.class.Code'), cellTemplate: this.nameTemplate },
-            { prop: 'name', name: gT('label.class.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'materialName', name: gT('label.class.MaterialLearn'), cellTemplate: this.descriptionTemplate },
-            { prop: 'startDate', name: gT('label.class.StartDate'), cellTemplate: this.descriptionTemplate },
-            { prop: 'endDate', name: gT('label.class.EndDate'), cellTemplate: this.descriptionTemplate },
+            { prop: "examineCode", name: gT('label.examine.Code'), cellTemplate: this.nameTemplate },
+            { prop: 'examineName', name: gT('label.examine.Name'), cellTemplate: this.nameTemplate },
+            { prop: 'mark', name: gT('label.examine.Mark'), cellTemplate: this.markTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //
         this.getFromServer();
 
-        var disp = this.studentService.get(this.studentId).subscribe(
+
+    }
+
+    private getFromServer() {
+        //get classes
+        var disp = this.localService.getFirstClass(this.classId).subscribe(
+            item => this.onDataLoadClassSuccessful(item),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
+
+        //get students
+        this.studentService.get(this.studentId).subscribe(
             item => {
                 if (item != null) {
                     this.pointer.studentName = item.name;
@@ -101,66 +123,30 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
             },
             error => {
             },
-            () => { disp.unsubscribe(); });
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
+
+
+        //get class Examine
+        this.getClassExamine();
     }
 
-    private getFromServer() {
-        var disp = this.localService.search('', '').subscribe(
+    private getClassExamine() {
+        //get classExamines
+        var disp = this.localService.getClassExamines(this.classId, this.studentId).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
-        this.getClassByStudentId();
-        this.changedClasses();
     }
 
-    private getClassByStudentId() {
-        var disp = this.localService.getClassByStudentId("", "", "", "", "", this.studentId).subscribe(
-            items => this.onDataLoadAllClassStudentSuccessful(items),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
-    }
-
-    changedClasses() {
-        var disp = this.localService.getsummaries("", "", "", "", this.classId).subscribe(
-            items => this.onDataLoadClassSuccessful(items),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
-    }
-
-    private addClassStudent() {
-        if (this.classId != null) {
-            var item = this.classes.filter(p => p.id == this.classId)[0];
-            if (item != null) {
-                var itemNew = new ClassList();
-                itemNew.id = this.classId;
-                itemNew.code = item.code;
-                itemNew.name = item.name;
-                itemNew.maxStudent = item.maxStudent;
-                itemNew.startDate = item.startDate;
-                itemNew.endDate = item.endDate;
-                itemNew.materialName = item.materialName;
-                this.rows.push(itemNew);
-                this.rows = [...this.rows];
-            }
-        }
-    }
 
     private deleteClasses(row) {
         this.alertService.showDialog('Are you sure you want to delete the row?', DialogType.confirm, () => this.deleteTimeHelper(row));
-    }
-
-    private markExamine(row, template: TemplateRef<any>) {
-        this.classId = row.id;
-        this.classExamineRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
     private deleteTimeHelper(row) {
@@ -174,25 +160,18 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
         this.alertService.stopLoadingMessage();
     }
 
-    private onDataLoadClassSuccessful(items: ClassList[]) {
-        if (items != null && items.length > 0) {
-            var item = items[0];
-
-            this.pointer.code = item.code;
-            this.pointer.name = item.name;
-            this.pointer.id = item.id;
-            this.pointer.materialName = item.materialName;
-            this.pointer.maxStudent = item.maxStudent;
-            this.pointer.countStudent = item.countStudent;
-        }
+    private onDataLoadClassSuccessful(item: Class) {
+        this.pointer.code = item.code;
+        this.pointer.name = item.name;
+        this.pointer.id = item.id;
+        this.pointer.materialName = item.materialName;
+        this.pointer.maxStudent = item.maxStudent;
+        this.pointer.countStudent = item.countStudent;
         this.alertService.stopLoadingMessage();
     }
 
-    private onDataLoadSuccessful(list: Class[]) {
-        if (list != null && list.length > 0) {
-            this.classId = list[0].id;
-        }
-        this.classes = list;
+    private onDataLoadSuccessful(list: ClassExamine[]) {
+        this.rows = list;
         this.alertService.stopLoadingMessage();
     }
 
@@ -204,17 +183,23 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
     }
 
     private save() {
-
         var cls = [];
         this.rows.forEach(row => {
-            var itemNew = new Class();
-            itemNew.id = row.id;
+            var itemNew = new ClassExamine();
+            itemNew.classId = this.classId;
             itemNew.studentId = this.studentId;
+            itemNew.examineCode = row.examineCode;
+            itemNew.examineName = row.examineName;
+            itemNew.examineId = row.examineId;
+            itemNew.mark = row.mark;
             cls.push(itemNew);
         });
 
-        var disp = this.localService.saveStudent(cls).subscribe(
-            items => this.onDataSaveSuccessful(items),
+        var disp = this.localService.saveExamine(cls).subscribe(
+            items => {
+                this.alertService.showMessage("Success", `Class \"${this.pointer.name}\" was saved successfully`, MessageSeverity.success);
+                this.getClassExamine();
+            },
             error => this.onDataLoadFailed(error),
             () => {
                 disp.unsubscribe();
@@ -222,8 +207,8 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataSaveSuccessful(item: Class) {
-        this.getClassByStudentId();
+    updateValue(row, event, rowIndex) {
+        row.mark = event.target.value;
     }
 
     ngOnDestroy() {
@@ -234,9 +219,8 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
         this.modalRef.hide();
     }
 
-    closeExamine() {
-        this.classExamineRef.hide();
-    }
+    @ViewChild('markTemplate')
+    markTemplate: TemplateRef<any>;
 
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;

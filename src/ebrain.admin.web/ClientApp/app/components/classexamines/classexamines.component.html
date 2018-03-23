@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-12">
             <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-            <h3 class="col-md-8">{{'label.classstudent.HeaderAdd' | translate}}</h3>
+            <h3 class="col-md-8">{{'label.examine.HeaderAdd' | translate}}</h3>
         </div>
     </div>
 
@@ -36,7 +36,7 @@
                 <div class="form-group has-feedback">
                     <label class="control-label col-md-4">{{'label.classstudent.Birthday' | translate}}</label>
                     <div class="col-md-8">
-                        <label class="control-label" >{{pointer.studentBirthday}}</label>
+                        <label class="control-label">{{pointer.studentBirthday}}</label>
                     </div>
                 </div>
             </div>
@@ -69,24 +69,17 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.classstudent.ClassName' | translate}}</label>
+                    <label class="control-label col-md-4">{{'label.classstudent.ClassCode' | translate}}</label>
                     <div class="col-md-8">
-                        <select class="form-control" 
-                                [(ngModel)]="classId"
-                                (change)="changedClasses()"
-                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
-                            <option *ngFor="let grp of classes" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
-                                {{grp.name}}
-                            </option>
-                        </select>
+                        <label class="control-label">{{pointer.code}}</label>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.classstudent.ClassCode' | translate}}</label>
+                    <label class="control-label col-md-4">{{'label.classstudent.ClassName' | translate}}</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="text" [(ngModel)]="pointer.code" readonly>
+                        <label class="control-label">{{pointer.name}}</label>
                     </div>
                 </div>
             </div>
@@ -99,38 +92,12 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="form-group has-feedback">
                     <label class="control-label col-md-4">{{'label.classstudent.MaterialLearn' | translate}}</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="text" [(ngModel)]="pointer.materialName" readonly>
+                        <label class="control-label">{{pointer.materialName}}</label>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.classstudent.MaxStudent' | translate}}</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" [(ngModel)]="pointer.maxStudent" readonly>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.classstudent.LearnStudent' | translate}}</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" [(ngModel)]="pointer.countStudent" readonly>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row pull-right">
-            <div class="col-sm-8">
-                <div class="form-group has-feedback">
-                    <button type="button" class="btn btn-primary form-control" (click)="addClassStudent()">
-                        {{'button.Add' | translate}}
-                    </button>
                 </div>
             </div>
         </div>
@@ -158,26 +125,17 @@
                     <i class="fa fa-check-square-o"></i>
                 </ng-template>
 
-                <ng-template #nameTemplate let-row="row" let-value="value">
-                    <span attr.title="{{value}}">
-                        {{value}}
-                    </span>
+                <ng-template #markTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
+                    <input class="currency-pipe" value="{{value| currencypipe}}"
+                           autofocus
+                           (blur)="updateValue(row,$event,rowIndex)" />
+
                 </ng-template>
-                <ng-template #actionsTemplate let-row="row">
-                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="markExamine(row, templateExamine)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Mark' | translate}}</a>
+                <!--<ng-template #actionsTemplate let-row="row">
                     <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteClasses(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
-                </ng-template>
+                </ng-template>-->
             </div>
         </div>
 
     </div>
 </div>
-
-<ng-template #templateExamine>
-    <div class="modal-header">
-        <button type="button" class="close" (click)="closeExamine()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="modal-body">
-        <classexamines [StudentId]="studentId" [ClassId]="classId"></classexamines>
-    </div>
-</ng-template>

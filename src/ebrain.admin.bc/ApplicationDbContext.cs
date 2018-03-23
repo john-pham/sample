@@ -29,7 +29,7 @@ namespace ebrain.admin.bc
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Gender> Gender { get; set; }
         public DbSet<Examine> Examine { get; set; }
-        public DbSet<Examine> ClassExamine { get; set; }
+        public DbSet<ClassExamine> ClassExamine { get; set; }
         public DbSet<Branch> Branch { get; set; }
         public DbSet<ConfigNumberOfCode> ConfigNumberOfCode { get; set; }
 
