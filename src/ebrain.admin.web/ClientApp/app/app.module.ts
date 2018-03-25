@@ -111,6 +111,7 @@ import { MaterialLearnsEndpoint } from './services/materialLearns-endpoint.servi
 
 import { SuppliersService } from './services/suppliers.service';
 import { SuppliersEndpoint } from './services/suppliers-endpoint.service';
+import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 
 import { mn_stocksService } from './services/mn-stocks.service';
 import { mn_stocksEndpoint } from './services/mn-stocks-endpoint.service';
@@ -474,6 +475,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         ConsultantsService,
         ConsultantsEndpoint,
+        mn_main_categoriesComponent,
 
         mn_stocksService,
         mn_stocksEndpoint,
