@@ -100,8 +100,6 @@ label.control-label {
 }
 
 /* ngx-datatable */
-/* header style */
-
 .ngx-datatable.fixed-header .datatable-header {
     height: auto !important;
 }
@@ -114,5 +112,17 @@ label.control-label {
 .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell.text-center,
 .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell.text-center {
     text-align: center;
+}
+
+
+/* modal */
+.modal-content {
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal-footer {
+    margin-top: 10px;
 }
 
