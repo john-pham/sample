@@ -68,6 +68,8 @@ import { mn_financesComponent } from "./components/menu/mn-finances.component";
 import { mn_humansComponent } from "./components/menu/mn-humans.component";
 import { mn_learningComponent } from "./components/menu/mn-learning.component";
 
+import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
+
 import { mn_student_categoriesComponent } from "./components/menu/mn-student/mn-student-categories.component";
 import { mn_student_categories_studentComponent } from "./components/menu/mn-student/mn-student-categories-student.component";
 import { mn_student_categories_classesComponent } from "./components/menu/mn-student/mn-student-categories-classes.component";
@@ -108,6 +110,9 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "mn-humans", component: mn_humansComponent, canActivate: [AuthGuard], data: { title: "humans" } },
             { path: "mn-classes", component: mn_classesComponent, canActivate: [AuthGuard], data: { title: "classes" } },
             { path: "mn-learning", component: mn_learningComponent, canActivate: [AuthGuard], data: { title: "learning" } },
+
+            
+            { path: "mn_main_categories", component: mn_main_categoriesComponent, canActivate: [AuthGuard], data: { title: "Categories" } },
 
             { path: "mn_student_categories", component: mn_student_categoriesComponent, canActivate: [AuthGuard], data: { title: "learning" } },
             { path: "mn_student_categories_student", component: mn_student_categories_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },

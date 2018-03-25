@@ -298,17 +298,29 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">TỔNG QUAN</li>
                 <li class="active treeview menu-open">
-                    <a routerLink="/mn_student_main_student">
-                        <i class="fa fa-dashboard"></i> <span>{{'mainMenu.mn-students' | translate}}</span>
+                    <a routerLink="/mn_main_categories">
+                        <i class="fa fa-dashboard"></i> <span>{{'mainMenu.Categrories' | translate}}</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/mn_student_categories"><i class="fa fa-tasks"></i> {{'menu.student.Categories.Header' | translate}}</a></li>
-                        <li><a routerLink="/mn-students"><i class="fa fa-user-o"></i> {{'menu.student.Categories.Student' | translate}}</a></li>
-                        <li><a routerLink="/mn_student_reports_student"><i class="fa fa-clipboard"></i> {{'menu.student.Report' | translate}}</a></li>
-                        <li><a routerLink="/mn_student_sms_student"><i class="fa fa-envelope-square"></i> {{'menu.student.SMS' | translate}}</a></li>
+                        <li><a routerLink="/branches"><i class="fa fa-bold"></i> {{'menu.stock.Branch' | translate}}</a></li>
+                        <li><a routerLink="/rooms"><i class="fa fa-university"></i> {{'menu.student.Categories.Detail.Room' | translate}}</a></li>
+                        <li><a routerLink="/shiftclasses"><i class="fa fa-hourglass"></i> {{'menu.student.Categories.Detail.Shiftclass' | translate}}</a></li>
+                        <li><a routerLink="/stocks"><i class="fa fa-home"></i> {{'menu.stock.Stock' | translate}}</a></li>
+
+                        <li><a routerLink="/units"><i class="fa fa-uniregistry"></i> {{'menu.stock.Unit' | translate}}</a></li>
+                        <li><a routerLink="/typematerials"><i class="fa fa-tumblr"></i> {{'menu.stock.TypeMaterial' | translate}}</a></li>
+                        <li><a routerLink="/grpmaterials"><i class="fa fa-object-group"></i> {{'menu.stock.GrpMaterial' | translate}}</a></li>
+                        <li><a routerLink="/materials"><i class="fa fa-product-hunt"></i> {{'menu.stock.Material' | translate}}</a></li>
+
+                        <li><a routerLink="/grpsuppliers"><i class="fa fa-address-card"></i> {{'menu.stock.Grpsupplier' | translate}}</a></li>
+                        <li><a routerLink="/suppliers"><i class="fa fa-id-badge"></i> {{'menu.stock.Supplier' | translate}}</a></li>
+                        <li><a routerLink="/suppliercus"><i class="fa fa-users"></i> {{'menu.accountant.Customer' | translate}}</a></li>
+                        <li><a routerLink="/supplieremps"><i class="fa fa-user"></i> {{'menu.accountant.Employee' | translate}}</a></li>
+
+                        <li><a routerLink="/supplierteachs"><i class="fa fa-users"></i> {{'menu.accountant.Teacher' | translate}}</a></li>
                     </ul>
                 </li>
 
