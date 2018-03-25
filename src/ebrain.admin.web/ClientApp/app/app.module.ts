@@ -111,7 +111,6 @@ import { MaterialLearnsEndpoint } from './services/materialLearns-endpoint.servi
 
 import { SuppliersService } from './services/suppliers.service';
 import { SuppliersEndpoint } from './services/suppliers-endpoint.service';
-import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 
 import { mn_stocksService } from './services/mn-stocks.service';
 import { mn_stocksEndpoint } from './services/mn-stocks-endpoint.service';
@@ -205,6 +204,8 @@ import { RoomsComponent } from "./components/rooms/rooms.component";
 import { LevelclassesComponent } from "./components/levelclasses/levelclasses.component";
 import { ShiftclassesComponent } from "./components/shiftclasses/shiftclasses.component";
 import { ConsultantsComponent } from "./components/consultants/consultants.component";
+
+import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 
 import { mn_stocksComponent } from "./components/menu/mn-stocks.component";
 import { mn_studentsComponent } from "./components/menu/mn-students.component";
@@ -333,6 +334,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         LevelclassesComponent,
         ShiftclassesComponent,
         ConsultantsComponent,
+
+        mn_main_categoriesComponent,
 
         mn_stocksComponent,
         mn_studentsComponent,
