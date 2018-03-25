@@ -268,6 +268,10 @@ export class MaterialsComponent implements OnInit, OnDestroy {
             () => { disp.unsubscribe(); });
     }
 
+    close() {
+        this.modalRef.hide();
+    }
+
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
 
