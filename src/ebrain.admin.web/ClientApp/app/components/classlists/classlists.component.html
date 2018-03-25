@@ -21,22 +21,16 @@
         </div>
     </div>
     <div class="col-sm-2">
-        <div class="navbar action-box">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="toolbaritem">
-                    <a href="javascript:;" (click)="search()">
-                        <i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}
-                    </a>
-                </li>
-            </ul>
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}</button>
         </div>
     </div>
 </div>
 <div class="row control-box">
     <div class="col-sm-6">
         <div class="form-group has-feedback">
-            <label class="control-label col-md-4">{{'label.classlist.Status' | translate}}</label>
-            <div class="col-md-8">
+            <label class="control-label col-md-2">{{'label.classlist.Status' | translate}}</label>
+            <div class="col-md-10">
                 <select [(ngModel)]="statusId" class="form-control" 
                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                     <option [value]="1">{{'label.classlist.AllFiles' | translate}}</option>
@@ -50,8 +44,8 @@
 
     <div class="col-sm-6">
         <div class="form-group has-feedback">
-            <label class="control-label col-md-4">{{'label.classlist.Supplier' | translate}}</label>
-            <div class="col-md-8">
+            <label class="control-label col-md-2">{{'label.classlist.Supplier' | translate}}</label>
+            <div class="col-md-10">
                 <select [(ngModel)]="supplierId" class="form-control" 
                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                     <option [value]="1">{{'label.classlist.AllFiles' | translate}}</option>

@@ -1,4 +1,4 @@
-﻿<header class="pageHeader">
+﻿ <header class="pageHeader">
     <h4>{{'pageMain.levelclass.header' | translate}}</h4>
     <hr class="separator-hr" />
 </header>
@@ -10,14 +10,8 @@
         </div>
     </div>
     <div class="col-sm-2">
-        <div class="navbar action-box">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="toolbaritem">
-                    <a href="javascript:;" (click)="addLevelclass(template)">
-                        <i class="fa fa-plus-circle"></i> {{'pageMain.levelclass.newLevelclass' | translate}}
-                    </a>
-                </li>
-            </ul>
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="addLevelclass(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.levelclass.newLevelclass' | translate}}</button>
         </div>
     </div>
 </div>
