@@ -116,11 +116,11 @@
         </div>
         <div class="form-group">
             <label for="pointer.code" class="control-label">{{'label.branch.Code' | translate}}</label>
-            <input type="text" class="form-control" [(ngModel)]="pointer.code">
+            <input type="text" class="form-control" [(ngModel)]="pointer.code" required>
         </div>
         <div class="form-group">
             <label for="pointer.name" class="control-label">{{'label.branch.Name' | translate}}</label>
-            <input type="text" class="form-control" [(ngModel)]="pointer.name">
+            <input type="text" class="form-control" [(ngModel)]="pointer.name" required>
         </div>
         <div class="form-group">
             <label for="pointer.email" class="control-label">{{'label.branch.Email' | translate}}</label>
@@ -128,7 +128,7 @@
         </div>
         <div class="form-group">
             <label for="pointer.address" class="control-label">{{'label.branch.Address' | translate}}</label>
-            <textarea class="form-control" [(ngModel)]="pointer.address"></textarea>
+            <textarea class="form-control" [(ngModel)]="pointer.address" required></textarea>
         </div>
     </div>
     <div class="modal-footer">
