@@ -207,6 +207,7 @@ import { ConsultantsComponent } from "./components/consultants/consultants.compo
 
 import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 import { mn_main_educateComponent } from "./components/menu/mn-main/mn-main-educate.component";
+import { mn_main_accountantComponent } from "./components/menu/mn-main/mn-main-accountant.component";
 
 import { mn_stocksComponent } from "./components/menu/mn-stocks.component";
 import { mn_studentsComponent } from "./components/menu/mn-students.component";
@@ -338,6 +339,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         mn_main_categoriesComponent,
         mn_main_educateComponent,
+        mn_main_accountantComponent,
 
         mn_stocksComponent,
         mn_studentsComponent,

@@ -368,7 +368,7 @@
                 </li>
 
                 <li class="treeview">
-                    <a routerLink="/mn_accountant_main_accountant">
+                    <a routerLink="/mn_main_accountant">
                         <i class="fa fa-pie-chart"></i>
                         <span>{{'mainMenu.mn-finances' | translate}}</span>
                         <span class="pull-right-container">
@@ -376,10 +376,14 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/mn_accountant_promotion_accountant"><i class="fa fa-envelope"></i> {{'menu.accountant.Promotions' | translate}}</a></li>
-                        <li><a routerLink="/mn_accountant_payment_accountant"><i class="fa fa-folder"></i> {{'menu.accountant.Payment' | translate}}</a></li>
-                        <li><a routerLink="/mn_accountant_main_accountant"><i class="fa fa-share"></i> {{'menu.accountant.Dept' | translate}}</a></li>
-                        <li><a routerLink="/mn_accountant_main_accountant"><i class="fa fa-book"></i> {{'menu.accountant.Report' | translate}}</a></li>
+                        <li><a routerLink="/payments"><i class="fa fa-fax"></i> {{'menu.accountant.IsPayment' | translate}}</a></li>
+                        <li><a routerLink="/paymentvouchers"><i class="fa fa-fax"></i> {{'menu.accountant.IsPaymentFalse' | translate}}</a></li>
+                        <li><a routerLink="/paymentlist"><i class="fa fa-tasks"></i> {{'menu.accountant.ReportSummarize' | translate}}</a></li>
+                        <li><a routerLink="/paymentdetaillist"><i class="fa fa-tasks"></i> {{'menu.accountant.ReportDetailDes' | translate}}</a></li>
+                        <li><a routerLink="/deptslist"><i class="fa fa-suitcase"></i> {{'menu.accountant.Dept' | translate}}</a></li>
+                        <li><a routerLink="/profitslist"><i class="fa fa-money"></i> {{'menu.accountant.Profit' | translate}}</a></li>
+                        <li><a routerLink="/depts"><i class="fa fa-cogs"></i> {{'menu.stock.UpdateDept' | translate}}</a></li>
+                        <li><a routerLink="/profits"><i class="fa fa-cogs"></i> {{'menu.accountant.UpdateProfit' | translate}}</a></li>
                     </ul>
                 </li>
 
