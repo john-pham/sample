@@ -206,6 +206,7 @@ import { ShiftclassesComponent } from "./components/shiftclasses/shiftclasses.co
 import { ConsultantsComponent } from "./components/consultants/consultants.component";
 
 import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
+import { mn_main_educateComponent } from "./components/menu/mn-main/mn-main-educate.component";
 
 import { mn_stocksComponent } from "./components/menu/mn-stocks.component";
 import { mn_studentsComponent } from "./components/menu/mn-students.component";
@@ -336,6 +337,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         ConsultantsComponent,
 
         mn_main_categoriesComponent,
+        mn_main_educateComponent,
 
         mn_stocksComponent,
         mn_studentsComponent,

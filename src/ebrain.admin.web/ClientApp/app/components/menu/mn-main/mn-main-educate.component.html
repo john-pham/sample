@@ -5,8 +5,7 @@
                 <i class="fa fa-bars"></i>
             </a>
             <ol class="breadcrumb pull-left">
-                <li><a routerLink="/mn_student_main_student">{{'mainMenu.mn-students' | translate}}</a></li>
-                <li><a routerLink="/mn_student_categories">{{'menu.student.Categories.Header' | translate}}</a></li>
+                {{'menu.main.Educate' | translate}}
             </ol>
         </div>
     </div>
@@ -15,30 +14,167 @@
 <div [@fadeInOut]>
     <div class="statistic">
         <div class="row">
-            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
-                <a routerLink="/mn_student_categories_classes" class="block padder-v hover">
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/typemateriallearns" class="block padder-v hover">
                     <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
-                        <i class="fa fa-university icon text-white"></i>
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-bandcamp icon text-white"></i>
                     </span>
                     <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Class' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Class' | translate}}"</small>
+                        <span class="h3 block m-t-xs text-warning">{{'menu.class.Learning' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.class.Learning' | translate}}"</small>
                     </span>
                 </a>
             </div>
-            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
-                <a routerLink="/mn_student_categories_student" class="block padder-v hover">
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/grpmateriallearns" class="block padder-v hover">
                     <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
-                        <i class="fa fa-user-o icon text-white"></i>
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-css3 icon text-white"></i>
                     </span>
                     <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Learning' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Learning' | translate}}"</small>
+                        <span class="h3 block m-t-xs text-warning">{{'menu.class.Levelclass' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.class.Levelclass' | translate}}"</small>
                     </span>
                 </a>
             </div>
+
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/materiallearns" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-balance-scale icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.class.MaterialLearn' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.class.MaterialLearn' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/shiftclasses" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-bell icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.class.Shiftclass' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.class.Shiftclass' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/examines" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-binoculars icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Detail.Examine' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Examine' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/classes" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-black-tie icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Detail.Class' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Class' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/classlists" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-braille icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Detail.ClassList' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.ClassListDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            
+           
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/consultants" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-bullhorn icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.class.Consultant' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.class.Consultant' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/students" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-child text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.class.Student' | translate}}</span>
+                        <small class="text-muted text-u-c">{{'menu.class.Student' | translate}}</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/iostudents" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-cubes icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.class.IOStudent' | translate}}</span>
+                        <small class="text-muted text-u-c">{{'menu.class.IOStudent' | translate}}</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/iostudentlist" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-check-circle icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.class.IOStudentList' | translate}}</span>
+                        <small class="text-muted text-u-c">{{'menu.class.IOStudentList' | translate}}</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/checkclasses" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa fa-bar-chart-o text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.manage.CheckClass' | translate}}</span>
+                        <small class="text-muted text-u-c">{{'menu.student.manage.CheckClass' | translate}}</small>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager>">
+                <a routerLink="/studentbirthdays" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"> </i>
+                        <i class="fa fa-birthday-cake text-white" id="countbirthday" runat="server"> 0</i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.student.manage.BirthdayStudent' | translate}}</span>
+                        <small class="text-muted text-u-c">{{'menu.student.manage.BirthdayStudent' | translate}}</small>
+                    </span>
+                </a>
+            </div>
+            
         </div>
     </div>
 </div>

@@ -15,27 +15,112 @@
 <div [@fadeInOut]>
     <div class="statistic">
         <div class="row">
-            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
-                <a routerLink="/mn_student_categories_classes" class="block padder-v hover">
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/payments" class="block padder-v hover">
                     <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
-                        <i class="fa fa-university icon text-white"></i>
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-fax icon text-white"></i>
                     </span>
                     <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Class' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Class' | translate}}"</small>
+                        <span class="h3 block m-t-xs text-warning">{{'menu.accountant.IsPayment' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.accountant.IsPayment' | translate}}"</small>
                     </span>
                 </a>
             </div>
-            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
-                <a routerLink="/mn_student_categories_student" class="block padder-v hover">
+
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/paymentvouchers" class="block padder-v hover">
                     <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-success-dker hover-rotate"></i>
-                        <i class="fa fa-user-o icon text-white"></i>
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-fax icon text-white"></i>
                     </span>
                     <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Learning' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Learning' | translate}}"</small>
+                        <span class="h3 block m-t-xs text-warning">{{'menu.accountant.IsPaymentFalse' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.accountant.IsPaymentFalse' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/paymentlist" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-tasks icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.accountant.ReportSummarize' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.accountant.ReportSummarizeDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/paymentdetaillist" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-tasks icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.accountant.ReportDetail' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.accountant.ReportDetailDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 m-t text-center btn-manager">
+                <a routerLink="/deptslist" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-suitcase icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.Dept' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.DeptDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 m-t text-center btn-manager">
+                <a routerLink="/profitslist" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-money icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.accountant.Profit' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.accountant.Profit' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 m-t text-center btn-manager">
+                <a routerLink="/mn_accountant_main_accountant" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-tasks icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.accountant.Report' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.accountant.ReportDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 m-t text-center btn-manager">
+                <a routerLink="/depts" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-cogs icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.UpdateDept' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.UpdateDeptDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 m-t text-center btn-manager">
+                <a routerLink="/profits" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-cogs icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.accountant.UpdateProfit' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.accountant.UpdateProfitDes' | translate}}"</small>
                     </span>
                 </a>
             </div>
