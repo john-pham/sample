@@ -90,9 +90,9 @@ export class ClassExamineComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "examineCode", name: gT('label.examine.Code'), cellTemplate: this.nameTemplate },
-            { prop: 'examineName', name: gT('label.examine.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'mark', name: gT('label.examine.Mark'), cellTemplate: this.markTemplate },
+            { headerClass: "text-center", prop: "examineCode", name: gT('label.examine.Code'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'examineName', name: gT('label.examine.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'mark', name: gT('label.examine.Mark'), cellTemplate: this.markTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

@@ -66,18 +66,18 @@ export class ClassListsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: 'code', name: gT('label.classlist.Code'), cellTemplate: this.nameTemplate },
-            { prop: 'name', name: gT('label.classlist.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'materialName', name: gT('label.classlist.MaterialName'), cellTemplate: this.nameTemplate },
-            { prop: 'createdDate', name: gT('label.classlist.CreatedDate'), cellTemplate: this.nameTemplate },
-            { prop: 'fullName', name: gT('label.classlist.CreatedBy'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'code', name: gT('label.classlist.Code'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'name', name: gT('label.classlist.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'materialName', name: gT('label.classlist.MaterialName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'createdDate', name: gT('label.classlist.CreatedDate'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'fullName', name: gT('label.classlist.CreatedBy'), cellTemplate: this.nameTemplate },
 
-            { prop: 'supplierName', name: gT('label.classlist.SupplierName'), cellTemplate: this.nameTemplate },
-            { prop: 'startDate', name: gT('label.classlist.StartDate'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'endDate', name: gT('label.classlist.EndDate'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'supplierName', name: gT('label.classlist.SupplierName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'startDate', name: gT('label.classlist.StartDate'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'endDate', name: gT('label.classlist.EndDate'), cellTemplate: this.descriptionTemplate },
 
-            { prop: 'maxStudent', name: gT('label.classlist.MaxStudent'), cellTemplate: this.nameTemplate },
-            { prop: 'countStudent', name: gT('label.classlist.LearnStudent'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'maxStudent', name: gT('label.classlist.MaxStudent'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'countStudent', name: gT('label.classlist.LearnStudent'), cellTemplate: this.nameTemplate },
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

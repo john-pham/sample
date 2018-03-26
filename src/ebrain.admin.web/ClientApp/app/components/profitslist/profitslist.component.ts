@@ -56,12 +56,12 @@ export class ProfitsListsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: 'code', name: gT('label.profitslist.Code'), cellTemplate: this.nameTemplate },
-            { prop: 'name', name: gT('label.profitslist.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'totalPriceFirst', name: gT('label.profitslist.TotalPriceFirst'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'totalPriceReceipt', name: gT('label.profitslist.TotalPriceReceipt'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'totalPricePayment', name: gT('label.profitslist.TotalPricePayment'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'totalPriceEnd', name: gT('label.profitslist.TotalPriceEnd'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'code', name: gT('label.profitslist.Code'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'name', name: gT('label.profitslist.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'totalPriceFirst', name: gT('label.profitslist.TotalPriceFirst'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'totalPriceReceipt', name: gT('label.profitslist.TotalPriceReceipt'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.profitslist.TotalPricePayment'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'totalPriceEnd', name: gT('label.profitslist.TotalPriceEnd'), cellTemplate: this.totalPriceTemplate },
 
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];

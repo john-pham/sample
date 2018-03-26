@@ -64,12 +64,12 @@ export class MaterialsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "code", name: gT('label.material.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: 'name', name: gT('label.material.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'typeName', name: gT('label.material.TypeMaterial'), cellTemplate: this.typenameTemplate },
-            { prop: 'grpName', name: gT('label.material.GrpMaterial'), cellTemplate: this.grpnameTemplate },
-            { prop: 'sellPrice', name: gT('label.material.SellPrice'), cellTemplate: this.priceTemplate },
-            { prop: 'note', name: gT('label.material.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: "code", name: gT('label.material.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: 'name', name: gT('label.material.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'typeName', name: gT('label.material.TypeMaterial'), cellTemplate: this.typenameTemplate },
+            { headerClass: "text-center", prop: 'grpName', name: gT('label.material.GrpMaterial'), cellTemplate: this.grpnameTemplate },
+            { headerClass: "text-center", prop: 'sellPrice', name: gT('label.material.SellPrice'), cellTemplate: this.priceTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.material.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

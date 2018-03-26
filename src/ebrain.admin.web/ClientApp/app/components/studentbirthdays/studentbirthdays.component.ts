@@ -59,13 +59,13 @@ export class StudentBirthdaysComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "code", name: gT('label.student.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: 'name', name: gT('label.student.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'phone', name: gT('label.student.Phone'), cellTemplate: this.typenameTemplate },
-            { prop: 'birthday', name: gT('label.student.Birthday'), cellTemplate: this.typenameTemplate },
-            { prop: 'email', name: gT('label.student.Email'), cellTemplate: this.grpnameTemplate },
-            { prop: 'genderName', name: gT('label.student.Sex'), cellTemplate: this.grpnameTemplate },
-            { prop: 'totalDay', name: gT('label.student.TotalDay'), cellTemplate: this.descriptionTemplate }
+            { headerClass: "text-center", prop: "code", name: gT('label.student.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: 'name', name: gT('label.student.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'phone', name: gT('label.student.Phone'), cellTemplate: this.typenameTemplate },
+            { headerClass: "text-center", prop: 'birthday', name: gT('label.student.Birthday'), cellTemplate: this.typenameTemplate },
+            { headerClass: "text-center", prop: 'email', name: gT('label.student.Email'), cellTemplate: this.grpnameTemplate },
+            { headerClass: "text-center", prop: 'genderName', name: gT('label.student.Sex'), cellTemplate: this.grpnameTemplate },
+            { headerClass: "text-center", prop: 'totalDay', name: gT('label.student.TotalDay'), cellTemplate: this.descriptionTemplate }
         ];
 
         //

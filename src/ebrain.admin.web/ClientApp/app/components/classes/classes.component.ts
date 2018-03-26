@@ -85,17 +85,17 @@ export class ClassesComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columnTimes = [
-            { prop: "todayName", name: gT('label.class.Today'), cellTemplate: this.nameTemplate },
-            { prop: 'startTime', name: gT('label.class.StartTime'), cellTemplate: this.nameTemplate },
-            { prop: 'endTime', name: gT('label.class.EndTime'), cellTemplate: this.descriptionTemplate },
-            { prop: 'roomName', name: gT('label.class.Room'), cellTemplate: this.descriptionTemplate },
-            { prop: 'supplierName', name: gT('label.class.Teacher'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: "todayName", name: gT('label.class.Today'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'startTime', name: gT('label.class.StartTime'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'endTime', name: gT('label.class.EndTime'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'roomName', name: gT('label.class.Room'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'supplierName', name: gT('label.class.Teacher'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         this.columnStudents = [
-            { prop: "fullName", name: gT('label.class.Student'), cellTemplate: this.nameTemplate },
-            { prop: 'address', name: gT('label.class.Address'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "fullName", name: gT('label.class.Student'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'address', name: gT('label.class.Address'), cellTemplate: this.nameTemplate },
             { name: '', width: 100, cellTemplate: this.actionStudentsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

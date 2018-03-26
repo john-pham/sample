@@ -61,12 +61,12 @@ export class BranchesComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "code", name: gT('label.branch.Code'), width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: "logo.name", name: '', width: 30, cellTemplate: this.logoTemplate },
-            { prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'email', name: gT('label.branch.Email'), cellTemplate: this.descriptionTemplate },
-            { prop: 'address', name: gT('label.branch.Address'), cellTemplate: this.descriptionTemplate },
-            { prop: 'id', name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { headerClass: "text-center", prop: "code", name: gT('label.branch.Code'), width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: "logo.name", name: '', width: 30, cellTemplate: this.logoTemplate },
+            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'email', name: gT('label.branch.Email'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'address', name: gT('label.branch.Address'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'id', name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //

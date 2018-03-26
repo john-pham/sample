@@ -75,25 +75,25 @@ export class IOInputsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columnmaterials = [
-            { prop: "code", name: gT('label.material.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: 'name', name: gT('label.material.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'typeName', name: gT('label.material.TypeMaterial'), cellTemplate: this.typenameTemplate },
-            { prop: 'grpName', name: gT('label.material.GrpMaterial'), cellTemplate: this.grpnameTemplate },
-            { prop: 'sellPrice', name: gT('label.material.SellPrice'), cellTemplate: this.priceMaterialTemplate },
-            { prop: 'note', name: gT('label.material.Note'), cellTemplate: this.descriptionTemplate }
+            { headerClass: "text-center", prop: "code", name: gT('label.material.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: 'name', name: gT('label.material.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'typeName', name: gT('label.material.TypeMaterial'), cellTemplate: this.typenameTemplate },
+            { headerClass: "text-center", prop: 'grpName', name: gT('label.material.GrpMaterial'), cellTemplate: this.grpnameTemplate },
+            { headerClass: "text-center", prop: 'sellPrice', name: gT('label.material.SellPrice'), cellTemplate: this.priceMaterialTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.material.Note'), cellTemplate: this.descriptionTemplate }
         ];
 
         this.columns = [
-            { prop: 'typeMaterial', name: gT('label.iostudent.TypeMaterial'), cellTemplate: this.typenameTemplate },
-            { prop: 'grpMaterial', name: gT('label.iostudent.GrpMaterial'), cellTemplate: this.grpnameTemplate },
+            { headerClass: "text-center", prop: 'typeMaterial', name: gT('label.iostudent.TypeMaterial'), cellTemplate: this.typenameTemplate },
+            { headerClass: "text-center", prop: 'grpMaterial', name: gT('label.iostudent.GrpMaterial'), cellTemplate: this.grpnameTemplate },
 
-            { prop: "materialCode", name: gT('label.iostudent.MaterialCode'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: 'materialName', name: gT('label.iostudent.MaterialName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "materialCode", name: gT('label.iostudent.MaterialCode'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: 'materialName', name: gT('label.iostudent.MaterialName'), cellTemplate: this.nameTemplate },
 
-            { prop: 'quantity', name: gT('label.iostudent.Quantity'), cellTemplate: this.quantityTemplate },
-            { prop: 'sellPrice', name: gT('label.iostudent.Price'), cellTemplate: this.priceTemplate },
-            { prop: 'totalPrice', name: gT('label.iostudent.TotalPrice'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'note', name: gT('label.iostudent.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'quantity', name: gT('label.iostudent.Quantity'), cellTemplate: this.quantityTemplate },
+            { headerClass: "text-center", prop: 'sellPrice', name: gT('label.iostudent.Price'), cellTemplate: this.priceTemplate },
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.iostudent.TotalPrice'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.iostudent.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

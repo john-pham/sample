@@ -56,14 +56,14 @@ export class InventoriesListsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: 'code', name: gT('label.inventorieslist.Code'), cellTemplate: this.nameTemplate },
-            { prop: 'name', name: gT('label.inventorieslist.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'typeName', name: gT('label.inventorieslist.TypeName'), cellTemplate: this.nameTemplate },
-            { prop: 'grpName', name: gT('label.inventorieslist.GrpName'), cellTemplate: this.nameTemplate },
-            { prop: 'quantityInv', name: gT('label.inventorieslist.QuantityInv'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'quantityInput', name: gT('label.inventorieslist.QuantityInput'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'quantityOutput', name: gT('label.inventorieslist.QuantityOutput'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'quantityEnd', name: gT('label.inventorieslist.QuantityEnd'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'code', name: gT('label.inventorieslist.Code'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'name', name: gT('label.inventorieslist.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'typeName', name: gT('label.inventorieslist.TypeName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'grpName', name: gT('label.inventorieslist.GrpName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'quantityInv', name: gT('label.inventorieslist.QuantityInv'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'quantityInput', name: gT('label.inventorieslist.QuantityInput'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'quantityOutput', name: gT('label.inventorieslist.QuantityOutput'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'quantityEnd', name: gT('label.inventorieslist.QuantityEnd'), cellTemplate: this.totalPriceTemplate },
 
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];

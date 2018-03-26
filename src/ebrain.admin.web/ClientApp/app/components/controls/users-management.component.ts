@@ -64,13 +64,13 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "index", name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
-            { prop: 'jobTitle', name: gT('users.management.Title'), width: 50 },
-            { prop: 'userName', name: gT('users.management.UserName'), width: 90, cellTemplate: this.userNameTemplate },
-            { prop: 'fullName', name: gT('users.management.FullName'), width: 120 },
-            { prop: 'email', name: gT('users.management.Email'), width: 140 },
-            { prop: 'roles', name: gT('users.management.Roles'), width: 120, cellTemplate: this.rolesTemplate },
-            { prop: 'phoneNumber', name: gT('users.management.PhoneNumber'), width: 100 }
+            { headerClass: "text-center", prop: "index", name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
+            { headerClass: "text-center", prop: 'jobTitle', name: gT('users.management.Title'), width: 50 },
+            { headerClass: "text-center", prop: 'userName', name: gT('users.management.UserName'), width: 90, cellTemplate: this.userNameTemplate },
+            { headerClass: "text-center", prop: 'fullName', name: gT('users.management.FullName'), width: 120 },
+            { headerClass: "text-center", prop: 'email', name: gT('users.management.Email'), width: 140 },
+            { headerClass: "text-center", prop: 'roles', name: gT('users.management.Roles'), width: 120, cellTemplate: this.rolesTemplate },
+            { headerClass: "text-center", prop: 'phoneNumber', name: gT('users.management.PhoneNumber'), width: 100 }
         ];
 
         if (this.canManageUsers)

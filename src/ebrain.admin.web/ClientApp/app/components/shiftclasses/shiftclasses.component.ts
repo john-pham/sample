@@ -48,9 +48,9 @@ export class ShiftclassesComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "code", name: gT('label.shiftclass.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: 'name', name: gT('label.shiftclass.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'note', name: gT('label.shiftclass.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: "code", name: gT('label.shiftclass.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: 'name', name: gT('label.shiftclass.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.shiftclass.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

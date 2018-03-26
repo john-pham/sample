@@ -48,9 +48,9 @@ export class ExamineComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "code", name: gT('label.examine.Code'), cellTemplate: this.nameTemplate },
-            { prop: 'name', name: gT('label.examine.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'note', name: gT('label.examine.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: "code", name: gT('label.examine.Code'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'name', name: gT('label.examine.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.examine.Note'), cellTemplate: this.descriptionTemplate },
            { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

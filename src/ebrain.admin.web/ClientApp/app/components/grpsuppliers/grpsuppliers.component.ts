@@ -48,9 +48,9 @@ export class GrpsuppliersComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: 'code', width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate},
-            { prop: 'name', name: gT('label.grpsupplier.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'note', width: 100, name: gT('label.grpsupplier.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'code', width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate},
+            { headerClass: "text-center", prop: 'name', name: gT('label.grpsupplier.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'note', width: 100, name: gT('label.grpsupplier.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

@@ -56,15 +56,15 @@ export class IODetailsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: 'code', name: gT('label.iostudentlist.Code'), cellTemplate: this.nameTemplate },
-            { prop: 'createDate', name: gT('label.iostudentlist.CreateDate'), cellTemplate: this.nameTemplate },
-            { prop: 'fullName', name: gT('label.iostudentlist.CreateUser'), cellTemplate: this.nameTemplate },
-            { prop: 'studentName', name: gT('label.iostudentlist.Student'), cellTemplate: this.nameTemplate },
-            { prop: 'materialCode', name: gT('label.iostudentlist.MaterialCode'), cellTemplate: this.nameTemplate },
-            { prop: 'materialName', name: gT('label.iostudentlist.MaterialName'), cellTemplate: this.nameTemplate },
-            { prop: 'quantity', name: gT('label.iostudentlist.Quantity'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'totalPrice', name: gT('label.iostudentlist.TotalPrice'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'note', name: gT('label.iostudentlist.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'code', name: gT('label.iostudentlist.Code'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'createDate', name: gT('label.iostudentlist.CreateDate'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'fullName', name: gT('label.iostudentlist.CreateUser'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'studentName', name: gT('label.iostudentlist.Student'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'materialCode', name: gT('label.iostudentlist.MaterialCode'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'materialName', name: gT('label.iostudentlist.MaterialName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'quantity', name: gT('label.iostudentlist.Quantity'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.iostudentlist.TotalPrice'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.iostudentlist.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

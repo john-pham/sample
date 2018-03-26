@@ -57,13 +57,13 @@ export class MaterialLearnsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: 'code', name: gT('label.materialLearn.Code'), cellTemplate: this.grpnameTemplate },
-            //{ prop: "code", name: gT('label.materialLearn.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: 'name', name: gT('label.materialLearn.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'typeName', name: gT('label.materialLearn.Learning'), cellTemplate: this.typenameTemplate },
-            //{ prop: 'grpName', name: gT('label.materialLearn.LevelClass'), cellTemplate: this.grpnameTemplate },
-            { prop: 'note', name: gT('label.materialLearn.Note'), cellTemplate: this.descriptionTemplate },
-            { prop: 'id', name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { headerClass: "text-center", prop: 'code', name: gT('label.materialLearn.Code'), cellTemplate: this.grpnameTemplate },
+            //{ headerClass: "text-center", prop: "code", name: gT('label.materialLearn.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: 'name', name: gT('label.materialLearn.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'typeName', name: gT('label.materialLearn.Learning'), cellTemplate: this.typenameTemplate },
+            //{ headerClass: "text-center", prop: 'grpName', name: gT('label.materialLearn.LevelClass'), cellTemplate: this.grpnameTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.materialLearn.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'id', name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //

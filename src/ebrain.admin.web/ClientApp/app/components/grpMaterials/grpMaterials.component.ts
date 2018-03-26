@@ -51,10 +51,10 @@ export class GrpMaterialsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "code", name: gT('label.grpMaterial.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: 'name', name: gT('label.grpMaterial.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'typeMaterialName', name: gT('label.grpMaterial.TypeMaterialName'), cellTemplate: this.descriptionTemplate },
-            { prop: 'note', name: gT('label.grpMaterial.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: "code", name: gT('label.grpMaterial.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: 'name', name: gT('label.grpMaterial.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'typeMaterialName', name: gT('label.grpMaterial.TypeMaterialName'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.grpMaterial.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

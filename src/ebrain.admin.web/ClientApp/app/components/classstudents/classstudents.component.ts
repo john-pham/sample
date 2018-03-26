@@ -80,11 +80,11 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { prop: "code", name: gT('label.class.Code'), cellTemplate: this.nameTemplate },
-            { prop: 'name', name: gT('label.class.Name'), cellTemplate: this.nameTemplate },
-            { prop: 'materialName', name: gT('label.class.MaterialLearn'), cellTemplate: this.descriptionTemplate },
-            { prop: 'startDate', name: gT('label.class.StartDate'), cellTemplate: this.descriptionTemplate },
-            { prop: 'endDate', name: gT('label.class.EndDate'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: "code", name: gT('label.class.Code'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'name', name: gT('label.class.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'materialName', name: gT('label.class.MaterialLearn'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'startDate', name: gT('label.class.StartDate'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'endDate', name: gT('label.class.EndDate'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

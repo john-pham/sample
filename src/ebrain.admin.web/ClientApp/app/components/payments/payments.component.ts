@@ -86,23 +86,23 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columnios = [
-            { prop: "code", name: gT('label.payment.IONumber'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { prop: 'createDate', name: gT('label.payment.CreatedDate'), cellTemplate: this.typenameTemplate },
+            { headerClass: "text-center", prop: "code", name: gT('label.payment.IONumber'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: 'createDate', name: gT('label.payment.CreatedDate'), cellTemplate: this.typenameTemplate },
 
-            { prop: 'studentName', name: gT('label.payment.StudentName'), cellTemplate: this.nameTemplate },
-            { prop: 'fullName', name: gT('label.payment.CreatedBy'), cellTemplate: this.typenameTemplate },
-            { prop: 'totalPrice', name: gT('label.payment.TotalPriceIO'), cellTemplate: this.grpnameTemplate },
-            { prop: 'totalPricePayment', name: gT('label.payment.TotalPricePay'), cellTemplate: this.priceMaterialTemplate },
-            { prop: 'totalPriceExist', name: gT('label.payment.TotalExist'), cellTemplate: this.descriptionTemplate }
+            { headerClass: "text-center", prop: 'studentName', name: gT('label.payment.StudentName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'fullName', name: gT('label.payment.CreatedBy'), cellTemplate: this.typenameTemplate },
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPriceIO'), cellTemplate: this.grpnameTemplate },
+            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePay'), cellTemplate: this.priceMaterialTemplate },
+            { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalExist'), cellTemplate: this.descriptionTemplate }
         ];
 
         this.columns = [
-            { prop: 'code', name: gT('label.payment.IONumber'), cellTemplate: this.typenameTemplate },
+            { headerClass: "text-center", prop: 'code', name: gT('label.payment.IONumber'), cellTemplate: this.typenameTemplate },
 
-            { prop: 'totalPrice', name: gT('label.payment.TotalPrice'), cellTemplate: this.totalPriceTemplate },
-            { prop: 'totalPricePayment', name: gT('label.payment.TotalPricePayment'), cellTemplate: this.totalPricePaymentTemplate },
-            { prop: 'totalPriceExist', name: gT('label.payment.TotalPriceRest'), cellTemplate: this.totalPriceResTemplate },
-            { prop: 'note', name: gT('label.payment.Note'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPrice'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePayment'), cellTemplate: this.totalPricePaymentTemplate },
+            { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalPriceRest'), cellTemplate: this.totalPriceResTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.payment.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
