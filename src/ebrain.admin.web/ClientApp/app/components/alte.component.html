@@ -297,7 +297,20 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">TỔNG QUAN</li>
-                <li class="active treeview menu-open">
+                <li class="treeview menu-open">
+                    <a routerLink="/mn_main_function">
+                        <i class="fa fa-dashboard"></i> <span>{{'menu.main.Function' | translate}}</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a routerLink="/actionanalyst"><i class="fa fa-bold"></i> {{'menu.function.ActionAnalyst' | translate}}</a></li>
+                        <li><a routerLink="/investors"><i class="fa fa-university"></i> {{'menu.function.PlanInvestor' | translate}}</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview menu-open">
                     <a routerLink="/mn_main_categories">
                         <i class="fa fa-dashboard"></i> <span>{{'menu.main.Categories' | translate}}</span>
                         <span class="pull-right-container">
@@ -326,9 +339,9 @@
 
                 <li class="treeview">
                     <a routerLink="/mn_main_educate">
-                        <i class="fa fa-dashboard"></i> <span>{{'menu.main.Educate' | translate}}</span>
+                        <i class="fa fa-university"></i> <span>{{'menu.main.Educate' | translate}}</span>
                         <span class="pull-right-container">
-                            <i class="fa fa-accusoft pull-right"></i>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
@@ -352,23 +365,29 @@
                 </li>
 
                 <li class="treeview">
-                    <a routerLink="/mn_stock_main_stock">
-                        <i class="fa fa-files-o"></i>
+                    <a routerLink="/mn_main_stock">
+                        <i class="fa fa-shopping-cart"></i>
                         <span>{{'mainMenu.mn-stocks' | translate}}</span>
                         <span class="pull-right-container">
-                            <span class="label label-primary pull-right">4</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/mn_stock_categories_stock"><i class="fa fa-th"></i> {{'menu.stock.Categroies' | translate}}</a></li>
-                        <li><a routerLink="/mn_stock_inputs_stock"><i class="fa fa-edit"></i> {{'menu.stock.IOInputDes' | translate}}</a></li>
-                        <li><a routerLink="/mn_stock_manages_stock"><i class="fa fa-table"></i> {{'menu.stock.ManageIO' | translate}}</a></li>
-                        <li><a routerLink="/mn_stock_reports_stock"><i class="fa fa-calendar"></i> {{'menu.stock.ReportIO' | translate}}</a></li>
+                        <li><a routerLink="/mn_stock_inputs_stock"><i class="fa fa-shopping-cart"></i> {{'menu.stock.PurchaseOrder' | translate}}</a></li>
+                        <li><a routerLink="/ioinputs"><i class="fa fa-hand-holding-box"></i> {{'menu.stock.InputStock' | translate}}</a></li>
+                        <li><a routerLink="/iostudentlist"><i class="fa fa-tasks"></i> {{'menu.stock.OutputStockList' | translate}}</a></li>
+                        <li><a routerLink="/iostudents"><i class="fa fa-shipping-fast"></i> {{'menu.stock.OutputStock' | translate}}</a></li>
+
+                        <li><a routerLink="/iosummarizes"><i class="fa fa-warehouse-alt"></i> {{'menu.stock.SumaryInput' | translate}}</a></li>
+                        <li><a routerLink="/iodetails"><i class="fa fa-warehouse"></i> {{'menu.stock.DetailInput' | translate}}</a></li>
+                        <li><a routerLink="/stockcards"><i class="fa fa-shipping-fast"></i> {{'menu.stock.StockCard' | translate}}</a></li>
+                        <li><a routerLink="/inventorieslist"><i class="fa fa-suitcase"></i> {{'menu.stock.StockInventoryDes' | translate}}</a></li>
+                        <li><a routerLink="/inventories"><i class="fa fa-cogs"></i> {{'menu.stock.UpdateInventory' | translate}}</a></li>
                     </ul>
                 </li>
 
                 <li class="treeview">
-                    <a routerLink="/mn_accountant_main_accountant">
+                    <a routerLink="/mn_main_accountant">
                         <i class="fa fa-pie-chart"></i>
                         <span>{{'mainMenu.mn-finances' | translate}}</span>
                         <span class="pull-right-container">
@@ -376,28 +395,29 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/mn_accountant_promotion_accountant"><i class="fa fa-envelope"></i> {{'menu.accountant.Promotions' | translate}}</a></li>
-                        <li><a routerLink="/mn_accountant_payment_accountant"><i class="fa fa-folder"></i> {{'menu.accountant.Payment' | translate}}</a></li>
-                        <li><a routerLink="/mn_accountant_main_accountant"><i class="fa fa-share"></i> {{'menu.accountant.Dept' | translate}}</a></li>
-                        <li><a routerLink="/mn_accountant_main_accountant"><i class="fa fa-book"></i> {{'menu.accountant.Report' | translate}}</a></li>
+                        <li><a routerLink="/payments"><i class="fa fa-fax"></i> {{'menu.accountant.IsPayment' | translate}}</a></li>
+                        <li><a routerLink="/paymentvouchers"><i class="fa fa-fax"></i> {{'menu.accountant.IsPaymentFalse' | translate}}</a></li>
+                        <li><a routerLink="/paymentlist"><i class="fa fa-tasks"></i> {{'menu.accountant.ReportSummarize' | translate}}</a></li>
+                        <li><a routerLink="/paymentdetaillist"><i class="fa fa-tasks"></i> {{'menu.accountant.ReportDetailDes' | translate}}</a></li>
+                        <li><a routerLink="/deptslist"><i class="fa fa-suitcase"></i> {{'menu.accountant.Dept' | translate}}</a></li>
+                        <li><a routerLink="/profitslist"><i class="fa fa-money"></i> {{'menu.accountant.Profit' | translate}}</a></li>
+                        <li><a routerLink="/depts"><i class="fa fa-cogs"></i> {{'menu.stock.UpdateDept' | translate}}</a></li>
+                        <li><a routerLink="/profits"><i class="fa fa-cogs"></i> {{'menu.accountant.UpdateProfit' | translate}}</a></li>
                     </ul>
                 </li>
 
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-laptop"></i>
-                        <span>Người Dùng</span>
+                    <a routerLink="/mn_main_sms">
+                        <i class="fa fa-pie-chart"></i>
+                        <span>{{'menu.main.SMS' | translate}}</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/#"><i class="fa fa-circle-o text-red"></i> Thông báo</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o text-yellow"></i> Email, Sms</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o text-aqua"></i> Tài liệu</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o"></i> Cài đặt</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o"></i> Quản trị User</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o"></i> Cơ sở</a></li>
+                        <li><a routerLink="/sendsms"><i class="fa fa-fax"></i> {{'menu.sms.SendSMS' | translate}}</a></li>
+                        <li><a routerLink="/historysms"><i class="fa fa-fax"></i> {{'menu.sms.HistorySMS' | translate}}</a></li>
+                       
                     </ul>
                 </li>
             </ul>

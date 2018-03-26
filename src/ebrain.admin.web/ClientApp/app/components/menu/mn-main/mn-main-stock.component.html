@@ -1,0 +1,128 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                {{'menu.main.Stock' | translate}}
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div [@fadeInOut]>
+    <div class="statistic">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/mn_stock_inputs_stock" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-shopping-cart icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrder' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrder' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/ioinputs" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-cart-plus icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.InputStock' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.InputStock' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/iostudentlist" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-tasks icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.OutputStockList' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.OutputStockList' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/iostudents" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-delicious icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.OutputStock' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.OutputStock' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/iosummarizes" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-dribbble icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.SumaryInput' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.SumaryInput' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/iodetails" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-dropbox icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.DetailInput' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.DetailInput' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/mn_student_categories" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-balance-scale icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.StockCard' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.StockCard' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/inventorieslist" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-suitcase icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.StockInventory' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.StockInventoryDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/inventories" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-cogs icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'menu.stock.UpdateInventory' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'menu.stock.UpdateInventoryDes' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -207,6 +207,12 @@ import { ConsultantsComponent } from "./components/consultants/consultants.compo
 
 import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 import { mn_main_educateComponent } from "./components/menu/mn-main/mn-main-educate.component";
+import { mn_main_accountantComponent } from "./components/menu/mn-main/mn-main-accountant.component";
+import { mn_main_stockComponent } from "./components/menu/mn-main/mn-main-stock.component";
+import { mn_main_systemComponent } from "./components/menu/mn-main/mn-main-system.component";
+import { mn_main_smsComponent } from "./components/menu/mn-main/mn-main-sms.component";
+import { mn_main_functionComponent } from "./components/menu/mn-main/mn-main-function.component";
+import { mn_main_reportComponent } from "./components/menu/mn-main/mn-main-report.component";
 
 import { mn_stocksComponent } from "./components/menu/mn-stocks.component";
 import { mn_studentsComponent } from "./components/menu/mn-students.component";
@@ -336,8 +342,14 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         ShiftclassesComponent,
         ConsultantsComponent,
 
+        mn_main_accountantComponent,
         mn_main_categoriesComponent,
         mn_main_educateComponent,
+        mn_main_stockComponent,
+        mn_main_systemComponent,
+        mn_main_smsComponent,
+        mn_main_functionComponent,
+        mn_main_reportComponent,
 
         mn_stocksComponent,
         mn_studentsComponent,

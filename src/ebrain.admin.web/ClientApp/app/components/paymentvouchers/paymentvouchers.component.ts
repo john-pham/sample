@@ -222,7 +222,6 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
 
     private getIOID() {
         if (this.pointer.id == null || this.pointer.id.length == 0) {
-            alert(10);
             this.route.paramMap
                 .switchMap((params: ParamMap) => {
                     //get io
