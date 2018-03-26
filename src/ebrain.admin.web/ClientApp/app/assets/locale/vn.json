@@ -651,7 +651,9 @@
   "menu": {
     "main": {
       "Educate": "Đào tạo",
-      "Categories": "Danh mục"
+      "Categories": "Danh mục",
+      "Accountant": "Kế toán",
+      "Stock": "Kho hàng"
     },
     "stock": {
       "Branch": "Cơ sở",
