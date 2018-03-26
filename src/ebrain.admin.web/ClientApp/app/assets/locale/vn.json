@@ -649,12 +649,21 @@
     "Mark": "Điểm"
   },
   "menu": {
+    "sms": {
+      "SendSMS": "Gửi tin",
+      "HistorySMS": "Lịch sử"
+    },
+    "function": {
+      "ActionAnalyst": "Phân tích hoạt động",
+      "PlanInvestor": "Dự đoán đầu tư"
+    },
     "main": {
       "Educate": "Đào tạo",
       "Categories": "Danh mục",
       "Accountant": "Kế toán",
       "Stock": "Kho hàng",
-      "Function":  "Chức năng"
+      "Function": "Chức năng",
+      "SMS": "SMS"
     },
     "stock": {
       "Branch": "Cơ sở",

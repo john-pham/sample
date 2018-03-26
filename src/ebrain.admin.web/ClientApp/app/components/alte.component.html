@@ -298,6 +298,19 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">TỔNG QUAN</li>
                 <li class="treeview menu-open">
+                    <a routerLink="/mn_main_function">
+                        <i class="fa fa-dashboard"></i> <span>{{'menu.main.Function' | translate}}</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a routerLink="/actionanalyst"><i class="fa fa-bold"></i> {{'menu.function.ActionAnalyst' | translate}}</a></li>
+                        <li><a routerLink="/investors"><i class="fa fa-university"></i> {{'menu.function.PlanInvestor' | translate}}</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview menu-open">
                     <a routerLink="/mn_main_categories">
                         <i class="fa fa-dashboard"></i> <span>{{'menu.main.Categories' | translate}}</span>
                         <span class="pull-right-container">
@@ -394,20 +407,17 @@
                 </li>
 
                 <li class="treeview">
-                    <a >
-                        <i class="fa fa-laptop"></i>
-                        <span>Người Dùng</span>
+                    <a routerLink="/mn_main_sms">
+                        <i class="fa fa-pie-chart"></i>
+                        <span>{{'menu.main.SMS' | translate}}</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/#"><i class="fa fa-circle-o text-red"></i> Thông báo</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o text-yellow"></i> Email, Sms</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o text-aqua"></i> Tài liệu</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o"></i> Cài đặt</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o"></i> Quản trị User</a></li>
-                        <li><a routerLink="/#"><i class="fa fa-circle-o"></i> Cơ sở</a></li>
+                        <li><a routerLink="/sendsms"><i class="fa fa-fax"></i> {{'menu.sms.SendSMS' | translate}}</a></li>
+                        <li><a routerLink="/historysms"><i class="fa fa-fax"></i> {{'menu.sms.HistorySMS' | translate}}</a></li>
+                       
                     </ul>
                 </li>
             </ul>
