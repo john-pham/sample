@@ -13,33 +13,30 @@
     </div>
 </header>
 
-<div class="row control-box">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" (click)="addnew()">
-                    <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
-                </button>
-                <button type="button" class="btn btn-info" (click)="showmaterial(template)">
-                    <span class="glyphicon glyphicon-search"></span> {{'button.SearchMaterial' | translate}}
-                </button>
-                <button type="button" class="btn btn-primary" (click)="save()">
-                    <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
-                </button>
-                <button *ngIf="pointer.id?.length > 0" type="button" class="btn btn-success"
-                        routerLink="/paymentio/?ioid={{pointer.id}}" (click)="goPayment(pointer.id)">
-                    <span class="glyphicon glyphicon-user"></span> {{'button.PaymentVoucher' | translate}}
-                </button>
+<div class="control-box">    
+    <div class="modal-footer text-right">
+        <button type="button" class="btn btn-success" (click)="addnew()">
+            <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
+        </button>
+        <button type="button" class="btn btn-info" (click)="showmaterial(template)">
+            <span class="glyphicon glyphicon-search"></span> {{'button.SearchMaterial' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="save()">
+            <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
+        </button>
+        <button *ngIf="pointer.id?.length > 0" type="button" class="btn btn-success"
+                routerLink="/paymentio/?ioid={{pointer.id}}" (click)="goPayment(pointer.id)">
+            <span class="glyphicon glyphicon-user"></span> {{'button.PaymentVoucher' | translate}}
+        </button>
                
-                <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-warning" (click)="deletemaster()">
-                    <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
-                </button>
-                <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-danger" (click)="cancelmaster()">
-                    <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
-                </button>
-            </div>
-        </div>
-    </div>
+        <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-warning" (click)="deletemaster()">
+            <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
+        </button>
+        <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-danger" (click)="cancelmaster()">
+            <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
+        </button>
+    </div>        
+    
     <div class="row">
         <div class="col-md-12">
             <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
@@ -49,8 +46,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.iostudent.Code' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.iostudent.Code' | translate}}</label>
+                    <div class="col-md-10">
                         <input class="form-control" type="text" [(ngModel)]="pointer.code" required disabled>
                     </div>
                 </div>
@@ -58,8 +55,8 @@
 
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.iostudent.CreateDate' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.iostudent.CreateDate' | translate}}</label>
+                    <div class="col-md-10">
                         <input class="form-control" type="text" bsDatepicker [(ngModel)]="pointer.createDate" disabled>
                     </div>
                 </div>
@@ -75,8 +72,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.iostudent.Student' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.iostudent.Student' | translate}}</label>
+                    <div class="col-md-10">
                         <select id="allstudents-info" name="allstudents" [(ngModel)]="pointer.studentId"
                                 class="form-control" required
                                 data-actions-box="false"
@@ -93,8 +90,8 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.iostudent.CreateUser' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.iostudent.CreateUser' | translate}}</label>
+                    <div class="col-md-10">
                         <select id="users-info" name="types" [(ngModel)]="pointer.createBy"
                                 class="form-control" required disabled
                                 data-live-search="true" data-actions-box="false"
@@ -120,8 +117,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-2">{{'label.iostudent.Note' | translate}}</label>
-                    <div class="col-md-10">
+                    <label class="control-label col-md-1 col-sm-2">{{'label.iostudent.Note' | translate}}</label>
+                    <div class="col-md-11 col-sm-10">
                         <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
                     </div>
                 </div>
@@ -135,59 +132,56 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <!--DATA TABLE-->
-                <ngx-datatable class="material colored-header sm table-hover"
-                               [loadingIndicator]="loadingIndicator"
-                               [rows]="rows"
-                               [rowHeight]="auto"
-                               [columns]="columns"
-                               [scrollbarV]="verticalScrollbar"
-                               [columnMode]="'force'"
-                               (activate)="onActivateMaterial($event)">
-                </ngx-datatable>
+        <div class="col-sm-12">
+            <!--DATA TABLE-->
+            <ngx-datatable class="material colored-header sm table-hover"
+                            [loadingIndicator]="loadingIndicator"
+                            [rows]="rows"
+                            [rowHeight]="auto"
+                            [columns]="columns"
+                            [scrollbarV]="verticalScrollbar"
+                            [columnMode]="'force'"
+                            (activate)="onActivateMaterial($event)">
+            </ngx-datatable>
 
-                <!-- TEMPLATEs -->
-                <ng-template #statusHeaderTemplate>
-                    <i class="fa fa-check-square-o"></i>
-                </ng-template>
+            <!-- TEMPLATEs -->
+            <ng-template #statusHeaderTemplate>
+                <i class="fa fa-check-square-o"></i>
+            </ng-template>
 
-                <ng-template #nameTemplate let-row="row" let-value="value">
-                    <span attr.title="{{value}}">
-                        {{value}}
-                    </span>
-                </ng-template>
-                <ng-template #descriptionTemplate let-row="row" let-value="value">
-                    <span attr.title="{{value}}">
-                        {{value}}
-                    </span>
-                </ng-template>
-                <ng-template #quantityTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
-                    <input class="currency-pipe" value="{{value| currencypipe}}"
-                           autofocus
-                           (blur)="updateValue(row,$event,rowIndex)" />
+            <ng-template #nameTemplate let-row="row" let-value="value">
+                <span attr.title="{{value}}">
+                    {{value}}
+                </span>
+            </ng-template>
+            <ng-template #descriptionTemplate let-row="row" let-value="value">
+                <span attr.title="{{value}}">
+                    {{value}}
+                </span>
+            </ng-template>
+            <ng-template #quantityTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <input class="currency-pipe" value="{{value| currencypipe}}"
+                        autofocus
+                        (blur)="updateValue(row,$event,rowIndex)" />
 
-                </ng-template>
+            </ng-template>
 
-                <ng-template #priceTemplate let-row="row" let-value="value">
-                    <span class="currency-pipe" attr.title="{{value | currencypipe}}">
-                        {{value}}
-                    </span>
-                </ng-template>
+            <ng-template #priceTemplate let-row="row" let-value="value">
+                <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                    {{value}}
+                </span>
+            </ng-template>
 
-                <ng-template #totalPriceTemplate let-row="row" let-value="value">
-                    <span class="currency-pipe" attr.title="{{value | currencypipe}}">
-                        {{value}}
-                    </span>
-                </ng-template>
+            <ng-template #totalPriceTemplate let-row="row" let-value="value">
+                <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                    {{value}}
+                </span>
+            </ng-template>
 
-                <ng-template #actionsTemplate let-row="row">
-                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
-                </ng-template>
-            </div>
+            <ng-template #actionsTemplate let-row="row">
+                <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+            </ng-template>
         </div>
-
     </div>
 </div>
 
@@ -198,25 +192,18 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group search-box">
-                        <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudent.searchBox' | translate}}">></search-box>
-                    </div>
+            <div class="col-sm-10">
+                <div class="form-group search-box">
+                    <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudent.searchBox' | translate}}">></search-box>
                 </div>
-                <div class="col-sm-4">
-                    <div class="navbar action-box">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="toolbaritem">
-                                <a href="javascript:;" (click)="addMaterialLearn(template)">
-                                    <i class="fa fa-plus-circle"></i> {{'label.iostudent.SearchMaterial' | translate}}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-right">
+                    <button class="btn btn-primary" (click)="addMaterialLearn(template)"><i class="fa fa-plus-circle"></i> {{'label.iostudent.SearchMaterial' | translate}}</button>
                 </div>
             </div>
         </div>
+        <br />
         <div class="row">
             <div class="col-sm-12">
                 <!--DATA TABLE-->
