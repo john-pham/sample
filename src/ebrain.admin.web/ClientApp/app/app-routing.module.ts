@@ -71,6 +71,11 @@ import { mn_learningComponent } from "./components/menu/mn-learning.component";
 import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 import { mn_main_educateComponent } from "./components/menu/mn-main/mn-main-educate.component";
 import { mn_main_accountantComponent } from "./components/menu/mn-main/mn-main-accountant.component";
+import { mn_main_stockComponent } from "./components/menu/mn-main/mn-main-stock.component";
+import { mn_main_systemComponent } from "./components/menu/mn-main/mn-main-system.component";
+import { mn_main_smsComponent } from "./components/menu/mn-main/mn-main-sms.component";
+import { mn_main_functionComponent } from "./components/menu/mn-main/mn-main-function.component";
+import { mn_main_reportComponent } from "./components/menu/mn-main/mn-main-report.component";
 
 import { mn_student_categoriesComponent } from "./components/menu/mn-student/mn-student-categories.component";
 import { mn_student_categories_studentComponent } from "./components/menu/mn-student/mn-student-categories-student.component";
@@ -117,6 +122,12 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "mn_main_categories", component: mn_main_categoriesComponent, canActivate: [AuthGuard], data: { title: "Categories" } },
             { path: "mn_main_educate", component: mn_main_educateComponent, canActivate: [AuthGuard], data: { title: "Educates" } },
             { path: "mn_main_accountant", component: mn_main_accountantComponent, canActivate: [AuthGuard], data: { title: "Accountants" } },
+
+            { path: "mn_main_stock", component: mn_main_stockComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
+            { path: "mn_main_system", component: mn_main_systemComponent, canActivate: [AuthGuard], data: { title: "Systems" } },
+            { path: "mn_main_sms", component: mn_main_smsComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
+            { path: "mn_main_function", component: mn_main_functionComponent, canActivate: [AuthGuard], data: { title: "Functions" } },
+            { path: "mn_main_report", component: mn_main_reportComponent, canActivate: [AuthGuard], data: { title: "Reports" } },
             
             { path: "mn_student_categories", component: mn_student_categoriesComponent, canActivate: [AuthGuard], data: { title: "learning" } },
             { path: "mn_student_categories_student", component: mn_student_categories_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },

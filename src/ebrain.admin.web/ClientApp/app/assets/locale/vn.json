@@ -653,7 +653,8 @@
       "Educate": "Đào tạo",
       "Categories": "Danh mục",
       "Accountant": "Kế toán",
-      "Stock": "Kho hàng"
+      "Stock": "Kho hàng",
+      "Function":  "Chức năng"
     },
     "stock": {
       "Branch": "Cơ sở",
