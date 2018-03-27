@@ -743,8 +743,8 @@
       "Learning": "Chương trình học",
       "MaterialLearn": "Khóa học",
       "Student": "Học viên",
-      "IOStudent": "Phiếu xuất học viên",
-      "IOStudentList": "Danh sách phiếu xuất học viên",
+      "IOStudent": "Thu học phí",
+      "IOStudentList": "Danh sách thu",
       "Payment": "Phiếu thu"
     },
     "student": {
