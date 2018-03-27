@@ -90,9 +90,9 @@ export class IOInputsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: "materialCode", name: gT('label.iostudent.MaterialCode'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
             { headerClass: "text-center", prop: 'materialName', name: gT('label.iostudent.MaterialName'), cellTemplate: this.nameTemplate },
 
-            { headerClass: "text-center", prop: 'quantity', name: gT('label.iostudent.Quantity'), cellTemplate: this.quantityTemplate },
-            { headerClass: "text-center", prop: 'sellPrice', name: gT('label.iostudent.Price'), cellTemplate: this.priceTemplate },
-            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.iostudent.TotalPrice'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'quantity', name: gT('label.iostudent.Quantity'), cellTemplate: this.quantityTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'sellPrice', name: gT('label.iostudent.Price'), cellTemplate: this.priceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.iostudent.TotalPrice'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'note', name: gT('label.iostudent.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];

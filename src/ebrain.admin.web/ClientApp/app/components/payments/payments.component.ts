@@ -91,8 +91,8 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
             { headerClass: "text-center", prop: 'studentName', name: gT('label.payment.StudentName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'fullName', name: gT('label.payment.CreatedBy'), cellTemplate: this.typenameTemplate },
-            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPriceIO'), cellTemplate: this.grpnameTemplate },
-            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePay'), cellTemplate: this.priceMaterialTemplate },
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPriceIO'), cellTemplate: this.grpnameTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePay'), cellTemplate: this.priceMaterialTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalExist'), cellTemplate: this.descriptionTemplate }
         ];
 

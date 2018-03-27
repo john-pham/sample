@@ -87,6 +87,10 @@ label.control-label {
             text-align: center;
         }
 
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell.text-right {
+    text-align: right;
+}
+
 .ngx-datatable .datatable-body .datatable-body-row .datatable-row-group {
     border-bottom: 1px solid #ddd;
 }
