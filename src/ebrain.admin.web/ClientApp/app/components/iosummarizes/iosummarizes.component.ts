@@ -64,7 +64,7 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'createDate', name: gT('label.iostudentlist.CreateDate'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'fullName', name: gT('label.iostudentlist.CreateUser'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'studentName', name: gT('label.iostudentlist.Student'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.iostudentlist.TotalPrice'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.iostudentlist.TotalPrice'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'note', name: gT('label.iostudentlist.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];

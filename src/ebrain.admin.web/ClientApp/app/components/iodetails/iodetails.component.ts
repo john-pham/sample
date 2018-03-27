@@ -62,8 +62,8 @@ export class IODetailsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'studentName', name: gT('label.iostudentlist.Student'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'materialCode', name: gT('label.iostudentlist.MaterialCode'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'materialName', name: gT('label.iostudentlist.MaterialName'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'quantity', name: gT('label.iostudentlist.Quantity'), cellTemplate: this.totalPriceTemplate },
-            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.iostudentlist.TotalPrice'), cellTemplate: this.totalPriceTemplate },
+            { headerClass: "text-center", prop: 'quantity', name: gT('label.iostudentlist.Quantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right'},
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.iostudentlist.TotalPrice'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'note', name: gT('label.iostudentlist.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];

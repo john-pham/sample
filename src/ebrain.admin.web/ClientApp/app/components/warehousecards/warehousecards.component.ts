@@ -62,8 +62,8 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'studentName', name: gT('label.iostudentlist.Student'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'materialCode', name: gT('label.iostudentlist.MaterialCode'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'materialName', name: gT('label.iostudentlist.MaterialName'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'quantityInput', name: gT('label.iostudentlist.QuantityInput'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'quantityOutput', name: gT('label.iostudentlist.QuantityOutput'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'quantityInput', name: gT('label.iostudentlist.QuantityInput'), cellTemplate: this.nameTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'quantityOutput', name: gT('label.iostudentlist.QuantityOutput'), cellTemplate: this.nameTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'note', name: gT('label.iostudentlist.Note'), cellTemplate: this.descriptionTemplate }
         ];
 

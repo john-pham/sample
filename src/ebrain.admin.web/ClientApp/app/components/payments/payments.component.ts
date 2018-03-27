@@ -93,15 +93,15 @@ export class PaymentsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'fullName', name: gT('label.payment.CreatedBy'), cellTemplate: this.typenameTemplate },
             { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPriceIO'), cellTemplate: this.grpnameTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePay'), cellTemplate: this.priceMaterialTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalExist'), cellTemplate: this.descriptionTemplate }
+            { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalExist'), cellTemplate: this.descriptionTemplate, cellClass: 'text-right'}
         ];
 
         this.columns = [
             { headerClass: "text-center", prop: 'code', name: gT('label.payment.IONumber'), cellTemplate: this.typenameTemplate },
 
-            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPrice'), cellTemplate: this.totalPriceTemplate },
-            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePayment'), cellTemplate: this.totalPricePaymentTemplate },
-            { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalPriceRest'), cellTemplate: this.totalPriceResTemplate },
+            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPrice'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right'},
+            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePayment'), cellTemplate: this.totalPricePaymentTemplate, cellClass: 'text-right'},
+            { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalPriceRest'), cellTemplate: this.totalPriceResTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'note', name: gT('label.payment.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
