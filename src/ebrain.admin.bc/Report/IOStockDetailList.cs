@@ -11,8 +11,9 @@ namespace ebrain.admin.bc.Report
         public Guid MaterialId { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialName { get; set; }
-        
         public decimal InputQuantity { get; set; }
+        public decimal QuantityInput { get; set; }
+        public decimal QuantityOutput { get; set; }
         public string IONumber { get; set; }
         public long IOTypeId { get; set; }
         public decimal? TotalPrice { get; set; }

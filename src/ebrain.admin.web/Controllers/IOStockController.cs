@@ -109,6 +109,43 @@ namespace Ebrain.Controllers
             return list;
         }
 
+        [HttpGet("getwarehousecard")]
+        [Produces(typeof(UserViewModel))]
+        public IEnumerable<IOStockViewModel> GetWarehouseCard(string filter, string value, string fromDate, string toDate)
+        {
+            var results = this._unitOfWork.IOStocks.GetWarehouseCard(
+                            fromDate.BuildDateTimeFromSEFormat(),
+                            toDate.BuildLastDateTimeFromSEFormat(),
+                            value,
+                            0,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId)
+                        );
+            var list = new List<IOStockViewModel>();
+            foreach (var item in results)
+            {
+                list.Add(new IOStockViewModel
+                {
+                    ID = item.IOStockId,
+                    Code = item.IONumber,
+                    FullName = item.FullName,
+                    StudentName = item.StudentName,
+                    CreateDate = item.CreatedDate,
+                    TotalPrice = item.TotalPrice,
+                    IOTypeId = (int)item.IOTypeId,
+                    Note = item.Note,
+                    StudentId = item.StudentId,
+                    IOStockDetailId = item.IOStockDetailId,
+                    MaterialId = item.MaterialId,
+                    MaterialCode = item.MaterialCode,
+                    MaterialName = item.MaterialName,
+                    Quantity = item.InputQuantity,
+                    QuantityInput = item.QuantityInput,
+                    QuantityOutput = item.QuantityOutput
+                });
+            }
+            return list;
+        }
+
         [HttpGet("getiopayment")]
         [Produces(typeof(UserViewModel))]
         public Task<IEnumerable<IOStockViewModel>> GetIOPaymentReceipt(string filter, string value, string ioId, string fromDate, string toDate)

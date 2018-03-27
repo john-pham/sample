@@ -68,6 +68,18 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
+    getWarehouseCard(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+
+        let url = this.getUrlIO('getwarehousecard?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getWarehouseCard(filter, value, fromDate, toDate));
+            });
+    }
+
     getiopayment(filter: string, value: string, ioid: string, isInput: boolean, fromDate: Date, toDate: Date): Observable<Response> {
 
         let url = "";

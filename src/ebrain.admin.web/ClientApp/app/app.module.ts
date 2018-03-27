@@ -171,6 +171,7 @@ import { IOStudenListComponent } from "./components/iostudentlists/iostudentlist
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
 import { IOSummarizesComponent } from "./components/iosummarizes/iosummarizes.component";
 import { IODetailsComponent } from "./components/iodetails/iodetails.component";
+import { WarehouseCardsComponent } from "./components/warehousecards/warehousecards.component";
 
 import { PaymentsComponent } from "./components/payments/payments.component";
 import { PaymentVouchersComponent } from "./components/paymentvouchers/paymentvouchers.component";
@@ -317,6 +318,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         IOStudenListComponent,
         IOSummarizesComponent,
         IODetailsComponent,
+        WarehouseCardsComponent,
 
         MaterialsComponent,
         MaterialLearnsComponent,

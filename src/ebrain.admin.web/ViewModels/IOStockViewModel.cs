@@ -24,6 +24,8 @@ namespace Ebrain.ViewModels
         public Guid? CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string Note { get; set; }
+        public decimal QuantityInput { get; set; }
+        public decimal QuantityOutput { get; set; }
         public decimal Quantity { get; set; }
         public decimal SellPrice { get; set; }
         public decimal? TotalPrice { get; set; }

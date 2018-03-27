@@ -40,6 +40,7 @@ import { DeptsListsComponent } from "./components/deptslists/deptslists.componen
 import { DeptsComponent } from "./components/depts/depts.component";
 
 import { IODetailsComponent } from "./components/iodetails/iodetails.component";
+import { WarehouseCardsComponent } from "./components/warehousecards/warehousecards.component";
 
 import { IOStudenListComponent } from "./components/iostudentlists/iostudentlists.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
@@ -183,6 +184,8 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "ioinputs", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "ioinputs" } },
             { path: "iosummarizes", component: IOSummarizesComponent, canActivate: [AuthGuard], data: { title: "iosummarizes" } },
             { path: "iodetails", component: IODetailsComponent, canActivate: [AuthGuard], data: { title: "iodetails" } },
+            { path: "warehousecards", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },
+
             { path: "iooutput/:id", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "Output" } },
             { path: "ioinput/:id", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "Input" } },
 

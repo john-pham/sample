@@ -48,6 +48,11 @@ export class IOStudentListService {
             .map((response: Response) => <IOStockReport[]>response.json());
     }
 
+    getWarehouseCard(filter: string, value: string, fromDate: Date, toDate: Date) {
+        return this.endpointFactory.getWarehouseCard(filter, value, fromDate, toDate)
+            .map((response: Response) => <IOStockReport[]>response.json());
+    }
+
     private initializeStatus() {
 
     }

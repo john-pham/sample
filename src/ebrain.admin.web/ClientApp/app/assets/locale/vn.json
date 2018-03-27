@@ -398,6 +398,8 @@
       "MaterialCode": "Mã hàng",
       "MaterialName": "Tên hàng",
       "Quantity": "Số lượng",
+      "QuantityInput": "Nhập",
+      "QuantityOutput": "Xuất",
       "Price": "Giá",
       "TotalPrice": "Tổng tiền",
       "HeaderMaterial": "Danh sách hàng hóa",

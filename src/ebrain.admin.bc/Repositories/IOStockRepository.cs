@@ -73,6 +73,30 @@ namespace ebrain.admin.bc.Repositories
                 throw ex;
             }
         }
+
+        public IEnumerable<IOStockDetailList> GetWarehouseCard(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds)
+        {
+            try
+            {
+                List<IOStockDetailList> someTypeList = new List<IOStockDetailList>();
+                this.appContext.LoadStoredProc("dbo.sp_WarehouseCard")
+                               .WithSqlParam("fromDate", fromDate)
+                               .WithSqlParam("toDate", toDate)
+                               .WithSqlParam("ioTypeId", ioTypeId)
+                               .WithSqlParam("branchIds", branchIds)
+                               .WithSqlParam("filterValue", filterValue).ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<IOStockDetailList>().ToList();
+                               });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IEnumerable<IOStockList> GetIOStockList(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds)
         {
             try
