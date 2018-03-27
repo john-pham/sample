@@ -343,8 +343,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
         //set item for pointer
         if (item != null) {
             this.pointer = item;
-            this.getDefault(item.id, false);
-            this.pointer = item;
             this.mappingDetail(item);
         }
     }
