@@ -79,7 +79,7 @@
     </ng-template>
     <ng-template #totalPriceTemplate let-row="row" let-value="value">
         <span class="currency-pipe" attr.title="{{value | currencypipe}}">
-            {{value}}
+            {{value | currencypipe}}
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row">
