@@ -6,6 +6,11 @@
 @import '../assets/styles/icon.css';*/
 @import '../assets/styles/ebrain.css';
 
+#app_container {
+    position: absolute;
+    width: 100%;
+}
+
 .btn-manager {
 }
 
