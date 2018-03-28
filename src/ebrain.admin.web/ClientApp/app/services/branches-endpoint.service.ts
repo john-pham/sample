@@ -71,6 +71,20 @@ export class BranchesEndpoint extends EndpointFactory {
             });
     }
 
+    saveHead(value: any): Observable<Response> {
+        let url = this.getUrl('savehead');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
     delete(id: string): Observable<Response> {
         let url = this.getUrl('remove');
         let header = this.getAuthHeader(true);
@@ -82,6 +96,19 @@ export class BranchesEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.delete(id));
+            });
+    }
+
+    getBranchHead(index: string): Observable<Response> {
+
+        let url = this.getUrl('getbranchheads?branchId=' + index + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.get(index));
             });
     }
 

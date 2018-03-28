@@ -46,6 +46,26 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public List<BranchList> GetBranchHead(string branchId)
+        {
+            try
+            {
+                List<BranchList> someTypeList = new List<BranchList>();
+                this.appContext.LoadStoredProc("dbo.sp_BranchOfBranchHead")
+                               .WithSqlParam("@branchId", branchId)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<BranchList>().ToList();
+                               });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public string GetAllBranchOfUserString(Guid userId)
         {
             return GetAllBranchOfUser(userId).Select(p => p.BranchId).ToArray().ConvertArrayGuidToString();
@@ -64,13 +84,13 @@ namespace ebrain.admin.bc.Repositories
             {
                 list = (from c in list
                         orderby c.CreatedDate descending
-                         select c).Skip(page * size).Take(size);
+                        select c).Skip(page * size).Take(size);
             }
 
             return await list.ToListAsync();
         }
 
-        public async Task<Branch> Get(Guid index)
+        public async Task<Branch> Get(Guid? index)
         {
             return await this.appContext.Branch.FirstOrDefaultAsync(p => p.BranchId == index);
         }
@@ -102,6 +122,42 @@ namespace ebrain.admin.bc.Repositories
             //
             await appContext.SaveChangesAsync();
             //
+            return item;
+        }
+
+        public async Task<Branch> SaveHead(Branch[] values, Guid? branchParentId, Guid userId)
+        {
+            var item = await Get(branchParentId);
+            if (item != null)
+            {
+                foreach (var itemHead in values)
+                {
+                    var itemExistD = this.appContext.BranchHead.FirstOrDefault(
+                            p => p.BranchParentId == branchParentId
+                            && p.BranchId == itemHead.BranchId);
+
+                    if (itemExistD != null)
+                    {
+                        itemExistD.IsDeleted = !itemHead.IsExist;
+                    }
+                    else
+                    {
+                        itemExistD = new BranchHead
+                        {
+                            BranchHeadId = Guid.NewGuid(),
+                            BranchId = itemHead.BranchId,
+                            BranchParentId = branchParentId,
+                            CreatedBy = userId,
+                            CreatedDate = DateTime.Now,
+                            UpdatedBy = userId,
+                            UpdatedDate = DateTime.Now
+                        };
+                        await appContext.BranchHead.AddAsync(itemExistD);
+                    }
+
+                    await appContext.SaveChangesAsync();
+                }
+            }
             return item;
         }
 

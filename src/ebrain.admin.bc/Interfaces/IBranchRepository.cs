@@ -19,7 +19,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     {
         int Total { get; }
 
-        Task<Branch> Get(Guid index);
+        Task<Branch> Get(Guid? index);
 
         Task<IEnumerable<Branch>> Search(string filter, string value, int page, int size);
 
@@ -30,5 +30,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         string GetAllBranchOfUserString(Guid userId);
 
         IEnumerable<BranchUser> GetAllBranchOfUser(Guid userId);
+        List<BranchList> GetBranchHead(string branchId);
+        Task<Branch> SaveHead(Branch[] values, Guid? branchParentId, Guid userId);
     }
 }

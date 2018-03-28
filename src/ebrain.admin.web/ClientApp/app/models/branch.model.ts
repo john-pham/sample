@@ -9,6 +9,7 @@ import { File } from './file.model';
 
 export class Branch {
     public id: string;
+    public parentBranchId: string;
     public name: string;
     public code: string;
     public email: string;
@@ -16,4 +17,5 @@ export class Branch {
     public phoneNumber: string;
     public fax: string;
     public logo: File;
+    public isExist: boolean;
 }

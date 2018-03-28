@@ -57,7 +57,8 @@ namespace Ebrain.Controllers
                           }
                       };
 
-            return Json(new {
+            return Json(new
+            {
                 Total = bus.Total,
                 List = ret
             });
@@ -149,6 +150,61 @@ namespace Ebrain.Controllers
                 return Ok(ret);
             }
 
+            return BadRequest(ModelState);
+        }
+
+        private Guid userId
+        {
+            get
+            {
+                return new Guid(Utilities.GetUserId(this.User));
+            }
+        }
+
+        [HttpGet("getbranchheads")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetBranchHead(string branchId)
+        {
+            // var results = await this._unitOfWork.IOStocks.Search(filter, value);
+            var results = this._unitOfWork.Branches.GetBranchHead
+                        (
+                            branchId
+                        );
+            return Ok(results.Select(item => new BranchViewModel
+            {
+                ID = item.BranchId,
+                Code = item.BranchCode,
+                Name = item.BranchName,
+                Email = item.Email,
+                Address = item.Address,
+                PhoneNumber = item.PhoneNumber,
+                IsExist = item.IsExist
+            }));
+
+        }
+
+        [HttpPost("savehead")]
+        public async Task<IActionResult> SaveHead([FromBody] BranchViewModel[] values)
+        {
+            if (ModelState.IsValid)
+            {
+                Guid? id = Guid.NewGuid();
+                var itemFirst = values[0];
+                if (itemFirst != null)
+                {
+                    id = itemFirst.ParentBranchId;
+                }
+
+                await this._unitOfWork.Branches.SaveHead(values.Select(p => new Branch
+                {
+                    BranchId = p.ID.HasValue ? p.ID.Value : Guid.NewGuid(),
+                    IsExist = p.IsExist,
+
+                }).ToArray(), id, userId);
+
+
+                return GetBranchHead(id.ToString());
+            }
             return BadRequest(ModelState);
         }
     }

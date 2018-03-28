@@ -19,6 +19,7 @@ namespace Ebrain.ViewModels
     public class BranchViewModel
     {
         public Guid? ID { get; set; }
+        public Guid? ParentBranchId { get; set; }
 
         public string Name { get; set; }
 
@@ -33,5 +34,6 @@ namespace Ebrain.ViewModels
         public string Fax { get; set; }
 
         public FileViewModel Logo { get; set; }
+        public bool IsExist { get; set; }
     }
 }

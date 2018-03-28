@@ -31,6 +31,7 @@
                    [loadingIndicator]="loadingIndicator"
                    [rows]="rows"
                    [columns]="columns"
+                   [columnMode]="'force'"
                    [scrollbarV]="verticalScrollbar"
                    [headerHeight]="50"
                    [footerHeight]="50"
@@ -69,33 +70,58 @@
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row" let-value="value">
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editHead(templateHead, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Manage' | translate}}</a>
+        |
         <a class="btn btn-link btn-xs" href="javascript:;" (click)="editBranch(template, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
         |
         <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteBranch(value)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
     </ng-template>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="subbranch-modal" tabindex="-1" role="dialog" aria-labelledby="subbranch-modalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="subbranch-modalLabel">Chí nhánh cơ sở</h4>
-            </div>
-            <div class="modal-body">
-                <div><label>HQ - HEAD QUARTER</label><input type="checkbox" /></div>
-                <div><label>CN2 - Chi nhánh 2</label><input type="checkbox" /></div>
-                <div><label>CN3 - Chi nhánh 3</label><input type="checkbox" /></div>
-                <div><label>CN3 - Chi nhánh 4</label><input type="checkbox" /></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+<ng-template #templateHead>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closeHead()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.branch.HeaderAdd' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary" (click)="saveHead()">{{'button.Save' | translate}}</button>
+                </div>
             </div>
         </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                <!--DATA TABLE-->
+                <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                               [loadingIndicator]="loadingIndicator"
+                               [rows]="rowHeads"
+                               [rowHeight]="auto"
+                               [columns]="columnHeads"
+                               [scrollbarV]="verticalScrollbar"
+                               [columnMode]="'force'">
+                </ngx-datatable>
+
+                <ng-template #checkboxTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
+                    <input type="checkbox" checked value="{{value}}"/>
+                </ng-template>
+
+                <ng-template #nameTemplate let-row="row" let-value="value">
+                    <span attr.title="{{value}}">
+                        {{value}}
+                    </span>
+                </ng-template>
+            </div>
+        </div>
+
     </div>
-</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="closeHead()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="saveHead()">{{'button.Save' | translate}}</button>
+    </div>
+</ng-template>
 
 <ng-template #template>
     <div class="modal-header">

@@ -40,9 +40,19 @@ export class BranchesService {
             .map((response: Response) => <Branch>response.json());
     }
 
+    saveHead(value: Branch[]) {
+        return this.endpointFactory.saveHead(value)
+            .map((response: Response) => <Branch[]>response.json());
+    }
+
     delete(id: string) {
         return this.endpointFactory.delete(id)
             .map((response: Response) => <Boolean>response.json());
+    }
+
+    getBranchHead(index: string) {
+        return this.endpointFactory.getBranchHead(index)
+            .map((response: Response) => <Branch[]>response.json());
     }
 
     private initializeStatus() {

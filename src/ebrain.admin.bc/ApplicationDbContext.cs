@@ -33,7 +33,7 @@ namespace ebrain.admin.bc
         public DbSet<Branch> Branch { get; set; }
         public DbSet<ConfigNumberOfCode> ConfigNumberOfCode { get; set; }
 
-        public DbSet<BranchHead> BranchHeads { get; set; }
+        public DbSet<BranchHead> BranchHead { get; set; }
         public DbSet<Class> Class { get; set; }
         public DbSet<Today> Today { get; set; }
         public DbSet<ClassHead> ClassHead { get; set; }
@@ -126,7 +126,7 @@ namespace ebrain.admin.bc
             builder.Entity<Examine>().ToTable(nameof(this.Examine));
             builder.Entity<ConfigNumberOfCode>().ToTable(nameof(this.ConfigNumberOfCode));
 
-            builder.Entity<BranchHead>().ToTable(nameof(this.BranchHeads));
+            builder.Entity<BranchHead>().ToTable(nameof(this.BranchHead));
             builder.Entity<Class>().ToTable(nameof(this.Class));
             builder.Entity<Today>().ToTable(nameof(this.Today));
             builder.Entity<ClassHead>().ToTable(nameof(this.ClassHead));

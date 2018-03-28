@@ -31,6 +31,10 @@ import { Page } from '../../models/page.model';
 export class BranchesComponent implements OnInit, OnDestroy {
     rows = [];
     columns = [];
+
+    rowHeads = [];
+    columnHeads = [];
+
     loadingIndicator: boolean = true;
 
     filterName: string;
@@ -44,6 +48,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
+    modalHeadRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: BranchesService, private modalService: BsModalService) {
         this.pointer = new Branch();
@@ -61,15 +66,20 @@ export class BranchesComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "code", name: gT('label.branch.Code'), width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { headerClass: "text-center", prop: "logo.name", name: '', width: 30, cellTemplate: this.logoTemplate },
-            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'email', name: gT('label.branch.Email'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: "code", name: gT('label.branch.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: "logo.name", name: '', cellTemplate: this.logoTemplate },
+            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'),cellTemplate: this.nameTemplate },
+            
             { headerClass: "text-center", prop: 'address', name: gT('label.branch.Address'), cellTemplate: this.descriptionTemplate },
-            { headerClass: "text-center", prop: 'id', name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
-        //
+        this.columnHeads = [
+            { headerClass: "text-center", prop: "isExist", name: gT('label.branch.Code'), width: 30, cellTemplate: this.checkboxTemplate, cellClass: 'text-center' },
+            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate }
+        ];
+
+        this.getFromServer();
     }
 
     ngOnDestroy() {
@@ -125,6 +135,19 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     }
 
+    //head
+    editHead(template: TemplateRef<any>, index: string) {
+        var disp = this.localService.getBranchHead(index).subscribe(
+            items => {
+                this.rowHeads = items;
+                //
+                this.modalHeadRef = this.modalService.show(template);
+            },
+            error => {
+            },
+            () => { disp.unsubscribe(); });
+    }
+
     onSearchChanged(value: string) {
         this.getFromServer();
     }
@@ -164,6 +187,12 @@ export class BranchesComponent implements OnInit, OnDestroy {
     }
 
     private save() {
+        this.alertService.startLoadingMessage("Saving changes...");
+
+        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+    }
+    
+    saveHead() {
         this.alertService.startLoadingMessage("Saving changes...");
 
         this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
@@ -218,6 +247,9 @@ export class BranchesComponent implements OnInit, OnDestroy {
     close() {
         this.modalRef.hide();
     }
+    closeHead() {
+        this.modalHeadRef.hide();
+    }
 
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
@@ -236,4 +268,8 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     @ViewChild('statusTemplate')
     statusTemplate: TemplateRef<any>;
+
+    @ViewChild('checkboxTemplate')
+    checkboxTemplate: TemplateRef<any>;
+
 }
