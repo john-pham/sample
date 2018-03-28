@@ -68,6 +68,14 @@
     margin-bottom: 10px;
 }
 
+.no-pd-l {
+    padding-left: 0;
+}
+
+.no-pd-r {
+    padding-right: 0;
+}
+
 textarea {
     resize: vertical;
     min-height: 60px;

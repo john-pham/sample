@@ -13,178 +13,173 @@
 </header>
 
 <div class="row control-box">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" (click)="addnew()">
-                    <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
-                </button>
-                <button type="button" class="btn btn-info" (click)="showpayment(template)">
-                    <span class="glyphicon glyphicon-search"></span> {{'button.IOStockInput' | translate}}
-                </button>
-                <button type="button" class="btn btn-primary" (click)="save()">
-                    <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
-                </button>
+
+    <div class="col-sm-12 text-right">
+        <button type="button" class="btn btn-success" (click)="addnew()">
+            <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
+        </button>
+        <button type="button" class="btn btn-info" (click)="showpayment(template)">
+            <span class="glyphicon glyphicon-search"></span> {{'button.IOStockInput' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="save()">
+            <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
+        </button>
                
-                <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-warning" (click)="deletemaster()">
-                    <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
-                </button>
-                <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-danger" (click)="cancelmaster()">
-                    <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
-                </button>
-            </div>
-        </div>
+        <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-warning" (click)="deletemaster()">
+            <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
+        </button>
+        <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-danger" (click)="cancelmaster()">
+            <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
+        </button>
+
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
         </div>
     </div>
+
     <div class="row">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.payment.Code' | translate}}</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" [(ngModel)]="pointer.code" required disabled>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.payment.CreateDate' | translate}}</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" bsDatepicker [(ngModel)]="pointer.createDate" disabled>
-                    </div>
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.payment.Code' | translate}}</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" [(ngModel)]="pointer.code" required disabled>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.payment.PaymentTypeName' | translate}}</label>
-                    <div class="col-md-8">
-                        <select name="allstudents" [(ngModel)]="pointer.paymentTypeId"
-                                class="form-control" required
-                                data-actions-box="false"
-                                data-live-search-placeholder="Search..."
-                                title="{{'label.payment.SelectStudent' | translate}}">
-                            <option *ngFor="let payment of allPaymentTypes"
-                                    attr.data-content="<span title='{{payment.name}}' class='badge'>{{payment.name}}</span>"
-                                    attr.value="{{payment.id}}">
-                                {{payment.name}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.payment.CreateUser' | translate}}</label>
-                    <div class="col-md-8">
-                        <select id="users-info" name="types" [(ngModel)]="pointer.createBy"
-                                class="form-control" required disabled
-                                data-live-search="true" data-actions-box="false"
-                                data-live-search-placeholder="Search..."
-                                title="{{'label.payment.SelectCreateUser' | translate}}">
-                            <option *ngFor="let user of allUsers"
-                                    attr.data-content="<span title='{{user.userName}}' class='badge'>{{user.fullName}}</span>"
-                                    attr.value="{{user.id}}">
-                                {{user.fullName}}
-                            </option>
-                        </select>
-                    </div>
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.payment.CreateDate' | translate}}</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" bsDatepicker [(ngModel)]="pointer.createDate" disabled>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-2">{{'label.payment.Note' | translate}}</label>
-                    <div class="col-md-10">
-                        <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
-                    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.payment.PaymentTypeName' | translate}}</label>
+                <div class="col-md-10">
+                    <select name="allstudents" [(ngModel)]="pointer.paymentTypeId"
+                            class="form-control" required
+                            data-actions-box="false"
+                            data-live-search-placeholder="Search..."
+                            title="{{'label.payment.SelectStudent' | translate}}">
+                        <option *ngFor="let payment of allPaymentTypes"
+                                attr.data-content="<span title='{{payment.name}}' class='badge'>{{payment.name}}</span>"
+                                attr.value="{{payment.id}}">
+                            {{payment.name}}
+                        </option>
+                    </select>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.payment.CreateUser' | translate}}</label>
+                <div class="col-md-10">
+                    <select id="users-info" name="types" [(ngModel)]="pointer.createBy"
+                            class="form-control" required disabled
+                            data-live-search="true" data-actions-box="false"
+                            data-live-search-placeholder="Search..."
+                            title="{{'label.payment.SelectCreateUser' | translate}}">
+                        <option *ngFor="let user of allUsers"
+                                attr.data-content="<span title='{{user.userName}}' class='badge'>{{user.fullName}}</span>"
+                                attr.value="{{user.id}}">
+                            {{user.fullName}}
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <!--DATA TABLE-->
-                <ngx-datatable class="material colored-header sm table-hover"
-                               [loadingIndicator]="loadingIndicator"
-                               [rows]="rows"
-                               [rowHeight]="auto"
-                               [columns]="columns"
-                               [scrollbarV]="verticalScrollbar"
-                               [columnMode]="'force'"
-                               (activate)="onActivateMaterial($event)">
-                </ngx-datatable>
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
 
-                <!-- TEMPLATEs -->
-                <ng-template #statusHeaderTemplate>
-                    <i class="fa fa-check-square-o"></i>
-                </ng-template>
-
-                <ng-template #nameTemplate let-row="row" let-value="value">
-                    <span attr.title="{{value}}">
-                        {{value}}
-                    </span>
-                </ng-template>
-                <ng-template #descriptionTemplate let-row="row" let-value="value">
-                    <span attr.title="{{value}}">
-                        {{value}}
-                    </span>
-                </ng-template>
-                <ng-template #totalPricePaymentTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
-                    <input class="currency-pipe" value="{{value| currencypipe}}"
-                           autofocus
-                           (blur)="updateValue(row,$event,rowIndex)" />
-
-                </ng-template>
-
-                <ng-template #priceTemplate let-row="row" let-value="value">
-                    <span class="currency-pipe" attr.title="{{value | currencypipe}}">
-                        {{value}}
-                    </span>
-                </ng-template>
-
-                <ng-template #totalPriceTemplate let-row="row" let-value="value">
-                    <input class="currency-pipe" value="{{value | currencypipe}}" disabled/>
-                </ng-template>
-
-                <ng-template #totalPriceResTemplate let-row="row" let-value="value">
-                    <input class="currency-pipe" value="{{value | currencypipe}}" disabled />
-                </ng-template>
-
-                <ng-template #actionsTemplate let-row="row">
-                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
-                </ng-template>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-1">{{'label.payment.Note' | translate}}</label>
+                <div class="col-md-11">
+                    <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
+                </div>
             </div>
         </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+
+        </div>
+    </div>
+        
+    <div class="col-sm-12">
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table-hover"
+                        [loadingIndicator]="loadingIndicator"
+                        [rows]="rows"
+                        [rowHeight]="auto"
+                        [columns]="columns"
+                        [scrollbarV]="verticalScrollbar"
+                        [columnMode]="'force'"
+                        (activate)="onActivateMaterial($event)">
+        </ngx-datatable>
+
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
+
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #totalPricePaymentTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
+            <input class="currency-pipe" value="{{value| currencypipe}}"
+                    autofocus
+                    (blur)="updateValue(row,$event,rowIndex)" />
+
+        </ng-template>
+
+        <ng-template #priceTemplate let-row="row" let-value="value">
+            <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                {{value}}
+            </span>
+        </ng-template>
+
+        <ng-template #totalPriceTemplate let-row="row" let-value="value">
+            <input class="currency-pipe" value="{{value | currencypipe}}" disabled/>
+        </ng-template>
+
+        <ng-template #totalPriceResTemplate let-row="row" let-value="value">
+            <input class="currency-pipe" value="{{value | currencypipe}}" disabled />
+        </ng-template>
+
+        <ng-template #actionsTemplate let-row="row">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+        </ng-template>
     </div>
 </div>
 
@@ -201,31 +196,25 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <div class="navbar action-box">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="toolbaritem">
-                            <a href="javascript:;" (click)="search()">
-                                <i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}
-                            </a>
-                        </li>
-                    </ul>
+                <div class="text-right">
+                    <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}</button>
                 </div>
             </div>
         </div>
         <div class="row control-box">
-            <div class="col-sm-6">
+            <div class="col-sm-6 no-pd-l">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.deptslist.FromDate' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.deptslist.FromDate' | translate}}</label>
+                    <div class="col-md-10">
                         <input class="form-control" type="text" bsDatepicker [(ngModel)]="fromDate">
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-6 no-pd-r">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-4">{{'label.deptslist.ToDate' | translate}}</label>
-                    <div class="col-md-8">
+                    <label class="control-label col-md-2">{{'label.deptslist.ToDate' | translate}}</label>
+                    <div class="col-md-10">
                         <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
                     </div>
                 </div>

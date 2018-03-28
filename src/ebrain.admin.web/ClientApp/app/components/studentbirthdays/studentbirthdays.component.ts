@@ -65,7 +65,7 @@ export class StudentBirthdaysComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'birthday', name: gT('label.student.Birthday'), cellTemplate: this.typenameTemplate },
             { headerClass: "text-center", prop: 'email', name: gT('label.student.Email'), cellTemplate: this.grpnameTemplate },
             { headerClass: "text-center", prop: 'genderName', name: gT('label.student.Sex'), cellTemplate: this.grpnameTemplate },
-            { headerClass: "text-center", prop: 'totalDay', name: gT('label.student.TotalDay'), cellTemplate: this.descriptionTemplate }
+            { headerClass: "text-center", prop: 'totalDay', name: gT('label.student.TotalDay'), cellTemplate: this.descriptionTemplate, cellClass: 'text-right' }
         ];
 
         //

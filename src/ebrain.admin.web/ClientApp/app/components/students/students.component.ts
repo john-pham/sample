@@ -81,7 +81,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: "code", name: gT('label.student.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
             { headerClass: "text-center", prop: 'name', name: gT('label.student.Name'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'schoolName', name: gT('label.student.SchoolName'), cellTemplate: this.typenameTemplate },
-            { headerClass: "text-center", prop: 'className', name: gT('label.student.Classname'), cellTemplate: this.grpnameTemplate},
+            { headerClass: "text-center", prop: 'className', name: gT('label.student.Classname'), cellTemplate: this.grpnameTemplate, cellClass: 'text-right'},
             { headerClass: "text-center", prop: 'userName', name: gT('label.student.UserName'), cellTemplate: this.grpnameTemplate },
             { headerClass: "text-center", prop: 'note', name: gT('label.student.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
