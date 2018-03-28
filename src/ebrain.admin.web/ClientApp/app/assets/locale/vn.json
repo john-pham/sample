@@ -64,7 +64,8 @@
       "Note": "Ghi chú",
       "Email": "E-mail",
       "Address": "Địa chỉ",
-      "HeaderAdd": "Quản lý cơ sở"
+      "HeaderAdd": "Quản lý cơ sở",
+      "Manage":  "Quản lý"
     },
     "stock": {
       "Code": "Mã",

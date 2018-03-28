@@ -150,7 +150,8 @@ namespace ebrain.admin.bc.Repositories
                             CreatedBy = userId,
                             CreatedDate = DateTime.Now,
                             UpdatedBy = userId,
-                            UpdatedDate = DateTime.Now
+                            UpdatedDate = DateTime.Now,
+                            IsDeleted = !itemHead.IsExist
                         };
                         await appContext.BranchHead.AddAsync(itemExistD);
                     }

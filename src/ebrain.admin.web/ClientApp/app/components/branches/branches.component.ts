@@ -75,7 +75,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
         ];
 
         this.columnHeads = [
-            { headerClass: "text-center", prop: "isExist", name: gT('label.branch.Code'), width: 30, cellTemplate: this.checkboxTemplate, cellClass: 'text-center' },
+            { headerClass: "text-center", prop: "isExist", name: gT('label.branch.Manage'), width: 30, cellTemplate: this.checkboxTemplate, cellClass: 'text-center' },
             { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate }
         ];
 
@@ -195,7 +195,11 @@ export class BranchesComponent implements OnInit, OnDestroy {
     saveHead() {
         this.alertService.startLoadingMessage("Saving changes...");
 
-        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+        this.localService.saveHead(this.rowHeads).subscribe(values => {
+            this.rowHeads = values;
+            this.alertService.stopLoadingMessage();
+            this.alertService.showMessage("Success", `Head branch was saved successfully`, MessageSeverity.success);
+        }, error => this.saveFailedHelper(error));
     }
 
     private saveSuccessHelper(branch?: Branch) {

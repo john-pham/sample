@@ -178,7 +178,8 @@ namespace Ebrain.Controllers
                 Email = item.Email,
                 Address = item.Address,
                 PhoneNumber = item.PhoneNumber,
-                IsExist = item.IsExist
+                IsExist = item.IsExist,
+                ParentBranchId = item.ParentBranchId
             }));
 
         }
