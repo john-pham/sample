@@ -27,7 +27,25 @@ namespace ebrain.admin.bc.Models
         public bool IsHQ { get; set; }
         [MaxLength(256)]
         public string LogoName { get; set; }
+
+        #region [NotMapped]
         [NotMapped]
         public bool IsExist { get; set; }
+        [NotMapped]
+        public string UserName { get; set; }
+        [NotMapped]
+        public string Password { get; set; }
+        [NotMapped]
+        public string CPCode { get; set; }
+
+        [NotMapped]
+        public string RequestID { get; set; }
+        [NotMapped]
+        public string ServiceId { get; set; }
+        [NotMapped]
+        public string CommandCode { get; set; }
+        [NotMapped]
+        public string ContentType { get; set; }
+        #endregion 
     }
 }
