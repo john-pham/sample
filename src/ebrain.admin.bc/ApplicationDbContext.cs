@@ -77,6 +77,7 @@ namespace ebrain.admin.bc
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomHead> RoomHeads { get; set; }
         public DbSet<ShiftClass> ShiftClass { get; set; }
+        public DbSet<SMS> SMS { get; set; }
         public DbSet<ShiftClassHead> ShiftClassHeads { get; set; }
         public DbSet<Stock> Stock { get; set; }
         public DbSet<StockHead> StockHeads { get; set; }
@@ -172,6 +173,9 @@ namespace ebrain.admin.bc
             builder.Entity<Relationship>().ToTable(nameof(this.Relationships));
             builder.Entity<Room>().ToTable(nameof(this.Room));
             builder.Entity<RoomHead>().ToTable(nameof(this.RoomHeads));
+
+            builder.Entity<SMS>().ToTable(nameof(this.SMS));
+
             builder.Entity<ShiftClass>().ToTable(nameof(this.ShiftClass));
 
             builder.Entity<ShiftClassHead>().ToTable(nameof(this.ShiftClassHeads));

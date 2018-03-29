@@ -17,6 +17,7 @@ namespace ebrain.admin.bc
 {
     public interface IUnitOfWork
     {
+        ISMSRepository SMSs { get; }
         IBranchRepository Branches { get; }
         IIOStockRepository IOStocks { get; }
         IPaymentRepository Payments { get; }

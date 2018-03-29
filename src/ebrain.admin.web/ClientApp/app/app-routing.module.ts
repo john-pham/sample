@@ -95,6 +95,9 @@ import { mn_accountant_main_accountantComponent } from "./components/menu/mn-acc
 import { mn_accountant_payment_accountantComponent } from "./components/menu/mn-accountant/mn-accountant-payment-accountant.component";
 import { mn_accountant_promotion_accountantComponent } from "./components/menu/mn-accountant/mn-accountant-promotion-accountant.component";
 
+import { SMSComponent } from "./components/sms/sms.component";
+import { SMSSendComponent } from "./components/smssend/smssend.component";
+
 import { CategoriesComponent } from "./components/categories/categories.component";
 import { CustomersComponent } from "./components/customers/customers.component";
 import { ProductsComponent } from "./components/products/products.component";
@@ -147,6 +150,8 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "mn_accountant_promotion_accountant", component: mn_accountant_promotion_accountantComponent, canActivate: [AuthGuard], data: { title: "accountant" } },
             { path: "mn_accountant_main_accountant", component: mn_accountant_main_accountantComponent, canActivate: [AuthGuard], data: { title: "accountant" } },
 
+            { path: "sms", component: SMSComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
+            { path: "smssend", component: SMSSendComponent, canActivate: [AuthGuard], data: { title: "Send SMS" } },
             { path: "branches", component: BranchesComponent, canActivate: [AuthGuard], data: { title: "Branches" } },
             { path: "stocks", component: StocksComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
             { path: "typemateriallearns", component: TypeMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "typeMaterialLearns" } },

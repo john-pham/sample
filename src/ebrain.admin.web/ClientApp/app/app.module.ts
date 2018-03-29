@@ -151,6 +151,9 @@ import { ShiftclassesEndpoint } from './services/shiftclasses-endpoint.service';
 import { ConsultantsService } from './services/consultants.service';
 import { ConsultantsEndpoint } from './services/consultants-endpoint.service';
 
+import { SMSService } from './services/sms.service';
+import { SMSEndpoint } from './services/sms-endpoint.service';
+
 import { AlteComponent } from "./components/alte.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
@@ -205,6 +208,9 @@ import { RoomsComponent } from "./components/rooms/rooms.component";
 import { LevelclassesComponent } from "./components/levelclasses/levelclasses.component";
 import { ShiftclassesComponent } from "./components/shiftclasses/shiftclasses.component";
 import { ConsultantsComponent } from "./components/consultants/consultants.component";
+
+import { SMSComponent } from "./components/sms/sms.component";
+import { SMSSendComponent } from "./components/smssend/smssend.component";
 
 import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 import { mn_main_educateComponent } from "./components/menu/mn-main/mn-main-educate.component";
@@ -343,6 +349,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         LevelclassesComponent,
         ShiftclassesComponent,
         ConsultantsComponent,
+        SMSComponent,
+        SMSSendComponent,
 
         mn_main_accountantComponent,
         mn_main_categoriesComponent,
@@ -494,6 +502,10 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         ConsultantsService,
         ConsultantsEndpoint,
+
+        SMSService,
+        SMSEndpoint,
+
         mn_main_categoriesComponent,
 
         mn_stocksService,

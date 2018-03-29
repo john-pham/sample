@@ -129,6 +129,7 @@ namespace ebrain.admin.bc.Repositories
             var sms = await appContext.BranchSMS.FirstOrDefaultAsync(p => p.BranchId == oldId);
             if (sms != null)
             {
+                sms.BranchId = item.BranchId;
                 sms.UserName = value.UserName;
                 sms.Password = value.Password;
                 sms.CPCode = value.CPCode;
@@ -143,6 +144,7 @@ namespace ebrain.admin.bc.Repositories
             {
                 sms = new BranchSMS
                 {
+                    BranchId = item.BranchId,
                     UserName = value.UserName,
                     Password = value.Password,
                     CPCode = value.CPCode,

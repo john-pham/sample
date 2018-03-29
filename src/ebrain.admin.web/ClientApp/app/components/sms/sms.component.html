@@ -1,0 +1,78 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_categories">{{'menu.main.Categories' | translate}}</a></li>
+                <li>{{'pageMain.sms.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.sms.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="addSMS(template)"><i class="fa fa-plus-circle"></i> {{'button.Add' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [columns]="columns"
+                   [columnMode]="'force'"
+                   [scrollbarV]="verticalScrollbar"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="page.totalElements"
+                   [offset]="page.pageNumber"
+                   [limit]="page.size"
+                   (page)='setPage($event)'>
+    </ngx-datatable>
+
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #statusTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <smssend [Phone]="phone"></smssend>
+    </div>
+</ng-template>
+

@@ -56,6 +56,13 @@
       "MaxStudent": "Sỉ số",
       "LearnStudent": "Đăng ký"
     },
+    "sms": {
+      "BranchName": "Chi nhánh",
+      "Phone": "Điện thoại",
+      "Body": "Nội dung",
+      "HeaderAdd": "Gửi tin nhắn",
+      "Result": "Kết quả"
+    },
     "branch": {
       "Code": "Mã",
       "Name": "Tên",
@@ -503,6 +510,11 @@
     }
   },
   "pageMain": {
+    "sms": {
+      "header": "Danh sách SMS",
+      "searchBox": "Tìm kiếm SMS",
+      "new": "Thêm mới"
+    },
     "branch": {
       "header": "Danh sách cơ sở",
       "searchBox": "Tìm kiếm cơ sở",

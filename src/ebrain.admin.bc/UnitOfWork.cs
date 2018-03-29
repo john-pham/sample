@@ -20,6 +20,7 @@ namespace ebrain.admin.bc
     {
         readonly ApplicationDbContext _context;
 
+        ISMSRepository _SMSs;
         IGenderRepository _Genders;
         IBranchRepository _branches;
         IStockRepository _stocks;
@@ -164,6 +165,16 @@ namespace ebrain.admin.bc
                     _students = new StudentRepository(_context);
 
                 return _students;
+            }
+        }
+        public ISMSRepository SMSs
+        {
+            get
+            {
+                if (_SMSs == null)
+                    _SMSs = new SMSRepository(_context);
+
+                return _SMSs;
             }
         }
 

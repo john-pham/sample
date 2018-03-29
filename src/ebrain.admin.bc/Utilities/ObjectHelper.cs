@@ -26,6 +26,24 @@ namespace ebrain.admin.bc.Utilities
             return user != null ? user.BranchId : Guid.Empty;
         }
 
+
+        public static string FixedPhone(this string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+                str = str.Replace("84", "");
+                str = str.Replace(".", "");
+                str = str.Replace(",", "");
+                str = str.Replace(" ", "");
+                if (str.StartsWith("0"))
+                {
+                    str = str.Substring(1, str.Length - 1);
+                }
+                return "84" + str;
+            }
+            return string.Empty;
+        }
+
         public static bool IsNullOrDefault<T>(this T? self) where T : struct { return !self.HasValue || self.Value.Equals(default(T)); }
 
         public static string ConvertArrayGuidToString(this Guid[] ids)

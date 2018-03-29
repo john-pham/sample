@@ -1,0 +1,43 @@
+﻿<div class="form-horizontal">
+    <div class="modal-header">
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.sms.HeaderAdd' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.code" class="control-label col-md-4">{{'label.sms.Phone' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.phone" required>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-2">{{'label.branch.Body' | translate}}</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" [(ngModel)]="pointer.body" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                <button type="button" class="btn btn-primary" (click)="save()">{{'button.Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
