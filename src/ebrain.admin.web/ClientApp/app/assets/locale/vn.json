@@ -65,7 +65,15 @@
       "Email": "E-mail",
       "Address": "Địa chỉ",
       "HeaderAdd": "Quản lý cơ sở",
-      "Manage":  "Quản lý"
+      "Manage": "Quản lý",
+      "Config": "Cấu hình SMS",
+      "UserName": "User Name",
+      "Password": "Password",
+      "CPCode": "CPCode",
+      "RequestID": "RequestID",
+      "ServiceId": "ServiceId",
+      "CommandCode": "CommandCode",
+      "ContentType": "ContentType"
     },
     "stock": {
       "Code": "Mã",

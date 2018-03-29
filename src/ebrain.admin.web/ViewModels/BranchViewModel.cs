@@ -34,6 +34,16 @@ namespace Ebrain.ViewModels
         public string Fax { get; set; }
 
         public FileViewModel Logo { get; set; }
+
+        #region [NotMapped]
         public bool IsExist { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string CPCode { get; set; }
+        public string RequestID { get; set; }
+        public string ServiceId { get; set; }
+        public string CommandCode { get; set; }
+        public string ContentType { get; set; }
+        #endregion 
     }
 }

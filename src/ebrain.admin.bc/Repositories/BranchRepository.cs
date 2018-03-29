@@ -95,6 +95,11 @@ namespace ebrain.admin.bc.Repositories
             return await this.appContext.Branch.FirstOrDefaultAsync(p => p.BranchId == index);
         }
 
+        public async Task<BranchHead> GetBranchHead(Guid? index)
+        {
+            return await this.appContext.BranchHead.FirstOrDefaultAsync(p => p.BranchId == index);
+        }
+
         public async Task<Branch> Save(Branch value, Guid? oldId)
         {
             var item = await appContext.Branch.FirstOrDefaultAsync(x => x.BranchId == oldId);
@@ -118,6 +123,39 @@ namespace ebrain.admin.bc.Repositories
             {
                 var result = await appContext.Branch.AddAsync(value);
                 item = result.Entity;
+            }
+
+            //Config SMS 
+            var sms = await appContext.BranchSMS.FirstOrDefaultAsync(p => p.BranchId == oldId);
+            if (sms != null)
+            {
+                sms.UserName = value.UserName;
+                sms.Password = value.Password;
+                sms.CPCode = value.CPCode;
+                sms.RequestID = value.RequestID;
+                sms.ServiceId = value.ServiceId;
+                sms.CommandCode = value.CommandCode;
+                sms.ContentType = value.ContentType;
+                sms.UpdatedBy = value.UpdatedBy;
+                sms.UpdatedDate = value.UpdatedDate;
+            }
+            else
+            {
+                sms = new BranchSMS
+                {
+                    UserName = value.UserName,
+                    Password = value.Password,
+                    CPCode = value.CPCode,
+                    RequestID = value.RequestID,
+                    ServiceId = value.ServiceId,
+                    CommandCode = value.CommandCode,
+                    ContentType = value.ContentType,
+                    UpdatedBy = value.UpdatedBy,
+                    UpdatedDate = value.UpdatedDate,
+                    CreatedBy = value.UpdatedBy,
+                    CreatedDate = value.UpdatedDate
+                };
+                await appContext.BranchSMS.AddAsync(sms);
             }
             //
             await appContext.SaveChangesAsync();

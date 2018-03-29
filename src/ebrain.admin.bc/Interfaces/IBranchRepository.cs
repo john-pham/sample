@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         int Total { get; }
 
         Task<Branch> Get(Guid? index);
+        Task<BranchHead> GetBranchHead(Guid? index);
 
         Task<IEnumerable<Branch>> Search(string filter, string value, int page, int size);
 

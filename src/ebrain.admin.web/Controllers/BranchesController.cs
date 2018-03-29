@@ -70,7 +70,7 @@ namespace Ebrain.Controllers
         {
             var item = await this._unitOfWork.Branches.Get(index);
 
-            return new BranchViewModel
+            var branch = new BranchViewModel
             {
                 ID = item.BranchId,
                 Code = item.BranchCode,
@@ -84,6 +84,20 @@ namespace Ebrain.Controllers
                     Name = string.Format("{0}.{1}", item.BranchId.ToString().Replace("-", string.Empty), item.LogoName)
                 }
             };
+
+            var branchHead = await this._unitOfWork.Branches.GetBranchHead(index);
+            if (branchHead != null)
+            {
+                branch.UserName = item.UserName;
+                branch.Password = item.Password;
+                branch.CPCode = item.CPCode;
+                branch.RequestID = item.RequestID;
+                branch.ServiceId = item.ServiceId;
+                branch.CommandCode = item.CommandCode;
+                branch.ContentType = item.ContentType;
+            }
+
+            return branch;
         }
 
         [HttpPost("update")]
@@ -106,7 +120,14 @@ namespace Ebrain.Controllers
                     CreatedBy = userId,
                     UpdatedBy = userId,
                     CreatedDate = DateTime.Now,
-                    UpdatedDate = DateTime.Now
+                    UpdatedDate = DateTime.Now,
+                    UserName = value.UserName,
+                    Password = value.Password,
+                    CPCode = value.CPCode,
+                    RequestID = value.RequestID,
+                    ServiceId = value.ServiceId,
+                    CommandCode = value.CommandCode,
+                    ContentType = value.ContentType
                 };
 
                 //save logo to physical file

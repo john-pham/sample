@@ -18,4 +18,12 @@ export class Branch {
     public fax: string;
     public logo: File;
     public isExist: boolean;
+
+    public userName: string = "smsbrand_cnkhoinguon";
+    public password: string = "12345678a@";
+    public cPCode: string = "SUPERBRAINCNKN";
+    public requestID: string = "1";
+    public serviceId: string = "SUPERBRAIN";
+    public commandCode: string = "bulksms";
+    public contentType: string = "0";
 }

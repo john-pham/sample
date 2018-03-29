@@ -78,7 +78,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "code", name: gT('label.student.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: "code", name: gT('label.student.Code'), cellTemplate: this.statusTemplate },
             { headerClass: "text-center", prop: 'name', name: gT('label.student.Name'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'schoolName', name: gT('label.student.SchoolName'), cellTemplate: this.typenameTemplate },
             { headerClass: "text-center", prop: 'className', name: gT('label.student.Classname'), cellTemplate: this.grpnameTemplate, cellClass: 'text-right'},

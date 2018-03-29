@@ -111,7 +111,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     //
     addBranch(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
+        this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
     editBranch(template: TemplateRef<any>, index: string) {
@@ -126,7 +126,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
                 this.pointer.address = item.address;
 
                 //
-                this.modalRef = this.modalService.show(template);
+                this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
             },
             error => {
             },

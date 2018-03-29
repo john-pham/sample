@@ -105,7 +105,7 @@
                 </ngx-datatable>
 
                 <ng-template #checkboxTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
-                    <input type="checkbox" checked value="{{value}}"/>
+                    <input type="checkbox" checked value="{{value}}" />
                 </ng-template>
 
                 <ng-template #nameTemplate let-row="row" let-value="value">
@@ -129,30 +129,160 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'label.branch.HeaderAdd' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <div class="form-group">
-            <img [src]="src" [hidden]="!src">
-            <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
-            <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
-        </div>
-        <div class="form-group">
-            <label for="pointer.code" class="control-label">{{'label.branch.Code' | translate}}</label>
-            <input type="text" class="form-control" [(ngModel)]="pointer.code" required>
-        </div>
-        <div class="form-group">
-            <label for="pointer.name" class="control-label">{{'label.branch.Name' | translate}}</label>
-            <input type="text" class="form-control" [(ngModel)]="pointer.name" required>
-        </div>
-        <div class="form-group">
-            <label for="pointer.email" class="control-label">{{'label.branch.Email' | translate}}</label>
-            <input type="text" class="form-control" [(ngModel)]="pointer.email">
-        </div>
-        <div class="form-group">
-            <label for="pointer.address" class="control-label">{{'label.branch.Address' | translate}}</label>
-            <textarea class="form-control" [(ngModel)]="pointer.address" required></textarea>
+        <div class="row">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <img [src]="src" [hidden]="!src">
+                        <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+                        <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.code" class="control-label col-md-4">{{'label.branch.Code' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.code" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.name" class="control-label col-md-4">{{'label.branch.Name' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.name" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.Email' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.email">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-4">{{'label.branch.Address' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" [(ngModel)]="pointer.address" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                    <h3 class="col-md-8">{{'label.branch.Config' | translate}}</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.UserName' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.userName">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-4">{{'label.branch.Password' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" [(ngModel)]="pointer.password" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.CPCode' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.cPCode">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-4">{{'label.branch.RequestID' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" [(ngModel)]="pointer.requestID" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.ServiceId' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.serviceId">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-4">{{'label.branch.CommandCode' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" [(ngModel)]="pointer.commandCode" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.ContentType' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.contentType">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                <button type="button" class="btn btn-primary" (click)="save()">{{'button.Save' | translate}}</button>
+            </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
-        <button type="button" class="btn btn-primary" (click)="save()">{{'button.Save' | translate}}</button>
-    </div>
+
 </ng-template>
