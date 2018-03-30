@@ -141,7 +141,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
             items => {
                 this.rowHeads = items;
                 //
-                this.modalHeadRef = this.modalService.show(template);
+                this.modalHeadRef = this.modalService.show(template, { class: 'modal-lg' });
             },
             error => {
             },
@@ -246,6 +246,10 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
         if (this.changesFailedCallback)
             this.changesFailedCallback();
+    }
+    
+    updateValue(row, event, rowIndex) {
+        row.isExist = event.target.checked;
     }
 
     close() {

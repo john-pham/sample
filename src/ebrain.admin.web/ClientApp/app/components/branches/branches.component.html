@@ -99,26 +99,42 @@
                                [loadingIndicator]="loadingIndicator"
                                [rows]="rowHeads"
                                [rowHeight]="auto"
-                               [columns]="columnHeads"
                                [scrollbarV]="verticalScrollbar"
                                [columnMode]="'force'">
+                    <ngx-datatable-column [width]="100"
+                                          [sortable]="false"
+                                          [canAutoResize]="false"
+                                          [draggable]="false" [resizeable]="false"
+                                          [headerClass]="text-center"
+                                          [cellClass]="text-center"
+                                          [prop]='isExist'>
+                        <ng-template ngx-datatable-header-template
+                                     let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                            <!--<input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" />-->
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value"
+                                     let-rowIndex="rowIndex" let-row="row">
+                            <input type="checkbox"
+                                   (change)="updateValue(row,$event,rowIndex)"
+                                   [checked]="row.isExist" 
+                                   value="isExist"
+                                    ng-model="isExist"
+                                   />
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column headerClass="text-center"
+                                          name="{{'label.branch.Name' | translate}}" prop='name'>
+                        
+                    </ngx-datatable-column>
                 </ngx-datatable>
 
-                <ng-template #checkboxTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
-                    <input type="checkbox" checked value="{{value}}" />
-                </ng-template>
-
-                <ng-template #nameTemplate let-row="row" let-value="value">
-                    <span attr.title="{{value}}">
-                        {{value}}
-                    </span>
-                </ng-template>
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="closeHead()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+        <!--<button type="button" class="btn btn-default" (click)="closeHead()" data-dismiss="modal">{{'button.Close' | translate}}</button>-->
         <button type="button" class="btn btn-primary" (click)="saveHead()">{{'button.Save' | translate}}</button>
     </div>
 </ng-template>
