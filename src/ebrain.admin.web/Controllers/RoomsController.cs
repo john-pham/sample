@@ -69,7 +69,6 @@ namespace Ebrain.Controllers
                 {
                     RoomId = Guid.NewGuid(),
                     RoomCode = value.Code,
-                    BranchId = Guid.NewGuid(),
                     RoomName = value.Name,
                     Note = value.Note,
                     CreatedBy = userId,

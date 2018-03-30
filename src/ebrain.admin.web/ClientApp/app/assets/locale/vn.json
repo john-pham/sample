@@ -24,6 +24,16 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "attendance": {
+      "Class": "Lớp học",
+      "AttendanceDate": "Ngày điểm danh",
+      "HeaderAdd": "Điểm danh",
+      "Absent": "Vắng",
+      "NotAbsent": "Có",
+      "StudentCode": "Mã học viên",
+      "StudentName": "Tên học viên",
+      "Phone": "Điện thoại"
+    },
     "classstudent": {
       "HeaderAdd": "Học viên",
       "FullName": "Tên",
@@ -670,7 +680,8 @@
     "Update": "Cập nhật",
     "Class": "Lớp học",
     "Mark": "Điểm",
-    "Manage": "Quản lý"
+    "Manage": "Quản lý",
+    "Search": "Tìm kiếm"
   },
   "menu": {
     "sms": {

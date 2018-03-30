@@ -97,6 +97,7 @@ import { mn_accountant_promotion_accountantComponent } from "./components/menu/m
 
 import { SMSComponent } from "./components/sms/sms.component";
 import { SMSSendComponent } from "./components/smssend/smssend.component";
+import { AttendancesComponent } from "./components/attendances/attendances.component";
 
 import { CategoriesComponent } from "./components/categories/categories.component";
 import { CustomersComponent } from "./components/customers/customers.component";
@@ -130,6 +131,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "mn_main_stock", component: mn_main_stockComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
             { path: "mn_main_system", component: mn_main_systemComponent, canActivate: [AuthGuard], data: { title: "Systems" } },
             { path: "mn_main_sms", component: mn_main_smsComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
+            { path: "attendances", component: AttendancesComponent, canActivate: [AuthGuard], data: { title: "Attendances" } },
             { path: "mn_main_function", component: mn_main_functionComponent, canActivate: [AuthGuard], data: { title: "Functions" } },
             { path: "mn_main_report", component: mn_main_reportComponent, canActivate: [AuthGuard], data: { title: "Reports" } },
             
