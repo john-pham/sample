@@ -12,22 +12,22 @@
     </div>
 </header>
 
-<div class="row control-box">
+<div class="control-box">
 
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-5 no-pd-l">
             <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.inventorieslist.FromDate' | translate}}</label>
-                <div class="col-md-8">
+                <label class="control-label col-md-2">{{'label.inventorieslist.FromDate' | translate}}</label>
+                <div class="col-md-10">
                     <input class="form-control" type="text" bsDatepicker [(ngModel)]="fromDate">
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-5">
+        <div class="col-sm-5 no-pd-r">
             <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.inventorieslist.ToDate' | translate}}</label>
-                <div class="col-md-8">
+                <label class="control-label col-md-2">{{'label.inventorieslist.ToDate' | translate}}</label>
+                <div class="col-md-10">
                     <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
                 </div>
             </div>

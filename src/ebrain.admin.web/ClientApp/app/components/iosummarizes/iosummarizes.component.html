@@ -25,19 +25,19 @@
     </div>
 </div>
 <div class="row control-box">
-    <div class="col-sm-6">
+    <div class="col-sm-6 no-pd-l">
         <div class="form-group has-feedback">
-            <label class="control-label col-md-4">{{'label.deptslist.FromDate' | translate}}</label>
-            <div class="col-md-8">
+            <label class="control-label col-md-2">{{'label.deptslist.FromDate' | translate}}</label>
+            <div class="col-md-10">
                 <input class="form-control" type="text" bsDatepicker [(ngModel)]="fromDate">
             </div>
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-6 no-pd-r">
         <div class="form-group has-feedback">
-            <label class="control-label col-md-4">{{'label.deptslist.ToDate' | translate}}</label>
-            <div class="col-md-8">
+            <label class="control-label col-md-2">{{'label.deptslist.ToDate' | translate}}</label>
+            <div class="col-md-10">
                 <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
             </div>
         </div>
@@ -46,7 +46,7 @@
 
 <div [@fadeInOut]>
     <!--DATA TABLE-->
-    <ngx-datatable class="material colored-header sm table-hover"
+    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
                    [loadingIndicator]="loadingIndicator"
                    [rows]="rows"
                    [columns]="columns"
