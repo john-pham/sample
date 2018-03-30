@@ -25,6 +25,6 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<SMS> Save(SMS value, Guid? oldId);
 
         Task<Boolean> Delete(Guid id);
-
+        Task<string> SendSMS(Guid userId, string phone, string body);
     }
 }

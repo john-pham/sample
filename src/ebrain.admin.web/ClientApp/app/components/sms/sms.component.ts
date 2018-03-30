@@ -65,7 +65,7 @@ export class SMSComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "code", name: gT('label.sms.BranchName'),width:150, cellTemplate: this.statusTemplate },
+            { headerClass: "text-center", prop: "branchName", name: gT('label.sms.BranchName'),width:150, cellTemplate: this.statusTemplate },
             { headerClass: "text-center", prop: 'phone', name: gT('label.sms.Phone'), width: 100, cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'body', name: gT('label.sms.Body'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'result', name: gT('label.sms.Result'), width: 100, cellTemplate: this.nameTemplate },

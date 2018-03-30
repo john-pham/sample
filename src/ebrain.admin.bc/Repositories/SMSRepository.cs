@@ -41,6 +41,15 @@ namespace ebrain.admin.bc.Repositories
                         select c).Skip(page * size).Take(size);
             }
 
+            foreach (var item in list)
+            {
+                var itemBranch = await this.appContext.Branch.FirstOrDefaultAsync(p => p.BranchId == item.BranchId);
+                if (itemBranch != null)
+                {
+                    item.BranchName = itemBranch.BranchName;
+                }
+            }
+
             return await list.ToListAsync();
         }
 
@@ -54,7 +63,7 @@ namespace ebrain.admin.bc.Repositories
             var str = SendSMS(value.CreatedBy, value.Phone, value.Body);
 
             value.BranchId = value.CreatedBy.GetBranchOfCurrentUser(this.appContext);
-            value.Result = str;
+            value.Result = await str;
 
             var item = await appContext.SMS.FirstOrDefaultAsync(x => x.SMSId == oldId);
 
@@ -67,13 +76,13 @@ namespace ebrain.admin.bc.Repositories
                 var result = await appContext.SMS.AddAsync(value);
                 item = result.Entity;
             }
-            
+
             await appContext.SaveChangesAsync();
             //
             return item;
         }
 
-        public string SendSMS(Guid userId, string phone, string body)
+        public async Task<string> SendSMS(Guid userId, string phone, string body)
         {
             var result = string.Empty;
             try
@@ -83,9 +92,8 @@ namespace ebrain.admin.bc.Repositories
                 var itemConfig = this.appContext.BranchSMS.FirstOrDefault(p => p.BranchId == branchId);
                 if (itemConfig != null)
                 {
-                    
                     smsviettel.CcApiClient sms = new smsviettel.CcApiClient();
-                    System.Threading.Tasks.Task<smsviettel.wsCpMtResponse>  task =  sms.wsCpMtAsync(
+                    var task = await sms.wsCpMtAsync(
                             itemConfig.UserName,
                             itemConfig.Password,
                             itemConfig.CPCode,
@@ -96,13 +104,12 @@ namespace ebrain.admin.bc.Repositories
                             itemConfig.CommandCode,
                             body,
                             itemConfig.ContentType);
-                    result = task.Result.ToString();
+                    result = task.@return.message;
                 }
                 else
                 {
-                    result = "Don't config SMS";
+                    result = "Not yet config SMS";
                 }
-                result = "Success";
             }
             catch (Exception ex)
             {
