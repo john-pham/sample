@@ -13,10 +13,10 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-4 pd-0">
+    <div class="col-sm-4 no-pd-r">
         <div class="form-group has-feedback">
-            <label class="control-label col-md-2">{{'label.attendance.Class' | translate}}</label>
-            <div class="col-md-10">
+            <label class="control-label col-sm-4 col-md-4">{{'label.attendance.Class' | translate}}</label>
+            <div class="col-sm-8 col-md-8">
                 <select id="classes-info" name="allstudents" [(ngModel)]="classId"
                         class="form-control" required
                         data-actions-box="false"
@@ -31,14 +31,15 @@
         </div>
     </div>
 
-    <div class="col-sm-4 pd-0">
+    <div class="col-sm-4 no-pd-r">
         <div class="form-group has-feedback">
-            <label class="control-label col-md-2">{{'label.attendance.AttendanceDate' | translate}}</label>
-            <div class="col-md-10">
+            <label class="control-label col-sm-4 col-md-4">{{'label.attendance.AttendanceDate' | translate}}</label>
+            <div class="col-sm-8 col-md-8">
                 <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
             </div>
         </div>
     </div>
+    
     <div class="col-sm-4">
         <div class="text-right">
             <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'button.Search' | translate}}</button>
