@@ -170,16 +170,54 @@ header {
         min-height: inherit !important;
         overflow-y: auto;
         overflow-x: hidden;
+        display: flex;
+        flex-flow: column;
     }
+
+        #app_container .content-wrapper section.content-header {
+            flex: 0 1 auto;
+        }
+
+        #app_container .content-wrapper section.content {
+            flex: 1 1 auto;
+            width: 100%;
+            display: flex;
+            flex-flow: column;
+        }
+
+            #app_container .content-wrapper section.content header,
+            #app_container .content-wrapper section.content .row {
+                flex: 0 1 auto;
+            }
+
+            #app_container .content-wrapper section.content .table-wrapper {
+                flex: 1 1 auto;
+                display: flex;
+                flex-flow: column;
+                position: relative;
+                min-height: 200px;
+            }
+
+                #app_container .content-wrapper section.content .table-wrapper ngx-datatable {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                }
+        
+                #app_container .content-wrapper section.content .table-wrapper ngx-datatable datatable-body {
+                    position: absolute;
+                    width: 100%;
+                    height: calc(100% - 40px) !important;
+                }
+
+                #app_container aside.main-sidebar {
+                    height: 100%;
+                    min-height: inherit;
+                    overflow-y: auto;
+                }
 
 @media (max-width: 767px) {
     #app_container .content-wrapper {
         height: calc(100vh - 151px) !important; /* 102px = header(100px) + footer(51px) */
     }
 }
-
-    #app_container aside.main-sidebar {
-        height: 100%;
-        min-height: inherit;
-        overflow-y: auto;
-    }
