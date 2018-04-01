@@ -7,6 +7,23 @@
 @import '../assets/styles/ebrain.css';
 @import '../assets/styles/categories-icon.css';
 
+/* login page */
+.wrapper.login {
+    display: flex;
+    flex-flow: column;
+}
+    .wrapper.login .main-header {
+        z-index: 1;
+    }
+
+    .wrapper.login .main-header a.logo {
+        width: 100%;
+    }
+
+    .wrapper.login .content-wrapper, .wrapper.login .main-footer {
+        margin-left: 0;
+    }
+
 /* button style */
 .btn-manager {
 }
@@ -219,5 +236,9 @@ header {
 @media (max-width: 767px) {
     #app_container .content-wrapper {
         height: calc(100vh - 151px) !important; /* 102px = header(100px) + footer(51px) */
+    }
+
+    #app_container.login .content-wrapper {
+        height: calc(100vh - 101px) !important; /* 102px = header(50px) + footer(51px) */
     }
 }
