@@ -35,6 +35,16 @@
             border-bottom: 1px solid #ddd;
         }
 
+        .login-container .login-form .input-group .form-group:first-child {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .login-container .login-form .input-group .form-group:last-child {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
         .login-container .login-form .input-group .form-group input:-webkit-autofill {
             -webkit-box-shadow: 0 0 0 30px white inset;
         }
