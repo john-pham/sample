@@ -24,6 +24,10 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "error": {
+      "NotEmpty": "Không được để trống",
+      "MessageEmpty": "Vui lòng điền đầy đủ thông tin"
+    },
     "attendance": {
       "Class": "Lớp học",
       "AttendanceDate": "Ngày điểm danh",

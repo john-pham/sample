@@ -1,136 +1,142 @@
 ﻿<div class="form-horizontal">
-    <div class="text-right">    
-        <button type="button" class="btn btn-primary" (click)="save()">
-            <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
-        </button>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-            <h3 class="col-md-8">{{'label.examine.HeaderAdd' | translate}}</h3>
+    <form class="form-horizontal" name="branchForm" #f="ngForm"
+          novalidate
+          (ngSubmit)="f.form.valid ? save() :
+          (showErrorAlert('Input is required', 'Please enter at controls'));">
+
+        <div class="text-right">
+            <button type="button" class="btn btn-primary" (click)="save()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
+            </button>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                <h3 class="col-md-8">{{'label.examine.HeaderAdd' | translate}}</h3>
+            </div>
         </div>
-    </div>
 
-    
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.classstudent.FullName' | translate}}</label>
-                <div class="col-md-8">
-                    <label class="control-label">{{pointer.studentName}}</label>
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.classstudent.FullName' | translate}}</label>
+                    <div class="col-md-8">
+                        <label class="control-label">{{pointer.studentName}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.classstudent.Birthday' | translate}}</label>
+                    <div class="col-md-8">
+                        <label class="control-label">{{pointer.studentBirthday}}</label>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.classstudent.Birthday' | translate}}</label>
-                <div class="col-md-8">
-                    <label class="control-label">{{pointer.studentBirthday}}</label>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-2">{{'label.classstudent.Address' | translate}}</label>
+                    <div class="col-md-10">
+                        <label class="control-label">{{pointer.studentAddress}}</label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                <h3 class="col-md-8">{{'label.classstudent.Classes' | translate}}</h3>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group has-feedback">
-                <label class="control-label col-md-2">{{'label.classstudent.Address' | translate}}</label>
-                <div class="col-md-10">
-                    <label class="control-label">{{pointer.studentAddress}}</label>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.classstudent.ClassCode' | translate}}</label>
+                    <div class="col-md-8">
+                        <label class="control-label">{{pointer.code}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.classstudent.ClassName' | translate}}</label>
+                    <div class="col-md-8">
+                        <label class="control-label">{{pointer.name}}</label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-            <h3 class="col-md-8">{{'label.classstudent.Classes' | translate}}</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.classstudent.ClassCode' | translate}}</label>
-                <div class="col-md-8">
-                    <label class="control-label">{{pointer.code}}</label>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-4">{{'label.classstudent.MaterialLearn' | translate}}</label>
+                    <div class="col-md-8">
+                        <label class="control-label">{{pointer.materialName}}</label>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.classstudent.ClassName' | translate}}</label>
-                <div class="col-md-8">
-                    <label class="control-label">{{pointer.name}}</label>
-                </div>
+
+        <div class="row">
+            <div class="col-md-10">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-        </div>
-    </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <!--DATA TABLE-->
+                <ngx-datatable class="material colored-header sm table-hover"
+                               [loadingIndicator]="loadingIndicator"
+                               [rows]="rows"
+                               [rowHeight]="auto"
+                               [columns]="columns"
+                               [scrollbarV]="verticalScrollbar"
+                               [columnMode]="'force'">
+                </ngx-datatable>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.classstudent.MaterialLearn' | translate}}</label>
-                <div class="col-md-8">
-                    <label class="control-label">{{pointer.materialName}}</label>
-                </div>
+                <!-- TEMPLATEs -->
+                <ng-template #statusHeaderTemplate>
+                    <i class="fa fa-check-square-o"></i>
+                </ng-template>
+
+                <ng-template #markTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
+                    <input class="currency-pipe" value="{{value| currencypipe}}"
+                           autofocus
+                           (blur)="updateValue(row,$event,rowIndex)" />
+
+                </ng-template>
+                <!--<ng-template #actionsTemplate let-row="row">
+                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteClasses(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+                </ng-template>-->
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-10">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <!--DATA TABLE-->
-            <ngx-datatable class="material colored-header sm table-hover"
-                            [loadingIndicator]="loadingIndicator"
-                            [rows]="rows"
-                            [rowHeight]="auto"
-                            [columns]="columns"
-                            [scrollbarV]="verticalScrollbar"
-                            [columnMode]="'force'">
-            </ngx-datatable>
-
-            <!-- TEMPLATEs -->
-            <ng-template #statusHeaderTemplate>
-                <i class="fa fa-check-square-o"></i>
-            </ng-template>
-
-            <ng-template #markTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <input class="currency-pipe" value="{{value| currencypipe}}"
-                        autofocus
-                        (blur)="updateValue(row,$event,rowIndex)" />
-
-            </ng-template>
-            <!--<ng-template #actionsTemplate let-row="row">
-                <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteClasses(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
-            </ng-template>-->
-        </div>
-    </div>
-    
+    </form>
 </div>

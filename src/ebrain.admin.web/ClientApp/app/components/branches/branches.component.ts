@@ -49,6 +49,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
+    
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: BranchesService, private modalService: BsModalService) {
         this.pointer = new Branch();
@@ -259,6 +260,18 @@ export class BranchesComponent implements OnInit, OnDestroy {
         this.modalHeadRef.hide();
     }
 
+
+    @ViewChild('f')
+    private form;
+
+    private uniqueId: string = Utilities.uniqueId();
+
+    private showErrorAlert(caption: string, message: string) {
+        this.alertService.showMessage(caption, message, MessageSeverity.error);
+    }
+
+
+
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
 
@@ -279,5 +292,6 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     @ViewChild('checkboxTemplate')
     checkboxTemplate: TemplateRef<any>;
-
+    
+    
 }

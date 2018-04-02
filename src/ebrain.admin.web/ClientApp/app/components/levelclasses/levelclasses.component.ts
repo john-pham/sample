@@ -170,6 +170,15 @@ export class LevelclassesComponent implements OnInit, OnDestroy {
         this.modalRef.hide();
     }
 
+    @ViewChild('f')
+    private form;
+
+    private uniqueId: string = Utilities.uniqueId();
+
+    private showErrorAlert(caption: string, message: string) {
+        this.alertService.showMessage(caption, message, MessageSeverity.error);
+    }
+
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
 
