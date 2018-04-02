@@ -1,4 +1,4 @@
-﻿<div class="vertical-center-flex">
+﻿<!--<div class="vertical-center-flex">
     <div class="login-container center-block">
         <div class="panel panel-primary boxshadow">
             <div class="panel-heading">
@@ -52,10 +52,65 @@
 
                         <div *ngIf="!isModal" class="col-md-12 last-control-group">
                             <span>Don't have an account?</span><a href="javascript:;" class="btn btn-link" (click)="signUp()">Sign Up</a>
-                        </div>-->
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+</div>-->
+
+<div class="login-container">
+    <div class="text-center">
+        <img src="../../assets/images/logo_superbrain.png" alt="">
+    </div>
+    <div class="login-form">
+        <div class="title text-center">
+            <strong>Chào mừng bạn đến với gia đình Superbrain</strong>
+        </div>
+        <form class="form-horizontal login" name="loginForm" #f="ngForm" novalidate
+              (ngSubmit)="f.form.valid ? login() :
+                          (!email.valid && showErrorAlert('Email is required', 'Please enter a valid email'));
+                          (!password.valid && showErrorAlert('Password is required', 'Please enter a valid password'))">
+            <div class="input-group">
+                <div class="form-group no-margin" [ngClass]="{'has-success': f.submitted && email.valid, 'has-error' : f.submitted && !email.valid}">
+                    <input type="text"
+                           name="email"
+                           placeholder="Tên đăng nhập"
+                           class="form-control no-border"
+                           [(ngModel)]="userLogin.email"
+                           #email="ngModel"
+                           id="login-email"
+                           required>
+                    <span class="errorMessage" *ngIf="f.submitted && !email.valid">
+                        Email is required
+                    </span>
+                </div>
+                <div class="form-group no-margin" [ngClass]="{'has-success': f.submitted && password.valid, 'has-error' : f.submitted && !password.valid}">
+                    <input type="password"
+                           name="password"
+                           placeholder="Mật khẩu"
+                           class="form-control no-border"
+                           [(ngModel)]="userLogin.password"
+                           #password="ngModel"
+                           id="login-password"
+                           required>
+                    <span class="errorMessage" *ngIf="f.submitted && !password.valid">
+                        Password is required
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group no-margin">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="isLoading"><i *ngIf="isLoading" class='fa fa-circle-o-notch fa-spin'></i> {{isLoading ? 'Loggin in...' : 'Đăng Nhập'}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <div class="text-center padder">
+            <p><small>Superbrain Arithmetic Math Center<br>© 2016</small></p>
+        </div>
+    </footer>
 </div>

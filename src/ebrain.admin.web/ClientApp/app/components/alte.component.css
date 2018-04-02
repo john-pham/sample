@@ -181,6 +181,13 @@ header {
     height: 100%;
     overflow: hidden;
 }
+    #app_container.login .content-wrapper {
+        height: 100vh !important; /* 102px = header(50px) + footer(51px) */
+    }
+
+    #app_container.login .content-wrapper .content {
+        padding: 0;
+    }
 
     #app_container .content-wrapper {
         height: calc(100vh - 102px); /* 102px = header(51px) + footer(51px) */
@@ -236,9 +243,5 @@ header {
 @media (max-width: 767px) {
     #app_container .content-wrapper {
         height: calc(100vh - 151px) !important; /* 102px = header(100px) + footer(51px) */
-    }
-
-    #app_container.login .content-wrapper {
-        height: calc(100vh - 101px) !important; /* 102px = header(50px) + footer(51px) */
     }
 }

@@ -1,6 +1,6 @@
 ﻿
 <div id="app_container" class="wrapper" [ngClass]="{'login': shouldShowLoginModal}" >
-    <header class="main-header">
+    <header class="main-header" *ngIf="isUserLoggedIn">
         <!-- Logo -->
         <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -453,7 +453,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
+    <footer class="main-footer" *ngIf="isUserLoggedIn">
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.4.0
         </div>

@@ -1,3 +1,54 @@
+:host {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('../../assets/images/bg_pattern.png') repeat;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.login-container {
+    width: 60%;
+    margin-top: 30px;
+    max-width: 350px;
+}
+
+
+    .login-container .title {
+        padding: 15px;
+    }
+
+    .login-container .login-form {
+        margin-bottom: 50px;
+    }
+
+    .login-container .login-form .input-group {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+        .login-container .login-form .input-group span.errorMessage {
+            color: #d9534f;
+        }
+
+        .login-container .login-form .input-group .form-group:first-child {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .login-container .login-form .input-group .form-group input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px white inset;
+        }
+
+        .login-container .login-form .input-group .form-group {
+            padding: 10px 15px;
+            background-color: #fff;
+        }
+
+
+.login-container .login-form .input-group .no-margin {
+    margin: 0;
+}
+
 .boxshadow {
     position: relative;
     -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
@@ -33,24 +84,4 @@
 
 .last-control-group {
     margin-bottom: -25px;
-}
-
-
-
-@media (min-width: 768px) {
-    .login-container {
-        width: 700px;
-    }
-}
-
-/*@media (min-width: 992px) {
-    .login-container {
-        width: 700px;
-    }
-}*/
-
-@media (min-width: 1200px) {
-    .login-container {
-        width: 730px;
-    }
 }
