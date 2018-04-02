@@ -151,168 +151,162 @@
           (showErrorAlert('Input is required', 'Please enter at controls'));">
 
         <div class="modal-body">
+            
+            <div class="form-group has-feedback">
+                <img [src]="src" [hidden]="!src">
+                <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput name="avatar">
+                <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+            </div>
+            
+
             <div class="row">
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <img [src]="src" [hidden]="!src">
-                            <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput name="avatar">
-                            <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.code" class="control-label col-md-4">{{'label.branch.Code' | translate}}</label>
-                            <div class="col-md-8" [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !code.valid}">
-                                <input type="text" class="form-control" [(ngModel)]="pointer.code" required name="code"
-                                       #code="ngModel"
-                                       attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
-                                <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': code.valid, 'glyphicon-remove' : !code.valid}"></span>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.code" class="control-label col-md-4">{{'label.branch.Code' | translate}}</label>
+                        <div class="col-md-8" [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !code.valid}">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.code" required name="code"
+                                    #code="ngModel"
+                                    attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
+                            <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': code.valid, 'glyphicon-remove' : !code.valid}"></span>
                                
-                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6" >
-                        <div class="form-group has-feedback">
-                            <label for="pointer.name" class="control-label col-md-4">{{'label.branch.Name' | translate}}</label>
-                            <div class="col-md-8" [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !name.valid}">
-                                <input type="text" class="form-control" [(ngModel)]="pointer.name" required name="name"
-                                       #name="ngModel" attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
-                                <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': name.valid, 'glyphicon-remove' : !name.valid}"></span>
+                </div>
+                <div class="col-sm-6" >
+                    <div class="form-group has-feedback">
+                        <label for="pointer.name" class="control-label col-md-4">{{'label.branch.Name' | translate}}</label>
+                        <div class="col-md-8" [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !name.valid}">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.name" required name="name"
+                                    #name="ngModel" attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
+                            <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': name.valid, 'glyphicon-remove' : !name.valid}"></span>
                                 
-                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.email" class="control-label col-md-4">{{'label.branch.Email' | translate}}</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" [(ngModel)]="pointer.email" name="email">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.address" class="control-label col-md-4">{{'label.branch.Address' | translate}}</label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" [(ngModel)]="pointer.address" name="address"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-                        <h3 class="col-md-8">{{'label.branch.Config' | translate}}</h3>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.email" class="control-label col-md-4">{{'label.branch.UserName' | translate}}</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" [(ngModel)]="pointer.userName" name="userName">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.address" class="control-label col-md-4">{{'label.branch.Password' | translate}}</label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" [(ngModel)]="pointer.password" name="password"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.email" class="control-label col-md-4">{{'label.branch.CPCode' | translate}}</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" [(ngModel)]="pointer.cPCode" name="cpCode">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.address" class="control-label col-md-4">{{'label.branch.RequestID' | translate}}</label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" [(ngModel)]="pointer.requestID" name="requestID"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.email" class="control-label col-md-4">{{'label.branch.ServiceId' | translate}}</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" [(ngModel)]="pointer.serviceId" name="serviceId">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.address" class="control-label col-md-4">{{'label.branch.CommandCode' | translate}}</label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" [(ngModel)]="pointer.commandCode" name="commandCode"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label for="pointer.email" class="control-label col-md-4">{{'label.branch.ContentType' | translate}}</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" [(ngModel)]="pointer.contentType" name="contentType">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
-                    <button type="submit" class="btn btn-primary">{{'button.Save' | translate}}</button>
                 </div>
             </div>
-        </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.Email' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.email" name="email">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-4">{{'label.branch.Address' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" [(ngModel)]="pointer.address" name="address"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                    <h3 class="col-md-8">{{'label.branch.Config' | translate}}</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.UserName' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.userName" name="userName">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-4">{{'label.branch.Password' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" [(ngModel)]="pointer.password" name="password"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.CPCode' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.cPCode" name="cpCode">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-4">{{'label.branch.RequestID' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" [(ngModel)]="pointer.requestID" name="requestID"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.ServiceId' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.serviceId" name="serviceId">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.address" class="control-label col-md-4">{{'label.branch.CommandCode' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" [(ngModel)]="pointer.commandCode" name="commandCode"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label for="pointer.email" class="control-label col-md-4">{{'label.branch.ContentType' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.contentType" name="contentType">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                <button type="submit" class="btn btn-primary">{{'button.Save' | translate}}</button>
+            </div>
+        </div>
     </form>
 </ng-template>

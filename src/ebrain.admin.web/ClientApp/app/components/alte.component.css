@@ -68,6 +68,7 @@ textarea {
 
 label.control-label {
     white-space: nowrap;
+    text-align: left !important;
 }
 
 /* ngx-datatable */
