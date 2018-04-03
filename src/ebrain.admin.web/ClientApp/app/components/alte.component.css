@@ -77,6 +77,12 @@ label.control-label {
     font-weight: bold;
 }
 
+/* style side bar menu item selected*/
+.active-link {
+    color: #ffffff !important;
+    font-weight:bold;
+}
+
 /* ngx-datatable */
 .ngx-datatable.fixed-header .datatable-header {
     height: auto !important;
