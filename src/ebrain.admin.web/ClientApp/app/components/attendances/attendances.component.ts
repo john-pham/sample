@@ -46,13 +46,15 @@ export class AttendancesComponent implements OnInit, OnDestroy {
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: AttendancesService,
         private modalService: BsModalService,
         private classService: ClassesService) {
-
+     
     }
 
     ngOnInit() {
         let gT = (key: string) => this.translationService.getTranslation(key);
         this.getFromServer();
-        this.createDate = new Date();
+
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth(), d = date.getDay();
+        this.createDate = new Date(y, m, d);
     }
 
     ngOnDestroy() {
@@ -91,6 +93,7 @@ export class AttendancesComponent implements OnInit, OnDestroy {
 
     }
 
+
     private onDataLoadSuccessful(list: Attendance[]) {
         this.rows = list;
         this.alertService.stopLoadingMessage();
@@ -104,11 +107,19 @@ export class AttendancesComponent implements OnInit, OnDestroy {
 
     }
 
+    private onChangeClass(classId: string) {
+        this.classId = classId;
+        this.search();
+    }
+
     private save() {
         this.alertService.startLoadingMessage("Saving changes...");
 
         this.localService.save(this.rows).subscribe(
-            value => this.onDataLoadSuccessful(value),
+            value => {
+                this.alertService.showMessage("Success", `Update was created successfully`, MessageSeverity.success);
+                this.alertService.stopLoadingMessage();
+            },
             error => this.saveFailedHelper(error));
     }
 

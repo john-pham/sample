@@ -49,10 +49,15 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IEnumerable<AttendanceViewModel>> Search(string classId, string studentId, string createDate)
         {
+            return await SearchMain(classId, studentId, createDate.BuildDateTimeFromSEFormat());
+        }
+
+        private async Task<IEnumerable<AttendanceViewModel>> SearchMain(string classId, string studentId, DateTime createDate)
+        {
             var ret = from c in await this._unitOfWork.Attendances.Search(
                     classId,
                     studentId,
-                    createDate.BuildDateTimeFromSEFormat(),
+                    createDate,
                     this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
                       select new AttendanceViewModel
                       {
@@ -60,7 +65,7 @@ namespace Ebrain.Controllers
                           StudentCode = c.StudentCode,
                           StudentId = c.StudentId,
                           StudentName = c.StudentName,
-                          AttendanceDate = createDate.BuildDateTimeFromSEFormat(),
+                          AttendanceDate = createDate,
                           Absent = c.Absent,
                           NotAbsent = !c.Absent,
                           BranchId = c.BranchId,
@@ -89,11 +94,17 @@ namespace Ebrain.Controllers
                     UpdatedDate = DateTime.Now
                 }).ToArray(), userId);
 
+                if (values != null && values.Length > 0)
+                {
+                    var classId = values[0].ClassId.ToString();
+                    var createDate = values[0].AttendanceDate;
+                    return Ok(SearchMain(classId, string.Empty, createDate));
+                }
                 return Ok(ret);
             }
 
             return BadRequest(ModelState);
         }
-        
+
     }
 }

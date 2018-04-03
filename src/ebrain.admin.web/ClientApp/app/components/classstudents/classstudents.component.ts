@@ -169,6 +169,8 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
     }
 
     private onDataLoadAllClassStudentSuccessful(items: ClassList[]) {
+        if (items == null) items = [];
+
         this.rows = items;
         this.rows = [...this.rows];
         this.alertService.stopLoadingMessage();
@@ -224,6 +226,7 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
 
     private onDataSaveSuccessful(item: Class) {
         this.getClassByStudentId();
+        this.alertService.showMessage("Success", `Update was created successfully`, MessageSeverity.success);
     }
 
     ngOnDestroy() {

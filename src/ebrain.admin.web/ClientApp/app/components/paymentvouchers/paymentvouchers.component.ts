@@ -99,7 +99,7 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'code', name: gT('label.payment.IONumber'), cellTemplate: this.typenameTemplate },
 
             { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPrice'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePayment'), cellTemplate: this.totalPricePaymentTemplate, cellClass: 'text-right'},
+            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePayment'), cellTemplate: this.totalPricePaymentTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalPriceRest'), cellTemplate: this.totalPriceResTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'note', name: gT('label.payment.Note'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
@@ -298,10 +298,15 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
     }
 
     private save() {
-        this.alertService.startLoadingMessage("Saving changes...");
-        this.pointer.ioDetails = this.rows;
+        if (this.rows != null && this.rows.length > 0) {
+            this.alertService.startLoadingMessage("Saving changes...");
+            this.pointer.ioDetails = this.rows;
 
-        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+            this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+        }
+        else {
+            this.showErrorAlert("Input details", "Please selected one item on grids.");
+        }
     }
 
     private deletemaster() {

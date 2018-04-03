@@ -18,7 +18,8 @@
             <label class="control-label col-sm-4 col-md-4">{{'label.attendance.Class' | translate}}</label>
             <div class="col-sm-8 col-md-8">
                 <select id="classes-info" name="allstudents" [(ngModel)]="classId"
-                        class="form-control" required
+                        class="form-control" 
+                        (change)="onChangeClass($event.target.value)"
                         data-actions-box="false"
                         data-live-search-placeholder="Search...">
                     <option *ngFor="let class of classes"
@@ -35,7 +36,7 @@
         <div class="form-group has-feedback">
             <label class="control-label col-sm-4 col-md-4">{{'label.attendance.AttendanceDate' | translate}}</label>
             <div class="col-sm-8 col-md-8">
-                <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
+                <input class="form-control" type="text" bsDatepicker [(ngModel)]="createDate">
             </div>
         </div>
     </div>
