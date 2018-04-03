@@ -46,6 +46,15 @@ namespace Ebrain
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add a new middleware validating access tokens issued by the server.
+            //services.AddAuthentication()
+            //    .AddOAuthValidation()
+            //    // Add a new middleware issuing tokens.
+            //    .AddOpenIdConnectServer(options =>
+            //    {
+            //        options.AllowInsecureHttp = false;
+            //    });
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("ebrain.admin.web"));
@@ -95,7 +104,13 @@ namespace Ebrain
             {
                 options.DefaultAuthenticateScheme = OAuthValidationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = OAuthValidationDefaults.AuthenticationScheme;
-            }).AddOAuthValidation();
+            }).AddOAuthValidation();//.AddOpenIdConnectServer(options =>
+            //{
+            //    options.UseSlidingExpiration = true;
+            //    options.AllowInsecureHttp = false;
+            //    options.ApplicationCanDisplayErrors = true;
+            //    //options.SigningCredentials.AddKey(new RsaSecurityKey(rsa));
+            //});
 
             // Add cors
             services.AddCors();
