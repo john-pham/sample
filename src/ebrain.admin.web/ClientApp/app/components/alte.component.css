@@ -71,6 +71,12 @@ label.control-label {
     text-align: left !important;
 }
 
+/* style side bar menu */
+.main-sidebar .sidebar .sidebar-menu li.menu-open > a {
+    color: #FF800A;
+    font-weight: bold;
+}
+
 /* ngx-datatable */
 .ngx-datatable.fixed-header .datatable-header {
     height: auto !important;
