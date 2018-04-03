@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/.vs
+/src/ebrain.admin.bc/bin
+/src/ebrain.admin.bc/obj
+/src/ebrain.admin.web/bin
+/src/ebrain.admin.web/Logs
+/src/ebrain.admin.web/obj
+/src/ebrain.admin.web/wwwroot/dist
+/src/ebrain.api.web/bin
+/src/ebrain.api.web/obj
+/src/packages
