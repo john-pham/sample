@@ -9,7 +9,7 @@
 
 /* login page */
 .wrapper.login {
-    display: flex;
+    /*display: flex;*/
     flex-flow: column;
 }
     .wrapper.login .main-header {
