@@ -59,17 +59,17 @@ export class DeptsListsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'studentCode', name: gT('label.deptslist.StudentCode'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'studentName', name: gT('label.deptslist.StudentName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'phone', name: gT('label.deptslist.Phone'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'receiptFirst', name: gT('label.deptslist.ReceiptFirst'), cellTemplate: this.ReceiptFirstTemplate },
-            { headerClass: "text-center", prop: 'paymentFirst', name: gT('label.deptslist.PaymentFirst'), cellTemplate: this.PaymentFirstTemplate },
+            { headerClass: "text-center", prop: 'receiptFirst', name: gT('label.deptslist.ReceiptFirst'), cellTemplate: this.ReceiptFirstTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'paymentFirst', name: gT('label.deptslist.PaymentFirst'), cellTemplate: this.PaymentFirstTemplate, cellClass: 'text-right' },
 
-            { headerClass: "text-center", prop: 'totalPriceReceipt', name: gT('label.deptslist.TotalPriceReceipt'), cellTemplate: this.TotalPriceReceiptTemplate },
-            { headerClass: "text-center", prop: 'receipt', name: gT('label.deptslist.Receipt'), cellTemplate: this.ReceiptTemplate },
+            { headerClass: "text-center", prop: 'totalPriceReceipt', name: gT('label.deptslist.TotalPriceReceipt'), cellTemplate: this.TotalPriceReceiptTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'receipt', name: gT('label.deptslist.Receipt'), cellTemplate: this.ReceiptTemplate, cellClass: 'text-right' },
 
-            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.deptslist.TotalPricePayment'), cellTemplate: this.TotalPricePaymentTemplate },
-            { headerClass: "text-center", prop: 'payment', name: gT('label.deptslist.Payment'), cellTemplate: this.PaymentTemplate },
+            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.deptslist.TotalPricePayment'), cellTemplate: this.TotalPricePaymentTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'payment', name: gT('label.deptslist.Payment'), cellTemplate: this.PaymentTemplate, cellClass: 'text-right' },
             
-            { headerClass: "text-center", prop: 'endReceipt', name: gT('label.deptslist.EndReceipt'), cellTemplate: this.EndReceiptTemplate },
-            { headerClass: "text-center", prop: 'endPayment', name: gT('label.deptslist.EndPayment'), cellTemplate: this.EndPaymentTemplate },
+            { headerClass: "text-center", prop: 'endReceipt', name: gT('label.deptslist.EndReceipt'), cellTemplate: this.EndReceiptTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'endPayment', name: gT('label.deptslist.EndPayment'), cellTemplate: this.EndPaymentTemplate, cellClass: 'text-right' },
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

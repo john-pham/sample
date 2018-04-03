@@ -139,6 +139,9 @@ import { TodayEndpoint } from './services/today-endpoint.service';
 import { ClassStatusService } from './services/classstatus.service';
 import { ClassStatusEndpoint } from './services/classstatus-endpoint.service';
 
+import { AttendancesService } from './services/attendances.service';
+import { AttendancesEndpoint } from './services/attendances-endpoint.service';
+
 import { LevelclassesService } from './services/levelclasses.service';
 import { LevelclassesEndpoint } from './services/levelclasses-endpoint.service';
 
@@ -204,6 +207,8 @@ import { TypeMaterialsComponent } from "./components/typeMaterials/typeMaterials
 
 import { ClassListsComponent } from "./components/classlists/classlists.component";
 import { ClassesComponent } from "./components/classes/classes.component";
+import { AttendancesComponent } from "./components/attendances/attendances.component";
+
 import { RoomsComponent } from "./components/rooms/rooms.component";
 import { LevelclassesComponent } from "./components/levelclasses/levelclasses.component";
 import { ShiftclassesComponent } from "./components/shiftclasses/shiftclasses.component";
@@ -351,6 +356,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         ConsultantsComponent,
         SMSComponent,
         SMSSendComponent,
+        AttendancesComponent,
 
         mn_main_accountantComponent,
         mn_main_categoriesComponent,
@@ -488,6 +494,9 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         ClassStatusService,
         ClassStatusEndpoint,
+
+        AttendancesService,
+        AttendancesEndpoint,
 
         TodayService,
         TodayEndpoint,

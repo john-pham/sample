@@ -49,6 +49,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
+    
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: BranchesService, private modalService: BsModalService) {
         this.pointer = new Branch();
@@ -141,7 +142,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
             items => {
                 this.rowHeads = items;
                 //
-                this.modalHeadRef = this.modalService.show(template);
+                this.modalHeadRef = this.modalService.show(template, { class: 'modal-lg' });
             },
             error => {
             },
@@ -247,6 +248,10 @@ export class BranchesComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
+    
+    updateValue(row, event, rowIndex) {
+        row.isExist = event.target.checked;
+    }
 
     close() {
         this.modalRef.hide();
@@ -254,6 +259,18 @@ export class BranchesComponent implements OnInit, OnDestroy {
     closeHead() {
         this.modalHeadRef.hide();
     }
+
+
+    @ViewChild('f')
+    private form;
+
+    private uniqueId: string = Utilities.uniqueId();
+
+    private showErrorAlert(caption: string, message: string) {
+        this.alertService.showMessage(caption, message, MessageSeverity.error);
+    }
+
+
 
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
@@ -275,5 +292,6 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     @ViewChild('checkboxTemplate')
     checkboxTemplate: TemplateRef<any>;
-
+    
+    
 }

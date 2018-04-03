@@ -1,28 +1,30 @@
 ﻿<div class="form-horizontal">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="save()">
-                    <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
-                </button>
+
+    <form class="form-horizontal" name="branchForm" #f="ngForm"
+          novalidate
+          (ngSubmit)="f.form.valid ? save() :
+          (showErrorAlert('Input is required', 'Please enter at controls'));">
+
+        <div class="text-right">
+            <button type="button" class="btn btn-primary" (click)="save()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                <h3 class="col-md-8">{{'label.examine.HeaderAdd' | translate}}</h3>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-            <h3 class="col-md-8">{{'label.examine.HeaderAdd' | translate}}</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-        </div>
-    </div>
 
-    <div class="row">
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
@@ -136,6 +138,5 @@
                 </ng-template>-->
             </div>
         </div>
-
-    </div>
+    </form>
 </div>

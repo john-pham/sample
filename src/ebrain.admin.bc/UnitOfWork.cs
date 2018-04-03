@@ -35,6 +35,7 @@ namespace ebrain.admin.bc
         IGrpSupplierRepository _grpSupplier;
         ISupplierRepository _supplier;
         IRoomRepository _rooms;
+        IAttendanceRepository _Attendances;
         IStudentRepository _students;
         IStudentStatusRepository _StudentStatus;
         ILevelClassRepository _levelclass;
@@ -252,6 +253,17 @@ namespace ebrain.admin.bc
                     _materials = new MaterialRepository(_context);
 
                 return _materials;
+            }
+        }
+
+        public IAttendanceRepository Attendances
+        {
+            get
+            {
+                if (_Attendances == null)
+                    _Attendances = new AttendanceRepository(_context);
+
+                return _Attendances;
             }
         }
 

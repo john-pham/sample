@@ -48,7 +48,7 @@ export class StocksComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "code", name: gT('label.stock.Code'), width: 30, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: "code", name: gT('label.stock.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
             { headerClass: "text-center", prop: 'name', name: gT('label.stock.Name'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'note', name: gT('label.stock.Email'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
@@ -167,6 +167,15 @@ export class StocksComponent implements OnInit, OnDestroy {
     }
     close() {
         this.modalRef.hide();
+    }
+
+    @ViewChild('f')
+    private form;
+
+    private uniqueId: string = Utilities.uniqueId();
+
+    private showErrorAlert(caption: string, message: string) {
+        this.alertService.showMessage(caption, message, MessageSeverity.error);
     }
 
     @ViewChild('statusHeaderTemplate')

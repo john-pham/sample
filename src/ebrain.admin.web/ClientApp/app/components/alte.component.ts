@@ -101,6 +101,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
         this.toastyConfig.showClose = true;
 
         this.appTitleService.appName = this.appTitle;
+        this.shouldShowLoginModal = false;
     }
 
 
@@ -145,6 +146,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.isUserLoggedIn = this.authService.isLoggedIn;
+        this.shouldShowLoginModal = !this.isUserLoggedIn;
 
         // 1 sec to ensure all the effort to get the css animation working is appreciated :|, Preboot screen is removed .5 sec later
         setTimeout(() => this.isAppLoaded = true, 1000);
@@ -170,7 +172,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
 
         this.authService.getLoginStatusEvent().subscribe(isLoggedIn => {
             this.isUserLoggedIn = isLoggedIn;
-
+            this.shouldShowLoginModal = false;
 
             if (this.isUserLoggedIn) {
                 this.initNotificationsLoading();

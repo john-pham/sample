@@ -43,6 +43,7 @@ namespace ebrain.admin.bc
         ITodayRepository Today { get; }
         IClassStatusRepository ClassStatus { get; }
         IRoomRepository Rooms { get; }
+        IAttendanceRepository Attendances { get; }
         ILevelClassRepository LevelClasses { get; }
         IShiftClassRepository ShiftClasses { get; }
         IConsultantRepository Consultants { get; }
