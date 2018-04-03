@@ -41,9 +41,9 @@ namespace ebrain.admin.bc
         public DbSet<Today> Today { get; set; }
         public DbSet<ClassHead> ClassHead { get; set; }
         public DbSet<Consultant> Consultant { get; set; }
-        public DbSet<Document> Documents { get; set; }
+        public DbSet<Document> Document { get; set; }
         public DbSet<DocumentHead> DocumentHeads { get; set; }
-        public DbSet<GroupDocument> GroupDocuments { get; set; }
+        public DbSet<GroupDocument> GroupDocument { get; set; }
         public DbSet<GroupDocumentHead> GroupDocumentHeads { get; set; }
         public DbSet<GrpMaterial> GrpMaterial { get; set; }
         public DbSet<TypeMaterial> TypeMaterial { get; set; }
@@ -138,9 +138,9 @@ namespace ebrain.admin.bc
             builder.Entity<Today>().ToTable(nameof(this.Today));
             builder.Entity<ClassHead>().ToTable(nameof(this.ClassHead));
             builder.Entity<Consultant>().ToTable(nameof(this.Consultant));
-            builder.Entity<Document>().ToTable(nameof(this.Documents));
+            builder.Entity<Document>().ToTable(nameof(this.Document));
             builder.Entity<DocumentHead>().ToTable(nameof(this.DocumentHeads));
-            builder.Entity<GroupDocument>().ToTable(nameof(this.GroupDocuments));
+            builder.Entity<GroupDocument>().ToTable(nameof(this.GroupDocument));
             builder.Entity<GroupDocumentHead>().Property(p => p.GroupDocumentHeadId).HasColumnName("GrpDocumentHeadId");
             builder.Entity<GroupDocumentHead>().ToTable(nameof(this.GroupDocumentHeads));
             builder.Entity<Inventory>().ToTable(nameof(this.Inventory));

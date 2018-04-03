@@ -19,6 +19,8 @@ namespace ebrain.admin.bc
     {
         ISMSRepository SMSs { get; }
         IBranchRepository Branches { get; }
+        IGroupDocumentRepository GroupDocuments { get; }
+        IDocumentRepository Documents { get; }
         IIOStockRepository IOStocks { get; }
         IPaymentRepository Payments { get; }
         IInventoriesRepository Inventories { get; }

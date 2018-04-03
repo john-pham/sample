@@ -21,6 +21,8 @@ namespace ebrain.admin.bc
         readonly ApplicationDbContext _context;
 
         ISMSRepository _SMSs;
+        IGroupDocumentRepository _GroupDocuments;
+        IDocumentRepository _Documents;
         IGenderRepository _Genders;
         IBranchRepository _branches;
         IStockRepository _stocks;
@@ -168,6 +170,29 @@ namespace ebrain.admin.bc
                 return _students;
             }
         }
+        public IGroupDocumentRepository GroupDocuments
+        {
+            get
+            {
+                if (_GroupDocuments == null)
+                    _GroupDocuments = new GroupDocumentRepository(_context);
+
+                return _GroupDocuments;
+            }
+        }
+
+        public IDocumentRepository Documents
+        {
+            get
+            {
+                if (_Documents == null)
+                    _Documents = new DocumentRepository(_context);
+
+                return _Documents;
+            }
+        }
+
+
         public ISMSRepository SMSs
         {
             get
