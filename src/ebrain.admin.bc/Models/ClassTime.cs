@@ -18,5 +18,6 @@ namespace ebrain.admin.bc.Models
         public Guid? OnTodayId { get; set; }
         public Guid? RoomId { get; set; }
         public Guid? SupplierId { get; set; }
+        public Guid? ShiftId { get; set; }
     }
 }

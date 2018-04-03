@@ -65,52 +65,46 @@
     </ng-template>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="substock-modal" tabindex="-1" role="dialog" aria-labelledby="substock-modalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="substock-modalLabel">Chí nhánh cơ sở</h4>
-            </div>
-            <div class="modal-body">
-                <div><label>HQ - HEAD QUARTER</label><input type="checkbox" /></div>
-                <div><label>CN2 - Chi nhánh 2</label><input type="checkbox" /></div>
-                <div><label>CN3 - Chi nhánh 3</label><input type="checkbox" /></div>
-                <div><label>CN3 - Chi nhánh 4</label><input type="checkbox" /></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <ng-template #template>
     <div class="modal-header">
         <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="branch-modalLabel">{{'label.examine.HeaderAdd' | translate}}</h4>
     </div>
-    <div class="modal-body">
+
+    <form class="form-horizontal" name="branchForm" #f="ngForm"
+          novalidate
+          (ngSubmit)="f.form.valid ? save() :
+          (showErrorAlert('Input is required', 'Please enter at controls'));">
+
         <div class="modal-body">
-            <div class="form-group">
-                <label for="recipient-name" class="control-label">{{'label.examine.Code' | translate}}</label>
-                <input type="text" class="form-control" [(ngModel)]="pointer.code">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label">{{'label.examine.Code' | translate}}</label>
+                    <div [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !code.valid}">
+                        <input type="text" class="form-control" [(ngModel)]="pointer.code" required name="code"
+                               #code="ngModel"
+                               attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="control-label">{{'label.examine.Name' | translate}}</label>
+                    <div [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !name.valid}">
+                        <input type="text" class="form-control" [(ngModel)]="pointer.name" required name="name"
+                               #name="ngModel" attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label">{{'label.examine.Note' | translate}}</label>
+                    <textarea class="form-control" [(ngModel)]="pointer.note" name="note"></textarea>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="message-text" class="control-label">{{'label.examine.Name' | translate}}</label>
-                <input type="text" class="form-control" [(ngModel)]="pointer.name">
-            </div>
-            <div class="form-group">
-                <label for="recipient-name" class="control-label">{{'label.examine.Note' | translate}}</label>
-                <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                <button type="submit" class="btn btn-primary">{{'button.Save' | translate}}</button>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
-            <button type="button" class="btn btn-primary" (click)="save()">{{'button.Save' | translate}}</button>
-        </div>
-    </div>
+
+    </form>
 </ng-template>
 

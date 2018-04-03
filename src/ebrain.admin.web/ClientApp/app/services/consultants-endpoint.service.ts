@@ -61,8 +61,10 @@ export class ConsultantsEndpoint extends EndpointFactory {
     delete(id: string): Observable<boolean> {
 
         let url = this.getUrl('remove');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(id);
 
-        return this.http.get(url, this.getAuthHeader())
+        return this.http.post(url, params, header)
             .map((response: Response) => {
                 return response;
             })

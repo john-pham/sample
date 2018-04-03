@@ -179,6 +179,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
+        
     }
 
     private onDataLoadSuccessful(students: Student[]) {

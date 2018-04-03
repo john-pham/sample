@@ -20,10 +20,12 @@ export class ClassTime {
     public onTodayId: string;
     public todayName: string;
     public supplierId: string;
+    public shiftId: string;
     public maxStudent: number;
     public startTime: Date;
     public endTime: Date;
     public roomId: string;
     public roomName: string;
     public supplierName: string;
+    public shiftName: string;
 }

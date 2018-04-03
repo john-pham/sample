@@ -268,6 +268,7 @@
       "IsTeacher": "Là giáo viên"
     },
     "class": {
+      "Shift": "Ca học",
       "Unit": "Đơn vị tính",
       "GrpSupplier": "Nhóm nhà cung cấp",
       "GrpMaterial": "Nhóm hàng",

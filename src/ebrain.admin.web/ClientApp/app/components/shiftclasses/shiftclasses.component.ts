@@ -65,7 +65,7 @@ export class ShiftclassesComponent implements OnInit, OnDestroy {
     }
 
     addShiftclass(template: TemplateRef<any>) {
-        this.pointer.ID = "";
+        this.pointer.id = "";
         this.modalRef = this.modalService.show(template);
     }
 
@@ -95,7 +95,7 @@ export class ShiftclassesComponent implements OnInit, OnDestroy {
 
     private deleteSuccessHelper(row: Shiftclass) {
         this.getFromServer();
-        this.alertService.showMessage("Success", `Shift \"${row.Name}\" was deleted successfully`, MessageSeverity.success);
+        this.alertService.showMessage("Success", `Shift \"${row.name}\" was deleted successfully`, MessageSeverity.success);
         if (this.changesSavedCallback)
             this.changesSavedCallback();
     }
@@ -162,7 +162,7 @@ export class ShiftclassesComponent implements OnInit, OnDestroy {
         this.getFromServer();
         //
         //if (this.isNewUser)
-        this.alertService.showMessage("Success", `User \"${this.pointer.Name}\" was created successfully`, MessageSeverity.success);
+        this.alertService.showMessage("Success", `User \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
         //else if (!this.isEditingSelf)
         //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.Name}\" was saved successfully`, MessageSeverity.success);
 

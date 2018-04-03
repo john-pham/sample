@@ -31,6 +31,7 @@ export class Class {
     public roomId: string;
     public teacherTodayId: string;
     public studentId: string;
+    public shiftId: string;
     public startTime: Date;
     public endTime: Date;
     public countStudent: number;

@@ -56,29 +56,36 @@ namespace ebrain.admin.bc.Repositories
 
         public async Task<bool> Save(Attendance[] values, Guid createBy)
         {
-            var branchId = createBy.GetBranchOfCurrentUser(this.appContext);
-            foreach (var item in values)
+            try
             {
-                item.BranchId = branchId;
-                var itemExist = this.appContext.Attendance.FirstOrDefault(
-                        p => p.AttendanceDate.Date == item.AttendanceDate.Date
-                        && p.ClassId == item.ClassId
-                        && p.StudentId == item.StudentId
-                        );
-                if (itemExist != null)
+                var branchId = createBy.GetBranchOfCurrentUser(this.appContext);
+                foreach (var item in values)
                 {
-                    itemExist.BranchId = branchId;
-                    itemExist.Absent = item.Absent;
-                    itemExist.UpdatedBy = createBy;
-                    itemExist.UpdatedDate = DateTime.Now;
+                    item.BranchId = branchId;
+                    var itemExist = this.appContext.Attendance.FirstOrDefault(
+                            p => p.AttendanceDate.Date == item.AttendanceDate.Date
+                            && p.ClassId == item.ClassId
+                            && p.StudentId == item.StudentId
+                            );
+                    if (itemExist != null)
+                    {
+                        itemExist.BranchId = branchId;
+                        itemExist.Absent = item.Absent;
+                        itemExist.UpdatedBy = createBy;
+                        itemExist.UpdatedDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        await this.appContext.Attendance.AddAsync(item);
+                    }
                 }
-                else
-                {
-                    await this.appContext.Attendance.AddAsync(item);
-                }
-            }
 
-            return await appContext.SaveChangesAsync() > 0;
+                return await appContext.SaveChangesAsync() > 0;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<bool> Delete(string id)

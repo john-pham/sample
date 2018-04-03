@@ -33,6 +33,8 @@ import { Room } from "../../models/room.model";
 import { StudentsService } from "../../services/students.service";
 import { ClassTime } from "../../models/classtime.model";
 import { ClassStudent } from "../../models/classstudent.model";
+import { ShiftclassesService } from "../../services/shiftclasses.service";
+import { Shiftclass } from "../../models/Shiftclass.model";
 
 @Component({
     selector: 'classes',
@@ -54,6 +56,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     suppliers: Supplier[] = [];
     todays: Today[] = [];
     rooms: Room[] = [];
+    shifts: Shiftclass[] = [];    
 
     loadingIndicator: boolean = true;
 
@@ -76,7 +79,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
         private localService: ClassesService, private modalService: BsModalService,
         private materialService: MaterialLearnsService, private classStatusService: ClassStatusService,
         private studentService: StudentsService, private supplierService: SuppliersService,
-        private todayService: TodayService, private roomService: RoomsService, private route: ActivatedRoute, private router: Router) {
+        private todayService: TodayService, private roomService: RoomsService,
+        private shiftService: ShiftclassesService, private route: ActivatedRoute, private router: Router) {
 
         this.pointer = new Class();
     }
@@ -86,8 +90,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
         this.columnTimes = [
             { headerClass: "text-center", prop: "todayName", name: gT('label.class.Today'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'startTime', name: gT('label.class.StartTime'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'endTime', name: gT('label.class.EndTime'), cellTemplate: this.descriptionTemplate },
+            { headerClass: "text-center", prop: 'shiftName', name: gT('label.class.Shift'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'roomName', name: gT('label.class.Room'), cellTemplate: this.descriptionTemplate },
             { headerClass: "text-center", prop: 'supplierName', name: gT('label.class.Teacher'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
@@ -230,6 +233,13 @@ export class ClassesComponent implements OnInit, OnDestroy {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
+        this.shiftService.search("", "").subscribe(
+            list => this.onDataLoadShiftSuccessful(list),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
         //get default
         this.getDefault("", isReset);
 
@@ -255,22 +265,12 @@ export class ClassesComponent implements OnInit, OnDestroy {
         //    });
     }
 
-    //private onDataLoadDefaultSuccessful(item: Class) {
-    //    if (item != null) {
-    //        this.pointer.id = item.id;
-    //        this.pointer.code = item.code;
-    //        this.pointer.name = item.code;
-    //        this.pointer.startDate = new Date();
-    //        this.pointer.endDate = new Date();
-    //        this.pointer.endTime = new Date();
-    //        this.pointer.startTime = new Date();
-    //        this.pointer.longLearn = 0;
-    //        this.pointer.maxStudent = 0;
-
-    //        this.saveSuccessHelper(this.pointer);
-    //    }
-
-    //}
+    private onDataLoadShiftSuccessful(list: Shiftclass[]) {
+        if (list.length > 0) {
+            this.pointer.shiftId = list[0].id;
+        }
+        this.shifts = list;
+    }
 
     private onDataLoadStudentSuccessful(list: Student[]) {
         if (list.length > 0) {
@@ -352,12 +352,12 @@ export class ClassesComponent implements OnInit, OnDestroy {
             this.pointer.id = item.id;
             this.pointer.code = item.code;
             this.pointer.name = item.code;
-            this.pointer.startDate = new Date();
-            this.pointer.endDate = new Date();
+            this.pointer.startDate = item.startDate;
+            this.pointer.endDate = item.endDate;
             this.pointer.endTime = new Date();
             this.pointer.startTime = new Date();
-            this.pointer.longLearn = 0;
-            this.pointer.maxStudent = 0;
+            this.pointer.longLearn = item.longLearn;
+            this.pointer.maxStudent = item.maxStudent;
 
         }
 
@@ -375,6 +375,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
                     itemPointer.endTime = row.endTime;
                     itemPointer.roomId = row.roomId;
                     itemPointer.teacherTodayId = row.supplierId;
+                    itemPointer.shiftId = row.shiftId;
                     this.addClassTime(row.id);
                 });
             }
@@ -429,6 +430,11 @@ export class ClassesComponent implements OnInit, OnDestroy {
         var sup = this.suppliers.filter(x => x.id == item.supplierId)[0];
         if (sup != null) {
             itemNew.supplierName = sup.name;
+        }
+
+        var shift = this.shifts.filter(x => x.id == item.shiftId)[0];
+        if (shift != null) {
+            itemNew.shiftName = shift.name;
         }
 
         this.rowTimes.push(itemNew);

@@ -146,6 +146,7 @@ namespace Ebrain.Controllers
                     UpdatedBy = userId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
+                    ShiftId = p.ShiftId
                 }).ToArray(),
                 value.Students.Select(p => new ClassStudent
                 {

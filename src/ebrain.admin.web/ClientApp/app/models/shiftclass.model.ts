@@ -9,12 +9,12 @@
 export class Shiftclass {
     // Note: Using only optional constructor properties without backing store disables typescript's type checking for the type
     constructor(shiftclassId?: string) {
-        this.ID = shiftclassId;
+        this.id = shiftclassId;
     }
 
-    public ID: string;
-    public Name: string;
-    public Code: string;
-    public Note: string;
+    public id: string;
+    public name: string;
+    public code: string;
+    public note: string;
 
 }

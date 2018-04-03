@@ -285,10 +285,14 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
     }
 
     private save() {
-        this.alertService.startLoadingMessage("Saving changes...");
-        this.pointer.ioDetails = this.rows;
-
-        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+        if (this.rows != null && this.rows.length > 0) {
+            this.alertService.startLoadingMessage("Saving changes...");
+            this.pointer.ioDetails = this.rows;
+            this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+        }
+        else {
+            this.showErrorAlert("Input details", "Please selected one item on grids.");
+        }
     }
 
     private deletemaster() {
