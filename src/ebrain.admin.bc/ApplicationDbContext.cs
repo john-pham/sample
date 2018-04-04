@@ -131,7 +131,7 @@ namespace ebrain.admin.bc
             builder.Entity<Branch>().ToTable(nameof(this.Branch));
             builder.Entity<BranchSMS>().ToTable(nameof(this.BranchSMS));
             builder.Entity<Attendance>().ToTable(nameof(this.Attendance));
-            
+
             builder.Entity<ClassExamine>().ToTable(nameof(this.ClassExamine));
             builder.Entity<Gender>().ToTable(nameof(this.Gender));
             builder.Entity<Examine>().ToTable(nameof(this.Examine));
@@ -194,7 +194,7 @@ namespace ebrain.admin.bc
             builder.Entity<StudentRelationShip>().ToTable(nameof(this.StudentRelationShip));
             builder.Entity<Supplier>().ToTable(nameof(this.Supplier));
             builder.Entity<Unit>().ToTable(nameof(this.Unit));
-            builder.Entity<AccessRight>().ToTable(nameof(this.AccessRights));
+            builder.Entity<AccessRight>().ToTable(nameof(this.AccessRights)).HasKey(x => x.AccessRightId);
             builder.Entity<FeatureGroup>().ToTable(nameof(this.FeatureGroups));
             builder.Entity<Feature>().ToTable(nameof(this.Features));
             builder.Entity<UserGroup>().ToTable(nameof(this.UserGroups));

@@ -5,6 +5,7 @@ namespace ebrain.admin.bc.Models
 {
     public class AccessRight : Interfaces.IAuditableEntity
     {
+        public Guid AccessRightId { get; set; }
         public Guid GroupID { get; set; }
         public Guid FeatureID { get; set; }
         public System.Int16? Value { get; set; }
