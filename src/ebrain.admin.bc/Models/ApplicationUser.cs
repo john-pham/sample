@@ -40,6 +40,8 @@ namespace ebrain.admin.bc.Models
 
         public Guid? BranchId { get; set; }
 
+        public Guid? GroupId { get; set; }
+
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -21,49 +21,46 @@ namespace ebrain.admin.bc.Repositories
             get { return (ApplicationDbContext)_context; }
         }
 
-        public FeatureGroupRepository(ApplicationDbContext appContext) : base(context)
+        public FeatureGroupRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public bool Update(FeatureGroup value)
+        public async Task<FeatureGroup> Update(FeatureGroup value)
         {
-            var m_Ret = new bool();
+            var m_Ret = default(FeatureGroup);
 
             if (value != null)
             {
-                using (var appContext = new Entities(this.ConnectionString))
+                var fea = await appContext.FeatureGroups.FirstOrDefaultAsync(x => x.ID == value.ID);
+
+                if (fea == null)
                 {
-                    var fea = appContext.Edit< FeatureGroup>(x => x.ID == value.ID);
+                    var id = Guid.NewGuid();
 
-                    if (fea == null)
+                    if (value.Reference != null && value.Reference != Guid.Empty)
                     {
-                        var id = Guid.NewGuid();
-
-                        if (value.Reference != null && value.Reference != Guid.Empty)
-                        {
-                            id = value.Reference ?? Guid.NewGuid();
-                        }
-
-                        fea = new FeatureGroup
-                        {
-                            ID = value.ID = id,
-                            Reference = value.Reference,
-                            CreatedDate = DateTime.Now,
-                        };
-                        //
-                        appContext.Add(fea);
+                        id = value.Reference ?? Guid.NewGuid();
                     }
 
-                    fea.Name = value.Name;
-                    fea.Url = value.Url;
-                    fea.Description = value.Description;
-                    fea.UpdatedDate = DateTime.Now;
-
+                    fea = new FeatureGroup
+                    {
+                        ID = value.ID = id,
+                        Reference = value.Reference,
+                        CreatedDate = DateTime.Now,
+                    };
                     //
-                    if(m_Ret.Value = appContext.Save() > 0)
-                    {
-                        m_Ret.ReturnID = fea.ID;
-                    }
+                    appContext.Add(fea);
+                }
+
+                fea.Name = value.Name;
+                fea.Url = value.Url;
+                fea.Description = value.Description;
+                fea.UpdatedDate = DateTime.Now;
+
+                //
+                if (await appContext.SaveChangesAsync() > 0)
+                {
+                    m_Ret = fea;
                 }
             }
 
@@ -71,20 +68,18 @@ namespace ebrain.admin.bc.Repositories
 
         }
 
-        public bool Delete(Guid index)
+        public async Task<bool> Delete(Guid index)
         {
             var m_Ret = new bool();
 
-            using (var appContext = new Entities(this.ConnectionString))
-            {
-                var item = appContext.Delete< FeatureGroup>(x => x.ID == index);
+            var item = await appContext.FeatureGroups.FirstOrDefaultAsync(x => x.ID == index);
 
-                if (item != null)
+            if (item != null)
+            {
+                appContext.FeatureGroups.Remove(item);
+                //
+                if (m_Ret = await appContext.SaveChangesAsync() > 0)
                 {
-                    if(m_Ret.Value = appContext.Save() > 0)
-                    {
-                        m_Ret.ReturnID = index;
-                    }
                 }
             }
 
@@ -95,67 +90,64 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = new List<FeatureGroup>();
 
-            using (var appContext = new Entities(this.ConnectionString))
+            var items = from f in appContext.FeatureGroups
+                        select new
+                        {
+                            f.ID,
+                            f.Reference,
+                            f.Name,
+                            f.Url,
+                            f.Description,
+                            f.CreatedDate
+                        };
+
+            //FILTER
+            if (!string.IsNullOrEmpty(value))
             {
-                var items = from f in appContext.FeatureGroups
-                            select new
-                            {
-                                f.ID,
-                                f.Reference,
-                                f.Name,
-                                f.Url,
-                                f.Description,
-                                f.CreatedDate
-                            };
+                if (!string.IsNullOrEmpty(name)) name = name.ToUpper();
 
-                //FILTER
-                if (!string.IsNullOrEmpty(value))
+                switch (name)
                 {
-                    if(!string.IsNullOrEmpty(name))name = name.ToUpper();
+                    case "URL":
+                        items = items.Where(x => x.Url.Contains(value));
 
-                    switch (name)
-                    {
-                        case "URL":
-                            items = items.Where(x => x.Url.Contains(value));
+                        break;
+                    case "NAME":
+                        items = items.Where(x => x.Name.Contains(value));
 
-                            break;
-                        case "NAME":
-                            items = items.Where(x => x.Name.Contains(value));
+                        break;
+                    case "DESCRIPTION":
+                        items = items.Where(x => x.Description.Contains(value));
 
-                            break;
-                        case "DESCRIPTION":
-                            items = items.Where(x => x.Description.Contains(value));
+                        break;
+                    default:
+                        items = items.Where(x => x.Url.Contains(value) ||
+                            x.Name.Contains(value) ||
+                            x.Description.Contains(value));
 
-                            break;
-                        default:
-                            items = items.Where(x => x.Url.Contains(value) ||
-                                x.Name.Contains(value) ||
-                                x.Description.Contains(value));
-
-                            break;
-                    }
+                        break;
                 }
+            }
 
-                this.Total = items.Count();
-                //
-                if (size > 0 && page >= 0)
+            this.Total = items.Count();
+            //
+            if (size > 0 && page >= 0)
+            {
+                items = (from c in items
+                         orderby c.CreatedDate
+                         select c).Skip(page * size).Take(size);
+            }
+
+            foreach (var item in items)
+            {
+                m_Ret.Add(new FeatureGroup
                 {
-                    items = (from c in items
-                             orderby c.CreatedDate
-                             select c).Skip(page * size).Take(size);
-                }
-
-                foreach (var item in items)
-                {
-                    m_Ret.Add(new FeatureGroup
-                    {
-                        ID = item.ID,
-                        Reference = item.Reference,
-                        Name = item.Name,
-                        Url = item.Url,
-                        Description = item.Description
-                    });
-                }
+                    ID = item.ID,
+                    Reference = item.Reference,
+                    Name = item.Name,
+                    Url = item.Url,
+                    Description = item.Description
+                });
             }
 
             return m_Ret;
@@ -165,31 +157,28 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = default(FeatureGroup);
 
-            using (var appContext = new Entities(this.ConnectionString))
-            {
-                var item = (from f in appContext.FeatureGroups
-                           where f.ID == index
-                           select new
-                           {
-                               f.ID,
-                               f.Reference,
-                               f.Name,
-                               f.Url,
-                               f.Description,
-                               f.CreatedDate
-                           }).FirstOrDefault();
+            var item = (from f in appContext.FeatureGroups
+                        where f.ID == index
+                        select new
+                        {
+                            f.ID,
+                            f.Reference,
+                            f.Name,
+                            f.Url,
+                            f.Description,
+                            f.CreatedDate
+                        }).FirstOrDefault();
 
-                if (item != null)
+            if (item != null)
+            {
+                m_Ret = new FeatureGroup
                 {
-                    m_Ret = new FeatureGroup
-                    {
-                        ID = item.ID,
-                        Reference = item.Reference,
-                        Name = item.Name,
-                        Url = item.Url,
-                        Description = item.Description
-                    };
-                }
+                    ID = item.ID,
+                    Reference = item.Reference,
+                    Name = item.Name,
+                    Url = item.Url,
+                    Description = item.Description
+                };
             }
 
             return m_Ret;

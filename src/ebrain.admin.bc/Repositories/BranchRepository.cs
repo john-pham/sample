@@ -23,7 +23,7 @@ namespace ebrain.admin.bc.Repositories
     {
         public int Total { get; private set; }
 
-        public BranchRepository(ApplicationDbContext appContext) : base(context)
+        public BranchRepository(ApplicationDbContext context) : base(context)
         {
         }
 
