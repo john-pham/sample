@@ -56,7 +56,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: DocumentsService, private modalService: BsModalService, private grpService: GrpDocumentsService) {
         this.pointer = new Document();
         this.page = new Page();
-        
+
         //
         this.page.pageNumber = 0;
         this.page.size = 20;
@@ -68,17 +68,17 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
         this.columns = [
             { headerClass: "text-center", prop: "code", name: gT('label.document.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-        
+
             { headerClass: "text-center", prop: 'name', name: gT('label.document.Name'), cellTemplate: this.nameTemplate },
 
             { headerClass: "text-center", prop: 'note', name: gT('label.document.Note'), cellTemplate: this.descriptionTemplate },
             { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
-        
+
         this.getFromServer();
     }
 
-   
+
     ngOnDestroy() {
         //this.saveToDisk();
     }
@@ -108,7 +108,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
 
     }
-    
+
     onSearchChanged(value: string) {
         this.getFromServer();
     }
@@ -146,6 +146,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     }
 
     private onDataLoadGrpSuccessful(grps: GrpDocument[]) {
+        if (grps != null && grps.length > 0) {
+            this.pointer.grpId = grps[0].id;
+        }
         this.grps = grps;
         this.alertService.stopLoadingMessage();
     }
@@ -168,7 +171,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
         this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
-    
+
     private saveSuccessHelper(document?: Document) {
         this.alertService.stopLoadingMessage();
         //this.resetForm();

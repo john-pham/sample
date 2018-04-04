@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">{{'label.document.GrpDocument' | translate}}</label>
                     <div [ngClass]="{'has-success': f.submitted && grp.valid, 'has-error' : f.submitted && !grp.valid}">
-                        <select id="types-user-info" name="grp" [(ngModel)]="pointer.typeMaterialId" class="form-control" required
+                        <select id="types-user-info" name="grp" [(ngModel)]="pointer.grpId" class="form-control" required
                                 data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..."
                                 #grp="ngModel" attr.id="grp-{{uniqueId}}"
                                 title="{{'label.document.GrpDocument' | translate}}">
