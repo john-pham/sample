@@ -21,14 +21,27 @@ import { Branch } from '../models/branch.model';
 
 
 @Injectable()
-export class BranchesEndpoint extends EndpointFactory {
+export class GrpDocumentsEndpoint extends EndpointFactory {
 
-    private readonly _serviceUrl: string = "/api/branches";
+    private readonly _serviceUrl: string = "/api/groupdocument";
     private get serviceUrl() { return this.configurations.baseUrl + this._serviceUrl; }
 
 
     constructor(http: Http, configurations: ConfigurationService, injector: Injector) {
         super(http, configurations, injector);
+    }
+
+    getall(): Observable<Response> {
+
+        let url = this.getUrl('getall?hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getall());
+            });
     }
 
     search(filter: string, value: string, page: number, size: number): Observable<Response> {
@@ -71,20 +84,6 @@ export class BranchesEndpoint extends EndpointFactory {
             });
     }
 
-    saveHead(value: any): Observable<Response> {
-        let url = this.getUrl('savehead');
-        let header = this.getAuthHeader(true);
-        let params = JSON.stringify(value);
-
-        return this.http.post(url, params, header)
-            .map((response: Response) => {
-                return response;
-            })
-            .catch(error => {
-                return this.handleError(error, () => this.save(value));
-            });
-    }
-
     delete(id: string): Observable<Response> {
         let url = this.getUrl('remove');
         let header = this.getAuthHeader(true);
@@ -99,23 +98,11 @@ export class BranchesEndpoint extends EndpointFactory {
             });
     }
 
-    getBranchHead(index: string): Observable<Response> {
-
-        let url = this.getUrl('getbranchheads?branchId=' + index + '&hash_id=' + Math.random());
-
-        return this.http.get(url, this.getAuthHeader())
-            .map((response: Response) => {
-                return response;
-            })
-            .catch(error => {
-                return this.handleError(error, () => this.get(index));
-            });
-    }
 
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {
-            
+
         }
 
         if (error.url && error.url.toLowerCase().includes(this.serviceUrl.toLowerCase())) {

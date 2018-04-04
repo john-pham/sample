@@ -51,6 +51,12 @@ import { CurrencyPipe } from "./pipes/currency.pipe";
 import { BranchesService } from './services/branches.service';
 import { BranchesEndpoint } from './services/branches-endpoint.service';
 
+import { DocumentsService } from './services/documents.service';
+import { DocumentsEndpoint } from './services/documents-endpoint.service';
+
+import { GrpDocumentsService } from './services/grpdocuments.service';
+import { GrpDocumentsEndpoint } from './services/grpdocuments-endpoint.service';
+
 import { GenderStudentService } from './services/genderstudent.service';
 import { GenderStudentEndpoint } from './services/genderstudent-endpoint.service';
 
@@ -161,6 +167,10 @@ import { AlteComponent } from "./components/alte.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
 import { BranchesComponent } from "./components/branches/branches.component";
+
+import { GrpDocumentsComponent } from "./components/grpdocuments/grpdocuments.component";
+import { DocumentsComponent } from "./components/documents/documents.component";
+
 import { StocksComponent } from "./components/stocks/stocks.component";
 import { GrpMaterialsComponent } from "./components/grpMaterials/grpMaterials.component";
 import { GrpMaterialLearnsComponent } from "./components/grpMaterialLearns/grpMaterialLearns.component";
@@ -225,6 +235,7 @@ import { mn_main_systemComponent } from "./components/menu/mn-main/mn-main-syste
 import { mn_main_smsComponent } from "./components/menu/mn-main/mn-main-sms.component";
 import { mn_main_functionComponent } from "./components/menu/mn-main/mn-main-function.component";
 import { mn_main_reportComponent } from "./components/menu/mn-main/mn-main-report.component";
+import { mn_main_documentComponent } from "./components/menu/mn-main/mn-main-document.component";
 
 import { mn_stocksComponent } from "./components/menu/mn-stocks.component";
 import { mn_studentsComponent } from "./components/menu/mn-students.component";
@@ -305,6 +316,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         HomeComponent,
         BranchesComponent,
         StocksComponent,
+        GrpDocumentsComponent,
+        DocumentsComponent,
         UnitsComponent,
         ExamineComponent,
         StudentstatusComponent,
@@ -366,6 +379,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         mn_main_smsComponent,
         mn_main_functionComponent,
         mn_main_reportComponent,
+        mn_main_documentComponent,
 
         mn_stocksComponent,
         mn_studentsComponent,
@@ -430,6 +444,11 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         EndpointFactory,
         BranchesService,
         BranchesEndpoint,
+        DocumentsService,
+        DocumentsEndpoint,
+        GrpDocumentsService,
+        GrpDocumentsEndpoint,
+
         GenderStudentService,
         GenderStudentEndpoint,
 

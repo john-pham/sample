@@ -39,6 +39,14 @@ namespace ebrain.admin.bc.Repositories
             return await this.appContext.GroupDocument.FirstOrDefaultAsync(p => p.GroupDocumentId == id);
         }
 
+        public async Task<IEnumerable<GroupDocument>> GetAll(string branchIds)
+        {
+            return this.appContext.GroupDocument.Where
+                (
+                    p => p.IsDeleted == false &&
+                    branchIds.Contains(p.BranchId.ToString())
+                );
+        }
         public async Task<IEnumerable<GroupDocument>> Search(string filter, string value, int page, int size, string branchIds)
         {
             var grps = this.appContext.GroupDocument.Where

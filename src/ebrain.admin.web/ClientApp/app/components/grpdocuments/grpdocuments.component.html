@@ -1,0 +1,117 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_categories">{{'menu.main.Document' | translate}}</a></li>
+                <li>{{'pageMain.grpdocument.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.grpdocument.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="addGrpDocument(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.grpdocument.newGrpDocument' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [columns]="columns"
+                   [columnMode]="'force'"
+                   [scrollbarV]="verticalScrollbar"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="page.totalElements"
+                   [offset]="page.pageNumber"
+                   [limit]="page.size"
+                   (page)='setPage($event)'>
+    </ngx-datatable>
+
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #statusTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #actionsTemplate let-row="row" let-value="value">
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editgrpdocument(template, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+        |
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="deletegrpdocument(value)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+    </ng-template>
+</div>
+
+<ng-template #template>
+
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.grpdocument.HeaderAdd' | translate}}</h4>
+    </div>
+
+    <form class="form-horizontal" name="branchForm" #f="ngForm"
+          novalidate
+          (ngSubmit)="f.form.valid ? save() :
+          (showErrorAlert('Input is required', 'Please enter at controls'));">
+        <div class="modal-body">
+            <div class="modal-body">
+                
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label">{{'label.grpdocument.Code' | translate}}</label>
+                    <div [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !code.valid}">
+                        <input type="text" class="form-control" [(ngModel)]="pointer.code" name="code" required
+                               #code="ngModel"
+                               attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="control-label">{{'label.grpdocument.Name' | translate}}</label>
+                    <div [ngClass]="{'has-success': f.submitted && name.valid, 'has-error' : f.submitted && !name.valid}">
+                        <input type="text" class="form-control" [(ngModel)]="pointer.name" name="name" required
+                               #name="ngModel"
+                               attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label">{{'label.grpdocument.Note' | translate}}</label>
+                    <textarea class="form-control" [(ngModel)]="pointer.note" name="note"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                <button type="submit" class="btn btn-primary">{{'button.Save' | translate}}</button>
+            </div>
+        </div>
+    </form>
+
+</ng-template>

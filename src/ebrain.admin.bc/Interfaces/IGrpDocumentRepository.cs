@@ -18,6 +18,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     {
         int Total { get; }
         IEnumerable<GroupDocument> GetTopActive(int count);
+        Task<IEnumerable<GroupDocument>> GetAll(string branchIds);
         Task<IEnumerable<GroupDocument>> Search(string filter, string value, int page, int size, string branchIds);
         Task<IEnumerable<GroupDocument>> GroupDocuments(string branchIds);
         Task<GroupDocument> Save(GroupDocument value, Guid? index);

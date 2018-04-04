@@ -21,6 +21,8 @@ import { GrpMaterialsComponent } from "./components/grpMaterials/grpMaterials.co
 import { GrpMaterialLearnsComponent } from "./components/grpMaterialLearns/grpMaterialLearns.component";
 import { UnitsComponent } from "./components/units/units.component";
 import { ExamineComponent } from "./components/examines/examines.component";
+import { GrpDocumentsComponent } from "./components/grpdocuments/grpdocuments.component";
+import { DocumentsComponent } from "./components/documents/documents.component";
 
 import { StudentstatusComponent } from "./components/studentstatus/studentstatus.component";
 
@@ -75,6 +77,8 @@ import { mn_main_accountantComponent } from "./components/menu/mn-main/mn-main-a
 import { mn_main_stockComponent } from "./components/menu/mn-main/mn-main-stock.component";
 import { mn_main_systemComponent } from "./components/menu/mn-main/mn-main-system.component";
 import { mn_main_smsComponent } from "./components/menu/mn-main/mn-main-sms.component";
+import { mn_main_documentComponent } from "./components/menu/mn-main/mn-main-document.component";
+
 import { mn_main_functionComponent } from "./components/menu/mn-main/mn-main-function.component";
 import { mn_main_reportComponent } from "./components/menu/mn-main/mn-main-report.component";
 
@@ -131,6 +135,8 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "mn_main_stock", component: mn_main_stockComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
             { path: "mn_main_system", component: mn_main_systemComponent, canActivate: [AuthGuard], data: { title: "Systems" } },
             { path: "mn_main_sms", component: mn_main_smsComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
+            { path: "mn_main_document", component: mn_main_documentComponent, canActivate: [AuthGuard], data: { title: "Document" } },
+
             { path: "attendances", component: AttendancesComponent, canActivate: [AuthGuard], data: { title: "Attendances" } },
             { path: "mn_main_function", component: mn_main_functionComponent, canActivate: [AuthGuard], data: { title: "Functions" } },
             { path: "mn_main_report", component: mn_main_reportComponent, canActivate: [AuthGuard], data: { title: "Reports" } },
@@ -164,6 +170,9 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "examines", component: ExamineComponent, canActivate: [AuthGuard], data: { title: "examines" } },
 
             { path: "studentstatus", component: StudentstatusComponent, canActivate: [AuthGuard], data: { title: "studentstatus" } },
+
+            { path: "grpdocuments", component: GrpDocumentsComponent, canActivate: [AuthGuard], data: { title: "Group Documents" } },
+            { path: "documents", component: DocumentsComponent, canActivate: [AuthGuard], data: { title: "Documents" } },
             
             { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
             { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },

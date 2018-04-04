@@ -24,6 +24,47 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "document": {
+      "GrpDocument":"Nhóm tài liệu", 
+      "header": "Tài liệu",
+      "Code": "Mã",
+      "Name": "Tên",
+      "CreatedDate": "Ngày tạo",
+      "CreatedBy": "Người tạo",
+      "Note": "Ghi chú",
+      "Email": "E-mail",
+      "Address": "Địa chỉ",
+      "HeaderAdd": "Quản lý tài liệu",
+      "Manage": "Quản lý",
+      "Config": "Cấu hình SMS",
+      "UserName": "User Name",
+      "Password": "Password",
+      "CPCode": "CPCode",
+      "RequestID": "RequestID",
+      "ServiceId": "ServiceId",
+      "CommandCode": "CommandCode",
+      "ContentType": "ContentType"
+    },
+    "grpdocument": {
+      "header": "Nhóm tài liệu",
+      "Code": "Mã",
+      "Name": "Tên",
+      "CreatedDate": "Ngày tạo",
+      "CreatedBy": "Người tạo",
+      "Note": "Ghi chú",
+      "Email": "E-mail",
+      "Address": "Địa chỉ",
+      "HeaderAdd": "Quản lý nhóm tài liệu",
+      "Manage": "Quản lý",
+      "Config": "Cấu hình SMS",
+      "UserName": "User Name",
+      "Password": "Password",
+      "CPCode": "CPCode",
+      "RequestID": "RequestID",
+      "ServiceId": "ServiceId",
+      "CommandCode": "CommandCode",
+      "ContentType": "ContentType"
+    },
     "error": {
       "NotEmpty": "Không được để trống",
       "MessageEmpty": "Vui lòng điền đầy đủ thông tin"
@@ -525,6 +566,16 @@
     }
   },
   "pageMain": {
+    "document": {
+      "header": "Danh sách tài liệu",
+      "searchBox": "Tìm kiếm tài liệu",
+      "newDocument": "Thêm mới"
+    },
+    "grpdocument": {
+      "header": "Danh sách nhóm tài liệu",
+      "searchBox": "Tìm kiếm nhóm tài liệu",
+      "newGrpDocument": "Thêm mới"
+    },
     "sms": {
       "header": "Danh sách SMS",
       "searchBox": "Tìm kiếm SMS",
@@ -689,6 +740,10 @@
     "Search": "Tìm kiếm"
   },
   "menu": {
+    "document": {
+      "GrpDocument": "Nhóm tài liệu",
+      "Document": "Tài liệu"
+    },
     "sms": {
       "SendSMS": "Gửi tin",
       "HistorySMS": "Lịch sử"
@@ -703,7 +758,8 @@
       "Accountant": "Kế toán",
       "Stock": "Kho hàng",
       "Function": "Chức năng",
-      "SMS": "SMS"
+      "SMS": "SMS",
+      "Document": "Tài liệu"
     },
     "stock": {
       "Branch": "Cơ sở",

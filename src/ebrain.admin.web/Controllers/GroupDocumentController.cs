@@ -44,6 +44,23 @@ namespace Ebrain.Controllers
             }
         }
 
+        [HttpGet("getall")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IEnumerable<GrpDocumentViewModel>> GetAll()
+        {
+            var bus = this._unitOfWork.GroupDocuments;
+            var ret = from c in await bus.GetAll(this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
+                      select new GrpDocumentViewModel
+                      {
+                          ID = c.GroupDocumentId,
+                          Code = c.GroupDocumentCode,
+                          Name = c.GroupDocumentName,
+                          Note = c.Note
+                      };
+
+            return ret;
+        }
+
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> Search(string filter, string value, int page, int size)
