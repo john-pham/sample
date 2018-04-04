@@ -152,10 +152,12 @@
 
         <div class="modal-body">
             
-            <div class="form-group has-feedback">
-                <img [src]="src" [hidden]="!src">
-                <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput name="avatar">
-                <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+            <div class="select-file">
+                <img class="image" [src]="src" [hidden]="!src">
+                <p>{{file_name}}</p>
+                <input type="file" id="avatar" style="display: none" (change)="onFileChange($event)" #fileInput name="avatar">
+                <button type="button" class="btn btn-info" (click)="fileInputClick()">Select Avatar</button>
+                <button type="button" class="btn btn-default" (click)="clearFile()" [hidden]="!src">Clear Avatar</button>
             </div>
             
 

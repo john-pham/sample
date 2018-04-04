@@ -25,6 +25,18 @@
     border-style: none;
 }
 
+.pd-r-12 {
+    padding-right: 12px;
+}
+
+.btn-add {
+    margin: 10px 0;
+}
+
+.btn-add button {
+    width: 80px
+}
+
 
 .form-group {
     margin-top: 0;

@@ -89,6 +89,19 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     //
     src: string = "";
+    file_name: string = "";
+
+    fileInputClick() {
+        document.getElementById('avatar').click();
+    }
+
+    clearFile() {
+        this.pointer.logo.name = null;
+        this.pointer.logo.type = null;
+        this.pointer.logo.value = null;
+        this.src = "";
+        this.file_name = "";
+    }
 
     onFileChange(event) {
         let reader = new FileReader();
@@ -96,6 +109,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
             let file = event.target.files[0];
             //
             reader.onload = () => {
+                this.file_name = file.name;
                 this.src = reader.result;
                 this.pointer.logo.name = file.name;
                 this.pointer.logo.type = file.type;

@@ -106,7 +106,7 @@
             <div class="form-group has-feedback">
                 <label class="control-label col-md-4">{{'label.classstudent.MaxStudent' | translate}}</label>
                 <div class="col-md-8">
-                    <input class="form-control" type="text" [(ngModel)]="pointer.maxStudent" readonly>
+                    <input class="form-control text-right pd-r-12" type="text" [(ngModel)]="pointer.maxStudent" readonly>
                 </div>
             </div>
         </div>
@@ -114,20 +114,17 @@
             <div class="form-group has-feedback">
                 <label class="control-label col-md-4">{{'label.classstudent.LearnStudent' | translate}}</label>
                 <div class="col-md-8">
-                    <input class="form-control" type="text" [(ngModel)]="pointer.countStudent" readonly>
+                    <input class="form-control text-right pd-r-12" type="text" [(ngModel)]="pointer.countStudent" readonly>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row pull-right">
-        <div class="col-sm-8">
-            <div class="form-group has-feedback">
-                <button type="button" class="btn btn-primary form-control" (click)="addClassStudent()">
-                    {{'button.Add' | translate}}
-                </button>
-            </div>
-        </div>
+    
+    <div class="pull-right btn-add">
+        <button type="button" class="btn btn-primary" (click)="addClassStudent()">
+            <span class="glyphicon glyphicon-plus"></span> {{'button.Add' | translate}}
+        </button>
     </div>
 
     <div class="row">
