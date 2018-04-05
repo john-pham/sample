@@ -98,6 +98,11 @@ label.control-label {
             text-align: center;
         }
 
+.ngx-datatable .datatable-body .datatable-body-row .datatable-body-cell-label {
+    word-break: break-all;
+    white-space: normal;
+}
+
 .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell.text-right {
     text-align: right;
 }
@@ -150,6 +155,12 @@ label.control-label {
 
 .modal-footer {
     margin-top: 10px;
+}
+
+.modal-content ngx-datatable datatable-body {
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* breadcrumb  */
