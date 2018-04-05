@@ -146,5 +146,18 @@ namespace ebrain.admin.bc.Utilities
             #endregion
             return true;
         }
+
+        public static Guid ConvertStringToGuid(this string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                Guid outGuid;
+                if (Guid.TryParse(value, out outGuid))
+                {
+                    return outGuid;
+                }
+            }
+            return Guid.NewGuid();
+        }
     }
 }

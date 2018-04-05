@@ -253,6 +253,13 @@ namespace ebrain.admin.bc
                     base.Entry(entity).Property(x => x.CreatedDate).IsModified = false;
                 }
 
+                var lastUpdated = entry.Entity as IHistoricalEntity;
+                if (lastUpdated != null)
+                {
+                    lastUpdated.UpdatedBy = CurrentUserId.ConvertStringToGuid();
+                    lastUpdated.UpdatedDate = now;
+                }
+
                 entity.UpdatedDate = now;
                 entity.UpdatedBy = CurrentUserId;
             }
