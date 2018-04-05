@@ -25,9 +25,9 @@ export class DocumentsService {
     constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: DocumentsEndpoint) {
         this.initializeStatus();
     }
-    
-    search(filter: string, value: string, page: number, size: number) {
-        return this.endpointFactory.search(filter, value, page, size)
+
+    search(filter: string, value: string, grpId: string, page: number, size: number) {
+        return this.endpointFactory.search(filter, value, grpId, page, size)
             .map((response: Response) => <Results<Document>>response.json());
     }
 
@@ -40,14 +40,14 @@ export class DocumentsService {
         return this.endpointFactory.save(value)
             .map((response: Response) => <Document>response.json());
     }
-    
+
     delete(id: string) {
         return this.endpointFactory.delete(id)
             .map((response: Response) => <Boolean>response.json());
     }
-    
+
 
     private initializeStatus() {
-        
+
     }
 }

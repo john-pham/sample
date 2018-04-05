@@ -13,7 +13,26 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-10">
+
+    <div class="col-sm-5">
+        <div class="form-group has-feedback">
+            <label for="pointer.email" class="control-label col-md-4">{{'label.document.GrpDocument' | translate}}</label>
+            <div class="col-md-8">
+                <select id="types-user-info" name="grp" [(ngModel)]="grpId" class="form-control"
+                        data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..."
+                        title="{{'label.document.GrpDocument' | translate}}">
+                    >
+                    <option [value]="1">{{'label.classlist.AllFiles' | translate}}</option>
+                    <option *ngFor="let type of grps" attr.data-content="<span title='{{type.note}}' class='badge'>{{type.name}}</span>" attr.value="{{type.id}}">
+                        {{type.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-5">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.document.searchBox' | translate}}">></search-box>
         </div>
@@ -65,6 +84,11 @@
             {{value}}
         </span>
     </ng-template>
+
+    <ng-template #hyperlinkTemplate let-row="row" let-value="value">
+        <a class="btn-link" href="{{row.path}}"  target="_blank">{{value}}</a>
+    </ng-template>
+
     <ng-template #actionsTemplate let-row="row" let-value="value">
         <a class="btn btn-link btn-xs" href="javascript:;" (click)="editDocument(template, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
         |
@@ -84,6 +108,14 @@
           (ngSubmit)="f.form.valid ? save() :
           (showErrorAlert('Input is required', 'Please enter at controls'));">
         <div class="modal-body">
+
+            <div class="select-file">
+                <p>{{file_name}}</p>
+                <input type="file" id="avatar" style="display: none" (change)="onFileChange($event)" #fileInput name="avatar">
+                <button type="button" class="btn btn-info" (click)="fileInputClick()">{{'label.document.SelectedFile' | translate}}</button>
+                <button type="button" class="btn btn-default" (click)="clearFile()" [hidden]="!src">{{'label.document.DropFile' | translate}}</button>
+            </div>
+
             <div class="modal-body">
                 <div class="form-group">
                     <label for="recipient-name" class="control-label">{{'label.document.GrpDocument' | translate}}</label>
@@ -92,7 +124,7 @@
                                 data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..."
                                 #grp="ngModel" attr.id="grp-{{uniqueId}}"
                                 title="{{'label.document.GrpDocument' | translate}}">
-                >
+                            >
                             <option *ngFor="let type of grps" attr.data-content="<span title='{{type.note}}' class='badge'>{{type.name}}</span>" attr.value="{{type.id}}">
                                 {{type.name}}
                             </option>

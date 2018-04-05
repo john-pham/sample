@@ -18,7 +18,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     {
         int Total { get; }
         IEnumerable<Document> GetTopActive(int count);
-        Task<IEnumerable<Document>> Search(string filter, string value, int page, int size, string branchIds);
+        Task<IEnumerable<Document>> Search(string filter, string value, string grpId, int page, int size, string branchIds);
         Task<IEnumerable<Document>> Documents(string branchIds);
         Task<Document> Save(Document value, Guid? index);
         Task<Document> FindById(Guid? id);

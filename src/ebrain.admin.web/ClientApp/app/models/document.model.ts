@@ -5,6 +5,7 @@
 // 
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
+import { File } from './file.model';
 export class Document {
     // Note: Using only optional constructor properties without backing store disables typescript's type checking for the type
     constructor(id?: string) {
@@ -18,4 +19,6 @@ export class Document {
     public name: string;
     public code: string;
     public note: string;
+    public grDocumentName: string;
+    public logo: File;
 }

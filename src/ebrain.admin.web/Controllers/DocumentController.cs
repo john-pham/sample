@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using ebrain.admin.bc.Utilities;
 
 namespace Ebrain.Controllers
 {
@@ -46,24 +47,31 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> Search(string filter, string value, int page, int size)
+        public async Task<JsonResult> Search(string filter, string value, string grpId, int page, int size)
         {
             var bus = this._unitOfWork.Documents;
-            var ret = from c in await bus.Search(filter, value, page, size, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
-                      select new DocumentViewModel
-                      {
-                          ID = c.DocumentId,
-                          GrpId = c.GroupDocumentId,
-                          Code = c.DocumentCode,
-                          Name = c.DocumentName,
-                          Path = c.Path,
-                          Note = c.Note
-                      };
+            var ret = await bus.Search(filter, value, grpId, page, size, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
 
+            var list = new List<DocumentViewModel>();
+            foreach (var c in ret)
+            {
+                var itemNew = new DocumentViewModel
+                {
+                    ID = c.DocumentId,
+                    GrpId = c.GroupDocumentId,
+                    Code = c.DocumentCode,
+                    Name = c.DocumentName,
+                    Path = c.Path.WebRootPathDocumentDownload(c.BranchId.ToString(), _env),
+                    Note = c.Note,
+                    GrDocumentName = c.GroupDocumentName
+                };
+                list.Add(itemNew);
+            }
+           
             return Json(new
             {
                 Total = bus.Total,
-                List = ret
+                List = list
             });
         }
 
@@ -97,6 +105,7 @@ namespace Ebrain.Controllers
                 var grp = new Document
                 {
                     DocumentId = Guid.NewGuid(),
+                    Path = value.Path,
                     DocumentCode = value.Code,
                     DocumentName = value.Name,
                     Note = value.Note,
@@ -108,8 +117,29 @@ namespace Ebrain.Controllers
 
                 };
 
+
                 //commit
                 var ret = await this._unitOfWork.Documents.Save(grp, value.ID);
+
+                //save logo to physical file
+                if (value.Logo != null && !string.IsNullOrEmpty(value.Logo.Name) && !string.IsNullOrEmpty(value.Logo.Value))
+                {
+                    //Convert Base64 Encoded string to Byte Array.
+                    var base64String = value.Logo.Value;
+                    var fileName = value.Logo.Name;
+                    byte[] imageBytes = Convert.FromBase64String(base64String);
+
+                    //Save the Byte Array as Image File.
+                    string filePath = fileName.WebRootPathDocument(ret.BranchId.ToString(), _env);
+                    imageBytes.WriteAllBytes(filePath);
+
+                    //store filename to DB
+                    grp.Path = fileName.GetFileName();
+
+                    //save path
+                    ret = await this._unitOfWork.Documents.Save(grp, ret.DocumentId);
+                }
+
 
                 //return client side
                 return Ok(ret);

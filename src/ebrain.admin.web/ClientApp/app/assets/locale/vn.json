@@ -25,7 +25,9 @@
   },
   "label": {
     "document": {
-      "GrpDocument":"Nhóm tài liệu", 
+      "SelectedFile": "Chọn tài liệu",
+      "DropFile": "Xóa",
+      "GrpDocument": "Nhóm tài liệu",
       "header": "Tài liệu",
       "Code": "Mã",
       "Name": "Tên",

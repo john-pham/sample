@@ -29,16 +29,19 @@ export class DocumentsEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    search(filter: string, value: string, page: number, size: number): Observable<Response> {
+    search(filter: string, value: string, grpId: string, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        if (grpId == 'undefined') grpId = '';
+        if (value == 'undefined') value = '';
+
+        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&grpId=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(filter, value, page, size));
+                return this.handleError(error, () => this.search(filter, value, grpId, page, size));
             });
     }
 
@@ -68,7 +71,7 @@ export class DocumentsEndpoint extends EndpointFactory {
                 return this.handleError(error, () => this.save(value));
             });
     }
-    
+
     delete(id: string): Observable<Response> {
         let url = this.getUrl('remove');
         let header = this.getAuthHeader(true);
@@ -82,12 +85,12 @@ export class DocumentsEndpoint extends EndpointFactory {
                 return this.handleError(error, () => this.delete(id));
             });
     }
-    
+
 
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {
-            
+
         }
 
         if (error.url && error.url.toLowerCase().includes(this.serviceUrl.toLowerCase())) {

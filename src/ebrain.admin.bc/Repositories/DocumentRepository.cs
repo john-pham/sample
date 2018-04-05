@@ -39,12 +39,14 @@ namespace ebrain.admin.bc.Repositories
             return await this.appContext.Document.FirstOrDefaultAsync(p => p.DocumentId == id);
         }
 
-        public async Task<IEnumerable<Document>> Search(string filter, string value, int page, int size, string branchIds)
+        public async Task<IEnumerable<Document>> Search(string filter, string value, string grpId, int page, int size, string branchIds)
         {
             var grps = this.appContext.Document.Where
                 (
                     p => p.IsDeleted == false &&
-                    branchIds.Contains(p.BranchId.ToString())
+                    branchIds.Contains(p.BranchId.ToString()) &&
+                    (string.IsNullOrEmpty(grpId) || p.GroupDocumentId.ToString() == grpId) &&
+                    (string.IsNullOrEmpty(value) || p.DocumentCode.Contains(value) || p.DocumentName.Contains(value))
                 );
 
             this.Total = grps.Count();
@@ -56,6 +58,14 @@ namespace ebrain.admin.bc.Repositories
                         select c).Skip(page * size).Take(size);
             }
 
+            foreach (var item in grps)
+            {
+                var itemGrp = this.appContext.GroupDocument.FirstOrDefault(p => p.GroupDocumentId == item.GroupDocumentId);
+                if (itemGrp != null)
+                {
+                    item.GroupDocumentName = itemGrp.GroupDocumentName;
+                }
+            }
             return grps;
         }
 
@@ -65,11 +75,13 @@ namespace ebrain.admin.bc.Repositories
             var itemExist = await FindById(index);
             if (itemExist != null)
             {
+                itemExist.GroupDocumentId = value.GroupDocumentId;
                 itemExist.DocumentCode = value.DocumentCode;
                 itemExist.DocumentName = value.DocumentName;
                 itemExist.Note = value.Note;
                 itemExist.UpdatedBy = value.UpdatedBy;
                 itemExist.UpdatedDate = DateTime.Now;
+                itemExist.Path = value.Path;
             }
             else
             {

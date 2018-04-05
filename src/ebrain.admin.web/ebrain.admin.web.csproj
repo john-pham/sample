@@ -6868,4 +6868,8 @@
     <TypeScriptCompile Include="ClientApp\app\assets\adminLTE-2.4.3\bower_components\fullcalendar\dist\fullcalendar.d.ts" />
     <TypeScriptCompile Include="ClientApp\app\assets\adminLTE-2.4.3\bower_components\moment\moment.d.ts" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\documents\" />
+  </ItemGroup>
 </Project>

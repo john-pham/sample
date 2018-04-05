@@ -41,6 +41,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
     filterName: string;
     filterValue: string;
+    grpId: string;
 
     private pointer: Document;
     private page: Page;
@@ -56,10 +57,12 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: DocumentsService, private modalService: BsModalService, private grpService: GrpDocumentsService) {
         this.pointer = new Document();
         this.page = new Page();
-
+        this.pointer.logo = new File();
         //
         this.page.pageNumber = 0;
         this.page.size = 20;
+        this.filterValue = "";
+        this.grpId = "";
     }
 
     ngOnInit() {
@@ -67,15 +70,15 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
+            { headerClass: "text-center", prop: 'grDocumentName', name: gT('label.document.GrpDocument'), cellTemplate: this.statusTemplate },
             { headerClass: "text-center", prop: "code", name: gT('label.document.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-
-            { headerClass: "text-center", prop: 'name', name: gT('label.document.Name'), cellTemplate: this.nameTemplate },
-
+            { headerClass: "text-center", prop: 'name', name: gT('label.document.Name'), cellTemplate: this.hyperlinkTemplate },
             { headerClass: "text-center", prop: 'note', name: gT('label.document.Note'), cellTemplate: this.descriptionTemplate },
             { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         this.getFromServer();
+        this.grpId = '';
     }
 
 
@@ -100,6 +103,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
                 this.pointer.note = item.note;
                 this.pointer.path = item.path;
                 this.pointer.grpId = item.grpId;
+                this.file_name = item.path;
                 this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
             },
             error => {
@@ -125,14 +129,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.search(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(
+        var disp = this.localService.search(this.filterName, this.filterValue, this.grpId, this.page.pageNumber, this.page.size).subscribe(
             resulted => this.onDataLoadSuccessful(resulted),
             error => this.onDataLoadFailed(error),
             () => {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
-
+        this.grpDocument();
     }
 
     grpDocument() {
@@ -229,6 +233,34 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.modalHeadRef.hide();
     }
 
+    src: string = "";
+    file_name: string = "";
+
+    fileInputClick() {
+        document.getElementById('avatar').click();
+    }
+
+    onFileChange(event) {
+        let reader = new FileReader();
+        if (event.target.files && event.target.files.length > 0) {
+            let file = event.target.files[0];
+            //
+            reader.onload = () => {
+                this.file_name = file.name;
+                this.src = reader.result;
+                this.pointer.logo.name = file.name;
+                this.pointer.logo.type = file.type;
+                this.pointer.logo.value = reader.result.split(',')[1];
+            };
+            //
+            reader.onloadend = (loadEvent: any) => {
+                this.src = loadEvent.target.result;
+            };
+            //
+            reader.readAsDataURL(file);
+        }
+    }
+
 
     @ViewChild('f')
     private form;
@@ -238,7 +270,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     private showErrorAlert(caption: string, message: string) {
         this.alertService.showMessage(caption, message, MessageSeverity.error);
     }
-
 
 
     @ViewChild('statusHeaderTemplate')
@@ -262,5 +293,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     @ViewChild('checkboxTemplate')
     checkboxTemplate: TemplateRef<any>;
 
+    @ViewChild('hyperlinkTemplate')
+    hyperlinkTemplate: TemplateRef<any>;
 
 }

@@ -1,12 +1,61 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Text;
 
 namespace ebrain.admin.bc.Utilities
 {
     public static class StringHelper
     {
+        static string PATH_DOCUMENTS = "{0}/uploads/documents/{1}.{2}";
+        static string PATH_LOGOS = "{0}/uploads/logos/{1}.{2}";
+
+
+        static IHostingEnvironment _env;
+
+        private static string WebRootPath(string pathRoot, string fileName, string branchId)
+        {
+            var path = string.Format(pathRoot, _env.WebRootPath,
+                       branchId.Replace("-", string.Empty),
+                       fileName.GetFileName());
+
+            return path;
+        }
+
+        public static string WebRootPathDocumentDownload(this string fileName, string branchId, IHostingEnvironment env)
+        {
+            if (string.IsNullOrEmpty(fileName)) return "javascript:;";
+            _env = env;
+            var path = string.Format(PATH_DOCUMENTS, string.Empty,
+                       branchId.Replace("-", string.Empty),
+                       fileName.GetFileName());
+            return path;
+        }
+
+        public static string WebRootPathDocument(this string fileName, string branchId, IHostingEnvironment env)
+        {
+            _env = env;
+            return WebRootPath(PATH_DOCUMENTS, fileName, branchId);
+        }
+
+        public static string WebRootPathLogo(this string fileName, string branchId)
+        {
+            return WebRootPath(PATH_LOGOS, fileName, branchId);
+        }
+
+        public static string GetFileName(this string fileName)
+        {
+            return System.IO.Path.GetFileName(fileName);
+        }
+
+        public static void WriteAllBytes(this byte[] imageBytes, string filePath)
+        {
+            System.IO.File.WriteAllBytes(filePath, imageBytes);
+        }
+
         #region IntParseFast
         /// <summary>
         /// http://www.dotnetperls.com/int-parse-optimization
@@ -49,7 +98,7 @@ namespace ebrain.admin.bc.Utilities
             return IntParseFast(value);
         }
         #endregion
-              
+
         /// <summary>
         /// http://www.dotnetperls.com/int-parse-optimization
         /// </summary>
