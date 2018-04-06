@@ -22,8 +22,8 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 
         Task<bool> Delete(Guid feature, Guid group);
 
-        IList<Report.AccessRight> Search(Guid group, string feature, int page, int size);
+        Task<IList<Report.AccessRight>> Search(Guid groupId, string featureName, int page, int size);
 
-        Report.AccessRight GetItem(Guid feature, Guid group);
+        Task<Report.AccessRight> GetItem(Guid featureId, Guid Id);
     }
 }

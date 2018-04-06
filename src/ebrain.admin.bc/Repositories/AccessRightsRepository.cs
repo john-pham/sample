@@ -86,11 +86,11 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public IList<Report.AccessRight> Search(Guid group, string feature, int page, int size)
+        public async Task<IList<Report.AccessRight>> Search(Guid groupId, string featureName, int page, int size)
         {
             var m_Ret = new List<Report.AccessRight>();
 
-            var groupID = group;
+            var groupID = groupId;
 
             var items = from f in appContext.Features
                         join a in
@@ -100,7 +100,6 @@ namespace ebrain.admin.bc.Repositories
                                 select c
                                 ) on f.ID equals a.FeatureID into aug
                         from g in aug.DefaultIfEmpty()
-                            //where f.Reference != _TAKEIN && f.Reference != _TAKEOUT
                         select new
                         {
                             f.ID,
@@ -112,9 +111,9 @@ namespace ebrain.admin.bc.Repositories
                         };
 
             //FILTER
-            if (feature != null)
+            if (featureName != null)
             {
-                items = items.Where(x => x.Name.Contains(feature));
+                items = items.Where(x => x.Name.Contains(featureName));
             }
 
             var data = appContext.UserGroups.FirstOrDefault(x => x.ID == groupID);
@@ -123,7 +122,7 @@ namespace ebrain.admin.bc.Repositories
             if (data != null)
             {
                 //
-                this.Total = items.Count();
+                this.Total = await items.CountAsync();
 
                 //
                 if (size > 0 && page >= 0)
@@ -154,11 +153,11 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public Report.AccessRight GetItem(Guid feature, Guid group)
+        public async Task<Report.AccessRight> GetItem(Guid featureId, Guid groupId)
         {
             var m_Ret = default(Report.AccessRight);
-            var groupID = group;
-            var item = (from f in appContext.Features
+            var groupID = groupId;
+            var item = await (from f in appContext.Features
                         join a in
                             (
                                 from ar in appContext.AccessRights
@@ -166,18 +165,18 @@ namespace ebrain.admin.bc.Repositories
                                 select ar
                                 ) on f.ID equals a.FeatureID into aug
                         from g in aug.DefaultIfEmpty()
-                        where f.ID == feature
+                        where f.ID == featureId
                         select new
                         {
                             f.ID,
                             f.Name,
                             Value = g != null ? g.Value : 0,
                             f.CreatedDate
-                        }).FirstOrDefault();
+                        }).FirstOrDefaultAsync();
 
             if (item != null)
             {
-                var data = appContext.UserGroups.FirstOrDefault(x => x.ID == groupID);
+                var data = await appContext.UserGroups.FirstOrDefaultAsync(x => x.ID == groupID);
 
                 m_Ret = new Report.AccessRight
                 {

@@ -35,26 +35,23 @@ namespace Ebrain.Controllers
             this._logger = logger;
             this._env = env;
         }
-        /*
+
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> Search(string filter, string value, int page, int size)
+        public async Task<JsonResult> Search(Guid groupId, string featureName, int page, int size)
         {
             var bus = this._unitOfWork.AccessRights;
-            var ret = from c in await bus.Search(filter, value, page, size)
+            var ret = from c in await bus.Search(groupId, featureName, page, size)
                       select new AccessRightViewModel
                       {
-                          ID = c.BranchId,
-                          Code = c.BranchCode,
-                          Name = c.BranchName,
-                          Email = c.Email,
-                          Address = c.Address,
-                          PhoneNumber = c.PhoneNumber,
-                          Fax = c.FAX,
-                          Logo = new FileViewModel
-                          {
-                              Name = string.Format("{0}.{1}", c.BranchId.ToString().Replace("-", string.Empty), c.LogoName)
-                          }
+                          FeatureID = c.FeatureID,
+                          FeatureName = c.FeatureName,
+                          GroupID = c.GroupID,
+                          GroupName = c.GroupName,
+                          View = c.View,
+                          Edit = c.Edit,
+                          Create = c.Create,
+                          Delete = c.Delete
                       };
 
             return Json(new
@@ -72,13 +69,14 @@ namespace Ebrain.Controllers
 
             var branch = new AccessRightViewModel
             {
-                ID = item.BranchId,
-                Code = item.BranchCode,
-                Name = item.BranchName,
-                Email = item.Email,
-                Address = item.Address,
-                PhoneNumber = item.PhoneNumber,
-                Fax = item.FAX,
+                FeatureID = item.FeatureID,
+                FeatureName = item.FeatureName,
+                GroupID = item.GroupID,
+                GroupName = item.GroupName,
+                View = item.View,
+                Edit = item.Edit,
+                Create = item.Create,
+                Delete = item.Delete
             };
             
 
@@ -93,51 +91,14 @@ namespace Ebrain.Controllers
                 //
                 var userId = new Guid(Utilities.GetUserId(this.User));
                 //
-                var branch = new Branch
+                var ar = new AccessRight
                 {
-                    BranchId = Guid.NewGuid(),
-                    BranchCode = value.Code,
-                    BranchName = value.Name,
-                    Address = value.Address,
-                    Email = value.Email,
-                    PhoneNumber = value.PhoneNumber,
-                    FAX = value.Fax,
-                    CreatedBy = userId,
-                    UpdatedBy = userId,
-                    CreatedDate = DateTime.Now,
-                    UpdatedDate = DateTime.Now,
-                    UserName = value.UserName,
-                    Password = value.Password,
-                    CPCode = value.CPCode,
-                    RequestID = value.RequestID,
-                    ServiceId = value.ServiceId,
-                    CommandCode = value.CommandCode,
-                    ContentType = value.ContentType
+                    FeatureID = value.FeatureID,
+                    GroupID = value.GroupID
                 };
-
-                //save logo to physical file
-                if (value.Logo != null &&
-                    !string.IsNullOrEmpty(value.Logo.Name) &&
-                    !string.IsNullOrEmpty(value.Logo.Value))
-                {
-                    //Convert Base64 Encoded string to Byte Array.
-                    var base64String = value.Logo.Value;
-                    var fileName = value.Logo.Name;
-                    byte[] imageBytes = Convert.FromBase64String(base64String);
-
-                    //Save the Byte Array as Image File.
-                    string filePath = string.Format("{0}/uploads/logos/{1}.{2}",
-                        this._env.WebRootPath,
-                        branch.BranchId.ToString().Replace("-", string.Empty),
-                        System.IO.Path.GetFileName(fileName));
-
-                    System.IO.File.WriteAllBytes(filePath, imageBytes);
-                    //store filename to DB
-                    branch.LogoName = fileName;
-                }
-
+                
                 //commit
-                //var ret = await this._unitOfWork.AccessRights.Update(branch, value.ID);
+                var ret = await this._unitOfWork.AccessRights.Update(ar, value.View, value.Edit, value.Delete, value.Create);
 
                 //return client side
                 return Ok(ret);
@@ -166,7 +127,6 @@ namespace Ebrain.Controllers
                 return new Guid(Utilities.GetUserId(this.User));
             }
         }
-        */
 
     }
 }

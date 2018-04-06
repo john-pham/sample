@@ -194,7 +194,7 @@ namespace ebrain.admin.bc
             builder.Entity<StudentRelationShip>().ToTable(nameof(this.StudentRelationShip));
             builder.Entity<Supplier>().ToTable(nameof(this.Supplier));
             builder.Entity<Unit>().ToTable(nameof(this.Unit));
-            builder.Entity<AccessRight>().ToTable(nameof(this.AccessRights)).HasKey(x => x.AccessRightId);
+            builder.Entity<AccessRight>().ToTable(nameof(this.AccessRights)).HasKey(x => new { x.FeatureID, x.GroupID });
             builder.Entity<FeatureGroup>().ToTable(nameof(this.FeatureGroups));
             builder.Entity<Feature>().ToTable(nameof(this.Features));
             builder.Entity<UserGroup>().ToTable(nameof(this.UserGroups));
