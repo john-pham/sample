@@ -20,6 +20,8 @@ namespace ebrain.admin.bc
     {
         readonly ApplicationDbContext _context;
 
+        IAccessRightsRepository _accessRights;
+
         ISMSRepository _SMSs;
         IGroupDocumentRepository _GroupDocuments;
         IDocumentRepository _Documents;
@@ -59,6 +61,17 @@ namespace ebrain.admin.bc
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public IAccessRightsRepository AccessRights
+        {
+            get
+            {
+                if (_accessRights == null)
+                    _accessRights = new AccessRightsRepository(_context);
+
+                return _accessRights;
+            }
         }
 
         public IStudentStatusRepository StudentStatus

@@ -20,16 +20,16 @@ namespace ebrain.admin.bc.Repositories
         Create = 8
     }
 
-    public class AccessRightRepository : Repository<AccessRight>
+    public class AccessRightsRepository : Repository<AccessRight>, Interfaces.IAccessRightsRepository
     {
-        public long Total { get; private set; }
+        public int Total { get; private set; }
 
         private ApplicationDbContext appContext
         {
             get { return (ApplicationDbContext)_context; }
         }
 
-        public AccessRightRepository(ApplicationDbContext context) : base(context)
+        public AccessRightsRepository(ApplicationDbContext context) : base(context)
         {
         }
 
@@ -153,55 +153,6 @@ namespace ebrain.admin.bc.Repositories
 
             return m_Ret;
         }
-
-        //public Session GetPermission(Guid groupID, Session value)
-        //{
-        //    using (var appContext = new Entities(this.ConnectionString))
-        //    {
-        //        var items = from f in appContext.Features
-        //                    join a in appContext.AccessRights on f.ID equals a.FeatureID
-        //                    where a.GroupID == groupID
-        //                    select new
-        //                    {
-        //                        f.ID,
-        //                        Reference = f.Reference ?? Guid.Empty,
-        //                        Parent = default(Guid?),
-        //                        Value = a.Value,
-        //                    };
-
-        //        //just provide only one type
-        //        value.Behaviors = new List<AccessRight>();
-        //        value.Items = new Dictionary<Guid, byte>();
-        //        foreach (var item in items)
-        //        {
-        //            var data = item.Value;
-
-        //            if (data == -1 && (item.Parent == _TAKEIN || item.Parent == _TAKEOUT))
-        //            {
-        //                var def = items.FirstOrDefault(x => x.Reference == (item.Parent == _TAKEIN ? _TAKEIN : _TAKEOUT));
-
-        //                data = def?.Value;
-        //            }
-
-        //            if (data > 0)
-        //            {
-        //                value.Behaviors.Add(new AccessRight
-        //                {
-        //                    FeatureID = item.ID,
-        //                    View = ((Behavior)data & Behavior.View) == Behavior.View,
-        //                    Edit = ((Behavior)data & Behavior.Edit) == Behavior.Edit,
-        //                    Delete = ((Behavior)data & Behavior.Delete) == Behavior.Delete,
-        //                    Create = ((Behavior)data & Behavior.Create) == Behavior.Create
-        //                });
-
-        //                //
-        //                value.Items.Add(item.Reference, (byte)data);
-        //            }
-        //        }
-        //    }
-
-        //    return value;
-        //}
 
         public Report.AccessRight GetItem(Guid feature, Guid group)
         {

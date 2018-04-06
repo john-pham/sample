@@ -48,6 +48,9 @@ import { BootstrapDatepickerDirective } from './directives/bootstrap-datepicker.
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { CurrencyPipe } from "./pipes/currency.pipe";
 
+import { AccessRightsService } from './services/access-rights';
+import { AccessRightsEndpoint } from './services/access-rights.endpoint';
+
 import { BranchesService } from './services/branches.service';
 import { BranchesEndpoint } from './services/branches-endpoint.service';
 
@@ -166,6 +169,7 @@ import { SMSEndpoint } from './services/sms-endpoint.service';
 import { AlteComponent } from "./components/alte.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
+import { AccessRightsComponent } from "./components/access-rights/access-rights";
 import { BranchesComponent } from "./components/branches/branches.component";
 
 import { GrpDocumentsComponent } from "./components/grpdocuments/grpdocuments.component";
@@ -314,6 +318,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         AlteComponent,
         LoginComponent,
         HomeComponent,
+        AccessRightsComponent,
         BranchesComponent,
         StocksComponent,
         GrpDocumentsComponent,
@@ -442,6 +447,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         AccountEndpoint,
         LocalStoreManager,
         EndpointFactory,
+        AccessRightsService,
+        AccessRightsEndpoint,
         BranchesService,
         BranchesEndpoint,
         DocumentsService,

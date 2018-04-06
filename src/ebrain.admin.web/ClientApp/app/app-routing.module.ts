@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
+import { AccessRightsComponent } from "./components/access-rights/access-rights";
 import { BranchesComponent } from "./components/branches/branches.component";
 import { StocksComponent } from "./components/stocks/stocks.component";
 
@@ -160,6 +161,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "sms", component: SMSComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
             { path: "smssend", component: SMSSendComponent, canActivate: [AuthGuard], data: { title: "Send SMS" } },
+            { path: "accessrights", component: AccessRightsComponent, canActivate: [AuthGuard], data: { title: "Access Rights" } },
             { path: "branches", component: BranchesComponent, canActivate: [AuthGuard], data: { title: "Branches" } },
             { path: "stocks", component: StocksComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
             { path: "typemateriallearns", component: TypeMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "typeMaterialLearns" } },
