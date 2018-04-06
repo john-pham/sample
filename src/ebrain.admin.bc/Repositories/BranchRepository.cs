@@ -71,6 +71,11 @@ namespace ebrain.admin.bc.Repositories
             return GetAllBranchOfUser(userId).Select(p => p.BranchId).ToArray().ConvertArrayGuidToString();
         }
 
+        public async Task<IEnumerable<Branch>> GetAll()
+        {
+            return this.appContext.Branch.Where(p => p.IsDeleted == false);
+        }
+
         public async Task<IEnumerable<Branch>> Search(string filter, string value, int page, int size)
         {
             var list = from c in this.appContext.Branch

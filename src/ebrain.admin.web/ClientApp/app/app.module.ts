@@ -48,7 +48,7 @@ import { BootstrapDatepickerDirective } from './directives/bootstrap-datepicker.
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { CurrencyPipe } from "./pipes/currency.pipe";
 
-import { AccessRightsService } from './services/access-rights';
+import { AccessRightsService } from './services/access-rights.service';
 import { AccessRightsEndpoint } from './services/access-rights.endpoint';
 
 import { BranchesService } from './services/branches.service';

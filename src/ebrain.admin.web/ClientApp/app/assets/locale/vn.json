@@ -990,8 +990,10 @@
       "PhoneNumber": "Điện thoại"
     },
     "editor": {
+      "Branch": "Chi nhánh: ",
       "JobTitle": "Chức danh: ",
       "UserName": "Tên đăng nhập:",
+      "BranchRequired": "Chọn chi nhánh là bắt buộc",
       "UserNameRequired": "Tên người dùng là bắt buộc (tối thiểu là 2 và tối đa là 200 ký tự)",
       "Password": "Mật khẩu:",
       "PasswordHint": "Mật khẩu của bạn là bắt buộc khi thay đổi tên người dùng",

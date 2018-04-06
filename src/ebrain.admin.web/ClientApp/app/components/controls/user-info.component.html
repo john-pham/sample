@@ -18,6 +18,31 @@
 
           (canAssignRoles && !roles.valid && showErrorAlert('Roles is required', 'Please select a minimum of 1 role'));">
 
+        <div class="form-group has-feedback">
+            <label [class.col-md-3]="isViewOnly" [class.col-md-2]="!isViewOnly" class="control-label"
+                   for="branch-{{uniqueId}}">{{'users.editor.Branch' | translate}}</label>
+            <div *ngIf="isEditMode" [class.col-md-9]="isViewOnly" [class.col-md-10]="!isViewOnly">
+                <select id="branches-info" name="branch" [(ngModel)]="userEdit.branchId"
+                        attr.id="Branch-{{uniqueId}}"
+                        class="form-control"
+                        data-actions-box="false"
+                        data-live-search-placeholder="Search..."
+                        title="{{'users.editor.Branch' | translate}}">
+                    <option *ngFor="let branch of branches"
+                            attr.data-content="<span title='{{branch.name}}' class='badge'>{{branch.name}}</span>"
+                            attr.value="{{branch.id}}">
+                        {{branch.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+            </div>
+        </div>
+
         <div class="form-group">
             <label [class.col-md-3]="isViewOnly" [class.col-md-2]="!isViewOnly" class="control-label" for="jobTitle-{{uniqueId}}">{{'users.editor.JobTitle' | translate}}</label>
             <div *ngIf="!isEditMode" [class.col-md-9]="isViewOnly" [class.col-md-10]="!isViewOnly">

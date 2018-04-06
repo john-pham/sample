@@ -36,6 +36,23 @@ namespace Ebrain.Controllers
             this._env = env;
         }
 
+        [HttpGet("getall")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetAll()
+        {
+            var bus = await this._unitOfWork.Branches.GetAll();
+            return Ok(bus.Select(c => new BranchViewModel
+            {
+                ID = c.BranchId,
+                Code = c.BranchCode,
+                Name = c.BranchName,
+                Email = c.Email,
+                Address = c.Address,
+                PhoneNumber = c.PhoneNumber,
+                Fax = c.FAX
+            }));
+        }
+
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> Search(string filter, string value, int page, int size)

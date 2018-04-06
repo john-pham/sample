@@ -15,6 +15,8 @@ import { User } from '../../models/user.model';
 import { UserEdit } from '../../models/user-edit.model';
 import { Role } from '../../models/role.model';
 import { Permission } from '../../models/permission.model';
+import { Branch } from "../../models/branch.model";
+import { BranchesService } from "../../services/branches.service";
 
 
 @Component({
@@ -35,6 +37,7 @@ export class UserInfoComponent implements OnInit {
     private user: User = new User();
     private userEdit: UserEdit;
     private allRoles: Role[] = [];
+    private branches = [];
 
     public formResetToggle = true;
 
@@ -47,9 +50,6 @@ export class UserInfoComponent implements OnInit {
 
     @Input()
     isGeneralEditor = false;
-
-
-
 
 
     @ViewChild('f')
@@ -78,7 +78,7 @@ export class UserInfoComponent implements OnInit {
     private roles;
 
 
-    constructor(private alertService: AlertService, private accountService: AccountService) {
+    constructor(private alertService: AlertService, private accountService: AccountService, private branchService: BranchesService) {
     }
 
     ngOnInit() {
@@ -138,6 +138,7 @@ export class UserInfoComponent implements OnInit {
 
 
     private edit() {
+        this.getBranch();
         if (!this.isGeneralEditor) {
             this.isEditingSelf = true;
             this.userEdit = new UserEdit();
@@ -150,6 +151,7 @@ export class UserInfoComponent implements OnInit {
             this.isEditingSelf = this.accountService.currentUser ? this.userEdit.id == this.accountService.currentUser.id : false;
         }
 
+        
         this.isEditMode = true;
         this.showValidationErrors = true;
         this.isChangePassword = false;
@@ -168,7 +170,18 @@ export class UserInfoComponent implements OnInit {
         }
     }
 
+    private getBranch() {
+        this.branchService.getAll().subscribe(user => this.loadBranchSuccessHelper(user), error => this.saveFailedHelper(error));
+    }
 
+    private loadBranchSuccessHelper(branches: Branch[]) {
+        var branchId = this.userEdit.branchId;
+        if (branches != null && branches.length > 0) {
+            this.userEdit.branchId = branches[0].id;
+        }
+        this.branches = branches;
+        this.userEdit.branchId = branchId;
+    }
     private saveSuccessHelper(user?: User) {
         this.testIsRoleUserCountChanged(this.user, this.userEdit);
 

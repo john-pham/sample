@@ -65,6 +65,7 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
         this.columns = [
             { headerClass: "text-center", prop: "index", name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
+            { headerClass: "text-center", prop: 'branchId', name: gT('users.editor.Branch'), width: 50 },
             { headerClass: "text-center", prop: 'jobTitle', name: gT('users.management.Title'), width: 50 },
             { headerClass: "text-center", prop: 'userName', name: gT('users.management.UserName'), width: 90, cellTemplate: this.userNameTemplate },
             { headerClass: "text-center", prop: 'fullName', name: gT('users.management.FullName'), width: 120 },

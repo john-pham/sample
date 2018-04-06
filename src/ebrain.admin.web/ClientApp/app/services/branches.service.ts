@@ -24,7 +24,12 @@ export class BranchesService {
     constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: BranchesEndpoint) {
         this.initializeStatus();
     }
-    
+
+    getAll() {
+        return this.endpointFactory.getAll()
+            .map((response: Response) => <Branch[]>response.json());
+    }
+
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
             .map((response: Response) => <Results<Branch>>response.json());

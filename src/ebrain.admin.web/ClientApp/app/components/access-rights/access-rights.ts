@@ -13,7 +13,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { fadeInOut } from '../../services/animations';
 import { AppTranslationService } from "../../services/app-translation.service";
-import { AccessRightsService } from "../../services/AccessRights.service";
+import { AccessRightsService } from "../../services/access-rights.service";
 import { AlertService, MessageSeverity, DialogType } from '../../services/alert.service';
 import { Utilities } from '../../services/utilities';
 import { File } from '../../models/file.model';

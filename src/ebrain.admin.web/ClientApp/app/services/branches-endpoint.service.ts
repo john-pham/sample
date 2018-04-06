@@ -31,6 +31,19 @@ export class BranchesEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
+    getAll(): Observable<Response> {
+
+        let url = this.getUrl('getall?hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getAll());
+            });
+    }
+
     search(filter: string, value: string, page: number, size: number): Observable<Response> {
 
         let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
@@ -115,7 +128,7 @@ export class BranchesEndpoint extends EndpointFactory {
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {
-            
+
         }
 
         if (error.url && error.url.toLowerCase().includes(this.serviceUrl.toLowerCase())) {
