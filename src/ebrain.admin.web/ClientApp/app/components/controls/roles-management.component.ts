@@ -57,9 +57,9 @@ export class RolesManagementComponent implements OnInit, AfterViewInit {
 
         this.columns = [
             { headerClass: "text-center", prop: "index", name: '#', width: 50, cellTemplate: this.indexTemplate, canAutoResize: false },
-            { headerClass: "text-center", prop: 'name', name: gT('roles.management.Name'), width: 200 },
-            { headerClass: "text-center", prop: 'description', name: gT('roles.management.Description'), width: 350 },
-            { headerClass: "text-center", prop: 'usersCount', name: gT('roles.management.Users'), width: 80 },
+            { headerClass: "text-center", prop: 'name', name: gT('roles.management.Name') },
+            { headerClass: "text-center", prop: 'description', name: gT('roles.management.Description') },
+            { headerClass: "text-center", prop: 'usersCount', name: gT('roles.management.Users') },
             { name: '', width: 130, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 

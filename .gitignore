@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
@@ -12,3 +12,4 @@
 /src/ebrain.api.web/bin
 /src/ebrain.api.web/obj
 /src/packages
+src/ebrain.admin.web/node_modules/

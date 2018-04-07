@@ -1,3 +1,7 @@
+:host {
+    margin-bottom: 10px;
+}
+
 .side-menu {
     min-width: 120px;
 }
@@ -9,4 +13,27 @@
 
 [hidden] {
     display: none;
+}
+
+@media (max-width: 992px) {
+    .side-menu ul.tabs-left {
+        display: flex;
+        border-right: none;
+        border-bottom: 1px solid #fff;
+    }
+
+    .side-menu ul.tabs-left > li {
+        margin-bottom: 0;
+    }
+
+    .side-menu ul.tabs-left li.active > a {
+        border-radius: 4px 4px 0 0;
+        border-right: 1px solid #ddd;
+        border-bottom-color: #fff;
+    }
+}
+
+settings .ngx-datatable.material .datatable-body {
+    max-height: 600px;
+    overflow: auto;
 }

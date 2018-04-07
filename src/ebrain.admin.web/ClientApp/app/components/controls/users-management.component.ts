@@ -65,12 +65,12 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
         this.columns = [
             { headerClass: "text-center", prop: "index", name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
-            { headerClass: "text-center", prop: 'branchId', name: gT('users.editor.Branch'), width: 50 },
-            { headerClass: "text-center", prop: 'jobTitle', name: gT('users.management.Title'), width: 50 },
-            { headerClass: "text-center", prop: 'userName', name: gT('users.management.UserName'), width: 90, cellTemplate: this.userNameTemplate },
-            { headerClass: "text-center", prop: 'fullName', name: gT('users.management.FullName'), width: 120 },
-            { headerClass: "text-center", prop: 'email', name: gT('users.management.Email'), width: 140 },
-            { headerClass: "text-center", prop: 'roles', name: gT('users.management.Roles'), width: 120, cellTemplate: this.rolesTemplate },
+            { headerClass: "text-center", prop: 'branchId', name: gT('users.editor.Branch') },
+            { headerClass: "text-center", prop: 'jobTitle', name: gT('users.management.Title') },
+            { headerClass: "text-center", prop: 'userName', name: gT('users.management.UserName'), cellTemplate: this.userNameTemplate },
+            { headerClass: "text-center", prop: 'fullName', name: gT('users.management.FullName') },
+            { headerClass: "text-center", prop: 'email', name: gT('users.management.Email') },
+            { headerClass: "text-center", prop: 'roles', name: gT('users.management.Roles'), cellTemplate: this.rolesTemplate },
             { headerClass: "text-center", prop: 'phoneNumber', name: gT('users.management.PhoneNumber'), width: 100 }
         ];
 
