@@ -13,3 +13,4 @@
 /src/ebrain.api.web/obj
 /src/packages
 src/ebrain.admin.web/node_modules/
+/src/ebrain.admin.web/Properties/PublishProfiles
