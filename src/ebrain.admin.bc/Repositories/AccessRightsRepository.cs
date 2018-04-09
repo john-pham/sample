@@ -86,7 +86,7 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public async Task<IList<Report.AccessRight>> Search(Guid groupId, string featureName, int page, int size)
+        public async Task<IList<Report.AccessRight>> Search(Guid groupId, Guid? featureGroupId, int page, int size)
         {
             var m_Ret = new List<Report.AccessRight>();
 
@@ -105,15 +105,16 @@ namespace ebrain.admin.bc.Repositories
                             f.ID,
                             f.Name,
                             f.Reference,
+                            f.GroupID,
                             Parent = default(Guid?),
                             Value = g != null ? g.Value : 0,
                             f.CreatedDate
                         };
 
             //FILTER
-            if (featureName != null)
+            if (featureGroupId != null)
             {
-                items = items.Where(x => x.Name.Contains(featureName));
+                items = items.Where(x => x.GroupID == featureGroupId);
             }
 
             var data = appContext.UserGroups.FirstOrDefault(x => x.ID == groupID);

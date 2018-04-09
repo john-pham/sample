@@ -60,10 +60,10 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> Search(Guid groupId, string featureName, int page, int size)
+        public async Task<JsonResult> Search(Guid groupId, Guid? featureGroupId, int page, int size)
         {
             var bus = this._unitOfWork.AccessRights;
-            var ret = from c in await bus.Search(groupId, featureName, page, size)
+            var ret = from c in await bus.Search(groupId, featureGroupId, page, size)
                       select new AccessRightViewModel
                       {
                           FeatureID = c.FeatureID,
