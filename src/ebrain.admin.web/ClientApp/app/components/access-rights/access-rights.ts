@@ -90,87 +90,12 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     //
     src: string = "";
     file_name: string = "";
-
-    fileInputClick() {
-        document.getElementById('avatar').click();
-    }
-
-    clearFile() {
-        this.pointer.logo.name = null;
-        this.pointer.logo.type = null;
-        this.pointer.logo.value = null;
-        this.src = "";
-        this.file_name = "";
-    }
-
-    onFileChange(event) {
-        let reader = new FileReader();
-        if (event.target.files && event.target.files.length > 0) {
-            let file = event.target.files[0];
-            //
-            reader.onload = () => {
-                this.file_name = file.name;
-                this.src = reader.result;
-                this.pointer.logo.name = file.name;
-                this.pointer.logo.type = file.type;
-                this.pointer.logo.value = reader.result.split(',')[1];
-            };
-            //
-            reader.onloadend = (loadEvent: any) => {
-                this.src = loadEvent.target.result;
-            };
-            //
-            reader.readAsDataURL(file);
-        }
-    }
-
+    
     //
-    addBranch(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
-    }
-
-    editBranch(template: TemplateRef<any>, index: string) {
-
-        var disp = this.localService.get(index).subscribe(
-            item => {
-                //
-                this.pointer.id = item.id;
-                this.pointer.code = item.code;
-                this.pointer.name = item.name;
-                this.pointer.email = item.email;
-                this.pointer.address = item.address;
-
-                //
-                this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
-            },
-            error => {
-            },
-            () => { disp.unsubscribe(); });
-
-
-    }
-
-    //head
-    editHead(template: TemplateRef<any>, index: string) {
-        var disp = this.localService.getBranchHead(index).subscribe(
-            items => {
-                this.rowHeads = items;
-                //
-                this.modalHeadRef = this.modalService.show(template, { class: 'modal-lg' });
-            },
-            error => {
-            },
-            () => { disp.unsubscribe(); });
-    }
-
     onSearchChanged(value: string) {
         this.getFromServer();
     }
-
-    deleteBranch(index: string) {
-        this.alertService.showDialog('Bạn có muốn xóa chi nhánh này không?', DialogType.confirm, () => this.deleteHelper(index));
-    }
-
+    
     setPage(pageInfo) {
         this.page.pageNumber = pageInfo.offset;
         this.getFromServer();
@@ -207,16 +132,6 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
     
-    saveHead() {
-        this.alertService.startLoadingMessage("Saving changes...");
-
-        this.localService.saveHead(this.rowHeads).subscribe(values => {
-            this.rowHeads = values;
-            this.alertService.stopLoadingMessage();
-            this.alertService.showMessage("Success", `Head branch was saved successfully`, MessageSeverity.success);
-        }, error => this.saveFailedHelper(error));
-    }
-
     private saveSuccessHelper(branch?: Branch) {
         this.alertService.stopLoadingMessage();
         //this.resetForm();
@@ -241,39 +156,10 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-
-    private deleteHelper(index: string) {
-        this.localService.delete(index).subscribe(result => this.deleteSuccessHelper(result), error => this.deleteFailedHelper(error));
-    }
-
-    private deleteSuccessHelper(value: Boolean) {
-        this.getFromServer();
-        this.alertService.showMessage("Success", `Branch was deleted successfully`, MessageSeverity.success);
-        if (this.changesSavedCallback)
-            this.changesSavedCallback();
-    }
-
-
-    private deleteFailedHelper(error: any) {
-        this.alertService.stopLoadingMessage();
-        this.alertService.showStickyMessage("Delete Error", "The below errors occured whilst deleting your changes:", MessageSeverity.error, error);
-        this.alertService.showStickyMessage(error, null, MessageSeverity.error);
-
-        if (this.changesFailedCallback)
-            this.changesFailedCallback();
-    }
     
-    updateValue(row, event, rowIndex) {
-        row.isExist = event.target.checked;
-    }
-
     close() {
         this.modalRef.hide();
     }
-    closeHead() {
-        this.modalHeadRef.hide();
-    }
-
 
     @ViewChild('f')
     private form;
@@ -283,8 +169,6 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     private showErrorAlert(caption: string, message: string) {
         this.alertService.showMessage(caption, message, MessageSeverity.error);
     }
-
-
 
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;

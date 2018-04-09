@@ -12,9 +12,9 @@ using Microsoft.EntityFrameworkCore;
  */
 namespace ebrain.admin.bc.Repositories
 {
-    public class FeatureRepository : Repository<Feature>
+    public class FeatureRepository : Repository<Feature>, Interfaces.IFeatureRepository
     {
-        public long Total { get; private set; }
+        public int Total { get; private set; }
 
         private ApplicationDbContext appContext
         {
@@ -88,7 +88,7 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public IList<Report.Feature> Search(string name, string value, int page, int size)
+        public async Task<IList<Report.Feature>> Search(string value, int page, int size)
         {
             var m_Ret = new List<Report.Feature>();
 
@@ -110,32 +110,12 @@ namespace ebrain.admin.bc.Repositories
             //FILTER
             if (!string.IsNullOrEmpty(value))
             {
-                if (!string.IsNullOrEmpty(name)) name = name.ToUpper();
-
-                switch (name)
-                {
-                    case "URL":
-                        items = items.Where(x => x.Url.Contains(value));
-
-                        break;
-                    case "NAME":
-                        items = items.Where(x => x.Name.Contains(value));
-
-                        break;
-                    case "DESCRIPTION":
-                        items = items.Where(x => x.Description.Contains(value));
-
-                        break;
-                    default:
-                        items = items.Where(x => x.Url.Contains(value) ||
+                items = items.Where(x => x.Url.Contains(value) ||
                             x.Name.Contains(value) ||
                             x.Description.Contains(value));
-
-                        break;
-                }
             }
 
-            this.Total = items.Count();
+            this.Total = await items.CountAsync();
             //
             if (size > 0 && page >= 0)
             {
@@ -149,7 +129,6 @@ namespace ebrain.admin.bc.Repositories
                 m_Ret.Add(new Report.Feature
                 {
                     ID = item.ID,
-                    Reference = item.Reference,
                     Name = item.Name,
                     Url = item.Url,
                     GroupID = item.GroupID,
@@ -161,11 +140,11 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public Report.Feature GetItem(Guid index)
+        public async Task<Report.Feature> GetItem(Guid index)
         {
             var m_Ret = default(Report.Feature);
 
-            var item = (from f in appContext.Features
+            var item = await (from f in appContext.Features
                         join fg in appContext.FeatureGroups on f.GroupID equals fg.ID into fgs
                         from g in fgs.DefaultIfEmpty()
                         where f.ID == index
@@ -179,14 +158,13 @@ namespace ebrain.admin.bc.Repositories
                             Group = g != null ? g.Name : string.Empty,
                             f.Description,
                             f.CreatedDate
-                        }).FirstOrDefault();
+                        }).FirstOrDefaultAsync();
 
             if (item != null)
             {
                 m_Ret = new Report.Feature
                 {
                     ID = item.ID,
-                    Reference = item.Reference,
                     Name = item.Name,
                     Url = item.Url,
                     GroupID = item.GroupID,

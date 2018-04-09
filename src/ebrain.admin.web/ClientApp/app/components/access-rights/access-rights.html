@@ -1,26 +1,18 @@
-﻿<header>
-    <div class="row" style="padding-top: 15px;">
-        <div class="col-xs-12" id="breadcrumb">
-            <a class="show-sidebar pull-left" routerLink="/">
-                <i class="fa fa-bars"></i>
-            </a>
-            <ol class="breadcrumb pull-left">
-                <li><a routerLink="/mn_main_categories">{{'menu.main.Categories' | translate}}</a></li>
-                <li>{{'pageMain.branch.header' | translate}}</li>
-            </ol>
+﻿
+<div class="row control-box">
+    <div class="col-sm-5">
+        <div class="form-group search-box">
+            <select></select>
         </div>
     </div>
-</header>
-
-<div class="row control-box">
-    <div class="col-sm-10">
+    <div class="col-sm-5">
         <div class="form-group search-box">
-            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.branch.searchBox' | translate}}">></search-box>
+            <select></select>
         </div>
     </div>
     <div class="col-sm-2">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addBranch(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.branch.newBranch' | translate}}</button>
+            <button class="btn btn-primary" (click)="onSearchChanged()"><i class="fa fa-plus-circle"></i> Search</button>
         </div>
     </div>
 </div>

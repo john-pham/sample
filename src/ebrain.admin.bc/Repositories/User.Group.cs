@@ -12,9 +12,9 @@ using Microsoft.EntityFrameworkCore;
  */
 namespace ebrain.admin.bc.Repositories
 {
-    public class UserGroupRepository : Repository<UserGroup>
+    public class UserGroupRepository : Repository<UserGroup>, Interfaces.IUserGroupRepository
     {
-        public long Total { get; private set; }
+        public int Total { get; private set; }
 
         private ApplicationDbContext appContext
         {
@@ -25,7 +25,7 @@ namespace ebrain.admin.bc.Repositories
         {
         }
 
-        public async Task<UserGroup> Update(UserGroup value, bool fullPermission = false)
+        public async Task<UserGroup> Update(UserGroup value)
         {
             var m_Ret = default(UserGroup);
 
@@ -80,9 +80,9 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public IList<UserGroup> Search(string name, string value, int page, int size)
+        public async Task<IList<Report.UserGroup>> Search(string value, int page, int size)
         {
-            var m_Ret = new List<UserGroup>();
+            var m_Ret = new List<Report.UserGroup>();
 
             var items = from c in appContext.UserGroups
                         select c;
@@ -90,32 +90,12 @@ namespace ebrain.admin.bc.Repositories
             //FILTER
             if (!string.IsNullOrEmpty(value))
             {
-                if (!string.IsNullOrEmpty(name)) name = name.ToUpper();
-
-                switch (name)
-                {
-                    case "CODE":
-                        items = items.Where(x => x.Code == value);
-
-                        break;
-                    case "NAME":
-                        items = items.Where(x => x.Name.Contains(value));
-
-                        break;
-                    case "DESCRIPTION":
-                        items = items.Where(x => x.Description.Contains(value));
-
-                        break;
-                    default:
-                        items = items.Where(x => x.Code == value ||
-                            x.Name.Contains(value) ||
-                            x.Description.Contains(value));
-
-                        break;
-                }
+                items = items.Where(x => x.Code == value ||
+                        x.Name.Contains(value) ||
+                        x.Description.Contains(value));
             }
 
-            this.Total = items.Count();
+            this.Total = await items.CountAsync();
             //
             if (size > 0 && page >= 0)
             {
@@ -126,7 +106,7 @@ namespace ebrain.admin.bc.Repositories
 
             foreach (var item in items)
             {
-                m_Ret.Add(new UserGroup
+                m_Ret.Add(new Report.UserGroup
                 {
                     ID = item.ID,
                     Code = item.Code,
@@ -138,15 +118,15 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public UserGroup GetItem(Guid index)
+        public async Task<Report.UserGroup> GetItem(Guid index)
         {
-            var m_Ret = default(UserGroup);
+            var m_Ret = default(Report.UserGroup);
 
-            var item = appContext.UserGroups.FirstOrDefault(x => (x.ID == index));
+            var item = await appContext.UserGroups.FirstOrDefaultAsync(x => (x.ID == index));
 
             if (item != null)
             {
-                m_Ret = new UserGroup
+                m_Ret = new Report.UserGroup
                 {
                     ID = item.ID,
                     Code = item.Code,

@@ -18,6 +18,8 @@ namespace ebrain.admin.bc
     public interface IUnitOfWork
     {
         IAccessRightsRepository AccessRights { get; }
+        IUserGroupRepository UserGroups { get; }
+        IFeatureRepository Features { get; }
         ISMSRepository SMSs { get; }
         IBranchRepository Branches { get; }
         IGroupDocumentRepository GroupDocuments { get; }

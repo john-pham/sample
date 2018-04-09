@@ -21,6 +21,8 @@ namespace ebrain.admin.bc
         readonly ApplicationDbContext _context;
 
         IAccessRightsRepository _accessRights;
+        IUserGroupRepository _userGroups;
+        IFeatureRepository _features;
 
         ISMSRepository _SMSs;
         IGroupDocumentRepository _GroupDocuments;
@@ -71,6 +73,28 @@ namespace ebrain.admin.bc
                     _accessRights = new AccessRightsRepository(_context);
 
                 return _accessRights;
+            }
+        }
+
+        public IFeatureRepository Features
+        {
+            get
+            {
+                if (_features == null)
+                    _features = new FeatureRepository(_context);
+
+                return _features;
+            }
+        }
+
+        public IUserGroupRepository UserGroups
+        {
+            get
+            {
+                if (_userGroups == null)
+                    _userGroups = new UserGroupRepository(_context);
+
+                return _userGroups;
             }
         }
 

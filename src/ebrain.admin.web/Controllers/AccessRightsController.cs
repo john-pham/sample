@@ -36,6 +36,28 @@ namespace Ebrain.Controllers
             this._env = env;
         }
 
+        [HttpGet("getall")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetAll()
+        {
+            var fea = await this._unitOfWork.Features.Search("", 0, 0);
+            var ugs = await this._unitOfWork.UserGroups.Search("", 0, 0);
+
+            return Ok(new
+            {
+                Features = fea.Select(c => new
+                {
+                    c.ID,
+                    c.Name
+                }),
+                UserGroups = ugs.Select(c => new
+                {
+                    c.ID,
+                    c.Name
+                })
+            });
+        }
+
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> Search(Guid groupId, string featureName, int page, int size)
