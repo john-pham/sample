@@ -22,7 +22,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 
         Task<bool> Delete(Guid feature, Guid group);
 
-        Task<IList<Report.AccessRight>> Search(Guid groupId, string featureName, int page, int size);
+        Task<IList<Report.AccessRight>> Search(Guid groupId, Guid? featureGroupId, int page, int size);
 
         Task<Report.AccessRight> GetItem(Guid featureId, Guid Id);
     }
