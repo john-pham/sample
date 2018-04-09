@@ -20,6 +20,7 @@ namespace ebrain.admin.bc
         IAccessRightsRepository AccessRights { get; }
         IUserGroupRepository UserGroups { get; }
         IFeatureRepository Features { get; }
+        IFeatureGroupRepository FeatureGroups { get; }
         ISMSRepository SMSs { get; }
         IBranchRepository Branches { get; }
         IGroupDocumentRepository GroupDocuments { get; }

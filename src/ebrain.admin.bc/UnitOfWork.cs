@@ -23,6 +23,7 @@ namespace ebrain.admin.bc
         IAccessRightsRepository _accessRights;
         IUserGroupRepository _userGroups;
         IFeatureRepository _features;
+        IFeatureGroupRepository _featureGroups;
 
         ISMSRepository _SMSs;
         IGroupDocumentRepository _GroupDocuments;
@@ -84,6 +85,17 @@ namespace ebrain.admin.bc
                     _features = new FeatureRepository(_context);
 
                 return _features;
+            }
+        }
+
+        public IFeatureGroupRepository FeatureGroups
+        {
+            get
+            {
+                if (_featureGroups == null)
+                    _featureGroups = new FeatureGroupRepository(_context);
+
+                return _featureGroups;
             }
         }
 

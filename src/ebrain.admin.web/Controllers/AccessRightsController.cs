@@ -40,7 +40,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetAll()
         {
-            var fea = await this._unitOfWork.Features.Search("", 0, 0);
+            var fea = await this._unitOfWork.FeatureGroups.Search("", 0, 0);
             var ugs = await this._unitOfWork.UserGroups.Search("", 0, 0);
 
             return Ok(new

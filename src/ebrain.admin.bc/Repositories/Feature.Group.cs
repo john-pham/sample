@@ -12,9 +12,9 @@ using Microsoft.EntityFrameworkCore;
  */
 namespace ebrain.admin.bc.Repositories
 {
-    public class FeatureGroupRepository : Repository<FeatureGroup>
+    public class FeatureGroupRepository : Repository<FeatureGroup>, Interfaces.IFeatureGroupRepository
     {
-        public long Total { get; private set; }
+        public int Total { get; private set; }
 
         private ApplicationDbContext appContext
         {
@@ -86,9 +86,9 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public IList<FeatureGroup> Search(string name, string value, int page, int size)
+        public async Task<IList<Report.FeatureGroup>> Search(string value, int page, int size)
         {
-            var m_Ret = new List<FeatureGroup>();
+            var m_Ret = new List<Report.FeatureGroup>();
 
             var items = from f in appContext.FeatureGroups
                         select new
@@ -104,32 +104,12 @@ namespace ebrain.admin.bc.Repositories
             //FILTER
             if (!string.IsNullOrEmpty(value))
             {
-                if (!string.IsNullOrEmpty(name)) name = name.ToUpper();
-
-                switch (name)
-                {
-                    case "URL":
-                        items = items.Where(x => x.Url.Contains(value));
-
-                        break;
-                    case "NAME":
-                        items = items.Where(x => x.Name.Contains(value));
-
-                        break;
-                    case "DESCRIPTION":
-                        items = items.Where(x => x.Description.Contains(value));
-
-                        break;
-                    default:
-                        items = items.Where(x => x.Url.Contains(value) ||
+                items = items.Where(x => x.Url.Contains(value) ||
                             x.Name.Contains(value) ||
                             x.Description.Contains(value));
-
-                        break;
-                }
             }
 
-            this.Total = items.Count();
+            this.Total = await items.CountAsync();
             //
             if (size > 0 && page >= 0)
             {
@@ -140,12 +120,10 @@ namespace ebrain.admin.bc.Repositories
 
             foreach (var item in items)
             {
-                m_Ret.Add(new FeatureGroup
+                m_Ret.Add(new Report.FeatureGroup
                 {
                     ID = item.ID,
-                    Reference = item.Reference,
                     Name = item.Name,
-                    Url = item.Url,
                     Description = item.Description
                 });
             }
@@ -153,11 +131,11 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public FeatureGroup GetItem(Guid index)
+        public async Task<Report.FeatureGroup> GetItem(Guid index)
         {
-            var m_Ret = default(FeatureGroup);
+            var m_Ret = default(Report.FeatureGroup);
 
-            var item = (from f in appContext.FeatureGroups
+            var item = await (from f in appContext.FeatureGroups
                         where f.ID == index
                         select new
                         {
@@ -167,16 +145,14 @@ namespace ebrain.admin.bc.Repositories
                             f.Url,
                             f.Description,
                             f.CreatedDate
-                        }).FirstOrDefault();
+                        }).FirstOrDefaultAsync();
 
             if (item != null)
             {
-                m_Ret = new FeatureGroup
+                m_Ret = new Report.FeatureGroup
                 {
                     ID = item.ID,
-                    Reference = item.Reference,
                     Name = item.Name,
-                    Url = item.Url,
                     Description = item.Description
                 };
             }
