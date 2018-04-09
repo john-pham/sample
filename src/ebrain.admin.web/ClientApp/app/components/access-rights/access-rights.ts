@@ -20,6 +20,7 @@ import { File } from '../../models/file.model';
 import { Branch } from '../../models/branch.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
+import { AccessRight } from "../models/accessrights.model";
 
 @Component({
     selector: 'AccessRights',
@@ -40,7 +41,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     filterName: string;
     filterValue: string;
 
-    private pointer: Branch;
+    private pointer: AccessRight;
     private page: Page;
 
     public changesSavedCallback: () => void;
@@ -49,10 +50,13 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
-    
+
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: AccessRightsService, private modalService: BsModalService) {
-        this.pointer = new Branch();
+        this.pointer = new AccessRight();
+        this.pointer.features = [];
+        this.pointer.usergroups = [];
+
         this.page = new Page();
 
         //
@@ -69,8 +73,8 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         this.columns = [
             { headerClass: "text-center", prop: "code", name: gT('label.branch.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
             { headerClass: "text-center", prop: "logo.name", name: '', cellTemplate: this.logoTemplate },
-            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'),cellTemplate: this.nameTemplate },
-            
+            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate },
+
             { headerClass: "text-center", prop: 'address', name: gT('label.branch.Address'), cellTemplate: this.descriptionTemplate },
             { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
@@ -90,12 +94,12 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     //
     src: string = "";
     file_name: string = "";
-    
+
     //
     onSearchChanged(value: string) {
         this.getFromServer();
     }
-    
+
     setPage(pageInfo) {
         this.page.pageNumber = pageInfo.offset;
         this.getFromServer();
@@ -111,6 +115,19 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
+
+        this.localService.getAll().subscribe(
+            resulted => this.onDataLoadComboSuccessful(resulted),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
+    }
+
+    private onDataLoadComboSuccessful(resulted: AccessRight) {
+        this.pointer.features = resulted.features;
+        this.pointer.usergroups = resulted.usergroups;
     }
 
     private onDataLoadSuccessful(resulted: Results<Branch>) {
@@ -131,7 +148,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
         this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
-    
+
     private saveSuccessHelper(branch?: Branch) {
         this.alertService.stopLoadingMessage();
         //this.resetForm();
@@ -156,7 +173,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-    
+
     close() {
         this.modalRef.hide();
     }
@@ -190,6 +207,6 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
     @ViewChild('checkboxTemplate')
     checkboxTemplate: TemplateRef<any>;
-    
-    
+
+
 }

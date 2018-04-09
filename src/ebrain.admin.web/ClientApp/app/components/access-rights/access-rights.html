@@ -1,13 +1,30 @@
 ﻿
 <div class="row control-box">
     <div class="col-sm-5">
-        <div class="form-group search-box">
-            <select></select>
+        <label for="message-text" class="control-label">{{'label.grpMaterial.TypeMaterialName' | translate}}</label>
+        <div >
+            <select id="types-user-info" name="type" [(ngModel)]="usergroupid" class="form-control"
+                    data-live-search="true" data-actions-box="false"
+                    title="{{'label.grpMaterialLearn.SelectTypeMaterialName' | translate}}">
+                <option *ngFor="let type of pointer.usergroups" attr.data-content="<span title='{{type.note}}' class='badge'>{{type.name}}</span>">
+                    {{type.name}}
+                </option>
+            </select>
+
         </div>
     </div>
     <div class="col-sm-5">
-        <div class="form-group search-box">
-            <select></select>
+        <label for="message-text" class="control-label">{{'label.grpMaterial.TypeMaterialName' | translate}}</label>
+        <div>
+            <select id="types-user-info" name="type" [(ngModel)]="usergroupid" class="form-control"
+                    data-live-search="true" data-actions-box="false"
+                    title="{{'label.grpMaterialLearn.SelectTypeMaterialName' | translate}}">
+                <option>All</option>
+                <option *ngFor="let type of pointer.features" attr.data-content="<span title='{{type.note}}' class='badge'>{{type.name}}</span>">
+                    {{type.name}}
+                </option>
+            </select>
+
         </div>
     </div>
     <div class="col-sm-2">

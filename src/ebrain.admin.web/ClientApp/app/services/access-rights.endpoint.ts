@@ -23,7 +23,7 @@ import { Branch } from '../models/branch.model';
 @Injectable()
 export class AccessRightsEndpoint extends EndpointFactory {
 
-    private readonly _serviceUrl: string = "/api/AccessRights";
+    private readonly _serviceUrl: string = "/api/accessrights";
     private get serviceUrl() { return this.configurations.baseUrl + this._serviceUrl; }
 
 
@@ -41,6 +41,19 @@ export class AccessRightsEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.search(filter, value, page, size));
+            });
+    }
+
+    getAll(): Observable<Response> {
+
+        let url = this.getUrl('getall?hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getAll());
             });
     }
 

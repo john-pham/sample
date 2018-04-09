@@ -17,6 +17,7 @@ import 'rxjs/add/operator/map';
 import { AccessRightsEndpoint } from './access-rights.endpoint';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
+import { AccessRight } from "../models/accessrights.model";
 
 @Injectable()
 export class AccessRightsService {
@@ -28,6 +29,11 @@ export class AccessRightsService {
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
             .map((response: Response) => <Results<Branch>>response.json());
+    }
+
+    getAll() {
+        return this.endpointFactory.getAll()
+            .map((response: Response) => <AccessRight>response.json());
     }
 
     get(index: string) {
