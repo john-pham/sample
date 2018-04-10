@@ -47,6 +47,7 @@ namespace ebrain.admin.bc.Repositories
                         ID = value.ID = id,
                         Reference = value.Reference,
                         CreatedDate = DateTime.Now,
+                        CreatedBy = value.CreatedBy
                     };
                     //
                     appContext.Add(fea);
@@ -56,7 +57,7 @@ namespace ebrain.admin.bc.Repositories
                 fea.Url = value.Url;
                 fea.Description = value.Description;
                 fea.UpdatedDate = DateTime.Now;
-
+                fea.UpdatedBy = value.UpdatedBy;
                 //
                 if (await appContext.SaveChangesAsync() > 0)
                 {

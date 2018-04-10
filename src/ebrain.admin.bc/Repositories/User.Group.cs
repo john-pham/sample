@@ -49,6 +49,7 @@ namespace ebrain.admin.bc.Repositories
                 cus.Name = value.Name;
                 cus.Description = value.Description;
                 cus.UpdatedDate = DateTime.Now;
+                cus.UpdatedBy = value.UpdatedBy;
 
                 //
                 if (await appContext.SaveChangesAsync() > 0)

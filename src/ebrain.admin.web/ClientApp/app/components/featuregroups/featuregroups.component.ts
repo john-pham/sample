@@ -56,7 +56,8 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: FeatureGroupsService, private modalService: BsModalService) {
         this.pointer = new FeatureGroups();
         this.page = new Page();
-
+        this.filterName = "";
+        this.filterValue = "";
         //
         this.page.pageNumber = 0;
         this.page.size = 20;
@@ -163,7 +164,32 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
             MessageSeverity.error, error);
 
     }
-    
+
+    private saveSuccessHelper(user?: FeatureGroups) {
+        this.alertService.stopLoadingMessage();
+        //this.resetForm();
+        this.modalRef.hide();
+        //
+        this.getFromServer();
+        //
+        //if (this.isNewUser)
+        this.alertService.showMessage("Success", `User \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
+        //else if (!this.isEditingSelf)
+        //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.name}\" was saved successfully`, MessageSeverity.success);
+
+        if (this.changesSavedCallback)
+            this.changesSavedCallback();
+    }
+
+
+    private saveFailedHelper(error: any) {
+        this.alertService.stopLoadingMessage();
+        this.alertService.showStickyMessage("Save Error", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
+        this.alertService.showStickyMessage(error, null, MessageSeverity.error);
+
+        if (this.changesFailedCallback)
+            this.changesFailedCallback();
+    }
     
     close() {
         this.modalRef.hide();

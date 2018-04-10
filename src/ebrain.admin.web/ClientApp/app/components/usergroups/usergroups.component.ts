@@ -57,6 +57,8 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
         this.pointer = new UserGroups();
         this.page = new Page();
 
+        this.filterName = "";
+        this.filterValue = "";
         //
         this.page.pageNumber = 0;
         this.page.size = 20;
@@ -83,6 +85,12 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
     //
     add(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+    }
+
+    private save() {
+        this.alertService.startLoadingMessage("Saving changes...");
+
+        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
 
     edit(template: TemplateRef<any>, index: string) {
@@ -163,7 +171,32 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
             MessageSeverity.error, error);
 
     }
-    
+
+    private saveSuccessHelper(user?: UserGroups) {
+        this.alertService.stopLoadingMessage();
+        //this.resetForm();
+        this.modalRef.hide();
+        //
+        this.getFromServer();
+        //
+        //if (this.isNewUser)
+        this.alertService.showMessage("Success", `User \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
+        //else if (!this.isEditingSelf)
+        //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.name}\" was saved successfully`, MessageSeverity.success);
+
+        if (this.changesSavedCallback)
+            this.changesSavedCallback();
+    }
+
+
+    private saveFailedHelper(error: any) {
+        this.alertService.stopLoadingMessage();
+        this.alertService.showStickyMessage("Save Error", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
+        this.alertService.showStickyMessage(error, null, MessageSeverity.error);
+
+        if (this.changesFailedCallback)
+            this.changesFailedCallback();
+    }
     
     close() {
         this.modalRef.hide();
