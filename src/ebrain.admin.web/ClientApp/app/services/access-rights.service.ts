@@ -26,8 +26,8 @@ export class AccessRightsService {
         this.initializeStatus();
     }
     
-    search(filter: string, value: string, page: number, size: number) {
-        return this.endpointFactory.search(filter, value, page, size)
+    search(groupId: string, featureGroupId: string, page: number, size: number) {
+        return this.endpointFactory.search(groupId, featureGroupId, page, size)
             .map((response: Response) => <Results<AccessRight>>response.json());
     }
 
@@ -41,9 +41,9 @@ export class AccessRightsService {
             .map((response: Response) => <Branch>response.json());
     }
 
-    save(value: Branch) {
-        return this.endpointFactory.save(value)
-            .map((response: Response) => <Branch>response.json());
+    save(values: AccessRight[]) {
+        return this.endpointFactory.save(values)
+            .map((response: Response) => <Boolean>response.json());
     }
 
     saveHead(value: Branch[]) {

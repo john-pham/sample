@@ -21,7 +21,7 @@ namespace ebrain.admin.bc
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        public string CurrentUserId { get; set; }
+        public Guid? CurrentUserId { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -256,7 +256,7 @@ namespace ebrain.admin.bc
                 var lastUpdated = entry.Entity as IHistoricalEntity;
                 if (lastUpdated != null)
                 {
-                    lastUpdated.UpdatedBy = CurrentUserId.ConvertStringToGuid();
+                    lastUpdated.UpdatedBy = CurrentUserId.HasValue ? CurrentUserId.Value : Guid.NewGuid();
                     lastUpdated.UpdatedDate = now;
                 }
 

@@ -18,7 +18,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     {
         int Total { get; }
 
-        Task<AccessRight> Update(AccessRight value, bool canView, bool canEdit, bool canDelete, bool canCreate);
+        Task<bool> Update(IEnumerable<AccessRight> values);
 
         Task<bool> Delete(Guid feature, Guid group);
 

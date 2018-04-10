@@ -1,12 +1,15 @@
 ﻿
 <div class="row control-box">
     <div class="col-sm-5">
-        <label for="message-text" class="control-label">{{'label.grpMaterial.TypeMaterialName' | translate}}</label>
+        <label for="message-text" class="control-label">{{'label.accessright.UserGroup' | translate}}</label>
         <div >
-            <select id="types-user-info" name="type" [(ngModel)]="usergroupid" class="form-control"
+            <select id="types-user-info" name="type" [(ngModel)]="groupId" class="form-control"
                     data-live-search="true" data-actions-box="false"
+                    (change)="search()"
                     title="{{'label.accessright.UserGroup' | translate}}">
-                <option *ngFor="let user of userGroups" attr.data-content="<span title='{{user.note}}' class='badge'>{{user.name}}</span>">
+                <option *ngFor="let user of userGroups" 
+                         attr.value="{{user.id}}"
+                        attr.data-content="<span title='{{user.note}}' class='badge'>{{user.name}}</span>">
                     {{user.name}}
                 </option>
             </select>
@@ -14,13 +17,16 @@
         </div>
     </div>
     <div class="col-sm-5">
-        <label for="message-text" class="control-label">{{'label.grpMaterial.TypeMaterialName' | translate}}</label>
+        <label for="message-text" class="control-label">{{'label.accessright.FeatureGroup' | translate}}</label>
         <div>
-            <select id="types-user-info" name="type" [(ngModel)]="usergroupid" class="form-control"
+            <select id="types-user-info" name="type" [(ngModel)]="featureGroupId" class="form-control"
                     data-live-search="true" data-actions-box="false"
+                    (change)="search()"
                     title="{{'label.accessright.FeatureGroup' | translate}}">
                 <option>All</option>
-                <option *ngFor="let fea of featureGroups" attr.data-content="<span title='{{fea.note}}' class='badge'>{{fea.name}}</span>">
+                <option *ngFor="let fea of featureGroups" 
+                         attr.value="{{fea.id}}"
+                        attr.data-content="<span title='{{fea.note}}' class='badge'>{{fea.name}}</span>">
                     {{fea.name}}
                 </option>
             </select>
@@ -29,7 +35,9 @@
     </div>
     <div class="col-sm-2">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="onSearchChanged()"><i class="fa fa-plus-circle"></i> Search</button>
+            <button type="button" class="btn btn-primary" (click)="save()">
+                <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
+            </button>
         </div>
     </div>
 </div>
@@ -46,10 +54,7 @@
                    [footerHeight]="50"
                    [rowHeight]="'auto'"
                    [externalPaging]="true"
-                   [count]="page.totalElements"
-                   [offset]="page.pageNumber"
-                   [limit]="page.size"
-                   (page)='setPage($event)'>
+                   [count]="page.totalElements">
     </ngx-datatable>
 
     <!-- TEMPLATEs -->
@@ -71,26 +76,27 @@
 
     <ng-template #viewTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
-               autofocus
-               (blur)="updateViewValue(row,$event,rowIndex)" />
+               [checked]="row.view"
+               (change)="updateViewValue(row,$event,rowIndex)" />
     </ng-template>
 
     <ng-template #editTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
-               autofocus
-               (blur)="updateEditValue(row,$event,rowIndex)" />
+                [checked]="row.edit"
+               (change)="updateEditValue(row,$event,rowIndex)" />
     </ng-template>
 
     <ng-template #createTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
                autofocus
-               (blur)="updateCreateValue(row,$event,rowIndex)" />
+                [checked]="row.create"
+               (change)="updateCreateValue(row,$event,rowIndex)" />
     </ng-template>
 
     <ng-template #deleteTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
-               autofocus
-               (blur)="updateDeleteValue(row,$event,rowIndex)" />
+                [checked]="row.delete"
+               (change)="updateDeleteValue(row,$event,rowIndex)" />
     </ng-template>
 
     <ng-template #descriptionTemplate let-row="row" let-value="value">

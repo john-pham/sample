@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using ebrain.admin.bc.Repositories;
 
 namespace Ebrain.Controllers
 {
@@ -100,27 +101,31 @@ namespace Ebrain.Controllers
                 Create = item.Create,
                 Delete = item.Delete
             };
-            
+
 
             return branch;
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> Update([FromBody] AccessRightViewModel value)
+        public async Task<IActionResult> Update([FromBody] AccessRightViewModel[] values)
         {
             if (ModelState.IsValid)
             {
                 //
                 var userId = new Guid(Utilities.GetUserId(this.User));
-                //
-                var ar = new AccessRight
+
+                var ar = values.Select(p => new AccessRight
                 {
-                    FeatureID = value.FeatureID,
-                    GroupID = value.GroupID
-                };
-                
+                    FeatureID = p.FeatureID,
+                    GroupID = p.GroupID,
+                    Value = (byte)((p.View ? (byte)Behavior.View : 0) +
+                    (p.Edit ? (byte)Behavior.Edit : 0) +
+                    (p.Delete ? (byte)Behavior.Delete : 0) +
+                    (p.Create ? (byte)Behavior.Create : 0))
+                });
+
                 //commit
-                var ret = await this._unitOfWork.AccessRights.Update(ar, value.View, value.Edit, value.Delete, value.Create);
+                var ret = await this._unitOfWork.AccessRights.Update(ar);
 
                 //return client side
                 return Ok(ret);

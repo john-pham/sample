@@ -25,6 +25,7 @@
   },
   "label": {
     "accessright": {
+      "AccessRight": "Phân quyền",
       "PermissionGroup": "Nhóm quyền",
       "UserGroup": "Nhóm người dùng",
       "FeatureGroup": "Nhóm chức năng",

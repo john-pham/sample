@@ -31,16 +31,16 @@ export class AccessRightsEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    search(filter: string, value: string, page: number, size: number): Observable<Response> {
+    search(groupId: string, featureGroupId: string, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        let url = this.getUrl('search?groupId=' + groupId + '&featureGroupId=' + featureGroupId + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(filter, value, page, size));
+                return this.handleError(error, () => this.search(groupId, featureGroupId, page, size));
             });
     }
 

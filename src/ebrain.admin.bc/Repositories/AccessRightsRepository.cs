@@ -33,9 +33,10 @@ namespace ebrain.admin.bc.Repositories
         {
         }
 
-        public async Task<AccessRight> Update(AccessRight value, bool canView, bool canEdit, bool canDelete, bool canCreate)
+        public async Task<bool> Update(IEnumerable<AccessRight> values)
         {
-            if (value != null)
+
+            foreach (var value in values)
             {
                 var fea = await appContext.AccessRight.FirstOrDefaultAsync(x => x.FeatureID == value.FeatureID && x.GroupID == value.GroupID);
 
@@ -51,21 +52,13 @@ namespace ebrain.admin.bc.Repositories
                     await appContext.AccessRight.AddAsync(fea);
                 }
 
-                fea.Value = (byte)((canView ? (byte)Behavior.View : 0) +
-                    (canEdit ? (byte)Behavior.Edit : 0) +
-                    (canDelete ? (byte)Behavior.Delete : 0) +
-                    (canCreate ? (byte)Behavior.Create : 0));
-                fea.UpdatedDate = DateTime.Now;
+                fea.Value = value.Value;
 
                 //
-                if (await appContext.SaveChangesAsync() > 0)
-                {
-                    return fea;
-                }
+               
             }
 
-            return value;
-
+            return await appContext.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> Delete(Guid feature, Guid group)
@@ -107,7 +100,7 @@ namespace ebrain.admin.bc.Repositories
                             f.Reference,
                             f.GroupID,
                             Parent = default(Guid?),
-                            Value = g != null ? g.Value : 0,
+                            Value = g != null ? g.Value : default(System.Int16?),
                             f.CreatedDate
                         };
 

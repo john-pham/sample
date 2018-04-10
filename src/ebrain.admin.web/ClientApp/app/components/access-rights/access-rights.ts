@@ -42,8 +42,8 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
     loadingIndicator: boolean = true;
 
-    filterName: string;
-    filterValue: string;
+    groupId: string;
+    featureGroupId: string;
 
     private pointer: AccessRight;
     private page: Page;
@@ -61,7 +61,6 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         private modalService: BsModalService) {
         this.pointer = new AccessRight();
         this.page = new Page();
-        
         this.page.pageNumber = 0;
         this.page.size = 20;
     }
@@ -71,14 +70,14 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-           
+
             { headerClass: "text-center", prop: 'featureName', name: gT('label.accessright.Feature'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'view', name: gT('label.accessright.View'), cellTemplate: this.viewTemplate },
             { headerClass: "text-center", prop: 'edit', name: gT('label.accessright.Edit'), cellTemplate: this.editTemplate },
             { headerClass: "text-center", prop: 'create', name: gT('label.accessright.Create'), cellTemplate: this.createTemplate },
             { headerClass: "text-center", prop: 'delete', name: gT('label.accessright.Delete'), cellTemplate: this.deleteTemplate }
         ];
-        
+
         this.getFromServer();
     }
 
@@ -91,8 +90,16 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     file_name: string = "";
 
     //
-    onSearchChanged(value: string) {
-        this.getFromServer();
+    search() {
+        this.loadingIndicator = true;
+        //
+        var disp = this.localService.search(this.groupId, this.featureGroupId, 0, 0).subscribe(
+            resulted => this.onDataLoadSuccessful(resulted),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
     }
 
     setPage(pageInfo) {
@@ -103,15 +110,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.search(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(
-            resulted => this.onDataLoadSuccessful(resulted),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
-
-        this.userGroupService.getAll().subscribe(
+        var disp = this.userGroupService.getAll().subscribe(
             resulted => this.onDataLoadUserGroupSuccessful(resulted),
             error => this.onDataLoadFailed(error),
             () => {
@@ -134,6 +133,10 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     }
 
     private onDataLoadUserGroupSuccessful(resulted: UserGroups[]) {
+        if (resulted != null && resulted.length > 0) {
+            this.groupId = resulted[0].id;
+            this.search();
+        }
         this.userGroups = resulted;
         this.alertService.stopLoadingMessage();
     }
@@ -154,20 +157,13 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     private save() {
         this.alertService.startLoadingMessage("Saving changes...");
 
-        //this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+        this.localService.save(this.rows).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
 
-    private saveSuccessHelper(branch?: Branch) {
+    private saveSuccessHelper(result: Boolean) {
         this.alertService.stopLoadingMessage();
-        //this.resetForm();
-        this.modalRef.hide();
-        //
-        this.getFromServer();
-        //
-        //if (this.isNewUser)
+
         this.alertService.showMessage("Success", `User \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
-        //else if (!this.isEditingSelf)
-        //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.Name}\" was saved successfully`, MessageSeverity.success);
 
         if (this.changesSavedCallback)
             this.changesSavedCallback();
@@ -186,8 +182,21 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         this.modalRef.hide();
     }
 
-    @ViewChild('f')
-    private form;
+    updateViewValue(row, event, rowIndex) {
+        row.view = event.target.checked;
+    }
+
+    updateEditValue(row, event, rowIndex) {
+        row.edit = event.target.checked;
+    }
+
+    updateCreateValue(row, event, rowIndex) {
+        row.create = event.target.checked;
+    }
+
+    updateDeleteValue(row, event, rowIndex) {
+        row.delete = event.target.checked;
+    }
 
     private uniqueId: string = Utilities.uniqueId();
 

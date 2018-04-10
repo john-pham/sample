@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ebrain.admin.bc.Models
 {
-    public class UserGroup : Interfaces.IAuditableEntity
+    public class UserGroup 
     {
         public Guid ID { get; set; }
         public string Code { get; set; }
@@ -15,9 +15,9 @@ namespace ebrain.admin.bc.Models
         public string Description { get; set; }
         public long TabIndex { get; set; }
 
-        public string CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
 
-        public string UpdatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
 
         public DateTime UpdatedDate { get; set; }
 
