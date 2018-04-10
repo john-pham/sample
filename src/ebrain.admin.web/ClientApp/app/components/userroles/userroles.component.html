@@ -6,7 +6,7 @@
             </a>
             <ol class="breadcrumb pull-left">
                 <li><a routerLink="/mn_main_system">{{'menu.main.System' | translate}}</a></li>
-                <li>{{'pageMain.usergroup.header' | translate}}</li>
+                <li>{{'pageMain.userrole.header' | translate}}</li>
             </ol>
         </div>
     </div>
@@ -15,14 +15,10 @@
 <div class="row control-box">
     <div class="col-sm-10">
         <div class="form-group search-box">
-            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.usergroup.searchBox' | translate}}">></search-box>
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.featuregroup.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2">
-        <div class="text-right">
-            <button class="btn btn-primary" (click)="add(template)"><i class="fa fa-plus-circle"></i> {{'button.Add' | translate}}</button>
-        </div>
-    </div>
+    
 </div>
 
 <div [@fadeInOut]>
@@ -75,35 +71,56 @@
 <ng-template #template>
     <div class="modal-header">
         <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="branch-modalLabel">{{'label.usergroup.HeaderAdd' | translate}}</h4>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.userrole.ManageGroupName' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" name="branchForm" #f="ngForm"
-              novalidate
-              (ngSubmit)="f.form.valid ? save() :
-          (showErrorAlert('Input is required', 'Please enter at controls'));">
+        
             <div class="modal-body">
                 <div class="modal-body">
-                    
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">{{'label.usergroup.Name' | translate}}</label>
-                        <div [ngClass]="{'has-success': f.submitted && name.valid, 'has-error' : f.submitted && !name.valid}">
-                            <input type="text" class="form-control" [(ngModel)]="pointer.name" name="name" required
-                                   #name="ngModel"
-                                   attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
-                        </div>
+                    <div class="col-sm-12">
+                        <!--DATA TABLE-->
+                        <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                                       [loadingIndicator]="loadingIndicator"
+                                       [rows]="rowroles"
+                                       [rowHeight]="auto"
+                                       [columns]="columnroles"
+                                       [scrollbarV]="verticalScrollbar"
+                                       [columnMode]="'force'">
+
+
+                            <ngx-datatable-column headerClass="text-center"
+                                                  name="{{'label.userrole.GroupName' | translate}}" prop='name'>
+
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column [width]="100"
+                                                  [sortable]="false"
+                                                  [canAutoResize]="false"
+                                                  [draggable]="false" [resizeable]="false"
+                                                  [headerClass]="text-center"
+                                                  [cellClass]="text-center"
+                                                  [prop]='isactive'
+                                                  name="{{'label.userrole.IsActive' | translate}}">
+                                <ng-template ngx-datatable-cell-template let-value="value"
+                                             let-rowIndex="rowIndex" let-row="row">
+                                    <input type="checkbox"
+                                           (change)="updateIsActive(row,$event,rowIndex)"
+                                           [checked]="row.isactive"
+                                           value="isactive"
+                                           ng-model="isactive" />
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                        </ngx-datatable>
                     </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">{{'label.usergroup.Note' | translate}}</label>
-                        <textarea class="form-control" [(ngModel)]="pointer.description" name="note"></textarea>
-                    </div>
+                   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
-                    <button type="submit" class="btn btn-primary">{{'button.Save' | translate}}</button>
+                    <button type="button" (click)="save()" class="btn btn-primary">{{'button.Save' | translate}}</button>
                 </div>
             </div>
-        </form>
+       
     </div>
 </ng-template>
 

@@ -18,18 +18,18 @@ using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-
+using ebrain.admin.bc.Utilities;
 namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class UserGroupsController : Controller
+    public class UserRolesController : Controller
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
         readonly IHostingEnvironment _env;
 
-        public UserGroupsController(IUnitOfWork unitOfWork, ILogger<UserGroupsController> logger, IHostingEnvironment env)
+        public UserRolesController(IUnitOfWork unitOfWork, ILogger<UserRolesController> logger, IHostingEnvironment env)
         {
             this._unitOfWork = unitOfWork;
             this._logger = logger;
@@ -40,7 +40,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetAll()
         {
-            var ugs = await this._unitOfWork.UserGroups.Search("", this._unitOfWork.Branches.GetAllBranchOfUserString(userId), 0, 0);
+            var ugs = await this._unitOfWork.UserRoles.Search("", this._unitOfWork.Branches.GetAllBranchOfUserString(userId), 0, 0);
             return Ok(ugs);
         }
 
@@ -48,13 +48,15 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> Search(string filter, string value, int page, int size)
         {
-            var bus = this._unitOfWork.UserGroups;
+            var bus = this._unitOfWork.UserRoles;
             var ret = from c in await bus.Search(value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
-                      select new UserGroupViewModel
+                      select new UserRoleViewModel
                       {
-                          ID = c.ID,
-                          Code = c.Code,
-                          Name = c.Name
+                          UserId = c.UserId.ConvertStringToGuid(),
+                          UserName = c.UserName,
+                          FullName = c.FullName,
+                          GroupName = c.GroupName,
+                          BranchName = c.BranchName
                       };
 
             return Json(new
@@ -66,41 +68,42 @@ namespace Ebrain.Controllers
 
         [HttpGet("get")]
         [Produces(typeof(UserViewModel))]
-        public async Task<UserGroupViewModel> Get(Guid index)
+        public async Task<IEnumerable<UserRoleViewModel>> Get(Guid userId)
         {
-            var c = await this._unitOfWork.UserGroups.GetItem(index);
+            var results = await this._unitOfWork.UserGroups.GetRoleFromUser(userId, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
 
-            var grp = new UserGroupViewModel
+            var datas = results.Select(c => new UserRoleViewModel
             {
                 ID = c.ID,
                 Code = c.Code,
-                Name = c.Name
-            };
-            
-            return grp;
+                Name = c.Name,
+                IsActive = c.IsActive,
+                UserId = c.UserId
+            });
+
+            return datas;
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> Update([FromBody] UserGroupViewModel value, Guid? index)
+        public async Task<IActionResult> Update([FromBody] UserRoleViewModel[] values)
         {
             if (ModelState.IsValid)
             {
-               
-                var grp = new UserGroup
+
+                var grps = values.Select(c => new UserRole
                 {
-                    ID = Guid.NewGuid(),
-                    Code = value.Code,
-                    Name = value.Name,
-                    Description = value.Description,
+                    GroupId = c.GroupId.ConvertStringToGuid(),
+                    UserId = c.UserId.HasValue ? c.UserId.Value : Guid.Empty,
+                    IsActive = c.IsActive.HasValue ? c.IsActive.Value : false,
                     CreatedBy = userId,
                     UpdatedBy = userId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
-                    
-                };
+
+                });
 
                 //commit
-                var ret = await this._unitOfWork.UserGroups.Update(grp, value.ID);
+                var ret = await this._unitOfWork.UserRoles.Update(grps);
 
                 //return client side
                 return Ok(ret);
@@ -114,7 +117,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ret = await this._unitOfWork.UserGroups.Delete(id);
+                var ret = await this._unitOfWork.UserRoles.Delete(id);
 
                 return Ok(ret);
             }

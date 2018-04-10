@@ -15,6 +15,7 @@ namespace ebrain.admin.bc.Models
         public string Description { get; set; }
         public long TabIndex { get; set; }
 
+        public Guid? BranchId { get; set; }
         public Guid? CreatedBy { get; set; }
 
         public Guid? UpdatedBy { get; set; }
@@ -22,6 +23,11 @@ namespace ebrain.admin.bc.Models
         public DateTime UpdatedDate { get; set; }
 
         public DateTime CreatedDate { get; set; }
-        
+
+
+        [NotMapped]
+        public bool? IsActive { get; set; }
+        [NotMapped]
+        public Guid? UserId { get; set; }
     }
 }

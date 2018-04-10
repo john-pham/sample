@@ -51,6 +51,9 @@ import { CurrencyPipe } from "./pipes/currency.pipe";
 import { AccessRightsService } from './services/access-rights.service';
 import { AccessRightsEndpoint } from './services/access-rights.endpoint';
 
+import { UserRolesService } from './services/userroles.service';
+import { UserRolesEndpoint } from './services/userroles-endpoint.service';
+
 import { FeatureGroupsService } from './services/featuregroup.service';
 import { FeatureGroupsEndpoint } from './services/featuregroup-endpoint.service';
 
@@ -176,6 +179,7 @@ import { AlteComponent } from "./components/alte.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
 import { AccessRightsComponent } from "./components/access-rights/access-rights";
+import { UserRolesComponent } from "./components/userroles/userroles.component";
 import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
 import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
 
@@ -461,6 +465,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         EndpointFactory,
         AccessRightsService,
         AccessRightsEndpoint,
+        UserRolesService,
+        UserRolesEndpoint,
         UserGroupsEndpoint,
         UserGroupsService,
         FeatureGroupsEndpoint,

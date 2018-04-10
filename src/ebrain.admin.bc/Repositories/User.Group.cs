@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
+using ebrain.admin.bc.Utilities;
 /*
  * Author:          John Pham
  * CreatedDate Date:    07/23/2013
@@ -46,7 +46,7 @@ namespace ebrain.admin.bc.Repositories
                     appContext.Add(cus);
                 }
 
-                //user.Code = value.Code;
+                cus.BranchId = value.CreatedBy.HasValue ? value.CreatedBy.Value.GetBranchOfCurrentUser(this.appContext) : Guid.Empty;
                 cus.Name = value.Name;
                 cus.Description = value.Description;
                 cus.UpdatedDate = DateTime.Now;
@@ -82,11 +82,12 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
-        public async Task<IList<Report.UserGroup>> Search(string value, int page, int size)
+        public async Task<IList<Report.UserGroup>> Search(string value, string branchIds, int page, int size)
         {
             var m_Ret = new List<Report.UserGroup>();
 
             var items = from c in appContext.UserGroup
+                        where branchIds.Contains(c.BranchId.ToString())
                         select c;
 
             //FILTER
@@ -139,6 +140,51 @@ namespace ebrain.admin.bc.Repositories
 
             return m_Ret;
         }
+        
+        public async Task<IList<Models.UserGroup>> GetRoleFromUser(Guid userId, string branchIds)
+        {
+            var m_Ret = new List<Models.UserGroup>();
+
+            var data = from f in appContext.UserGroup
+                       where
+                       (
+                           branchIds.Contains(f.BranchId.ToString())
+                       )
+                       join a in
+                           (
+                               from c in appContext.UserRole
+                               where c.IsActive == true && c.UserId == userId
+                               select c
+                            ) on f.ID equals a.GroupId into aug
+                       from g in aug.DefaultIfEmpty()
+                       select new
+                       {
+                           f.ID,
+                           f.Name,
+                           IsActive = g != null ? g.IsActive : default(System.Boolean?)
+                       };
+
+
+            //just provide only one type
+            if (data != null)
+            {
+
+                foreach (var item in data)
+                {
+
+                    m_Ret.Add(new Models.UserGroup
+                    {
+                        ID = item.ID,
+                        Name = item.Name,
+                        IsActive = item.IsActive,
+                        UserId = userId
+                    });
+                }
+            }
+
+            return m_Ret;
+        }
+
 
         public long GetTabIndex()
         {

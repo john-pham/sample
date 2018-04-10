@@ -24,6 +24,24 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "userrole": {
+     
+      "FullName": "Tên đầy đủ",
+      "UserName": "Tên đăng nhập",
+      "BranchName": "Chi nhánh",
+      "ManageGroupName": "Nhóm quyền",
+      "GroupName": "Nhóm quyền",
+      "IsActive": "Hoạt động",
+      "UserRole": "Phân quyền",
+      "PermissionGroup": "Nhóm quyền",
+      "UserGroup": "Nhóm người dùng",
+      "FeatureGroup": "Nhóm chức năng",
+      "Feature": "Chức năng",
+      "View": "Xem",
+      "Edit": "Sửa",
+      "Create": "Tạo",
+      "Delete": "Xóa"
+    },
     "accessright": {
       "AccessRight": "Phân quyền",
       "PermissionGroup": "Nhóm quyền",
@@ -619,6 +637,11 @@
     }
   },
   "pageMain": {
+    "userrole": {
+      "header": "Danh sách phân quyền",
+      "searchBox": "Tìm kiếm phân quyền",
+      "newDocument": "Thêm mới"
+    },
     "featuregroup": {
       "header": "Danh sách nhóm chức năng",
       "searchBox": "Tìm kiếm nhóm chức năng",

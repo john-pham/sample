@@ -22,6 +22,7 @@ namespace ebrain.admin.bc
 
         IAccessRightsRepository _accessRights;
         IUserGroupRepository _userGroups;
+        IUserRoleRepository _userRoles;
         IFeatureRepository _features;
         IFeatureGroupRepository _featureGroups;
 
@@ -98,6 +99,19 @@ namespace ebrain.admin.bc
                 return _featureGroups;
             }
         }
+        
+
+        public IUserRoleRepository UserRoles
+        {
+            get
+            {
+                if (_userRoles == null)
+                    _userRoles = new UserRoleRepository(_context);
+
+                return _userRoles;
+            }
+        }
+
 
         public IUserGroupRepository UserGroups
         {

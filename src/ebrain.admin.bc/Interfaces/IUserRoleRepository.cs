@@ -7,6 +7,7 @@
 // ======================================
 
 using ebrain.admin.bc.Models;
+using ebrain.admin.bc.Report;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +15,11 @@ using System.Threading.Tasks;
 
 namespace ebrain.admin.bc.Repositories.Interfaces
 {
-    public interface IUserGroupRepository : IRepository<UserGroup>
+    public interface IUserRoleRepository : IRepository<UserRole>
     {
         int Total { get; }
-
-        Task<UserGroup> Update(UserGroup value, Guid? index);
-
-        Task<bool> Delete(Guid index);
-
-        Task<IList<Report.UserGroup>> Search(string value, string branchIds, int page, int size);
-
-        Task<Report.UserGroup> GetItem(Guid Index);
-        Task<IList<Models.UserGroup>> GetRoleFromUser(Guid userId, string branchIds);
+        Task<bool> Update(IEnumerable<UserRole> values);
+        Task<bool> Delete(Guid id);
+        Task<IList<BranchUser>> Search(string value, string branchIds, int page, int size);
     }
 }

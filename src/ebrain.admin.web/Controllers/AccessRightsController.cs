@@ -42,7 +42,7 @@ namespace Ebrain.Controllers
         public async Task<IActionResult> GetAll()
         {
             var fea = await this._unitOfWork.FeatureGroups.Search("", 0, 0);
-            var ugs = await this._unitOfWork.UserGroups.Search("", 0, 0);
+            var ugs = await this._unitOfWork.UserGroups.Search("", this._unitOfWork.Branches.GetAllBranchOfUserString(userId), 0, 0);
 
             return Ok(new
             {
