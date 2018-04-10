@@ -25,13 +25,13 @@ namespace ebrain.admin.bc.Repositories
         {
         }
 
-        public async Task<FeatureGroup> Update(FeatureGroup value)
+        public async Task<FeatureGroup> Update(FeatureGroup value, Guid? index)
         {
             var m_Ret = default(FeatureGroup);
 
             if (value != null)
             {
-                var fea = await appContext.FeatureGroup.FirstOrDefaultAsync(x => x.ID == value.ID);
+                var fea = await appContext.FeatureGroup.FirstOrDefaultAsync(x => x.ID == index);
 
                 if (fea == null)
                 {

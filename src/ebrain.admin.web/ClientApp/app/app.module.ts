@@ -176,6 +176,9 @@ import { AlteComponent } from "./components/alte.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
 import { AccessRightsComponent } from "./components/access-rights/access-rights";
+import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
+import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
+
 import { BranchesComponent } from "./components/branches/branches.component";
 
 import { GrpDocumentsComponent } from "./components/grpdocuments/grpdocuments.component";
@@ -325,6 +328,9 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         LoginComponent,
         HomeComponent,
         AccessRightsComponent,
+        FeatureGroupsComponent,
+        UserGroupsComponent,
+
         BranchesComponent,
         StocksComponent,
         GrpDocumentsComponent,

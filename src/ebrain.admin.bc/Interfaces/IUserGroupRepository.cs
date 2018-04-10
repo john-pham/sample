@@ -18,7 +18,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     {
         int Total { get; }
 
-        Task<UserGroup> Update(UserGroup value);
+        Task<UserGroup> Update(UserGroup value, Guid? index);
 
         Task<bool> Delete(Guid index);
 

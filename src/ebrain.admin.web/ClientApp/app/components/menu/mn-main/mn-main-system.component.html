@@ -14,6 +14,32 @@
 <div [@fadeInOut]>
     <div class="statistic">
         <div class="row">
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/usergroups" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-cart-plus icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'label.usergroup.HeaderAdd' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'label.usergroup.HeaderAdd' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                <a routerLink="/featuregroups" class="block padder-v hover">
+                    <span class="i-s i-s-2x">
+                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                        <i class="fa fa-tasks icon text-white"></i>
+                    </span>
+                    <span class="clear">
+                        <span class="h3 block m-t-xs text-warning">{{'label.featuregroup.HeaderAdd' | translate}}</span>
+                        <small class="text-muted text-u-c">"{{'label.featuregroup.HeaderAdd' | translate}}"</small>
+                    </span>
+                </a>
+            </div>
+
             <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
                 <a routerLink="/accessrights" class="block padder-v hover">
                     <span class="i-s i-s-2x">
@@ -26,17 +52,7 @@
                     </span>
                 </a>
             </div>
-            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
-                <a routerLink="/mn_student_categories_student" class="block padder-v hover">
-                    <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                        <i class="fa fa-user-o icon text-white"></i>
-                    </span>
-                    <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'menu.student.Categories.Learning' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'menu.student.Categories.Learning' | translate}}"</small>
-                    </span>
-                </a>
+           
             </div>
         </div>
     </div>

@@ -25,13 +25,13 @@ namespace ebrain.admin.bc.Repositories
         {
         }
 
-        public async Task<UserGroup> Update(UserGroup value)
+        public async Task<UserGroup> Update(UserGroup value, Guid? index)
         {
             var m_Ret = default(UserGroup);
 
             if (value != null)
             {
-                var cus = await appContext.UserGroup.FirstOrDefaultAsync(x => x.ID == value.ID);
+                var cus = await appContext.UserGroup.FirstOrDefaultAsync(x => x.ID == index);
 
                 if (cus == null)
                 {

@@ -42,6 +42,59 @@ export class FeatureGroupsEndpoint extends EndpointFactory {
             });
     }
 
+    search(filter: string, value: string, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.search(filter, value, page, size));
+            });
+    }
+
+    get(index: string): Observable<Response> {
+
+        let url = this.getUrl('get?index=' + index + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.get(index));
+            });
+    }
+
+    save(value: any): Observable<Response> {
+        let url = this.getUrl('update');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
+    delete(id: string): Observable<Response> {
+        let url = this.getUrl('remove');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(id);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.delete(id));
+            });
+    }
 
     protected handleError(error, continuation: () => Observable<any>) {
 

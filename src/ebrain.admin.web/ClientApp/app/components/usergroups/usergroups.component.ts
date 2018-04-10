@@ -20,15 +20,17 @@ import { File } from '../../models/file.model';
 import { SMS } from '../../models/sms.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
+import { UserGroups } from "../../models/usergroups.model";
+import { UserGroupsService } from "../../services/usergroup.service";
 
 @Component({
-    selector: 'sms',
-    templateUrl: './sms.component.html',
-    styleUrls: ['./sms.component.css'],
+    selector: 'usergroups',
+    templateUrl: './usergroups.component.html',
+    styleUrls: ['./usergroups.component.css'],
     animations: [fadeInOut]
 })
 
-export class SMSComponent implements OnInit, OnDestroy {
+export class UserGroupsComponent implements OnInit, OnDestroy {
     rows = [];
     columns = [];
 
@@ -41,7 +43,7 @@ export class SMSComponent implements OnInit, OnDestroy {
     filterValue: string;
     phone: string;
 
-    private pointer: SMS;
+    private pointer: UserGroups;
     private page: Page;
 
     public changesSavedCallback: () => void;
@@ -51,8 +53,8 @@ export class SMSComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: SMSService, private modalService: BsModalService) {
-        this.pointer = new SMS();
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: UserGroupsService, private modalService: BsModalService) {
+        this.pointer = new UserGroups();
         this.page = new Page();
 
         //
@@ -65,10 +67,10 @@ export class SMSComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "branchName", name: gT('label.sms.BranchName'),width:150, cellTemplate: this.statusTemplate },
-            { headerClass: "text-center", prop: 'phone', name: gT('label.sms.Phone'), width: 100, cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'body', name: gT('label.sms.Body'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'result', name: gT('label.sms.Result'), width: 100, cellTemplate: this.nameTemplate },
+         
+            { headerClass: "text-center", prop: 'name', name: gT('label.usergroup.Name'), width: 100, cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'description', name: gT('label.usergroup.Note'), cellTemplate: this.nameTemplate },
+            { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         this.getFromServer();
@@ -79,10 +81,54 @@ export class SMSComponent implements OnInit, OnDestroy {
     }
 
     //
-    addSMS(template: TemplateRef<any>) {
+    add(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
+    edit(template: TemplateRef<any>, index: string) {
+
+        var disp = this.localService.get(index).subscribe(
+            item => {
+                //
+                this.pointer.id = item.id;
+                this.pointer.code = item.code;
+                this.pointer.name = item.name;
+                this.pointer.description = item.description;
+
+                //
+                this.modalRef = this.modalService.show(template);
+            },
+            error => {
+            },
+            () => { disp.unsubscribe(); });
+
+
+    }
+
+    delete(row) {
+        this.alertService.showDialog('Are you sure you want to delete the task?', DialogType.confirm, () => this.deleteHelper(row));
+    }
+
+    private deleteHelper(row) {
+        this.localService.delete(row.id).subscribe(value => this.deleteSuccessHelper(row), error => this.deleteFailedHelper(error));
+    }
+
+    private deleteSuccessHelper(row: UserGroups) {
+        this.getFromServer();
+        this.alertService.showMessage("Success", `Class \"${row.name}\" was deleted successfully`, MessageSeverity.success);
+        if (this.changesSavedCallback)
+            this.changesSavedCallback();
+    }
+
+
+    private deleteFailedHelper(error: any) {
+        this.alertService.stopLoadingMessage();
+        this.alertService.showStickyMessage("Delete Error", "The below errors occured whilst deleting your changes:", MessageSeverity.error, error);
+        this.alertService.showStickyMessage(error, null, MessageSeverity.error);
+
+        if (this.changesFailedCallback)
+            this.changesFailedCallback();
+    }
    
     onSearchChanged(value: string) {
         this.getFromServer();
@@ -105,7 +151,7 @@ export class SMSComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(resulted: Results<SMS>) {
+    private onDataLoadSuccessful(resulted: Results<UserGroups>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
@@ -122,7 +168,6 @@ export class SMSComponent implements OnInit, OnDestroy {
     close() {
         this.modalRef.hide();
     }
-
 
     @ViewChild('f')
     private form;

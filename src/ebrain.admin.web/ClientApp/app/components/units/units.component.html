@@ -65,27 +65,6 @@
     </ng-template>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="substock-modal" tabindex="-1" role="dialog" aria-labelledby="substock-modalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="substock-modalLabel">Chí nhánh cơ sở</h4>
-            </div>
-            <div class="modal-body">
-                <div><label>HQ - HEAD QUARTER</label><input type="checkbox" /></div>
-                <div><label>CN2 - Chi nhánh 2</label><input type="checkbox" /></div>
-                <div><label>CN3 - Chi nhánh 3</label><input type="checkbox" /></div>
-                <div><label>CN3 - Chi nhánh 4</label><input type="checkbox" /></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <ng-template #template>
 
@@ -100,16 +79,9 @@
           (showErrorAlert('Input is required', 'Please enter at controls'));">
         <div class="modal-body">
             <div class="modal-body">
+               
                 <div class="form-group">
-                    <label for="recipient-name" class="control-label">{{'label.unit.Code' | translate}}</label>
-                    <div [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !code.valid}">
-                        <input type="text" class="form-control" [(ngModel)]="pointer.code" name="code" required
-                               #code="ngModel"
-                               attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="message-text" class="control-label">{{'label.unit.Name' | translate}}</label>
+                    <label for="message-text" class="control-label">{{'label.usergroup.Name' | translate}}</label>
                     <div [ngClass]="{'has-success': f.submitted && name.valid, 'has-error' : f.submitted && !name.valid}">
                         <input type="text" class="form-control" [(ngModel)]="pointer.name" name="name" required
                                #name="ngModel"
@@ -117,8 +89,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="recipient-name" class="control-label">{{'label.unit.Note' | translate}}</label>
-                    <textarea class="form-control" [(ngModel)]="pointer.note" name="note"></textarea>
+                    <label for="recipient-name" class="control-label">{{'label.usergroup.Note' | translate}}</label>
+                    <textarea class="form-control" [(ngModel)]="pointer.description" name="description"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

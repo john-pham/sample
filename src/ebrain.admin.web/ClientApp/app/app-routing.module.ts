@@ -12,6 +12,9 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
 import { AccessRightsComponent } from "./components/access-rights/access-rights";
+import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
+import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
+
 import { BranchesComponent } from "./components/branches/branches.component";
 import { StocksComponent } from "./components/stocks/stocks.component";
 
@@ -128,7 +131,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "mn-classes", component: mn_classesComponent, canActivate: [AuthGuard], data: { title: "classes" } },
             { path: "mn-learning", component: mn_learningComponent, canActivate: [AuthGuard], data: { title: "learning" } },
 
-            
+
             { path: "mn_main_categories", component: mn_main_categoriesComponent, canActivate: [AuthGuard], data: { title: "Categories" } },
             { path: "mn_main_educate", component: mn_main_educateComponent, canActivate: [AuthGuard], data: { title: "Educates" } },
             { path: "mn_main_accountant", component: mn_main_accountantComponent, canActivate: [AuthGuard], data: { title: "Accountants" } },
@@ -141,7 +144,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "attendances", component: AttendancesComponent, canActivate: [AuthGuard], data: { title: "Attendances" } },
             { path: "mn_main_function", component: mn_main_functionComponent, canActivate: [AuthGuard], data: { title: "Functions" } },
             { path: "mn_main_report", component: mn_main_reportComponent, canActivate: [AuthGuard], data: { title: "Reports" } },
-            
+
             { path: "mn_student_categories", component: mn_student_categoriesComponent, canActivate: [AuthGuard], data: { title: "learning" } },
             { path: "mn_student_categories_student", component: mn_student_categories_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
             { path: "mn_student_categories_classes", component: mn_student_categories_classesComponent, canActivate: [AuthGuard], data: { title: "learning" } },
@@ -162,6 +165,9 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "sms", component: SMSComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
             { path: "smssend", component: SMSSendComponent, canActivate: [AuthGuard], data: { title: "Send SMS" } },
             { path: "accessrights", component: AccessRightsComponent, canActivate: [AuthGuard], data: { title: "Access Rights" } },
+            { path: "featuregroups", component: FeatureGroupsComponent, canActivate: [AuthGuard], data: { title: "Feature Groups" } },
+            { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },
+
             { path: "branches", component: BranchesComponent, canActivate: [AuthGuard], data: { title: "Branches" } },
             { path: "stocks", component: StocksComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
             { path: "typemateriallearns", component: TypeMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "typeMaterialLearns" } },
@@ -175,7 +181,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "grpdocuments", component: GrpDocumentsComponent, canActivate: [AuthGuard], data: { title: "Group Documents" } },
             { path: "documents", component: DocumentsComponent, canActivate: [AuthGuard], data: { title: "Documents" } },
-            
+
             { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
             { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },
 
@@ -196,7 +202,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "deptslist", component: DeptsListsComponent, canActivate: [AuthGuard], data: { title: "Inventory" } },
             { path: "depts", component: DeptsComponent, canActivate: [AuthGuard], data: { title: "Update Inventory" } },
-            
+
             { path: "iostudents", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "iostudents" } },
             { path: "iostudentlist", component: IOStudenListComponent, canActivate: [AuthGuard], data: { title: "iostudentlist" } },
             { path: "ioinputs", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "ioinputs" } },
@@ -215,7 +221,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "suppliercus", component: SupplierCusComponent, canActivate: [AuthGuard], data: { title: "customers" } },
             { path: "supplieremps", component: SupplierEmpsComponent, canActivate: [AuthGuard], data: { title: "employes" } },
             { path: "supplierteachs", component: SupplierTeacherComponent, canActivate: [AuthGuard], data: { title: "teachers" } },
-            
+
             { path: "classlists", component: ClassListsComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
             { path: "classdetails/:id", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Class" } },
             { path: "classes", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Classes" } },

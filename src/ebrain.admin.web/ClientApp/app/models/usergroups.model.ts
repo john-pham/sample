@@ -15,8 +15,6 @@ export class UserGroups {
     public id: string;
     public name: string;
     public code: string;
-    public note: string;
+    public description: string;
     
-    
-
 }

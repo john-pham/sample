@@ -35,6 +35,46 @@
       "Create": "Tạo",
       "Delete": "Xóa"
     },
+    "featuregroup": {
+      "header": "Nhóm tài liệu",
+      "Code": "Mã",
+      "Name": "Tên",
+      "CreatedDate": "Ngày tạo",
+      "CreatedBy": "Người tạo",
+      "Note": "Ghi chú",
+      "Email": "E-mail",
+      "Address": "Địa chỉ",
+      "HeaderAdd": "Quản lý nhóm tài liệu",
+      "Manage": "Quản lý",
+      "Config": "Cấu hình SMS",
+      "UserName": "User Name",
+      "Password": "Password",
+      "CPCode": "CPCode",
+      "RequestID": "RequestID",
+      "ServiceId": "ServiceId",
+      "CommandCode": "CommandCode",
+      "ContentType": "ContentType"
+    },
+    "usergroup": {
+      "header": "Nhóm tài liệu",
+      "Code": "Mã",
+      "Name": "Tên",
+      "CreatedDate": "Ngày tạo",
+      "CreatedBy": "Người tạo",
+      "Note": "Ghi chú",
+      "Email": "E-mail",
+      "Address": "Địa chỉ",
+      "HeaderAdd": "Quản lý nhóm tài liệu",
+      "Manage": "Quản lý",
+      "Config": "Cấu hình SMS",
+      "UserName": "User Name",
+      "Password": "Password",
+      "CPCode": "CPCode",
+      "RequestID": "RequestID",
+      "ServiceId": "ServiceId",
+      "CommandCode": "CommandCode",
+      "ContentType": "ContentType"
+    },
     "document": {
       "SelectedFile": "Chọn tài liệu",
       "DropFile": "Xóa",
@@ -579,6 +619,16 @@
     }
   },
   "pageMain": {
+    "featuregroup": {
+      "header": "Danh sách nhóm chức năng",
+      "searchBox": "Tìm kiếm nhóm chức năng",
+      "newDocument": "Thêm mới"
+    },
+    "usergroup": {
+      "header": "Danh sách nhóm người dùng",
+      "searchBox": "Tìm kiếm nhóm người người dùng",
+      "newDocument": "Thêm mới"
+    },
     "document": {
       "header": "Danh sách tài liệu",
       "searchBox": "Tìm kiếm tài liệu",

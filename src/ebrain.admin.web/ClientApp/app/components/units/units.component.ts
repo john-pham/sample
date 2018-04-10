@@ -51,7 +51,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: "code", name: gT('label.unit.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
             { headerClass: "text-center", prop: 'name', name: gT('label.unit.Name'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'note', name: gT('label.unit.Note'), cellTemplate: this.descriptionTemplate },
-           { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //

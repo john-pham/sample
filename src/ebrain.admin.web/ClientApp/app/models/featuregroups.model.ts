@@ -16,7 +16,7 @@ export class FeatureGroups {
     public name: string;
     public code: string;
     public note: string;
-    
+    public description: string;
     
 
 }

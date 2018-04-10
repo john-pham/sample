@@ -44,5 +44,90 @@ namespace Ebrain.Controllers
             return Ok(ugs);
         }
 
+        [HttpGet("search")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> Search(string filter, string value, int page, int size)
+        {
+            var bus = this._unitOfWork.UserGroups;
+            var ret = from c in await bus.Search(value, page, size)
+                      select new UserGroupViewModel
+                      {
+                          ID = c.ID,
+                          Code = c.Code,
+                          Name = c.Name
+                      };
+
+            return Json(new
+            {
+                Total = bus.Total,
+                List = ret
+            });
+        }
+
+        [HttpGet("get")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<UserGroupViewModel> Get(Guid index)
+        {
+            var c = await this._unitOfWork.UserGroups.GetItem(index);
+
+            var grp = new UserGroupViewModel
+            {
+                ID = c.ID,
+                Code = c.Code,
+                Name = c.Name
+            };
+            
+            return grp;
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update([FromBody] UserGroupViewModel value, Guid? index)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                var grp = new UserGroup
+                {
+                    ID = Guid.NewGuid(),
+                    Code = value.Code,
+                    Name = value.Name,
+                    Description = value.Description,
+                    CreatedBy = userId,
+                    UpdatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
+                    
+                };
+
+                //commit
+                var ret = await this._unitOfWork.UserGroups.Update(grp, value.ID);
+
+                //return client side
+                return Ok(ret);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost("remove")]
+        public async Task<IActionResult> Remove([FromBody] Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                var ret = await this._unitOfWork.UserGroups.Delete(id);
+
+                return Ok(ret);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        private Guid userId
+        {
+            get
+            {
+                return new Guid(Utilities.GetUserId(this.User));
+            }
+        }
     }
 }
