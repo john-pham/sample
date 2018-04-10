@@ -31,7 +31,7 @@ namespace ebrain.admin.bc.Repositories
 
             if (value != null)
             {
-                var cus = await appContext.UserGroups.FirstOrDefaultAsync(x => x.ID == value.ID);
+                var cus = await appContext.UserGroup.FirstOrDefaultAsync(x => x.ID == value.ID);
 
                 if (cus == null)
                 {
@@ -65,12 +65,12 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = false;
 
-            var item = await appContext.UserGroups.FirstOrDefaultAsync(x => x.ID == index);
+            var item = await appContext.UserGroup.FirstOrDefaultAsync(x => x.ID == index);
 
             if (item != null && appContext.Users.Count(x => x.GroupId == index) <= 0)
             {
-                appContext.AccessRights.RemoveRange(appContext.AccessRights.Where(x => x.GroupID == index));
-                appContext.UserGroups.Remove(item);
+                appContext.AccessRight.RemoveRange(appContext.AccessRight.Where(x => x.GroupID == index));
+                appContext.UserGroup.Remove(item);
                 //
                 if (m_Ret = await appContext.SaveChangesAsync() > 0)
                 {
@@ -84,7 +84,7 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = new List<Report.UserGroup>();
 
-            var items = from c in appContext.UserGroups
+            var items = from c in appContext.UserGroup
                         select c;
 
             //FILTER
@@ -122,7 +122,7 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = default(Report.UserGroup);
 
-            var item = await appContext.UserGroups.FirstOrDefaultAsync(x => (x.ID == index));
+            var item = await appContext.UserGroup.FirstOrDefaultAsync(x => (x.ID == index));
 
             if (item != null)
             {
@@ -142,7 +142,7 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = default(long);
 
-            var item = appContext.UserGroups.Select(x => x.TabIndex).DefaultIfEmpty(0).Max();
+            var item = appContext.UserGroup.Select(x => x.TabIndex).DefaultIfEmpty(0).Max();
             m_Ret = item + 1;
 
             return m_Ret;

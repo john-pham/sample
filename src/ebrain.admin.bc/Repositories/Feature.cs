@@ -31,7 +31,7 @@ namespace ebrain.admin.bc.Repositories
 
             if (value != null)
             {
-                var fea = await appContext.Features.FirstOrDefaultAsync(x => x.ID == value.ID);
+                var fea = await appContext.Feature.FirstOrDefaultAsync(x => x.ID == value.ID);
 
                 if (fea == null)
                 {
@@ -74,11 +74,11 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = false;
 
-            var item = await appContext.Features.FirstOrDefaultAsync(x => x.ID == index);
+            var item = await appContext.Feature.FirstOrDefaultAsync(x => x.ID == index);
 
             if (item != null)
             {
-                appContext.Features.Remove(item);
+                appContext.Feature.Remove(item);
                 //
                 if (m_Ret = await appContext.SaveChangesAsync() > 0)
                 {
@@ -92,8 +92,8 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = new List<Report.Feature>();
 
-            var items = from f in appContext.Features
-                        join fg in appContext.FeatureGroups on f.GroupID equals fg.ID into fgs
+            var items = from f in appContext.Feature
+                        join fg in appContext.FeatureGroup on f.GroupID equals fg.ID into fgs
                         from g in fgs.DefaultIfEmpty()
                         select new
                         {
@@ -144,8 +144,8 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = default(Report.Feature);
 
-            var item = await (from f in appContext.Features
-                        join fg in appContext.FeatureGroups on f.GroupID equals fg.ID into fgs
+            var item = await (from f in appContext.Feature
+                        join fg in appContext.FeatureGroup on f.GroupID equals fg.ID into fgs
                         from g in fgs.DefaultIfEmpty()
                         where f.ID == index
                         select new

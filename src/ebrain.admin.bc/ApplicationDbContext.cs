@@ -87,10 +87,10 @@ namespace ebrain.admin.bc
         public DbSet<Supplier> Supplier { get; set; }
         public DbSet<Unit> Unit { get; set; }
         public DbSet<StudentStatus> StudentStatus { get; set; }
-        public DbSet<AccessRight> AccessRights { get; set; }
-        public DbSet<FeatureGroup> FeatureGroups { get; set; }//Chuc nang, Danh muc,..
-        public DbSet<Feature> Features { get; set; }//Phan tich hoat dong, Du doan dau tu,..
-        public DbSet<UserGroup> UserGroups { get; set; }//admin, sales,..
+        public DbSet<AccessRight> AccessRight { get; set; }
+        public DbSet<FeatureGroup> FeatureGroup { get; set; }//Chuc nang, Danh muc,..
+        public DbSet<Feature> Feature { get; set; }//Phan tich hoat dong, Du doan dau tu,..
+        public DbSet<UserGroup> UserGroup { get; set; }//admin, sales,..
 
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
@@ -194,10 +194,10 @@ namespace ebrain.admin.bc
             builder.Entity<StudentRelationShip>().ToTable(nameof(this.StudentRelationShip));
             builder.Entity<Supplier>().ToTable(nameof(this.Supplier));
             builder.Entity<Unit>().ToTable(nameof(this.Unit));
-            builder.Entity<AccessRight>().ToTable(nameof(this.AccessRights)).HasKey(x => new { x.FeatureID, x.GroupID });
-            builder.Entity<FeatureGroup>().ToTable(nameof(this.FeatureGroups));
-            builder.Entity<Feature>().ToTable(nameof(this.Features));
-            builder.Entity<UserGroup>().ToTable(nameof(this.UserGroups));
+            builder.Entity<AccessRight>().ToTable(nameof(this.AccessRight)).HasKey(x => new { x.FeatureID, x.GroupID });
+            builder.Entity<FeatureGroup>().ToTable(nameof(this.FeatureGroup));
+            builder.Entity<Feature>().ToTable(nameof(this.Feature));
+            builder.Entity<UserGroup>().ToTable(nameof(this.UserGroup));
         }
 
 

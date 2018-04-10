@@ -37,7 +37,7 @@ namespace ebrain.admin.bc.Repositories
         {
             if (value != null)
             {
-                var fea = await appContext.AccessRights.FirstOrDefaultAsync(x => x.FeatureID == value.FeatureID && x.GroupID == value.GroupID);
+                var fea = await appContext.AccessRight.FirstOrDefaultAsync(x => x.FeatureID == value.FeatureID && x.GroupID == value.GroupID);
 
                 if (fea == null)
                 {
@@ -48,7 +48,7 @@ namespace ebrain.admin.bc.Repositories
                         CreatedDate = DateTime.Now,
                     };
                     //
-                    await appContext.AccessRights.AddAsync(fea);
+                    await appContext.AccessRight.AddAsync(fea);
                 }
 
                 fea.Value = (byte)((canView ? (byte)Behavior.View : 0) +
@@ -72,11 +72,11 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = new bool();
 
-            var item = await appContext.AccessRights.FirstOrDefaultAsync(x => x.FeatureID == feature && x.GroupID == group);
+            var item = await appContext.AccessRight.FirstOrDefaultAsync(x => x.FeatureID == feature && x.GroupID == group);
 
             if (item != null)
             {
-                appContext.AccessRights.Remove(item);
+                appContext.AccessRight.Remove(item);
                 //
                 if (m_Ret = await appContext.SaveChangesAsync() > 0)
                 {
@@ -92,10 +92,10 @@ namespace ebrain.admin.bc.Repositories
 
             var groupID = groupId;
 
-            var items = from f in appContext.Features
+            var items = from f in appContext.Feature
                         join a in
                             (
-                                from c in appContext.AccessRights
+                                from c in appContext.AccessRight
                                 where c.GroupID == groupID
                                 select c
                                 ) on f.ID equals a.FeatureID into aug
@@ -117,7 +117,7 @@ namespace ebrain.admin.bc.Repositories
                 items = items.Where(x => x.GroupID == featureGroupId);
             }
 
-            var data = appContext.UserGroups.FirstOrDefault(x => x.ID == groupID);
+            var data = appContext.UserGroup.FirstOrDefault(x => x.ID == groupID);
 
             //just provide only one type
             if (data != null)
@@ -158,10 +158,10 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = default(Report.AccessRight);
             var groupID = groupId;
-            var item = await (from f in appContext.Features
+            var item = await (from f in appContext.Feature
                         join a in
                             (
-                                from ar in appContext.AccessRights
+                                from ar in appContext.AccessRight
                                 where ar.GroupID == groupID
                                 select ar
                                 ) on f.ID equals a.FeatureID into aug
@@ -177,7 +177,7 @@ namespace ebrain.admin.bc.Repositories
 
             if (item != null)
             {
-                var data = await appContext.UserGroups.FirstOrDefaultAsync(x => x.ID == groupID);
+                var data = await appContext.UserGroup.FirstOrDefaultAsync(x => x.ID == groupID);
 
                 m_Ret = new Report.AccessRight
                 {
@@ -201,7 +201,7 @@ namespace ebrain.admin.bc.Repositories
 
             var groupID = group;
 
-            m_Ret = (from c in appContext.AccessRights
+            m_Ret = (from c in appContext.AccessRight
                      where c.GroupID == groupID
                      select c.GroupID).Count();
 

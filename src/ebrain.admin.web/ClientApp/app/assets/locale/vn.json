@@ -24,6 +24,16 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "accessright": {
+      "PermissionGroup": "Nhóm quyền",
+      "UserGroup": "Nhóm người dùng",
+      "FeatureGroup": "Nhóm chức năng",
+      "Feature": "Chức năng",
+      "View": "Xem",
+      "Edit": "Sửa",
+      "Create": "Tạo",
+      "Delete": "Xóa"
+    },
     "document": {
       "SelectedFile": "Chọn tài liệu",
       "DropFile": "Xóa",
@@ -761,7 +771,8 @@
       "Stock": "Kho hàng",
       "Function": "Chức năng",
       "SMS": "SMS",
-      "Document": "Tài liệu"
+      "Document": "Tài liệu",
+      "System": "Hệ thống"
     },
     "stock": {
       "Branch": "Cơ sở",

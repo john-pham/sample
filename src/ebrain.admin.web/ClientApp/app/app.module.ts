@@ -51,6 +51,12 @@ import { CurrencyPipe } from "./pipes/currency.pipe";
 import { AccessRightsService } from './services/access-rights.service';
 import { AccessRightsEndpoint } from './services/access-rights.endpoint';
 
+import { FeatureGroupsService } from './services/featuregroup.service';
+import { FeatureGroupsEndpoint } from './services/featuregroup-endpoint.service';
+
+import { UserGroupsService } from './services/usergroup.service';
+import { UserGroupsEndpoint } from './services/usergroup-endpoint.service';
+
 import { BranchesService } from './services/branches.service';
 import { BranchesEndpoint } from './services/branches-endpoint.service';
 
@@ -449,6 +455,11 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         EndpointFactory,
         AccessRightsService,
         AccessRightsEndpoint,
+        UserGroupsEndpoint,
+        UserGroupsService,
+        FeatureGroupsEndpoint,
+        FeatureGroupsService,
+
         BranchesService,
         BranchesEndpoint,
         DocumentsService,

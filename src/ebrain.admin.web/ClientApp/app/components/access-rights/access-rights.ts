@@ -20,10 +20,14 @@ import { File } from '../../models/file.model';
 import { Branch } from '../../models/branch.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-import { AccessRight } from "../models/accessrights.model";
+import { AccessRight } from "../../models/accessright.model";
+import { FeatureGroupsService } from "../../services/featuregroup.service";
+import { UserGroupsService } from "../../services/usergroup.service";
+import { UserGroups } from "../../models/usergroups.model";
+import { FeatureGroups } from "../../models/featuregroups.model";
 
 @Component({
-    selector: 'AccessRights',
+    selector: 'accessrights',
     templateUrl: './access-rights.html',
     styleUrls: ['./access-rights.css'],
     animations: [fadeInOut]
@@ -33,8 +37,8 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     rows = [];
     columns = [];
 
-    rowHeads = [];
-    columnHeads = [];
+    userGroups = [];
+    featureGroups = [];
 
     loadingIndicator: boolean = true;
 
@@ -52,16 +56,12 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     modalHeadRef: BsModalRef;
 
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: AccessRightsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: AccessRightsService, private featureGroupService: FeatureGroupsService, private userGroupService: UserGroupsService,
+        private modalService: BsModalService) {
         this.pointer = new AccessRight();
-        this.pointer.features = [];
-        this.pointer.usergroups = [];
-
         this.page = new Page();
-
-        //
-        this.pointer.logo = new File();
-        //
+        
         this.page.pageNumber = 0;
         this.page.size = 20;
     }
@@ -71,19 +71,14 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "code", name: gT('label.branch.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { headerClass: "text-center", prop: "logo.name", name: '', cellTemplate: this.logoTemplate },
-            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate },
-
-            { headerClass: "text-center", prop: 'address', name: gT('label.branch.Address'), cellTemplate: this.descriptionTemplate },
-            { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+           
+            { headerClass: "text-center", prop: 'featureName', name: gT('label.accessright.Feature'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'view', name: gT('label.accessright.View'), cellTemplate: this.viewTemplate },
+            { headerClass: "text-center", prop: 'edit', name: gT('label.accessright.Edit'), cellTemplate: this.editTemplate },
+            { headerClass: "text-center", prop: 'create', name: gT('label.accessright.Create'), cellTemplate: this.createTemplate },
+            { headerClass: "text-center", prop: 'delete', name: gT('label.accessright.Delete'), cellTemplate: this.deleteTemplate }
         ];
-
-        this.columnHeads = [
-            { headerClass: "text-center", prop: "isExist", name: gT('label.branch.Manage'), width: 30, cellTemplate: this.checkboxTemplate, cellClass: 'text-center' },
-            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate }
-        ];
-
+        
         this.getFromServer();
     }
 
@@ -116,8 +111,16 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
 
-        this.localService.getAll().subscribe(
-            resulted => this.onDataLoadComboSuccessful(resulted),
+        this.userGroupService.getAll().subscribe(
+            resulted => this.onDataLoadUserGroupSuccessful(resulted),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
+
+        this.featureGroupService.getAll().subscribe(
+            resulted => this.onDataLoadFeatureGroupSuccessful(resulted),
             error => this.onDataLoadFailed(error),
             () => {
                 disp.unsubscribe();
@@ -125,12 +128,17 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadComboSuccessful(resulted: AccessRight) {
-        this.pointer.features = resulted.features;
-        this.pointer.usergroups = resulted.usergroups;
+    private onDataLoadFeatureGroupSuccessful(resulted: FeatureGroups[]) {
+        this.featureGroups = resulted;
+        this.alertService.stopLoadingMessage();
     }
 
-    private onDataLoadSuccessful(resulted: Results<Branch>) {
+    private onDataLoadUserGroupSuccessful(resulted: UserGroups[]) {
+        this.userGroups = resulted;
+        this.alertService.stopLoadingMessage();
+    }
+
+    private onDataLoadSuccessful(resulted: Results<AccessRight>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
@@ -146,7 +154,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     private save() {
         this.alertService.startLoadingMessage("Saving changes...");
 
-        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+        //this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
 
     private saveSuccessHelper(branch?: Branch) {
@@ -205,8 +213,15 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     @ViewChild('statusTemplate')
     statusTemplate: TemplateRef<any>;
 
-    @ViewChild('checkboxTemplate')
-    checkboxTemplate: TemplateRef<any>;
+    @ViewChild('viewTemplate')
+    viewTemplate: TemplateRef<any>;
 
+    @ViewChild('editTemplate')
+    editTemplate: TemplateRef<any>;
 
+    @ViewChild('createTemplate')
+    createTemplate: TemplateRef<any>;
+
+    @ViewChild('deleteTemplate')
+    deleteTemplate: TemplateRef<any>;
 }

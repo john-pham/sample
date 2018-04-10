@@ -6,11 +6,6 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { ClassTime } from "./classtime.model";
-import { ClassStudent } from "./classstudent.model";
-import { FeatureGroups } from "./featuregroups.model";
-import { UserGroups } from "./usergroups.model";
-
 export class AccessRight {
     // Note: Using only optional constructor properties without backing store disables typescript's type checking for the type
     constructor(id?: string) {
@@ -22,8 +17,14 @@ export class AccessRight {
     public code: string;
     public note: string;
 
-    public features: FeatureGroups[];
-    public usergroups: UserGroups[];
-    
+    public featureId: string;
+    public featureName: string;
 
+    public groupId: string;
+    public groupName: string;
+
+    public view: Boolean;
+    public edit: Boolean;
+    public create: Boolean;
+    public delete: Boolean;
 }

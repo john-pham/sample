@@ -31,7 +31,7 @@ namespace ebrain.admin.bc.Repositories
 
             if (value != null)
             {
-                var fea = await appContext.FeatureGroups.FirstOrDefaultAsync(x => x.ID == value.ID);
+                var fea = await appContext.FeatureGroup.FirstOrDefaultAsync(x => x.ID == value.ID);
 
                 if (fea == null)
                 {
@@ -72,11 +72,11 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = new bool();
 
-            var item = await appContext.FeatureGroups.FirstOrDefaultAsync(x => x.ID == index);
+            var item = await appContext.FeatureGroup.FirstOrDefaultAsync(x => x.ID == index);
 
             if (item != null)
             {
-                appContext.FeatureGroups.Remove(item);
+                appContext.FeatureGroup.Remove(item);
                 //
                 if (m_Ret = await appContext.SaveChangesAsync() > 0)
                 {
@@ -90,7 +90,7 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = new List<Report.FeatureGroup>();
 
-            var items = from f in appContext.FeatureGroups
+            var items = from f in appContext.FeatureGroup
                         select new
                         {
                             f.ID,
@@ -135,7 +135,7 @@ namespace ebrain.admin.bc.Repositories
         {
             var m_Ret = default(Report.FeatureGroup);
 
-            var item = await (from f in appContext.FeatureGroups
+            var item = await (from f in appContext.FeatureGroup
                         where f.ID == index
                         select new
                         {
