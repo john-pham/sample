@@ -40,6 +40,7 @@ namespace ebrain.admin.bc.Repositories
                         ID = value.ID = Guid.NewGuid(),
                         Code = Guid.NewGuid().ToString(),
                         CreatedDate = DateTime.Now,
+                        CreatedBy = value.CreatedBy
                     };
                     //
                     appContext.Add(cus);

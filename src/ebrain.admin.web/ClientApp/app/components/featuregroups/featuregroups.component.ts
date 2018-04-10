@@ -152,6 +152,13 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
             });
     }
 
+    private save() {
+        this.alertService.startLoadingMessage("Saving changes...");
+
+        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+    }
+
+
     private onDataLoadSuccessful(resulted: Results<FeatureGroups>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
