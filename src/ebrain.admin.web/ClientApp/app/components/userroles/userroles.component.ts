@@ -94,7 +94,6 @@ export class UserRolesComponent implements OnInit, OnDestroy {
     }
 
     edit(template: TemplateRef<any>, index: string) {
-
         var disp = this.localService.get(index).subscribe(
             items => {
                 this.rowroles = items
@@ -200,7 +199,11 @@ export class UserRolesComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-    
+
+    updateIsActive(row, event, rowIndex) {
+        row.isactive = event.target.checked;
+    }
+
     close() {
         this.modalRef.hide();
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ebrain.admin.bc.Utilities;
 using ebrain.admin.bc.Report;
+using System.Text;
 /*
 * Author:          John Pham
 * CreatedDate Date:    07/23/2013
@@ -82,13 +83,6 @@ namespace ebrain.admin.bc.Repositories
                            (string.IsNullOrEmpty(value) || f.FullName.Contains(value))
                            && branchIds.Contains(f.BranchId.ToString())
                        )
-                       join a in
-                           (
-                               from c in appContext.UserRole
-                               where c.IsActive == true
-                               select c
-                            ) on f.Id.ConvertStringToGuid() equals a.UserId into aug
-                       from g in aug.DefaultIfEmpty()
                        join b in
                             (
                                 from br in appContext.Branch
@@ -102,9 +96,7 @@ namespace ebrain.admin.bc.Repositories
                            f.FullName,
                            f.UserName,
                            f.BranchId,
-                           IsActive = g != null ? g.IsActive : default(System.Boolean?),
-                           BranchName = ubranch != null ? gb.BranchName : string.Empty,
-                           GroupId = g != null ? g.GroupId : default(Guid?)
+                           BranchName = ubranch != null ? gb.BranchName : string.Empty
                        };
 
 
@@ -124,15 +116,21 @@ namespace ebrain.admin.bc.Repositories
 
                 foreach (var item in data)
                 {
-                    var grps = this.appContext.UserGroup.Where(p => p.ID == item.GroupId);
+                    var userRoles = this.appContext.UserRole.Where(p => p.UserId == item.Id.ConvertStringToGuid());
+                    var groupName = new StringBuilder();
+                    foreach (var role in userRoles)
+                    {
+                        var grp = this.appContext.UserGroup.FirstOrDefault(p => p.ID == role.GroupId && p.IsActive == true);
+                        if (grp != null) groupName.Append(groupName.Length > 0 ? $" - {grp.Name}" : grp.Name);
+                    }
+
                     m_Ret.Add(new BranchUser
                     {
                         UserId = item.Id,
                         FullName = item.FullName,
                         UserName = item.UserName,
                         BranchName = item.BranchName,
-                        IsActive = item.IsActive,
-                        GroupName = grps != null && grps.Count() > 0 ? grps.Select(p => p.Name).Aggregate((i, j) => $"{i} - {j}") : string.Empty
+                        GroupName = groupName.ToString()
                     });
                 }
             }

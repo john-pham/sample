@@ -57,7 +57,7 @@ export class UserRolesEndpoint extends EndpointFactory {
 
     get(index: string): Observable<Response> {
 
-        let url = this.getUrl('get?index=' + index + '&hash_id=' + Math.random());
+        let url = this.getUrl('get?userId=' + index + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {

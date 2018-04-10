@@ -74,7 +74,7 @@ namespace Ebrain.Controllers
 
             var datas = results.Select(c => new UserRoleViewModel
             {
-                ID = c.ID,
+                GroupId = c.ID.ToString(),
                 Code = c.Code,
                 Name = c.Name,
                 IsActive = c.IsActive,

@@ -332,6 +332,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         LoginComponent,
         HomeComponent,
         AccessRightsComponent,
+        UserRolesComponent,
         FeatureGroupsComponent,
         UserGroupsComponent,
 

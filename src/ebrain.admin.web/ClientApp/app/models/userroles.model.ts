@@ -18,7 +18,7 @@ export class UserRoles {
     public note: string;
     public description: string;
 
-    public isactive: boolean;
+    public isActive: boolean;
     public branchId: string;
     public userId: string;
     public groupId: string;
