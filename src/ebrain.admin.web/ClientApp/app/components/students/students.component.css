@@ -1,4 +1,10 @@
-﻿.row:not(:last-child) {
+﻿:host {
+    flex: 1 1 auto;
+    flex-flow: column;
+    display: flex;
+}
+
+.row:not(:last-child) {
     /*border-bottom: 1px solid #ccc;*/
 }
 

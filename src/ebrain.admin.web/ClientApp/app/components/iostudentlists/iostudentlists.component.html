@@ -44,50 +44,46 @@
     </div>
 </div>
 
-<div [@fadeInOut]>
-    <!--DATA TABLE-->
-    <ngx-datatable class="material colored-header sm table-hover"
-                   [loadingIndicator]="loadingIndicator"
-                   [rows]="rows"
-                   [rowHeight]="auto"
-                   [columns]="columns"
-                   [scrollbarV]="verticalScrollbar"
-                   [columnMode]="'force'">
-    </ngx-datatable>
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table-hover"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [rowHeight]="auto"
+                       [columns]="columns"
+                       [columnMode]="'force'">
+        </ngx-datatable>
 
-    <!-- TEMPLATEs -->
-    <ng-template #statusHeaderTemplate>
-        <i class="fa fa-check-square-o"></i>
-    </ng-template>
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
 
-    <ng-template #statusTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
+        <ng-template #statusTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
 
-    <ng-template #nameTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
 
-    <ng-template #descriptionTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
-    <ng-template #totalPriceTemplate let-row="row" let-value="value">
-        <span class="currency-pipe" attr.title="{{value | currencypipe}}">
-            {{value | currencypipe}}
-        </span>
-    </ng-template>
-    <ng-template #actionsTemplate let-row="row">
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
-    </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #totalPriceTemplate let-row="row" let-value="value">
+            <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                {{value | currencypipe}}
+            </span>
+        </ng-template>
+        <ng-template #actionsTemplate let-row="row">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+        </ng-template>
+    </div>
 </div>
-
-<ng-template #template>
-
-</ng-template>
-
