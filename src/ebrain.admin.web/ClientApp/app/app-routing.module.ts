@@ -16,6 +16,8 @@ import { UserRolesComponent } from "./components/userroles/userroles.component";
 import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
 import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
 
+import { MessengerComponent } from "./components/messengers/messengers.component";
+
 import { BranchesComponent } from "./components/branches/branches.component";
 import { StocksComponent } from "./components/stocks/stocks.component";
 
@@ -167,6 +169,8 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "smssend", component: SMSSendComponent, canActivate: [AuthGuard], data: { title: "Send SMS" } },
             { path: "accessrights", component: AccessRightsComponent, canActivate: [AuthGuard], data: { title: "Access Rights" } },
             { path: "userroles", component: UserRolesComponent, canActivate: [AuthGuard], data: { title: "User Roles" } },
+            { path: "messengers", component: MessengerComponent, canActivate: [AuthGuard], data: { title: "Messenger" } },
+
             { path: "featuregroups", component: FeatureGroupsComponent, canActivate: [AuthGuard], data: { title: "Feature Groups" } },
             { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },
 

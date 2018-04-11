@@ -116,11 +116,11 @@ namespace ebrain.admin.bc.Repositories
 
                 foreach (var item in data)
                 {
-                    var userRoles = this.appContext.UserRole.Where(p => p.UserId == item.Id.ConvertStringToGuid());
+                    var userRoles = this.appContext.UserRole.Where(p => p.UserId == item.Id.ConvertStringToGuid() && p.IsActive == true);
                     var groupName = new StringBuilder();
                     foreach (var role in userRoles)
                     {
-                        var grp = this.appContext.UserGroup.FirstOrDefault(p => p.ID == role.GroupId && p.IsActive == true);
+                        var grp = this.appContext.UserGroup.FirstOrDefault(p => p.ID == role.GroupId);
                         if (grp != null) groupName.Append(groupName.Length > 0 ? $" - {grp.Name}" : grp.Name);
                     }
 

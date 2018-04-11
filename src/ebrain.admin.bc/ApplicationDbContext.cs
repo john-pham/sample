@@ -65,6 +65,9 @@ namespace ebrain.admin.bc
         public DbSet<LevelClass> LevelClass { get; set; }
         public DbSet<LevelClassHead> LevelClassHeads { get; set; }
         public DbSet<Material> Material { get; set; }
+        public DbSet<MessengerBranch> MessengerBranch { get; set; }
+        public DbSet<Messenger> Messenger { get; set; }
+        public DbSet<MessengerRead> MessengerRead { get; set; }
         public DbSet<MaterialHead> MaterialHead { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<PaymentDetail> PaymentDetail { get; set; }
@@ -168,6 +171,10 @@ namespace ebrain.admin.bc
             builder.Entity<Material>().ToTable(nameof(this.Material));
             builder.Entity<MaterialHead>().ToTable(nameof(this.MaterialHead));
             builder.Entity<Payment>().ToTable(nameof(this.Payment));
+
+            builder.Entity<Messenger>().ToTable(nameof(this.Messenger));
+            builder.Entity<MessengerBranch>().ToTable(nameof(this.MessengerBranch));
+            builder.Entity<MessengerRead>().ToTable(nameof(this.MessengerRead));
 
             builder.Entity<PaymentDetail>().ToTable(nameof(this.PaymentDetail));
             builder.Entity<PaymentType>().ToTable(nameof(this.PaymentType));

@@ -23,6 +23,7 @@ namespace ebrain.admin.bc
         IFeatureRepository Features { get; }
         IFeatureGroupRepository FeatureGroups { get; }
         ISMSRepository SMSs { get; }
+        IMessengerRepository Messengers { get; }
         IBranchRepository Branches { get; }
         IGroupDocumentRepository GroupDocuments { get; }
         IDocumentRepository Documents { get; }

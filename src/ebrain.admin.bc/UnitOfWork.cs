@@ -27,6 +27,7 @@ namespace ebrain.admin.bc
         IFeatureGroupRepository _featureGroups;
 
         ISMSRepository _SMSs;
+        IMessengerRepository _messengers;
         IGroupDocumentRepository _GroupDocuments;
         IDocumentRepository _Documents;
         IGenderRepository _Genders;
@@ -267,6 +268,17 @@ namespace ebrain.admin.bc
             }
         }
 
+        public IMessengerRepository Messengers
+        {
+            get
+            {
+                if (_messengers == null)
+                    _messengers = new MessengerRepository(_context);
+
+                return _messengers;
+            }
+        }
+        
         public IGenderRepository Genders
         {
             get

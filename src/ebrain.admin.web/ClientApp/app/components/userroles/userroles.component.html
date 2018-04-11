@@ -74,49 +74,52 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'label.userrole.ManageGroupName' | translate}}</h4>
     </div>
     <div class="modal-body">
-
-        <div class="modal-body">
-
-            <!--DATA TABLE-->
-            <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
-                           [loadingIndicator]="loadingIndicator"
-                           [rows]="rowroles"
-                           [rowHeight]="auto"
-                           [columns]="columnroles"
-                           [scrollbarV]="verticalScrollbar"
-                           [columnMode]="'force'">
-
-
-                <ngx-datatable-column headerClass="text-center"
-                                      name="{{'label.userrole.GroupName' | translate}}" prop='name'>
-
-                </ngx-datatable-column>
-
-                <ngx-datatable-column [width]="100"
-                                      [sortable]="false"
-                                      [canAutoResize]="false"
-                                      [draggable]="false" [resizeable]="false"
-                                      [headerClass]="text-center"
-                                      [cellClass]="text-center"
-                                      [prop]='isActive'
-                                      name="{{'label.userrole.IsActive' | translate}}">
-                    <ng-template ngx-datatable-cell-template let-value="value"
-                                 let-rowIndex="rowIndex" let-row="row">
-                        <input type="checkbox"
-                               (change)="updateIsActive(row,$event,rowIndex)"
-                               [checked]="row.isActive"
-                               value="isActive"
-                               ng-model="isActive" />
-                    </ng-template>
-                </ngx-datatable-column>
-
-            </ngx-datatable>
-
+        <div class="row">
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
                 <button type="button" (click)="save()" class="btn btn-primary">{{'button.Save' | translate}}</button>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <!--DATA TABLE-->
+                <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                               [loadingIndicator]="loadingIndicator"
+                               [rows]="rowroles"
+                               [rowHeight]="auto"
+                               [columns]="columnroles"
+                               [scrollbarV]="verticalScrollbar"
+                               [columnMode]="'force'">
+
+
+                    <ngx-datatable-column headerClass="text-center"
+                                          name="{{'label.userrole.GroupName' | translate}}" prop='name'>
+
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [width]="100"
+                                          [sortable]="false"
+                                          [canAutoResize]="false"
+                                          [draggable]="false" [resizeable]="false"
+                                          [headerClass]="text-center"
+                                          [cellClass]="text-center"
+                                          [prop]='isActive'
+                                          name="{{'label.userrole.IsActive' | translate}}">
+                        <ng-template ngx-datatable-cell-template let-value="value"
+                                     let-rowIndex="rowIndex" let-row="row">
+                            <input type="checkbox"
+                                   (change)="updateIsActive(row,$event,rowIndex)"
+                                   [checked]="row.isActive"
+                                   value="isActive"
+                                   ng-model="isActive" />
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                </ngx-datatable>
+
+            </div>
+        </div>
+
 
     </div>
 </ng-template>

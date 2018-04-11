@@ -24,8 +24,14 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "messenger": {
+      "HeaderAdd": "Quản lý thông báo",
+      "Title": "Tiêu đề",
+      "Body": "Nội dung",
+      "BranchName": "Cơ sở gửi"
+    },
     "userrole": {
-     
+
       "FullName": "Tên đầy đủ",
       "UserName": "Tên đăng nhập",
       "BranchName": "Chi nhánh",
@@ -637,6 +643,12 @@
     }
   },
   "pageMain": {
+    "messenger": {
+      "header": "Danh sách thông báo",
+      "searchBox": "Tìm kiếm thông báo",
+      "newDocument": "Thêm mới",
+      "HeaderAdd": "Quản lý thông báo"
+    },
     "userrole": {
       "header": "Danh sách phân quyền",
       "searchBox": "Tìm kiếm phân quyền",
@@ -823,7 +835,8 @@
     "Class": "Lớp học",
     "Mark": "Điểm",
     "Manage": "Quản lý",
-    "Search": "Tìm kiếm"
+    "Search": "Tìm kiếm",
+    "SendMessenger": "Gửi tin"
   },
   "menu": {
     "document": {
@@ -832,7 +845,8 @@
     },
     "sms": {
       "SendSMS": "Gửi tin",
-      "HistorySMS": "Lịch sử"
+      "HistorySMS": "Lịch sử",
+      "Messenger": "Thông báo"
     },
     "function": {
       "ActionAnalyst": "Phân tích hoạt động",

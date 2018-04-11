@@ -48,6 +48,9 @@ import { BootstrapDatepickerDirective } from './directives/bootstrap-datepicker.
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { CurrencyPipe } from "./pipes/currency.pipe";
 
+import { MessengerService } from './services/messengers.service';
+import { MessengerEndpoint } from './services/messengers-endpoint.service';
+
 import { AccessRightsService } from './services/access-rights.service';
 import { AccessRightsEndpoint } from './services/access-rights.endpoint';
 
@@ -182,6 +185,8 @@ import { AccessRightsComponent } from "./components/access-rights/access-rights"
 import { UserRolesComponent } from "./components/userroles/userroles.component";
 import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
 import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
+
+import { MessengerComponent } from "./components/messengers/messengers.component";
 
 import { BranchesComponent } from "./components/branches/branches.component";
 
@@ -336,6 +341,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         FeatureGroupsComponent,
         UserGroupsComponent,
 
+        MessengerComponent,
+
         BranchesComponent,
         StocksComponent,
         GrpDocumentsComponent,
@@ -466,6 +473,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         EndpointFactory,
         AccessRightsService,
         AccessRightsEndpoint,
+        MessengerService,
+        MessengerEndpoint,
         UserRolesService,
         UserRolesEndpoint,
         UserGroupsEndpoint,

@@ -1,0 +1,115 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_sms">{{'menu.main.SMS' | translate}}</a></li>
+                <li>{{'pageMain.messenger.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.messenger.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="addMessenger(template)"><i class="fa fa-plus-circle"></i> {{'button.SendMessenger' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [columns]="columns"
+                   [columnMode]="'force'"
+                   [scrollbarV]="verticalScrollbar"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="page.totalElements"
+                   [offset]="page.pageNumber"
+                   [limit]="page.size"
+                   (page)='setPage($event)'>
+    </ngx-datatable>
+
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #statusTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #hyperlinkTemplate let-row="row" let-value="value">
+        <a style.font-weight = "{{row.isRead !=true ? 'bold' : 'normal'}}"
+           
+           class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.messengerId)">{{value}}</a>
+    </ng-template>
+
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.messenger.HeaderAdd' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="branchForm" #f="ngForm"
+              novalidate
+              (ngSubmit)="f.form.valid ? save() :
+          (showErrorAlert('Input is required', 'Please enter at controls'));">
+            <div class="modal-body">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">{{'label.messenger.Title' | translate}}</label>
+                        <div [ngClass]="{'has-success': f.submitted && messengerTitle.valid, 'has-error' : f.submitted && !messengerTitle.valid}">
+                            <textarea class="form-control" [(ngModel)]="pointer.messengerTitle" name="title"
+                                      #messengerTitle="ngModel"
+                                      attr.id="messengerTitle-{{uniqueId}}" minlength="2" maxlength="200" ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">{{'label.messenger.Body' | translate}}</label>
+                        <div [ngClass]="{'has-success': f.submitted && messengerName.valid, 'has-error' : f.submitted && !messengerName.valid}">
+                            <textarea class="form-control" [(ngModel)]="pointer.messengerName" name="messengerName"
+                                      #messengerName="ngModel"
+                                      attr.id="messengerName-{{uniqueId}}" minlength="2" maxlength="200"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'button.Save' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
