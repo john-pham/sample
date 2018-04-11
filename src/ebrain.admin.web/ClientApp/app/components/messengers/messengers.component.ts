@@ -80,7 +80,7 @@ export class MessengerComponent implements OnInit, OnDestroy {
 
     //
     addMessenger(template: TemplateRef<any>) {
-        this.pointer.messengerId = '';
+        this.pointer.messengerId = "";
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 

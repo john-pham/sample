@@ -18,7 +18,7 @@ namespace Ebrain.ViewModels
 {
     public class MessengerViewModel
     {
-        public Guid MessengerId { get; set; }
+        public Guid? MessengerId { get; set; }
         public Guid? BranchId { get; set; }
         public string MessengerCode { get; set; }
         public string MessengerName { get; set; }
