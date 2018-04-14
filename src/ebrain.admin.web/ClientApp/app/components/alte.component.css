@@ -263,13 +263,20 @@ header {
                     }
 
                 #app_container aside.main-sidebar {
-                    height: 100%;
-                    min-height: inherit;
+                    top: 50px;
+                    height: calc(100% - 50px);
+                    min-height: initial;
                     overflow-y: auto;
+                    padding-top: 0;
                 }
 
 @media (max-width: 767px) {
     #app_container .content-wrapper {
         height: calc(100vh - 151px) !important; /* 102px = header(100px) + footer(51px) */
+    }
+
+    #app_container aside.main-sidebar {
+        top: 100px;
+        height: calc(100% - 100px);
     }
 }
