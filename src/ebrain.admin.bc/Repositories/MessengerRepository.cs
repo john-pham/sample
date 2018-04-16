@@ -50,8 +50,7 @@ namespace ebrain.admin.bc.Repositories
                 //
                 if (size > 0 && page >= 0)
                 {
-                    data = (from c in data
-                            orderby c.MessengerId descending
+                    data = (from c in data 
                             select c).Skip(page * size).Take(size).ToList();
                 }
 

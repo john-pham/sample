@@ -25,5 +25,6 @@ namespace Ebrain.ViewModels
         public string MessengerTitle { get; set; }
         public string BranchName { get; set; }
         public bool IsRead { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

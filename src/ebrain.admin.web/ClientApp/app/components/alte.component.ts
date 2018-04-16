@@ -21,6 +21,10 @@ import { AuthService } from '../services/auth.service';
 import { ConfigurationService } from '../services/configuration.service';
 import { Permission } from '../models/permission.model';
 import { LoginComponent } from "../components/login/login.component";
+import { MessengerService } from "../services/messengers.service";
+import { Results } from "../models/results.model";
+import { Messenger } from "../models/messenger.model";
+import { Utilities } from "../services/utilities";
 
 require('jquery');
 var alertify: any = require('../assets/scripts/alertify.js');
@@ -73,6 +77,9 @@ export class AlteComponent implements OnInit, AfterViewInit {
     loginModal: ModalDirective;
     loginControl: LoginComponent;
 
+    //messenger
+    countMessenger: any = 0;
+    messengers = [];
 
     get notificationsTitle() {
 
@@ -86,7 +93,8 @@ export class AlteComponent implements OnInit, AfterViewInit {
 
 
     constructor(storageManager: LocalStoreManager, private toastyService: ToastyService, private toastyConfig: ToastyConfig,
-        private accountService: AccountService, private alertService: AlertService, private notificationService: NotificationService, private appTitleService: AppTitleService,
+        private accountService: AccountService, private alertService: AlertService, private notificationService: NotificationService,
+        private appTitleService: AppTitleService, private messengerService: MessengerService,
         private authService: AuthService, private translationService: AppTranslationService, public configurations: ConfigurationService, public router: Router) {
 
         storageManager.initialiseStorageSyncListener();
@@ -227,8 +235,33 @@ export class AlteComponent implements OnInit, AfterViewInit {
                 else
                     this.alertService.showStickyMessage("Load Error", "Loading new notifications from the server failed!", MessageSeverity.error);
             });
+
+        //load messenger
+        this.getMessenger();
     }
 
+    getMessenger() {
+        var disp = this.messengerService.getnewmessenger().subscribe(
+            resulted => this.onMessengerLoadSuccessful(resulted),
+            error => this.onMessengerLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { }, 1500);
+            });
+    }
+
+    private onMessengerLoadSuccessful(resulted: Results<Messenger>) {
+        this.countMessenger = resulted.total;
+        this.messengers = resulted.list;
+        this.alertService.stopLoadingMessage();
+    }
+
+    private onMessengerLoadFailed(error: any) {
+        this.alertService.stopLoadingMessage();
+        this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
+            MessageSeverity.error, error);
+
+    }
 
     markNotificationsAsRead() {
 

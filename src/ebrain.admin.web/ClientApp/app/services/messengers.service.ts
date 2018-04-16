@@ -31,6 +31,11 @@ export class MessengerService {
             .map((response: Response) => <Results<Messenger>>response.json());
     }
 
+    getnewmessenger() {
+        return this.endpointFactory.getnewmessenger()
+            .map((response: Response) => <Results<Messenger>>response.json());
+    }
+
     get(index: string) {
         return this.endpointFactory.get(index)
             .map((response: Response) => <Messenger>response.json());

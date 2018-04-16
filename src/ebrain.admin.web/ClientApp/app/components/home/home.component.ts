@@ -19,7 +19,7 @@ import { ConfigurationService } from '../../services/configuration.service';
 })
 export class HomeComponent {
     public default_product_img = require("../../assets/adminLTE-2.4.3/dist/img/default-50x50.gif");
-
+    isSendMessenger: boolean = false;
     constructor(public configurations: ConfigurationService) {
     }
 }

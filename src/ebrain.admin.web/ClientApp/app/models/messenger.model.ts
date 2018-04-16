@@ -14,5 +14,5 @@ export class Messenger {
     public messengerTitle: string;
     public branchName: string;
     public isRead: Boolean;
-
+    public createDate: Date;
 }

@@ -28,7 +28,8 @@
       "HeaderAdd": "Quản lý thông báo",
       "Title": "Tiêu đề",
       "Body": "Nội dung",
-      "BranchName": "Cơ sở gửi"
+      "BranchName": "Cơ sở gửi",
+      "CreateDate": "Ngày tạo"
     },
     "userrole": {
 

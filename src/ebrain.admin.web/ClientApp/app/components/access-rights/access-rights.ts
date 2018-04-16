@@ -118,7 +118,11 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
 
-        this.featureGroupService.getAll().subscribe(
+       
+    }
+
+    private getFeature() {
+        var disp =  this.featureGroupService.getAll().subscribe(
             resulted => this.onDataLoadFeatureGroupSuccessful(resulted),
             error => this.onDataLoadFailed(error),
             () => {
@@ -133,6 +137,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     }
 
     private onDataLoadUserGroupSuccessful(resulted: UserGroups[]) {
+        this.getFeature();
         if (resulted != null && resulted.length > 0) {
             this.groupId = resulted[0].id;
             this.search();

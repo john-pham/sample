@@ -187,6 +187,7 @@ import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups
 import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
 
 import { MessengerComponent } from "./components/messengers/messengers.component";
+import { MessengerListComponent } from "./components/messengerlists/messengerlists.component";
 
 import { BranchesComponent } from "./components/branches/branches.component";
 
@@ -342,6 +343,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         UserGroupsComponent,
 
         MessengerComponent,
+        MessengerListComponent,
 
         BranchesComponent,
         StocksComponent,

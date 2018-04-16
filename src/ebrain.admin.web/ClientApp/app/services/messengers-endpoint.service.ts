@@ -43,6 +43,19 @@ export class MessengerEndpoint extends EndpointFactory {
             });
     }
 
+    getnewmessenger(): Observable<Response> {
+
+        let url = this.getUrl('getnewmessenger?hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getnewmessenger());
+            });
+    }
+
     get(index: string): Observable<Response> {
 
         let url = this.getUrl('get?index=' + index + '&hash_id=' + Math.random());

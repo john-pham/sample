@@ -51,13 +51,40 @@ namespace Ebrain.Controllers
                           MessengerTitle = c.MessengerTitle,
                           IsRead = c.IsRead,
                           BranchId = c.BranchId,
-                          BranchName = c.BranchName
+                          BranchName = c.BranchName,
+                          CreateDate = c.CreateDate
                       };
 
             return Json(new
             {
                 Total = bus.Total,
                 List = ret
+            });
+        }
+
+        [HttpGet("getnewmessenger")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetNewMessenger()
+        {
+            var bus = this._unitOfWork.Messengers;
+            var ret = from c in bus.Search(userId, "", "", this._unitOfWork.Branches.GetAllBranchOfUserString(userId), 0, 0)
+                      where c.IsRead == false
+                      select new MessengerViewModel
+                      {
+                          MessengerId = c.MessengerId,
+                          MessengerCode = c.MessengerCode,
+                          MessengerName = c.MessengerName,
+                          MessengerTitle = c.MessengerTitle,
+                          IsRead = c.IsRead,
+                          BranchId = c.BranchId,
+                          BranchName = c.BranchName,
+                          CreateDate = c.CreateDate
+                      };
+
+            return Json(new
+            {
+                Total = ret.Count(),
+                List = ret.Count() > 5 ? ret.Take(5) : ret
             });
         }
 
@@ -98,7 +125,7 @@ namespace Ebrain.Controllers
                     UpdatedBy = userId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
-                   
+
                 };
 
                 var branchIds = this._unitOfWork.Branches.GetAllBranchOfUser(userId);
@@ -120,7 +147,7 @@ namespace Ebrain.Controllers
 
             return BadRequest(ModelState);
         }
-        
+
         private Guid userId
         {
             get
@@ -128,6 +155,6 @@ namespace Ebrain.Controllers
                 return new Guid(Utilities.GetUserId(this.User));
             }
         }
-        
+
     }
 }
