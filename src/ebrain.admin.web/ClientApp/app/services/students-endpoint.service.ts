@@ -109,6 +109,17 @@ export class StudentsEndpoint extends EndpointFactory {
             });
     }
 
+    getStudentEndClass(classId: string, toDate: Date): Observable<Response> {
+        let url = this.getUrl('getstudentendclass?classId=' + classId + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getStudentEndClass(classId, toDate));
+            });
+    }
+
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {

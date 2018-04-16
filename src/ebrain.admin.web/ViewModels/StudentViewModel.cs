@@ -35,6 +35,12 @@ namespace Ebrain.ViewModels
         public string Password { get; set; }
         public string SchoolName { get; set; }
         public string ClassName { get; set; }
+        public string ClassCode { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        public string MaterialCode { get; set; }
+        public string MaterialName { get; set; }
         public DateTime Birthday { get; set; }
         public string Avatar { get; set; }
         public Guid? SupplierId { get; set; }

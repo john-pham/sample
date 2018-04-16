@@ -35,6 +35,7 @@ import { StudentstatusComponent } from "./components/studentstatus/studentstatus
 
 import { StudentsComponent } from "./components/students/students.component";
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
+import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
 import { PaymentsComponent } from "./components/payments/payments.component";
 import { PaymentVouchersComponent } from "./components/paymentvouchers/paymentvouchers.component";
@@ -190,6 +191,8 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
             { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },
+            { path: "studentendclass", component: StudentEndClassComponent , canActivate: [AuthGuard], data: { title: "students end classes" } },
+
 
             { path: "payments", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
             { path: "payment/:id", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment Details" } },

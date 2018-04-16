@@ -37,6 +37,11 @@ namespace ebrain.admin.bc.Report
         public string FaRelationship { get; set; }
         public string Fawanted { get; set; }
         public string GenderName { get; set; }
-        
+        public string ClassCode { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        public string MaterialCode { get; set; }
+        public string MaterialName { get; set; }
     }
 }

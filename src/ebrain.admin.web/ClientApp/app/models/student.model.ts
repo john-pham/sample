@@ -50,4 +50,10 @@ export class Student {
     public studentId: string;
     public genderName: string;
     public totalDay: number;
+
+    public classCode: string;
+    public startDate: Date;
+    public endDate: Date;
+    public materialCode: string;
+    public materialName: string;
 }

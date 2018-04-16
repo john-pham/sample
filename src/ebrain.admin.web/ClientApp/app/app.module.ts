@@ -203,6 +203,8 @@ import { ExamineComponent } from "./components/examines/examines.component";
 import { StudentstatusComponent } from "./components/studentstatus/studentstatus.component";
 
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
+import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
+
 import { StudentsComponent } from "./components/students/students.component";
 
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
@@ -354,6 +356,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         StudentstatusComponent,
         StudentsComponent,
         StudentBirthdaysComponent,
+        StudentEndClassComponent,
         IOStudentsComponent,
         IOInputsComponent,
 

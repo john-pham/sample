@@ -24,5 +24,6 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<Student> Save(Student value, StudentRelationShip valueReltion, Guid? index);
         Task<Boolean> Delete(string id);
         List<StudentList> GetStudentBirthday(string branchIds, DateTime? fromDate, DateTime? toDate);
+        List<StudentList> GetStudentEndClass(string branchIds, string classId, DateTime? today);
     }
 }

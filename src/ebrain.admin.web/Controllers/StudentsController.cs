@@ -196,6 +196,35 @@ namespace Ebrain.Controllers
 
         }
 
+        [HttpGet("getstudentendclass")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetStudentEndClass(string filter, string value, string classId, string toDate)
+        {
+            // var results = await this._unitOfWork.IOStocks.Search(filter, value);
+            var results = this._unitOfWork.Students.GetStudentEndClass
+                        (
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            classId,
+                            toDate.BuildLastDateTimeFromSEFormat()
+                        );
+            return Ok(results.Select(p => new StudentViewModel
+            {
+                ID = p.StudentId,
+                Code = p.StudentCode,
+                Name = p.StudentName,
+                Birthday = p.Birthday,
+                ClassName = p.ClassName,
+                ClassCode = p.ClassCode,
+                StartDate = p.StartDate,
+                EndDate = p.EndDate,
+                Phone = p.Phone,
+                Email = p.Email,
+                GenderName = p.GenderName,
+                TotalDay = p.TotalDay
+            }));
+
+        }
+
         [HttpPost("remove")]
         public async Task<IActionResult> Remove([FromBody] String id)
         {

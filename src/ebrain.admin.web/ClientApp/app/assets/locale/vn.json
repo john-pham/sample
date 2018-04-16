@@ -468,6 +468,9 @@
       "HeaderAdd": "Quản lý hình thức tư vấn"
     },
     "student": {
+      "EndClass": "Kết thúc khóa",
+      "EndDate": "Ngày kết thúc",
+      "Class": "Lớp học",
       "Unit": "Đơn vị tính",
       "GrpSupplier": "Nhóm nhà cung cấp",
       "GrpMaterial": "Nhóm hàng",

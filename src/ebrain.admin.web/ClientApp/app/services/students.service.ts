@@ -80,6 +80,9 @@ export class StudentsService {
         return this.endpointFactory.getBirthdayStudent(fromDate, toDate).map((response: Response) => <Student[]>response.json());
     }
 
+    getStudentEndClass(classId: string, toDate: Date) {
+        return this.endpointFactory.getStudentEndClass(classId, toDate).map((response: Response) => <Student[]>response.json());
+    }
 
     delete(id: string) {
         return this.endpointFactory.delete(id);

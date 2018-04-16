@@ -143,6 +143,28 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public List<StudentList> GetStudentEndClass(string branchIds, string classId, DateTime? today)
+        {
+            try
+            {
+                List<StudentList> someTypeList = new List<StudentList>();
+                this.appContext.LoadStoredProc("dbo.sp_ClassStudent_End")
+                               .WithSqlParam("@classId", classId)
+                               .WithSqlParam("@toDay", today)
+                               .WithSqlParam("@BranchIds", branchIds)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<StudentList>().ToList();
+                               });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private ApplicationDbContext appContext
         {
             get { return (ApplicationDbContext)_context; }
