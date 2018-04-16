@@ -120,6 +120,7 @@ namespace Ebrain.Controllers
                 var ticket = await CreateTicketAsync(request, user);
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
+
             }
             else if (request.IsRefreshTokenGrantType())
             {

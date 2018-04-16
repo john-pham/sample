@@ -47,8 +47,6 @@ namespace ebrain.admin.bc.Models
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-
-
         /// <summary>
         /// Navigation property for the roles this user belongs to.
         /// </summary>

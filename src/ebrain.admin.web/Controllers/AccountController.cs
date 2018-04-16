@@ -514,17 +514,6 @@ namespace Ebrain.Controllers
             return Ok(Mapper.Map<List<PermissionViewModel>>(ApplicationPermissions.AllPermissions));
         }
 
-
-
-
-
-
-
-
-
-
-
-
         private async Task<UserViewModel> GetUserViewModelHelper(string userId)
         {
             var userAndRoles = await _accountManager.GetUserAndRolesAsync(userId);
