@@ -18,8 +18,9 @@
             <label class="control-label col-md-2">{{'label.student.Class' | translate}}</label>
             <div class="col-md-10">
                 <select  [(ngModel)]="classId" class="form-control" 
-                        data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
-                    <option [value]="1">{{'label.classlist.AllFiles' | translate}}</option>
+                        (change)="search()"
+                        data-live-search="true" data-actions-box="true" data-live-search-placeholder="Search..." title="">
+                    <option [value]="">{{'label.classlist.AllFiles' | translate}}</option>
                     <option *ngFor="let cl of classes" attr.data-content="<span title='{{cl.note}}' class='badge'>{{cl.name}}</span>" attr.value="{{cl.id}}">
                         {{cl.name}}
                     </option>
@@ -30,8 +31,8 @@
 
     <div class="col-sm-5">
         <div class="form-group has-feedback">
-            <label class="control-label col-md-2">{{'label.student.EndDate' | translate}}</label>
-            <div class="col-md-10">
+            <label class="control-label col-md-4">{{'label.student.EndDate' | translate}}</label>
+            <div class="col-md-8">
                 <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
             </div>
         </div>

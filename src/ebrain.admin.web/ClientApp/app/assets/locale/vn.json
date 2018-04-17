@@ -503,7 +503,9 @@
       "Male": "Nam",
       "Female": "Nữ",
       "Status": "Trạng thái học viên",
-      "Gender": "Giới tính"
+      "Gender": "Giới tính",
+      "ClassCode": "Mã lớp",
+      "ClassName": "Tên lớp"
     },
     "iostudent": {
       "Unit": "Đơn vị tính",

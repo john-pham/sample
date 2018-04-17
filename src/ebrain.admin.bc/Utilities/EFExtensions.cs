@@ -156,7 +156,7 @@ namespace ebrain.admin.bc.Utilities
                 return new T?();
             }
         }
-
+        private static readonly object _ninjectLock = new Object();
         /// <summary>
         /// Executes a DbDataReader and returns a list of mapped column values to the properties of <typeparamref name="T"/>
         /// </summary>
@@ -165,27 +165,30 @@ namespace ebrain.admin.bc.Utilities
         /// <returns></returns>
         public static void ExecuteStoredProc(this DbCommand command, Action<SprocResults> handleResults, System.Data.CommandBehavior commandBehaviour = System.Data.CommandBehavior.Default)
         {
-            if (handleResults == null)
+            lock (_ninjectLock)
             {
-                throw new ArgumentNullException(nameof(handleResults));
-            }
-
-            using (command)
-            {
-                if (command.Connection.State == System.Data.ConnectionState.Closed)
-                    command.Connection.Open();
-                try
+                if (handleResults == null)
                 {
-                    using (var reader = command.ExecuteReader(commandBehaviour))
-                    {
-                        var sprocResults = new SprocResults(reader);
-                        // return new SprocResults();
-                        handleResults(sprocResults);
-                    }
+                    throw new ArgumentNullException(nameof(handleResults));
                 }
-                finally
+
+                using (command)
                 {
-                    command.Connection.Close();
+                    if (command.Connection.State == System.Data.ConnectionState.Closed)
+                        command.Connection.Open();
+                    try
+                    {
+                        using (var reader = command.ExecuteReader(commandBehaviour))
+                        {
+                            var sprocResults = new SprocResults(reader);
+                            // return new SprocResults();
+                            handleResults(sprocResults);
+                        }
+                    }
+                    finally
+                    {
+                        command.Connection.Close();
+                    }
                 }
             }
         }

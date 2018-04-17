@@ -61,7 +61,7 @@ namespace Ebrain.Helpers
             {
                 var value = user.FindFirst(OpenIdConnectConstants.Claims.Subject)?.Value?.Trim();
 
-                if (string.IsNullOrEmpty(value))
+                if (!string.IsNullOrEmpty(value))
                 {
                     m_Ret = new Guid(value);
                 }

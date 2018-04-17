@@ -50,25 +50,26 @@ export class StudentEndClassComponent implements OnInit, OnDestroy {
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: StudentsService, private modalService: BsModalService, private classService: ClassesService) {
-
+        this.classId = "";
+        this.toDate = new Date();
     }
 
     ngOnInit() {
-        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-        this.toDate = new Date(y, m + 1, 0);
+        this.toDate = new Date();
 
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "code", name: gT('label.student.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
+            { headerClass: "text-center", prop: "classCode", name: gT('label.student.ClassCode'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'className', name: gT('label.student.ClassName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "code", name: gT('label.student.Code'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'name', name: gT('label.student.Name'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'phone', name: gT('label.student.Phone'), cellTemplate: this.typenameTemplate },
-            { headerClass: "text-center", prop: 'birthday', name: gT('label.student.Birthday'), cellTemplate: this.typenameTemplate },
-            { headerClass: "text-center", prop: 'email', name: gT('label.student.Email'), cellTemplate: this.grpnameTemplate },
-            { headerClass: "text-center", prop: 'genderName', name: gT('label.student.Sex'), cellTemplate: this.grpnameTemplate },
+
             { headerClass: "text-center", prop: 'totalDay', name: gT('label.student.TotalDay'), cellTemplate: this.descriptionTemplate, cellClass: 'text-right' }
         ];
-        
+
+        this.getClass();
         this.search();
     }
 
@@ -78,6 +79,7 @@ export class StudentEndClassComponent implements OnInit, OnDestroy {
 
     private search() {
         this.loadingIndicator = true;
+
         var disp = this.localService.getStudentEndClass(this.classId, this.toDate).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
@@ -86,24 +88,28 @@ export class StudentEndClassComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
 
-        this.classService.search("","").subscribe(
+    }
+
+    private getClass() {
+        var disp = this.classService.search("", "").subscribe(
             list => this.onClassLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
-
     }
 
     private onClassLoadSuccessful(list: Class[]) {
         this.classes = list;
         this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
     }
 
     private onDataLoadSuccessful(list: Student[]) {
         this.rows = list;
         this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
     }
 
     private onDataLoadFailed(error: any) {
