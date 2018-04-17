@@ -1,6 +1,9 @@
-﻿
-<div id="app_container" class="wrapper" [ngClass]="{'login': shouldShowLoginModal}">
-    <header class="main-header" *ngIf="isUserLoggedIn">
+﻿<div id="login-wrapper" *ngIf="!isUserLoggedIn">
+    <app-login #loginControl isModal="true"></app-login>
+</div>
+
+<div id="app_container" *ngIf="isUserLoggedIn" class="wrapper">
+    <header class="main-header">
         <!-- Logo -->
         <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -9,7 +12,7 @@
             <span class="logo-lg"><b>Super</b>Brain</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" *ngIf="isUserLoggedIn">
+        <nav class="navbar navbar-static-top">
             <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <span class="sr-only">Toggle navigation</span>
@@ -248,7 +251,7 @@
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar" *ngIf="isUserLoggedIn">
+    <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -439,7 +442,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header" *ngIf="isUserLoggedIn">
+        <section class="content-header">
             <h1>
                 Dashboard
                 <small>Version 2.0</small>
@@ -454,18 +457,11 @@
             <ng2-toasty></ng2-toasty>
 
             <router-outlet></router-outlet>
-
-            <div *ngIf="shouldShowLoginModal" class="modal fade" bsModal #loginModal="bs-modal" (onShown)="onLoginModalShown()" (onHidden)="onLoginModalHidden()" (onHide)="onLoginModalHide()"
-                 [config]="{backdrop: 'static'}" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <app-login #loginControl isModal="true"></app-login>
-                </div>
-            </div>
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer" *ngIf="isUserLoggedIn">
+    <footer class="main-footer">
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.4.0
         </div>
