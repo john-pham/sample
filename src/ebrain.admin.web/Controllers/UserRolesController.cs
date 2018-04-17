@@ -129,7 +129,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
     }

@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class DocumentController : Controller
+    public class DocumentController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
         readonly IHostingEnvironment _env;
 
-        public DocumentController(IUnitOfWork unitOfWork, ILogger<DocumentController> logger, IHostingEnvironment env)
+        public DocumentController(IUnitOfWork unitOfWork, ILogger<DocumentController> logger, IHostingEnvironment env) : base(unitOfWork, logger)
         {
             this._unitOfWork = unitOfWork;
             this._logger = logger;
@@ -41,7 +41,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
 
@@ -100,7 +100,7 @@ namespace Ebrain.Controllers
             if (ModelState.IsValid)
             {
                 //
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
                 //
                 var grp = new Document
                 {

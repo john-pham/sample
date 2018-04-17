@@ -26,12 +26,12 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class ProfitController : Controller
+    public class ProfitController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
-        public ProfitController(IUnitOfWork unitOfWork, ILogger<ProfitController> logger)
+        public ProfitController(IUnitOfWork unitOfWork, ILogger<ProfitController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -41,7 +41,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public IEnumerable<ProfitViewModel> GetProfitList(string filter, string value, string fromDate, string toDate)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
 
             var results = this._unitOfWork.Profits.GetProfitList(
                 fromDate.BuildDateTimeFromSEFormat(),
@@ -69,7 +69,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public Task<bool> UpdateInventories(string filter, string value, string fromDate, string toDate)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
 
             var results = this._unitOfWork.Profits.UpdateProfit(
                 fromDate.BuildDateTimeFromSEFormat(),

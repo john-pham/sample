@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class ConsultantsController : Controller
+    public class ConsultantsController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
 
-        public ConsultantsController(IUnitOfWork unitOfWork, ILogger<ConsultantsController> logger)
+        public ConsultantsController(IUnitOfWork unitOfWork, ILogger<ConsultantsController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -40,7 +40,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
 
                 var ret = await this._unitOfWork.Consultants.Save(new Consultant
                 {
@@ -91,7 +91,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
 
                 var ret = await this._unitOfWork.Consultants.Delete(id);
                 return Ok(ret);

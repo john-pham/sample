@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class MessengerController : Controller
+    public class MessengerController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
         readonly IHostingEnvironment _env;
 
-        public MessengerController(IUnitOfWork unitOfWork, ILogger<MessengerController> logger, IHostingEnvironment env)
+        public MessengerController(IUnitOfWork unitOfWork, ILogger<MessengerController> logger, IHostingEnvironment env) : base(unitOfWork, logger)
         {
             this._unitOfWork = unitOfWork;
             this._logger = logger;
@@ -112,7 +112,7 @@ namespace Ebrain.Controllers
             if (ModelState.IsValid)
             {
                 //
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
                 //
                 var m = new Messenger
                 {
@@ -152,7 +152,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
 

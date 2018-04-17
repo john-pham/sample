@@ -53,9 +53,21 @@ namespace Ebrain.Helpers
             }
         }
 
-        public static string GetUserId(ClaimsPrincipal user)
+        public static Guid GetUserId(ClaimsPrincipal user)
         {
-            return user.FindFirst(OpenIdConnectConstants.Claims.Subject)?.Value?.Trim();
+            var m_Ret = Guid.Empty;
+
+            if (user != null)
+            {
+                var value = user.FindFirst(OpenIdConnectConstants.Claims.Subject)?.Value?.Trim();
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    m_Ret = new Guid(value);
+                }
+            }
+
+            return m_Ret;
         }
 
         public static string[] GetRoles(ClaimsPrincipal identity)

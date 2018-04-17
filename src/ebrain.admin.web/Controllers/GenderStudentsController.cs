@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class GenderStudentsController : Controller
+    public class GenderStudentsController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
 
-        public GenderStudentsController(IUnitOfWork unitOfWork, ILogger<GenderStudentsController> logger)
+        public GenderStudentsController(IUnitOfWork unitOfWork, ILogger<GenderStudentsController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -88,7 +88,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
 
                 var ret = await this._unitOfWork.Genders.Save(new Gender
                 {
@@ -114,7 +114,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
 
                 var ret = await this._unitOfWork.Genders.Delete(id);
                 return Ok(ret);

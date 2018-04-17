@@ -138,5 +138,25 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
+        public async Task<IList<Report.AccessRight>> GetAll(Guid userId)
+        {
+            var data = await (
+                from a in appContext.AccessRight
+                join r in appContext.UserRole on a.GroupID equals r.GroupId
+                where r.UserId == userId && r.IsActive
+                select new Report.AccessRight
+                {
+                    FeatureID = a.FeatureID,
+                    //FeatureName = a.fe
+                    GroupID = a.GroupID,
+                    //GroupName = a.
+                    View = (((Behavior)(a.Value ?? 0) & Behavior.View) == Behavior.View),
+                    Edit = (((Behavior)(a.Value ?? 0) & Behavior.Edit) == Behavior.Edit),
+                    Delete = (((Behavior)(a.Value ?? 0) & Behavior.Delete) == Behavior.Delete),
+                    Create = (((Behavior)(a.Value ?? 0) & Behavior.Create) == Behavior.Create),
+                }).ToListAsync();
+
+            return data;
+        }
     }
 }

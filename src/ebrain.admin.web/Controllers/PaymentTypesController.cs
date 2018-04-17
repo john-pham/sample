@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class PaymentTypesController : Controller
+    public class PaymentTypesController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
 
-        public PaymentTypesController(IUnitOfWork unitOfWork, ILogger<PaymentTypesController> logger)
+        public PaymentTypesController(IUnitOfWork unitOfWork, ILogger<PaymentTypesController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -92,7 +92,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
     }

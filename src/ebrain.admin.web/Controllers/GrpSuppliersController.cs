@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class GrpSuppliersController : Controller
+    public class GrpSuppliersController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
 
-        public GrpSuppliersController(IUnitOfWork unitOfWork, ILogger<GrpSuppliersController> logger)
+        public GrpSuppliersController(IUnitOfWork unitOfWork, ILogger<GrpSuppliersController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -40,7 +40,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IEnumerable<GrpSupplierViewModel>> Search(string filter, string value)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
             var ret = from c in await this._unitOfWork.GrpSuppliers.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
                       select new GrpSupplierViewModel
                       {
@@ -61,7 +61,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IEnumerable<GrpSupplierViewModel>> GetAll(int option)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
             var ret = from c in await this._unitOfWork.GrpSuppliers.GetAll(this._unitOfWork.Branches.GetAllBranchOfUserString(userId), option)
                       select new GrpSupplierViewModel
                       {
@@ -102,7 +102,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
 
                 var ret = await this._unitOfWork.GrpSuppliers.Save(new GrpSupplier
                 {
@@ -132,7 +132,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
 
                 var ret = await this._unitOfWork.GrpSuppliers.Delete(id);
                 return Ok(ret);

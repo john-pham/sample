@@ -26,12 +26,12 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class InventoriesController : Controller
+    public class InventoriesController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
-        public InventoriesController(IUnitOfWork unitOfWork, ILogger<InventoriesController> logger)
+        public InventoriesController(IUnitOfWork unitOfWork, ILogger<InventoriesController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -41,7 +41,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public IEnumerable<InventoriesViewModel> GetInventoryList(string filter, string value, string fromDate, string toDate)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
 
             var results = this._unitOfWork.Inventories.GetInventoryList(
                 fromDate.BuildDateTimeFromSEFormat(),
@@ -73,7 +73,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public Task<bool> UpdateInventories(string filter, string value, string fromDate, string toDate)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
 
             var results = this._unitOfWork.Inventories.UpdateInventory(
                 fromDate.BuildDateTimeFromSEFormat(),

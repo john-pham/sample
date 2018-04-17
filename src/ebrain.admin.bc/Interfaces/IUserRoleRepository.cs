@@ -18,8 +18,13 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     public interface IUserRoleRepository : IRepository<UserRole>
     {
         int Total { get; }
+
         Task<bool> Update(IEnumerable<UserRole> values);
+
         Task<bool> Delete(Guid id);
+
         Task<IList<BranchUser>> Search(string value, string branchIds, int page, int size);
+
+        Task<IList<Report.AccessRight>> GetAll(Guid userId);
     }
 }

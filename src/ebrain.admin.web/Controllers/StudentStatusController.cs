@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class StudentStatusController : Controller
+    public class StudentStatusController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
 
-        public StudentStatusController(IUnitOfWork unitOfWork, ILogger<StudentStatusController> logger)
+        public StudentStatusController(IUnitOfWork unitOfWork, ILogger<StudentStatusController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -111,7 +111,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
 

@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class SuppliersController : Controller
+    public class SuppliersController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
 
-        public SuppliersController(IUnitOfWork unitOfWork, ILogger<SuppliersController> logger)
+        public SuppliersController(IUnitOfWork unitOfWork, ILogger<SuppliersController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -40,7 +40,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> Search(string filter, string value, int isOption)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
             var ret = from c in await this._unitOfWork.Suppliers.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), isOption)
                       select new SupplierViewModel
                       {
@@ -65,7 +65,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
                 var ret = await this._unitOfWork.Suppliers.Save(new Supplier
                 {
                     SupplierId = Guid.NewGuid(),
@@ -119,7 +119,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
                 var ret = await this._unitOfWork.Suppliers.Delete(id);
                 return Ok(ret);
             }

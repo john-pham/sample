@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class UnitsController : Controller
+    public class UnitsController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
 
-        public UnitsController(IUnitOfWork unitOfWork, ILogger<UnitsController> logger)
+        public UnitsController(IUnitOfWork unitOfWork, ILogger<UnitsController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -40,7 +40,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IEnumerable<UnitViewModel>> Search(string filter, string value)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
             var ret = from c in await this._unitOfWork.Units.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
                       select new UnitViewModel
                       {
@@ -88,7 +88,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
 
@@ -121,7 +121,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
 
                 var ret = await this._unitOfWork.Units.Delete(id);
                 return Ok(ret);

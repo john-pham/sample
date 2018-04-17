@@ -117,7 +117,7 @@ namespace Ebrain.Controllers
         [HttpPut("users/me")]
         public async Task<IActionResult> UpdateCurrentUser([FromBody] UserEditViewModel user)
         {
-            return await UpdateUser(Utilities.GetUserId(this.User), user);
+            return await UpdateUser(Utilities.GetUserId(this.User).ToString(), user);
         }
 
 
@@ -147,7 +147,7 @@ namespace Ebrain.Controllers
                     return NotFound(id);
 
 
-                if (Utilities.GetUserId(this.User) == id && string.IsNullOrWhiteSpace(user.CurrentPassword))
+                if (Utilities.GetUserId(this.User).ToString() == id && string.IsNullOrWhiteSpace(user.CurrentPassword))
                 {
                     if (!string.IsNullOrWhiteSpace(user.NewPassword))
                         return BadRequest("Current password is required when changing your own password");
@@ -159,7 +159,7 @@ namespace Ebrain.Controllers
 
                 bool isValid = true;
 
-                if (Utilities.GetUserId(this.User) == id && (appUser.UserName != user.UserName || !string.IsNullOrWhiteSpace(user.NewPassword)))
+                if (Utilities.GetUserId(this.User).ToString() == id && (appUser.UserName != user.UserName || !string.IsNullOrWhiteSpace(user.NewPassword)))
                 {
                     if (!await _accountManager.CheckPasswordAsync(appUser, user.CurrentPassword))
                     {
@@ -200,7 +200,7 @@ namespace Ebrain.Controllers
         [HttpPatch("users/me")]
         public async Task<IActionResult> UpdateCurrentUser([FromBody] JsonPatchDocument<UserPatchViewModel> patch)
         {
-            return await UpdateUser(Utilities.GetUserId(this.User), patch);
+            return await UpdateUser(Utilities.GetUserId(this.User).ToString(), patch);
         }
 
 
@@ -327,7 +327,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(string))]
         public async Task<IActionResult> UserPreferences()
         {
-            var userId = Utilities.GetUserId(this.User);
+            var userId = Utilities.GetUserId(this.User).ToString();
             ApplicationUser appUser = await this._accountManager.GetUserByIdAsync(userId);
 
             if (appUser != null)
@@ -340,7 +340,7 @@ namespace Ebrain.Controllers
         [HttpPut("users/me/preferences")]
         public async Task<IActionResult> UserPreferences([FromBody] string data)
         {
-            var userId = Utilities.GetUserId(this.User);
+            var userId = Utilities.GetUserId(this.User).ToString();
             ApplicationUser appUser = await this._accountManager.GetUserByIdAsync(userId);
 
             if (appUser == null)

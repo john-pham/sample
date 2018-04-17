@@ -26,13 +26,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class IOStockController : Controller
+    public class IOStockController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
         private readonly IAccountManager _accountManager;
 
-        public IOStockController(IUnitOfWork unitOfWork, ILogger<IOStockController> logger)
+        public IOStockController(IUnitOfWork unitOfWork, ILogger<IOStockController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -42,7 +42,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
 

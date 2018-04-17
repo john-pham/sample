@@ -26,12 +26,12 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class DeptController : Controller
+    public class DeptController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
-        public DeptController(IUnitOfWork unitOfWork, ILogger<DeptController> logger)
+        public DeptController(IUnitOfWork unitOfWork, ILogger<DeptController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -41,7 +41,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public IEnumerable<DeptViewModel> GetDeptList(string filter, string value, string fromDate, string toDate)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
 
             var results = this._unitOfWork.Depts.GetDeptList(
                 fromDate.BuildDateTimeFromSEFormat(),
@@ -75,7 +75,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public Task<bool> UpdateDept(string filter, string value, string fromDate, string toDate)
         {
-            var userId = new Guid(Utilities.GetUserId(this.User));
+            var userId = Utilities.GetUserId(this.User);
 
             var results = this._unitOfWork.Depts.UpdateDept(
                 fromDate.BuildDateTimeFromSEFormat(),

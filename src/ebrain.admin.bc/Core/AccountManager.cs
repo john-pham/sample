@@ -83,7 +83,6 @@ namespace ebrain.admin.bc.Core
             return Tuple.Create(user, roles);
         }
 
-
         public async Task<List<Tuple<ApplicationUser, string[]>>> GetUsersAndRolesAsync(int page, int pageSize)
         {
             IQueryable<ApplicationUser> usersQuery = _context.Users
@@ -242,9 +241,6 @@ namespace ebrain.admin.bc.Core
 
 
 
-
-
-
         public async Task<ApplicationRole> GetRoleByIdAsync(string roleId)
         {
             return await _roleManager.FindByIdAsync(roleId);
@@ -366,12 +362,10 @@ namespace ebrain.admin.bc.Core
             return Tuple.Create(true, new string[] { });
         }
 
-
         public async Task<bool> TestCanDeleteRoleAsync(string roleId)
         {
             return !await _context.UserRoles.Where(r => r.RoleId == roleId).AnyAsync();
         }
-
 
         public async Task<Tuple<bool, string[]>> DeleteRoleAsync(string roleName)
         {
@@ -382,7 +376,6 @@ namespace ebrain.admin.bc.Core
 
             return Tuple.Create(true, new string[] { });
         }
-
 
         public async Task<Tuple<bool, string[]>> DeleteRoleAsync(ApplicationRole role)
         {

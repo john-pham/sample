@@ -37,7 +37,7 @@ namespace Ebrain.Policies
 
         private bool GetIsSameUser(ClaimsPrincipal user, string targetUserId)
         {
-            return Utilities.GetUserId(user) == targetUserId;
+            return Utilities.GetUserId(user).ToString() == targetUserId;
         }
     }
 }

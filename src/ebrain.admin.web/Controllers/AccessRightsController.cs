@@ -112,7 +112,7 @@ namespace Ebrain.Controllers
             if (ModelState.IsValid)
             {
                 //
-                var userId = new Guid(Utilities.GetUserId(this.User));
+                var userId = Utilities.GetUserId(this.User);
 
                 var ar = values.Select(p => new AccessRight
                 {
@@ -151,7 +151,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
 

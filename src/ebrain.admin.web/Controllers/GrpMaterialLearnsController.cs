@@ -24,13 +24,13 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class GrpMaterialLearnsController : Controller
+    public class GrpMaterialLearnsController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
 
 
-        public GrpMaterialLearnsController(IUnitOfWork unitOfWork, ILogger<GrpMaterialLearnsController> logger)
+        public GrpMaterialLearnsController(IUnitOfWork unitOfWork, ILogger<GrpMaterialLearnsController> logger) : base(unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -40,7 +40,7 @@ namespace Ebrain.Controllers
         {
             get
             {
-                return new Guid(Utilities.GetUserId(this.User));
+                return Utilities.GetUserId(this.User);
             }
         }
 
