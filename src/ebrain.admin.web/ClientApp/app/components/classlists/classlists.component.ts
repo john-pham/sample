@@ -76,9 +76,9 @@ export class ClassListsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'startDate', name: gT('label.classlist.StartDate'), cellTemplate: this.totalPriceTemplate },
             { headerClass: "text-center", prop: 'endDate', name: gT('label.classlist.EndDate'), cellTemplate: this.descriptionTemplate },
 
-            { headerClass: "text-center", prop: 'maxStudent', name: gT('label.classlist.MaxStudent'), cellTemplate: this.nameTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'countStudent', name: gT('label.classlist.LearnStudent'), cellTemplate: this.nameTemplate, cellClass: 'text-right' },
-            { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { headerClass: "text-center", prop: 'maxStudent', name: gT('label.classlist.MaxStudent'), cellTemplate: this.nameTemplate, cellClass: 'text-right', width: 80 },
+            { headerClass: "text-center", prop: 'countStudent', name: gT('label.classlist.LearnStudent'), cellTemplate: this.nameTemplate, cellClass: 'text-right', width: 80 },
+            { name: '', cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false, width: 80 }
         ];
 
         var disp = this.classStatusService.getAll().subscribe(
