@@ -81,6 +81,20 @@ namespace Ebrain.Controllers
             return await GetUserById(appUser.Id);
         }
 
+        [HttpGet("accessrights")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetAccessRights(string userName)
+        {
+            ApplicationUser appUser = await _accountManager.GetUserByUserNameAsync(userName);
+
+            if (!(await _authorizationService.AuthorizeAsync(this.User, appUser?.Id ?? "", AuthPolicies.ViewUserByUserIdPolicy)).Succeeded)
+                return new ChallengeResult();
+
+            if (appUser == null)
+                return NotFound(userName);
+
+            return await GetUserById(appUser.Id);
+        }
 
         [HttpGet("users")]
         [Produces(typeof(List<UserViewModel>))]

@@ -207,7 +207,6 @@ export class AlteComponent implements OnInit, AfterViewInit {
         });
     }
 
-
     ngOnDestroy() {
         this.unsubscribeNotifications();
     }
@@ -217,8 +216,6 @@ export class AlteComponent implements OnInit, AfterViewInit {
         if (this.notificationsLoadingSubscription)
             this.notificationsLoadingSubscription.unsubscribe();
     }
-
-
 
     initNotificationsLoading() {
 
@@ -284,8 +281,6 @@ export class AlteComponent implements OnInit, AfterViewInit {
         }
     }
 
-
-
     showDialog(dialog: AlertDialog) {
 
         alertify.set({
@@ -328,11 +323,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
                 break;
         }
     }
-
-
-
-
-
+    
     showToast(message: AlertMessage, isSticky: boolean) {
 
         if (message == null) {

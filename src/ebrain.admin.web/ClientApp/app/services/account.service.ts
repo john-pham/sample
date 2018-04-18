@@ -19,9 +19,9 @@ import { AccountEndpoint } from './account-endpoint.service';
 import { AuthService } from './auth.service';
 import { User } from '../models/user.model';
 import { Role } from '../models/role.model';
+import { AccessRight } from '../models/accessright.model';
 import { Permission, PermissionNames, PermissionValues } from '../models/permission.model';
 import { UserEdit } from '../models/user-edit.model';
-
 
 
 export type RolesChangedOperation = "add" | "delete" | "modify";
@@ -86,6 +86,10 @@ export class AccountService {
         }
     }
 
+    getAccessRights() {
+        return this.accountEndpoint.getAccessRightsEndpoint()
+            .map((response: Response) => <[AccessRight]>response.json());
+    }
 
     newUser(user: UserEdit) {
         return this.accountEndpoint.getNewUserEndpoint(user)

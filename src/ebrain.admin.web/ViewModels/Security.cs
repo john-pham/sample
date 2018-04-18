@@ -12,7 +12,10 @@ namespace Ebrain.ViewModels
 
         public Security(string index)
         {
-            this.ID = new Guid(index);
+            if (!string.IsNullOrEmpty(index))
+            {
+                this.ID = new Guid(index);
+            }
         }
 
     }

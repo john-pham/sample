@@ -26,6 +26,7 @@ export class AccountEndpoint extends EndpointFactory {
     private readonly _rolesUrl: string = "/api/account/roles";
     private readonly _roleByRoleNameUrl: string = "/api/account/roles/name";
     private readonly _permissionsUrl: string = "/api/account/permissions";
+    private readonly _accessRightsUrl: string = "/api/account/accessrights";
 
     get usersUrl() { return this.configurations.baseUrl + this._usersUrl; }
     get userByUserNameUrl() { return this.configurations.baseUrl + this._userByUserNameUrl; }
@@ -35,7 +36,7 @@ export class AccountEndpoint extends EndpointFactory {
     get rolesUrl() { return this.configurations.baseUrl + this._rolesUrl; }
     get roleByRoleNameUrl() { return this.configurations.baseUrl + this._roleByRoleNameUrl; }
     get permissionsUrl() { return this.configurations.baseUrl + this._permissionsUrl; }
-
+    get accessRightsUrl() { return this.configurations.baseUrl + this._accessRightsUrl; }
 
 
     constructor(http: Http, configurations: ConfigurationService, injector: Injector) {
@@ -68,6 +69,17 @@ export class AccountEndpoint extends EndpointFactory {
             });
     }
 
+    getAccessRightsEndpoint(): Observable<Response> {
+        let endpointUrl = this.accessRightsUrl;
+
+        return this.http.get(endpointUrl, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getAccessRightsEndpoint());
+            });
+    }
 
     getUsersEndpoint(page?: number, pageSize?: number): Observable<Response> {
         let endpointUrl = page && pageSize ? `${this.usersUrl}/${page}/${pageSize}` : this.usersUrl;
