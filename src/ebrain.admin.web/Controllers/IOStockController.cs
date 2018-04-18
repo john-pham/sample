@@ -26,11 +26,11 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [Security("")]
     public class IOStockController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
-        private readonly IAccountManager _accountManager;
 
         public IOStockController(IUnitOfWork unitOfWork, ILogger<IOStockController> logger) : base(unitOfWork, logger)
         {

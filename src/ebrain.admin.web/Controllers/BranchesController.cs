@@ -23,6 +23,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [Security("D7239078-E67A-42FA-86D7-4A8C3F73D521")]
     public class BranchesController : BaseController
     {
         private IUnitOfWork _unitOfWork;

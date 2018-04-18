@@ -23,6 +23,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [Security("")]
     public class SMSController : BaseController
     {
         private IUnitOfWork _unitOfWork;

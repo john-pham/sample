@@ -26,6 +26,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [Security("")]
     public class ProfitController : BaseController
     {
         private IUnitOfWork _unitOfWork;

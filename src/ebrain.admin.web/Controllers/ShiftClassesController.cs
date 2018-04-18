@@ -24,6 +24,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [Security("")]
     public class ShiftClassesController : BaseController
     {
         private IUnitOfWork _unitOfWork;

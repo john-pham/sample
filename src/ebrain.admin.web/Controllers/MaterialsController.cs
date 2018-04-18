@@ -25,6 +25,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [Security("")]
     public class MaterialsController : BaseController
     {
         private IUnitOfWork _unitOfWork;
