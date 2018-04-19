@@ -165,6 +165,39 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public List<StudentList> GetStudentByCreateDate(string branchIds, DateTime? fromDate, DateTime? toDate)
+        {
+            try
+            {
+                var fr = DateTime.Now;
+                var to = DateTime.Now;
+                if (fromDate.HasValue)
+                {
+                    fr = fromDate.Value.Date;
+                }
+                if (toDate.HasValue)
+                {
+                    to = new DateTime(toDate.Value.Year, toDate.Value.Month, toDate.Value.Day, 23, 59, 59);
+                }
+
+                List<StudentList> someTypeList = new List<StudentList>();
+                this.appContext.LoadStoredProc("dbo.sp_Students")
+                               .WithSqlParam("@fromDate", fromDate)
+                               .WithSqlParam("@toDate", toDate)
+                               .WithSqlParam("@BranchIds", branchIds)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<StudentList>().ToList();
+                               });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private ApplicationDbContext appContext
         {
             get { return (ApplicationDbContext)_context; }

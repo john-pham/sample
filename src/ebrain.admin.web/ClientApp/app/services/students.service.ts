@@ -88,6 +88,14 @@ export class StudentsService {
         return this.endpointFactory.delete(id);
     }
 
+    getNewStudent() {
+        return this.endpointFactory.getNewStudent().map((response: Response) => <number>response.json());
+    }
+
+    getAllStudent() {
+        return this.endpointFactory.getAllStudent().map((response: Response) => <number>response.json());
+    }
+
     private initializeStatus() {
 
     }

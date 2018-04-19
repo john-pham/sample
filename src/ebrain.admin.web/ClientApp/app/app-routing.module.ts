@@ -241,7 +241,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "categories", component: CategoriesComponent, canActivate: [AuthGuard], data: { title: "Categories" } },
             { path: "customers", component: CustomersComponent, canActivate: [AuthGuard], data: { title: "Customers" } },
-            { path: "products", component: ProductsComponent, canActivate: [AuthGuard], data: { title: "Products" } },
+            { path: "products", component: HomeComponent, canActivate: [AuthGuard], data: { title: "Home" } },
             { path: "orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
             { path: "settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
             { path: "about", component: AboutComponent, data: { title: "About Us" } },

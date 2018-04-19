@@ -80,6 +80,30 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
+    getIONew(): Observable<Response> {
+
+        let url = this.getUrlIO('getionew?hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getIONew());
+            });
+    }
+
+    getIOAll(): Observable<Response> {
+
+        let url = this.getUrlIO('getioall?hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getIOAll());
+            });
+    }
+
     getiopayment(filter: string, value: string, ioid: string, isInput: boolean, fromDate: Date, toDate: Date): Observable<Response> {
 
         let url = "";

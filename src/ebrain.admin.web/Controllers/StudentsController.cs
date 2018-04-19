@@ -138,7 +138,7 @@ namespace Ebrain.Controllers
                     Email = value.Email,
                     GenderId = value.GenderId,
                     StudentStatusId = value.StudentStatusId,
-                    
+
                     UserName = value.Username,
                     Password = value.Password,
                     Note = value.Note,
@@ -235,6 +235,53 @@ namespace Ebrain.Controllers
                 return Ok(ret);
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpGet("getstudentbycreatedate")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetStudentByCreateDate(string filter, string value, string fromDate, string toDate)
+        {
+            return Ok(GetStudentByCreateDateMain(filter, value, fromDate.BuildDateTimeFromSEFormat(), toDate.BuildLastDateTimeFromSEFormat()));
+
+        }
+
+        private IEnumerable<StudentViewModel> GetStudentByCreateDateMain(string filter, string value, DateTime? fromDate, DateTime? toDate)
+        {
+            // var results = await this._unitOfWork.IOStocks.Search(filter, value);
+            var results = this._unitOfWork.Students.GetStudentBirthday
+                        (
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            fromDate,
+                            toDate
+                        );
+            return results.Select(p => new StudentViewModel
+            {
+                ID = p.StudentId,
+                Code = p.StudentCode,
+                Name = p.StudentName,
+                Birthday = p.Birthday,
+                Phone = p.Phone,
+                Email = p.Email,
+                GenderName = p.GenderName,
+                TotalDay = p.TotalDay
+            });
+
+        }
+
+        [HttpGet("getnewstudent")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetNewStudent()
+        {
+            var list = GetStudentByCreateDateMain(string.Empty, string.Empty, DateTime.Now, DateTime.Now);
+            return Ok(list.Count());
+        }
+
+        [HttpGet("getalltudent")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetAllStudent()
+        {
+            var list = GetStudentByCreateDateMain(string.Empty, string.Empty, new DateTime(1900, 01, 01), DateTime.Now);
+            return Ok(list.Count());
         }
     }
 }
