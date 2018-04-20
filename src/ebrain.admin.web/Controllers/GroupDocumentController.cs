@@ -23,7 +23,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("")]
+    [Security("9C100588-C478-47C8-BE15-40523BB6BA1A")]
     public class GroupDocumentController : BaseController
     {
         private IUnitOfWork _unitOfWork;

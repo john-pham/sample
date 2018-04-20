@@ -119,19 +119,19 @@ label.control-label {
 
     .ngx-datatable .datatable-body .datatable-scroll .datatable-body-row {
         width: 100% !important;
+        height: auto !important;
         border-top: none !important;
     }
 
-.ngx-datatable .datatable-body .datatable-row-wrapper {
+.ngx-datatable .datatable-body .datatable-row-wrapper:last-child {
     border-bottom: 1px solid #ddd;
-}
-
-.ngx-datatable .datatable-body .datatable-body-row .datatable-row-group:last-child {
-    border-bottom: none;
 }
 
 .ngx-datatable .datatable-body .datatable-body-row .datatable-body-cell {
     border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd !important;
+    overflow-y: auto !important;
+    height: auto !important;
 }
 
     .ngx-datatable .datatable-body .datatable-body-row .datatable-body-cell:last-child {
@@ -258,8 +258,10 @@ header {
                         /*position: absolute;*/
                         height: 100% !important;
                         max-height: calc(100vh - 160px) !important;
+                        /*
                         overflow-x: hidden;
                         overflow-y: auto;
+                        */
                     }
 
                 #app_container aside.main-sidebar {

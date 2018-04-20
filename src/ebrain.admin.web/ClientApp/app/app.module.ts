@@ -181,6 +181,7 @@ import { SMSEndpoint } from './services/sms-endpoint.service';
 import { AlteComponent } from "./components/alte.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
+import { BannerTopsComponent } from "./components/bannertops/bannertops.component";
 import { AccessRightsComponent } from "./components/access-rights/access-rights";
 import { UserRolesComponent } from "./components/userroles/userroles.component";
 import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
@@ -339,6 +340,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         AlteComponent,
         LoginComponent,
         HomeComponent,
+        BannerTopsComponent,
         AccessRightsComponent,
         UserRolesComponent,
         FeatureGroupsComponent,

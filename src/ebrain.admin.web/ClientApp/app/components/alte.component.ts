@@ -71,11 +71,13 @@ export class AlteComponent implements OnInit, AfterViewInit {
     dataLoadingConsecutiveFailurs = 0;
     notificationsLoadingSubscription: any;
 
+    /*
     @ViewChildren('loginModal,loginControl')
     modalLoginControls: QueryList<any>;
 
     loginModal: ModalDirective;
     loginControl: LoginComponent;
+    */
 
     //messenger
     countMessenger: any = 0;
@@ -114,7 +116,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
 
 
     ngAfterViewInit() {
-
+        /*
         this.modalLoginControls.changes.subscribe((controls: QueryList<any>) => {
             controls.forEach(control => {
                 if (control) {
@@ -129,13 +131,13 @@ export class AlteComponent implements OnInit, AfterViewInit {
                 }
             });
         });
+        */
     }
 
-
+    /*
     onLoginModalShown() {
         this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again", MessageSeverity.info);
     }
-
 
     onLoginModalHidden() {
         this.alertService.resetStickyMessage();
@@ -146,15 +148,17 @@ export class AlteComponent implements OnInit, AfterViewInit {
             this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again to renew your session", MessageSeverity.warn);
     }
 
-
     onLoginModalHide() {
         this.alertService.resetStickyMessage();
     }
+    */
 
 
     ngOnInit() {
         this.isUserLoggedIn = this.authService.isLoggedIn;
-        this.shouldShowLoginModal = !this.isUserLoggedIn;
+        /*
+         * this.shouldShowLoginModal = !this.isUserLoggedIn;
+         */
 
         // 1 sec to ensure all the effort to get the css animation working is appreciated :|, Preboot screen is removed .5 sec later
         setTimeout(() => this.isAppLoaded = true, 1000);

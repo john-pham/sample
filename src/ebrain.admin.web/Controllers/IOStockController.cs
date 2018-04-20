@@ -50,11 +50,17 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public IEnumerable<IOStockViewModel> GetIOByIOTypeId(string filter, string value, string fromDate, string toDate)
         {
+            return GetIOByIOTypeIdMain(filter, value, fromDate.BuildDateTimeFromSEFormat(), toDate.BuildLastDateTimeFromSEFormat(), 0);
+
+        }
+
+        public IEnumerable<IOStockViewModel> GetIOByIOTypeIdMain(string filter, string value, DateTime fromDate, DateTime toDate, int ioTypeId)
+        {
             // var results = await this._unitOfWork.IOStocks.Search(filter, value);
             var results = this._unitOfWork.IOStocks.GetIOStockList(
-                            fromDate.BuildDateTimeFromSEFormat(),
-                            toDate.BuildLastDateTimeFromSEFormat(),
-                            value, 0, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                            fromDate,
+                            toDate,
+                            value, ioTypeId, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
             var list = new List<IOStockViewModel>();
             foreach (var item in results)
             {
@@ -72,6 +78,26 @@ namespace Ebrain.Controllers
                 });
             }
             return list;
+        }
+
+        [HttpGet("getionew")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetIONew()
+        {
+            var dt = DateTime.Now;
+            var list = GetIOByIOTypeIdMain(string.Empty, string.Empty, dt.Date, new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59), (int)EnumIOType.IORegisCourse);
+            return this.Ok(list.Count());
+
+        }
+
+        [HttpGet("getioall")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetIOAll()
+        {
+            var dt = DateTime.Now;
+            var list = GetIOByIOTypeIdMain(string.Empty, string.Empty, new DateTime(1900, 01, 01), dt, (int)EnumIOType.IORegisCourse);
+            return this.Ok(list.Count());
+
         }
 
         [HttpGet("getiodetailbyiotypeid")]
@@ -150,7 +176,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public Task<IEnumerable<IOStockViewModel>> GetIOPaymentReceipt(string filter, string value, string ioId, string fromDate, string toDate)
         {
-            return GetIOPayment(filter, value, false,  ioId,  fromDate,  toDate);
+            return GetIOPayment(filter, value, false, ioId, fromDate, toDate);
         }
 
         [HttpGet("getiopaymentvoucher")]

@@ -24,6 +24,12 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "home": {
+      "AllStudent": "Học viên",
+      "NewStudent": "Học viên mới",
+      "AllIO": "Đăng ký",
+      "NewIO": "Đăng ký mới"
+    },
     "messenger": {
       "HeaderAdd": "Quản lý thông báo",
       "Title": "Tiêu đề",

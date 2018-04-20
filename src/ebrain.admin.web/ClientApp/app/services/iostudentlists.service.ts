@@ -53,6 +53,16 @@ export class IOStudentListService {
             .map((response: Response) => <IOStockReport[]>response.json());
     }
 
+    getIONew(){
+        return this.endpointFactory.getIONew()
+            .map((response: Response) => <number>response.json());
+    }
+
+    getIOAll() {
+        return this.endpointFactory.getIOAll()
+            .map((response: Response) => <number>response.json());
+    }
+
     private initializeStatus() {
 
     }

@@ -120,6 +120,28 @@ export class StudentsEndpoint extends EndpointFactory {
             });
     }
 
+    getNewStudent(): Observable<Response> {
+        let url = this.getUrl('getnewstudent?hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getNewStudent());
+            });
+    }
+
+    getAllStudent(): Observable<Response> {
+        let url = this.getUrl('getalltudent?hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getNewStudent());
+            });
+    }
+
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {
