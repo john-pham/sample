@@ -79,7 +79,7 @@ export class MessengerListComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: "branchName", name: gT('label.messenger.BranchName'), width: 150, cellTemplate: this.statusTemplate },
             { headerClass: "text-center", prop: 'messengerTitle', name: gT('label.messenger.Title'), width: 100, cellTemplate: this.hyperlinkTemplate },
             { headerClass: "text-center", prop: 'messengerName', name: gT('label.messenger.Body'), cellTemplate: this.hyperlinkTemplate },
-            { headerClass: "text-center", prop: 'createDate', name: gT('label.messenger.CreateDate'), cellTemplate: this.hyperlinkTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'createDate', name: gT('label.messenger.CreateDate'), width: 150, cellTemplate: this.hyperlinkTemplate, cellClass: 'text-right' },
         ];
 
         this.getFromServer();

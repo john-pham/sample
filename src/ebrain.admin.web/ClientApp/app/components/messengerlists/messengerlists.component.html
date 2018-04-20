@@ -11,53 +11,54 @@
     </div>
 </div>
 
-<div [@fadeInOut]>
-    <!--DATA TABLE-->
-    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
-                   [loadingIndicator]="loadingIndicator"
-                   [rows]="rows"
-                   [columns]="columns"
-                   [columnMode]="'force'"
-                   [scrollbarV]="verticalScrollbar"
-                   [headerHeight]="50"
-                   [footerHeight]="50"
-                   [rowHeight]="'auto'"
-                   [externalPaging]="true"
-                   [count]="page.totalElements"
-                   [offset]="page.pageNumber"
-                   [limit]="page.size"
-                   (page)='setPage($event)'>
-    </ngx-datatable>
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [columns]="columns"
+                       [columnMode]="'force'"
+                       [scrollbarV]="verticalScrollbar"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="'auto'"
+                       [externalPaging]="true"
+                       [count]="page.totalElements"
+                       [offset]="page.pageNumber"
+                       [limit]="10"
+                       (page)='setPage($event)'>
+        </ngx-datatable>
 
-    <!-- TEMPLATEs -->
-    <ng-template #statusHeaderTemplate>
-        <i class="fa fa-check-square-o"></i>
-    </ng-template>
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
 
-    <ng-template #statusTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
+        <ng-template #statusTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
 
-    <ng-template #nameTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
 
-    <ng-template #descriptionTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
 
-    <ng-template #hyperlinkTemplate let-row="row" let-value="value">
-        <a style.font-weight = "{{row.isRead !=true ? 'bold' : 'normal'}}"
-           
-           class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.messengerId)">{{value}}</a>
-    </ng-template>
+        <ng-template #hyperlinkTemplate let-row="row" let-value="value">
+            <a style.font-weight="{{row.isRead !=true ? 'bold' : 'normal'}}"
+               class="btn btn-link" href="javascript:;" (click)="edit(template, row.messengerId)">{{value}}</a>
+        </ng-template>
 
+    </div>
 </div>
 
 <ng-template #template>

@@ -25,57 +25,60 @@
     </div>
 </div>
 
-<div [@fadeInOut]>
-    <!--DATA TABLE-->
-    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
-                   [loadingIndicator]="loadingIndicator"
-                   [rows]="rows"
-                   [columns]="columns"
-                   [columnMode]="'force'"
-                   [scrollbarV]="verticalScrollbar"
-                   [headerHeight]="50"
-                   [footerHeight]="50"
-                   [rowHeight]="'auto'"
-                   [externalPaging]="true"
-                   [count]="page.totalElements"
-                   [offset]="page.pageNumber"
-                   [limit]="page.size"
-                   (page)='setPage($event)'>
-    </ngx-datatable>
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [columns]="columns"
+                       [columnMode]="'force'"
+                       [scrollbarV]="verticalScrollbar"
+                       [scrollbarH]="true"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="'auto'"
+                       [externalPaging]="true"
+                       [count]="page.totalElements"
+                       [offset]="page.pageNumber"
+                       [limit]="page.size"
+                       (page)='setPage($event)'>
+        </ngx-datatable>
 
-    <!-- TEMPLATEs -->
-    <ng-template #statusHeaderTemplate>
-        <i class="fa fa-check-square-o"></i>
-    </ng-template>
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
 
-    <ng-template #statusTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
+        <ng-template #statusTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
 
-    <ng-template #logoTemplate let-row="row" let-value="value">
-        <img src="/uploads/logos/{{value}}" />
-    </ng-template>
+        <ng-template #logoTemplate let-row="row" let-value="value">
+            <img src="/uploads/logos/{{value}}" />
+        </ng-template>
 
-    <ng-template #nameTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
 
-    <ng-template #descriptionTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
-    <ng-template #actionsTemplate let-row="row" let-value="value">
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editHead(templateHead, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Manage' | translate}}</a>
-        |
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editBranch(template, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
-        |
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteBranch(value)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
-    </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #actionsTemplate let-row="row" let-value="value">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editHead(templateHead, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Manage' | translate}}</a>
+            |
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editBranch(template, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+            |
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteBranch(value)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+        </ng-template>
+    </div>
 </div>
 
 <ng-template #templateHead>
