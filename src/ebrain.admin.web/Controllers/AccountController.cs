@@ -39,15 +39,12 @@ namespace Ebrain.Controllers
             _authorizationService = authorizationService;
         }
 
-
-
         [HttpGet("users/me")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetCurrentUser()
         {
             return await GetUserByUserName(this.User.Identity.Name);
         }
-
 
         [HttpGet("users/{id}", Name = GetUserByIdActionName)]
         [Produces(typeof(UserViewModel))]
@@ -65,7 +62,6 @@ namespace Ebrain.Controllers
                 return NotFound(id);
         }
 
-
         [HttpGet("users/username/{userName}")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetUserByUserName(string userName)
@@ -81,16 +77,6 @@ namespace Ebrain.Controllers
             return await GetUserById(appUser.Id);
         }
 
-        [HttpGet("accessrights")]
-        [Produces(typeof(UserViewModel))]
-        public async Task<IActionResult> GetAccessRights()
-        {
-            var userId = Utilities.GetUserId(this.User);
-            var appUser = await _accountManager.GetUserByIdAsync(userId.ToString());
-
-            return await GetUserById(appUser.Id);
-        }
-
         [HttpGet("users")]
         [Produces(typeof(List<UserViewModel>))]
         [Authorize(AuthPolicies.ViewUsersPolicy)]
@@ -98,7 +84,6 @@ namespace Ebrain.Controllers
         {
             return await GetUsers(-1, -1);
         }
-
 
         [HttpGet("users/{page:int}/{pageSize:int}")]
         [Produces(typeof(List<UserViewModel>))]
@@ -120,15 +105,11 @@ namespace Ebrain.Controllers
             return Ok(usersVM);
         }
 
-
-
-
         [HttpPut("users/me")]
         public async Task<IActionResult> UpdateCurrentUser([FromBody] UserEditViewModel user)
         {
             return await UpdateUser(Utilities.GetUserId(this.User).ToString(), user);
         }
-
 
         [HttpPut("users/{id}")]
         public async Task<IActionResult> UpdateUser(string id, [FromBody] UserEditViewModel user)
@@ -204,15 +185,11 @@ namespace Ebrain.Controllers
         }
 
 
-
-
         [HttpPatch("users/me")]
         public async Task<IActionResult> UpdateCurrentUser([FromBody] JsonPatchDocument<UserPatchViewModel> patch)
         {
             return await UpdateUser(Utilities.GetUserId(this.User).ToString(), patch);
         }
-
-
 
         [HttpPatch("users/{id}")]
         public async Task<IActionResult> UpdateUser(string id, [FromBody] JsonPatchDocument<UserPatchViewModel> patch)
@@ -253,9 +230,6 @@ namespace Ebrain.Controllers
             return BadRequest(ModelState);
         }
 
-
-
-
         [HttpPost("users")]
         [Authorize(AuthPolicies.ManageUsersPolicy)]
         public async Task<IActionResult> Register([FromBody] UserEditViewModel user)
@@ -280,8 +254,6 @@ namespace Ebrain.Controllers
 
             return BadRequest(ModelState);
         }
-
-
 
         [HttpDelete("users/{id}")]
         [Produces(typeof(UserViewModel))]
@@ -310,8 +282,6 @@ namespace Ebrain.Controllers
             return Ok(userVM);
         }
 
-
-
         [HttpPut("users/unblock/{id}")]
         [Authorize(AuthPolicies.ManageUsersPolicy)]
         public async Task<IActionResult> UnblockUser(string id)
@@ -330,8 +300,6 @@ namespace Ebrain.Controllers
             return NoContent();
         }
 
-
-
         [HttpGet("users/me/preferences")]
         [Produces(typeof(string))]
         public async Task<IActionResult> UserPreferences()
@@ -344,7 +312,6 @@ namespace Ebrain.Controllers
             else
                 return NotFound(userId);
         }
-
 
         [HttpPut("users/me/preferences")]
         public async Task<IActionResult> UserPreferences([FromBody] string data)
@@ -379,9 +346,6 @@ namespace Ebrain.Controllers
             return await GetRoleByName(appRole.Name);
         }
 
-
-
-
         [HttpGet("roles/name/{name}")]
         [Produces(typeof(RoleViewModel))]
         public async Task<IActionResult> GetRoleByName(string name)
@@ -398,9 +362,6 @@ namespace Ebrain.Controllers
             return Ok(roleVM);
         }
 
-
-
-
         [HttpGet("roles")]
         [Produces(typeof(List<RoleViewModel>))]
         [Authorize(AuthPolicies.ViewRolesPolicy)]
@@ -408,8 +369,6 @@ namespace Ebrain.Controllers
         {
             return await GetRoles(-1, -1);
         }
-
-
 
         [HttpGet("roles/{page:int}/{pageSize:int}")]
         [Produces(typeof(List<RoleViewModel>))]
@@ -419,8 +378,6 @@ namespace Ebrain.Controllers
             var roles = await _accountManager.GetRolesLoadRelatedAsync(page, pageSize);
             return Ok(Mapper.Map<List<RoleViewModel>>(roles));
         }
-
-
 
         [HttpPut("roles/{id}")]
         [Authorize(AuthPolicies.ManageRolesPolicy)]
@@ -455,9 +412,6 @@ namespace Ebrain.Controllers
             return BadRequest(ModelState);
         }
 
-
-
-
         [HttpPost("roles")]
         [Authorize(AuthPolicies.ManageRolesPolicy)]
         public async Task<IActionResult> CreateRole([FromBody] RoleViewModel role)
@@ -482,9 +436,6 @@ namespace Ebrain.Controllers
 
             return BadRequest(ModelState);
         }
-
-
-
 
         [HttpDelete("roles/{id}")]
         [Produces(typeof(RoleViewModel))]
@@ -513,8 +464,6 @@ namespace Ebrain.Controllers
             return Ok(roleVM);
         }
 
-
-
         [HttpGet("permissions")]
         [Produces(typeof(List<PermissionViewModel>))]
         [Authorize(AuthPolicies.ViewRolesPolicy)]
@@ -535,7 +484,6 @@ namespace Ebrain.Controllers
             return userVM;
         }
 
-
         private async Task<RoleViewModel> GetRoleViewModelHelper(string roleName)
         {
             var role = await _accountManager.GetRoleLoadRelatedAsync(roleName);
@@ -545,7 +493,6 @@ namespace Ebrain.Controllers
 
             return null;
         }
-
 
         private void AddErrors(IdentityResult result)
         {

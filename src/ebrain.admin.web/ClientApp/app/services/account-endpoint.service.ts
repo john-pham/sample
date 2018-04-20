@@ -26,7 +26,7 @@ export class AccountEndpoint extends EndpointFactory {
     private readonly _rolesUrl: string = "/api/account/roles";
     private readonly _roleByRoleNameUrl: string = "/api/account/roles/name";
     private readonly _permissionsUrl: string = "/api/account/permissions";
-    private readonly _accessRightsUrl: string = "/api/account/accessrights";
+    private readonly _accessRightsUrl: string = "/api/base/accessrights";
 
     get usersUrl() { return this.configurations.baseUrl + this._usersUrl; }
     get userByUserNameUrl() { return this.configurations.baseUrl + this._userByUserNameUrl; }

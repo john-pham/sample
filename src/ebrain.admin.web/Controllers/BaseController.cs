@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Ebrain.Controllers
 {
+    [Route("api/[controller]")]
     public class BaseController : Controller
     {
         public bool CanView { get; private set; }
@@ -24,6 +25,17 @@ namespace Ebrain.Controllers
             this._logger = logger;
             this.loadPermission(unitOfWork);
             this.loadBehavior(this.GetType());
+
+            if(!this.CanView)
+            {
+                Redirect("/account/login");
+            }
+        }
+
+        [HttpGet("accessrights")]
+        public IActionResult GetAccessRights()
+        {
+            return Ok(this._accessRights);
         }
 
         private void loadPermission(IUnitOfWork context)

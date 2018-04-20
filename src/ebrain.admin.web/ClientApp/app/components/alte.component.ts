@@ -168,6 +168,8 @@ export class AlteComponent implements OnInit, AfterViewInit {
                 this.alertService.showMessage("Login", `Welcome back ${this.userName}!`, MessageSeverity.default);
                 //else
                 //    this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again", MessageSeverity.warn);
+                //
+                this.accountService.getAccessRights();
             }
         }, 2000);
 
