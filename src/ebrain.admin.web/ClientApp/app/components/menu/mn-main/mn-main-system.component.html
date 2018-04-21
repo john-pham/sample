@@ -1,71 +1,73 @@
-﻿<header>
-    <div class="row" style="padding-top: 15px;">
-        <div class="col-xs-12" id="breadcrumb">
-            <a class="show-sidebar pull-left" routerLink="/">
-                <i class="fa fa-bars"></i>
-            </a>
-            <ol class="breadcrumb pull-left">
-                <li><a routerLink="/mn_main_system">{{'menu.main.System' | translate}}</a></li>
-            </ol>
+﻿<div *ngIf="accessRightService.isViewFeatureGroup('D17A0D74-4684-48DF-B2BC-D275F5E33915')">
+    <header>
+        <div class="row" style="padding-top: 15px;">
+            <div class="col-xs-12" id="breadcrumb">
+                <a class="show-sidebar pull-left" routerLink="/">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <ol class="breadcrumb pull-left">
+                    <li><a routerLink="/mn_main_system">{{'menu.main.System' | translate}}</a></li>
+                </ol>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<div [@fadeInOut]>
-    <div class="statistic">
-        <div class="row">
-            <div class="col-lg-3 col-md-3 m-t text-center btn-manager">
-                <a routerLink="/usergroups" class="block padder-v hover">
-                    <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                        <i class="fa fa-user-times icon text-white"></i>
-                    </span>
-                    <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'label.usergroup.HeaderAdd' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'label.usergroup.HeaderAdd' | translate}}"</small>
-                    </span>
-                </a>
+    <div [@fadeInOut]>
+        <div class="statistic">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('ADC69968-D9E7-4C9E-AD15-206ED47A9D30')">
+                    <a routerLink="/usergroups" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-user-times icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'label.usergroup.HeaderAdd' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'label.usergroup.HeaderAdd' | translate}}"</small>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-3 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('ADC69968-D9E7-4C9E-AD15-206ED47A9D31')">
+                    <a routerLink="/featuregroups" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-universal-access icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'label.featuregroup.HeaderAdd' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'label.featuregroup.HeaderAdd' | translate}}"</small>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-3 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('ADC69968-D9E7-4C9E-AD15-206ED47A9D32')">
+                    <a routerLink="/accessrights" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-viacoin icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'label.accessright.PermissionGroup' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'label.accessright.PermissionGroup' | translate}}"</small>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-3 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('adc69968-d9e7-4c9e-ad15-206ed47a9d33')">
+                    <a routerLink="/userroles" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-user icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'label.userrole.UserRole' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'label.userrole.UserRole' | translate}}"</small>
+                        </span>
+                    </a>
+                </div>
+
             </div>
-
-            <div class="col-lg-3 col-md-3 m-t text-center btn-manager">
-                <a routerLink="/featuregroups" class="block padder-v hover">
-                    <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                        <i class="fa fa-universal-access icon text-white"></i>
-                    </span>
-                    <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'label.featuregroup.HeaderAdd' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'label.featuregroup.HeaderAdd' | translate}}"</small>
-                    </span>
-                </a>
-            </div>
-
-            <div class="col-lg-3 col-md-3 m-t text-center btn-manager">
-                <a routerLink="/accessrights" class="block padder-v hover">
-                    <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                        <i class="fa fa-viacoin icon text-white"></i>
-                    </span>
-                    <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'label.accessright.PermissionGroup' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'label.accessright.PermissionGroup' | translate}}"</small>
-                    </span>
-                </a>
-            </div>
-
-            <div class="col-lg-3 col-md-3 m-t text-center btn-manager">
-                <a routerLink="/userroles" class="block padder-v hover">
-                    <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                        <i class="fa fa-user icon text-white"></i>
-                    </span>
-                    <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'label.userrole.UserRole' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'label.userrole.UserRole' | translate}}"</small>
-                    </span>
-                </a>
-            </div>
-
         </div>
     </div>
 </div>

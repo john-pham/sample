@@ -12,7 +12,8 @@ import { Response } from '@angular/http';
 
 @Injectable()
 export class Utilities {
-
+    
+    public static accessRights = [];
     public static readonly captionAndMessageSeparator = ":";
     public static readonly noNetworkMessageCaption = "No Network";
     public static readonly noNetworkMessageDetail = "The server cannot be reached";

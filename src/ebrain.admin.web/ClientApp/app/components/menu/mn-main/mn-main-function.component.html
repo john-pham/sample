@@ -1,42 +1,44 @@
-﻿<header>
-    <div class="row" style="padding-top: 15px;">
-        <div class="col-xs-12" id="breadcrumb">
-            <a class="show-sidebar pull-left" routerLink="/">
-                <i class="fa fa-bars"></i>
-            </a>
-            <ol class="breadcrumb pull-left">
-                {{'menu.main.Function' | translate}}
-            </ol>
-        </div>
-    </div>
-</header>
-
-<div [@fadeInOut]>
-    <div class="statistic">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
-                <a routerLink="/sendsms" class="block padder-v hover">
-                    <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                        <i class="fa fa-university icon text-white"></i>
-                    </span>
-                    <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'menu.function.ActionAnalyst' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'menu.function.ActionAnalyst' | translate}}"</small>
-                    </span>
+﻿<div *ngIf="accessRightService.isViewFeatureGroup('A46B7B7A-0169-4C1E-A659-0068948BE767')">
+    <header>
+        <div class="row" style="padding-top: 15px;">
+            <div class="col-xs-12" id="breadcrumb">
+                <a class="show-sidebar pull-left" routerLink="/">
+                    <i class="fa fa-bars"></i>
                 </a>
+                <ol class="breadcrumb pull-left">
+                    {{'menu.main.Function' | translate}}
+                </ol>
             </div>
-            <div class="col-lg-4 col-md-6 m-t text-center btn-manager">
-                <a routerLink="/historysms" class="block padder-v hover">
-                    <span class="i-s i-s-2x">
-                        <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                        <i class="fa fa-user-o icon text-white"></i>
-                    </span>
-                    <span class="clear">
-                        <span class="h3 block m-t-xs text-warning">{{'menu.function.PlanInvestor' | translate}}</span>
-                        <small class="text-muted text-u-c">"{{'menu.function.PlanInvestor' | translate}}"</small>
-                    </span>
-                </a>
+        </div>
+    </header>
+
+    <div [@fadeInOut]>
+        <div class="statistic">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')">
+                    <a routerLink="/sendsms" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-university icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.function.ActionAnalyst' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.function.ActionAnalyst' | translate}}"</small>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd231')">
+                    <a routerLink="/historysms" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-user-o icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.function.PlanInvestor' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.function.PlanInvestor' | translate}}"</small>
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

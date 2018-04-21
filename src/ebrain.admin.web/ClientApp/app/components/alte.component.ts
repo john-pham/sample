@@ -259,7 +259,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
 
     private onAccessRightLoadSuccessful(resulted: AccessRight[]) {
         this.accessRights = resulted;
-        this.accessRightService.accessRights = resulted;
+        Utilities.accessRights = resulted;
         this.alertService.stopLoadingMessage();
     }
 

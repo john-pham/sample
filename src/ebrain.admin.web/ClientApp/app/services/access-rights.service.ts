@@ -18,6 +18,7 @@ import { AccessRightsEndpoint } from './access-rights.endpoint';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
 import { AccessRight } from "../models/accessright.model";
+import { Utilities } from "./utilities";
 
 @Injectable()
 export class AccessRightsService {
@@ -66,18 +67,20 @@ export class AccessRightsService {
     }
 
     //permission accessRight
-    public accessRights = [];
+
     private isViewFeatureGroup(featureGroupId: string) {
-        if (this.accessRights != null && this.accessRights.length > 0) {
-            var array = this.accessRights.filter(p => p.featureGroupId == featureGroupId.toLowerCase() && p.view == true);
+        var accessRights = Utilities.accessRights;
+        if (accessRights != null && accessRights.length > 0) {
+            var array = accessRights.filter(p => p.featureGroupId == featureGroupId.toLowerCase() && p.view == true);
             return array != null && array.length > 0;
         }
         return false;
     }
 
     private isViewFeature(featureId: string) {
-        if (this.accessRights != null && this.accessRights.length > 0) {
-            var array = this.accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.view == true);
+        var accessRights = Utilities.accessRights;
+        if (accessRights != null && accessRights.length > 0) {
+            var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.view == true);
             return array != null && array.length > 0;
         }
         return false;

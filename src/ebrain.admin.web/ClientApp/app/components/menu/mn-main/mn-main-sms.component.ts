@@ -8,7 +8,7 @@
 
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
-
+import { AccessRightsService } from "../../../services/access-rights.service";
 @Component({
     selector: 'mn_main_sms',
     templateUrl: './mn-main-sms.component.html',
@@ -17,6 +17,9 @@ import { fadeInOut } from '../../../services/animations';
 })
 
 export class mn_main_smsComponent implements OnInit, OnDestroy {
+    constructor(public accessRightService: AccessRightsService) {
+
+    }
     ngOnDestroy() { }
     ngOnInit() { }
 }
