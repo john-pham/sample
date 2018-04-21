@@ -53,65 +53,67 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <!--DATA TABLE-->
-        <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
-                       [loadingIndicator]="loadingIndicator"
-                       [rows]="rows"
-                       [rowHeight]="auto"
-                       [columns]="columns"
-                       [scrollbarV]="verticalScrollbar"
-                       [columnMode]="'force'">
+        <div class="table-wrapper">
+            <!--DATA TABLE-->
+            <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                           [loadingIndicator]="loadingIndicator"
+                           [rows]="rows"
+                           [rowHeight]="auto"
+                           [columns]="columns"
+                           [scrollbarV]="verticalScrollbar"
+                           [columnMode]="'force'">
 
 
-            <ngx-datatable-column headerClass="text-center"
-                                  name="{{'label.attendance.StudentCode' | translate}}" prop='studentCode'>
+                <ngx-datatable-column headerClass="text-center"
+                                      name="{{'label.attendance.StudentCode' | translate}}" prop='studentCode'>
 
-            </ngx-datatable-column>
+                </ngx-datatable-column>
 
-            <ngx-datatable-column headerClass="text-center"
-                                  name="{{'label.attendance.StudentName' | translate}}" prop='studentName'>
+                <ngx-datatable-column headerClass="text-center"
+                                      name="{{'label.attendance.StudentName' | translate}}" prop='studentName'>
 
-            </ngx-datatable-column>
+                </ngx-datatable-column>
 
-            <ngx-datatable-column headerClass="text-center"
-                                  name="{{'label.attendance.Phone' | translate}}" prop='phone'>
-            </ngx-datatable-column>
+                <ngx-datatable-column headerClass="text-center"
+                                      name="{{'label.attendance.Phone' | translate}}" prop='phone'>
+                </ngx-datatable-column>
 
-            <ngx-datatable-column [width]="100"
-                                  [sortable]="false"
-                                  [canAutoResize]="false"
-                                  [draggable]="false" [resizeable]="false"
-                                  [headerClass]="text-center"
-                                  [cellClass]="text-center"
-                                  [prop]='absent'
-                                  name="{{'label.attendance.Absent' | translate}}">
-                <ng-template ngx-datatable-cell-template let-value="value"
-                             let-rowIndex="rowIndex" let-row="row">
-                    <input type="checkbox"
-                           (change)="updateAbsent(row,$event,rowIndex)"
-                           [checked]="row.absent"
-                           value="absent"
-                           ng-model="absent" />
-                </ng-template>
-            </ngx-datatable-column>
+                <ngx-datatable-column [width]="100"
+                                      [sortable]="false"
+                                      [canAutoResize]="false"
+                                      [draggable]="false" [resizeable]="false"
+                                      headerClass="text-center"
+                                      cellClass="text-center"
+                                      [prop]='absent'
+                                      name="{{'label.attendance.Absent' | translate}}">
+                    <ng-template ngx-datatable-cell-template let-value="value"
+                                 let-rowIndex="rowIndex" let-row="row">
+                        <input type="checkbox"
+                               (change)="updateAbsent(row,$event,rowIndex)"
+                               [checked]="row.absent"
+                               value="absent"
+                               ng-model="absent" />
+                    </ng-template>
+                </ngx-datatable-column>
 
-            <ngx-datatable-column [width]="100"
-                                  [sortable]="false"
-                                  [canAutoResize]="false"
-                                  [draggable]="false" [resizeable]="false"
-                                  [headerClass]="text-center"
-                                  [cellClass]="text-center"
-                                  [prop]='notAbsent'
-                                  name="{{'label.attendance.NotAbsent' | translate}}">
-                <ng-template ngx-datatable-cell-template let-value="value"
-                             let-rowIndex="rowIndex" let-row="row">
-                    <input type="checkbox"
-                           (change)="updateNotAbsent(row,$event,rowIndex)"
-                           [checked]="row.notAbsent"
-                           value="notAbsent"
-                           ng-model="notAbsent" />
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
+                <ngx-datatable-column [width]="100"
+                                      [sortable]="false"
+                                      [canAutoResize]="false"
+                                      [draggable]="false" [resizeable]="false"
+                                      headerClass="text-center"
+                                      cellClass="text-center"
+                                      [prop]='notAbsent'
+                                      name="{{'label.attendance.NotAbsent' | translate}}">
+                    <ng-template ngx-datatable-cell-template let-value="value"
+                                 let-rowIndex="rowIndex" let-row="row">
+                        <input type="checkbox"
+                               (change)="updateNotAbsent(row,$event,rowIndex)"
+                               [checked]="row.notAbsent"
+                               value="notAbsent"
+                               ng-model="notAbsent" />
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
     </div>
 </div>
