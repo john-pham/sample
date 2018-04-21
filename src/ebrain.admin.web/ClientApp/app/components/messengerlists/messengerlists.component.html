@@ -17,10 +17,9 @@
         <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
                        [loadingIndicator]="loadingIndicator"
                        [rows]="rows"
-                       [columns]="columns"
                        [columnMode]="'force'"
                        [scrollbarV]="verticalScrollbar"
-                       [headerHeight]="50"
+                       [headerHeight]="0"
                        [footerHeight]="50"
                        [rowHeight]="'auto'"
                        [externalPaging]="true"
@@ -28,6 +27,23 @@
                        [offset]="page.pageNumber"
                        [limit]="5"
                        (page)='setPage($event)'>
+            <ngx-datatable-column width="auto"
+                                  [sortable]="false"
+                                  [canAutoResize]="false"
+                                  [draggable]="false"
+                                  [resizeable]="false">
+                <ng-template ngx-datatable-cell-template let-value="value"
+                             let-rowIndex="rowIndex" let-row="row">
+                    <div class="notify">
+                        <img src="../../../app/assets/images/man.png" alt="sender" class="notify-img" />
+                        <div class="notify-info">
+                            <a class="notify-info-title" href="javascript:;"
+                               (click)="edit(template, row.messengerId)">{{row.messengerTitle}}</a>
+                            <p class="notify-info-time">đăng bởi <strong>admin</strong> <i class="fa fa-clock-o"></i> {{(row.createDate) | date:'dd/MM/yyyy'}}</p>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
         </ngx-datatable>
 
         <!-- TEMPLATEs -->

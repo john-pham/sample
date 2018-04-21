@@ -1,1 +1,26 @@
-﻿
+﻿.notify {
+    display: inline-flex;
+}
+
+.notify-img {
+    width: 64px;
+    height: 64px;
+    margin: auto;
+}
+
+.notify-info {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.notify-info-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.notify-info-time {
+    margin-bottom: 0;
+}
+
