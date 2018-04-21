@@ -278,6 +278,10 @@ messengerlists .ngx-datatable .datatable-row-group .datatable-body-cell {
     width: 100% !important;
 }
 
+messengerlists .ngx-datatable .datatable-body {
+    overflow-y: auto;
+}
+
 @media (max-width: 767px) {
     #app_container .content-wrapper {
         height: calc(100vh - 151px) !important; /* 102px = header(100px) + footer(51px) */
