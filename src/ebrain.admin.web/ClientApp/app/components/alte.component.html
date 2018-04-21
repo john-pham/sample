@@ -278,21 +278,24 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
+
                 <li class="header">TỔNG QUAN</li>
-                <li class="treeview">
+                <li class="treeview" 
+                    *ngIf="accessRightService.isViewFeatureGroup('A46B7B7A-0169-4C1E-A659-0068948BE767')">
                     <a routerLink="/mn_main_function">
                         <i class="fa fa-dashboard"></i> <span>{{'menu.main.Function' | translate}}</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a routerLink="/actionanalyst"><i class="fa fa-bold"></i> {{'menu.function.ActionAnalyst' | translate}}</a></li>
-                        <li><a routerLink="/investors"><i class="fa fa-university"></i> {{'menu.function.PlanInvestor' | translate}}</a></li>
+                    <ul class="treeview-menu">*ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')"
+                        <li *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')"><a routerLink="/actionanalyst"><i class="fa fa-bold"></i> {{'menu.function.ActionAnalyst' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd231')"><a routerLink="/investors"><i class="fa fa-university"></i> {{'menu.function.PlanInvestor' | translate}}</a></li>
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview"
+                    *ngIf="accessRightService.isViewFeatureGroup('d7239078-e67a-42fa-86d7-4a8c3f73d524')">
                     <a routerLink="/mn_main_categories">
                         <i class="fa fa-dashboard"></i> <span>{{'menu.main.Categories' | translate}}</span>
                         <span class="pull-right-container">
@@ -300,26 +303,27 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/branches"><i class="fa fa-bold"></i> {{'menu.stock.Branch' | translate}}</a></li>
-                        <li><a routerLink="/rooms"><i class="fa fa-university"></i> {{'menu.student.Categories.Detail.Room' | translate}}</a></li>
-                        <li><a routerLink="/shiftclasses"><i class="fa fa-hourglass"></i> {{'menu.student.Categories.Detail.Shiftclass' | translate}}</a></li>
-                        <li><a routerLink="/stocks"><i class="fa fa-home"></i> {{'menu.stock.Stock' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D7-4A8C3F73D521')"><a routerLink="/branches"><i class="fa fa-bold"></i> {{'menu.stock.Branch' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D533')"><a routerLink="/rooms"><i class="fa fa-university"></i> {{'menu.student.Categories.Detail.Room' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D4-4A8C3F73D521')"><a routerLink="/shiftclasses"><i class="fa fa-hourglass"></i> {{'menu.student.Categories.Detail.Shiftclass' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239079-E67A-42FA-86D6-4A8C3F73D534')"><a routerLink="/stocks"><i class="fa fa-home"></i> {{'menu.stock.Stock' | translate}}</a></li>
 
-                        <li><a routerLink="/units"><i class="fa fa-buysellads"></i> {{'menu.stock.Unit' | translate}}</a></li>
-                        <li><a routerLink="/typematerials"><i class="fa fa-tumblr"></i> {{'menu.stock.TypeMaterial' | translate}}</a></li>
-                        <li><a routerLink="/grpmaterials"><i class="fa fa-object-group"></i> {{'menu.stock.GrpMaterial' | translate}}</a></li>
-                        <li><a routerLink="/materials"><i class="fa fa-product-hunt"></i> {{'menu.stock.Material' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-32FA-86D6-4A8C3F73D522')"><a routerLink="/units"><i class="fa fa-buysellads"></i> {{'menu.stock.Unit' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D571')"><a routerLink="/typematerials"><i class="fa fa-tumblr"></i> {{'menu.stock.TypeMaterial' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D735')"><a routerLink="/grpmaterials"><i class="fa fa-object-group"></i> {{'menu.stock.GrpMaterial' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D544')"><a routerLink="/materials"><i class="fa fa-product-hunt"></i> {{'menu.stock.Material' | translate}}</a></li>
 
-                        <li><a routerLink="/grpsuppliers"><i class="fa fa-address-card"></i> {{'menu.stock.Grpsupplier' | translate}}</a></li>
-                        <li><a routerLink="/suppliers"><i class="fa fa-id-badge"></i> {{'menu.stock.Supplier' | translate}}</a></li>
-                        <li><a routerLink="/suppliercus"><i class="fa fa-users"></i> {{'menu.accountant.Customer' | translate}}</a></li>
-                        <li><a routerLink="/supplieremps"><i class="fa fa-user"></i> {{'menu.accountant.Employee' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D523')"><a routerLink="/grpsuppliers"><i class="fa fa-address-card"></i> {{'menu.stock.Grpsupplier' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D524')"><a routerLink="/suppliers"><i class="fa fa-id-badge"></i> {{'menu.stock.Supplier' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D525')"><a routerLink="/suppliercus"><i class="fa fa-users"></i> {{'menu.accountant.Customer' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D526')"><a routerLink="/supplieremps"><i class="fa fa-user"></i> {{'menu.accountant.Employee' | translate}}</a></li>
 
-                        <li><a routerLink="/supplierteachs"><i class="fa fa-users"></i> {{'menu.accountant.Teacher' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D527')"><a routerLink="/supplierteachs"><i class="fa fa-users"></i> {{'menu.accountant.Teacher' | translate}}</a></li>
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview"
+                    *ngIf="accessRightService.isViewFeatureGroup('d4b19636-158b-4bf0-a2cd-a83448510ce9')">
                     <a routerLink="/mn_main_educate">
                         <i class="fa fa-university"></i> <span>{{'menu.main.Educate' | translate}}</span>
                         <span class="pull-right-container">
@@ -327,27 +331,28 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/typemateriallearns"><i class="fa fa-bandcamp"></i> {{'menu.class.Learning' | translate}}</a></li>
-                        <li><a routerLink="/grpmateriallearns"><i class="fa fa-css3"></i> {{'menu.class.Levelclass' | translate}}</a></li>
-                        <li><a routerLink="/materiallearns"><i class="fa fa-balance-scale"></i> {{'menu.class.MaterialLearn' | translate}}</a></li>
-                        <li><a routerLink="/shiftclasses"><i class="fa fa-bell"></i> {{'menu.class.Shiftclass' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE9E')"><a routerLink="/typemateriallearns"><i class="fa fa-bandcamp"></i> {{'menu.class.Learning' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE91')"><a routerLink="/grpmateriallearns"><i class="fa fa-css3"></i> {{'menu.class.Levelclass' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE92')"><a routerLink="/materiallearns"><i class="fa fa-balance-scale"></i> {{'menu.class.MaterialLearn' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE93')"><a routerLink="/shiftclasses"><i class="fa fa-bell"></i> {{'menu.class.Shiftclass' | translate}}</a></li>
 
-                        <li><a routerLink="/examines"><i class="fa fa-binoculars"></i> {{'menu.student.Categories.Detail.Examine' | translate}}</a></li>
-                        <li><a routerLink="/classes"><i class="fa fa-black-tie"></i> {{'menu.student.Categories.Detail.Class' | translate}}</a></li>
-                        <li><a routerLink="/classlists"><i class="fa fa-braille"></i> {{'menu.student.Categories.Detail.ClassList' | translate}}</a></li>
-                        <li><a routerLink="/consultants"><i class="fa fa-bullhorn"></i> {{'menu.class.Consultant' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE94')"><a routerLink="/examines"><i class="fa fa-binoculars"></i> {{'menu.student.Categories.Detail.Examine' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE95')"><a routerLink="/classes"><i class="fa fa-black-tie"></i> {{'menu.student.Categories.Detail.Class' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')"><a routerLink="/classlists"><i class="fa fa-braille"></i> {{'menu.student.Categories.Detail.ClassList' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE97')"><a routerLink="/consultants"><i class="fa fa-bullhorn"></i> {{'menu.class.Consultant' | translate}}</a></li>
 
-                        <li><a routerLink="/students"><i class="fa fa-child"></i> {{'menu.class.Student' | translate}}</a></li>
-                        <li><a routerLink="/iostudents"><i class="fa fa-cubes"></i> {{'menu.class.IOStudent' | translate}}</a></li>
-                        <li><a routerLink="/iostudentlist"><i class="fa fa-check-circle"></i> {{'menu.class.IOStudentList' | translate}}</a></li>
-                        <li><a routerLink="/checkclass"><i class="fa fa fa-bar-chart-o"></i> {{'menu.student.manage.CheckClass' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><a routerLink="/students"><i class="fa fa-child"></i> {{'menu.class.Student' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE99')"><a routerLink="/iostudents"><i class="fa fa-cubes"></i> {{'menu.class.IOStudent' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE12')"><a routerLink="/iostudentlist"><i class="fa fa-check-circle"></i> {{'menu.class.IOStudentList' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE13')"><a routerLink="/checkclass"><i class="fa fa fa-bar-chart-o"></i> {{'menu.student.manage.CheckClass' | translate}}</a></li>
 
-                        <li><a routerLink="/studentbirthdays"><i class="fa fa-birthday-cake"></i> {{'menu.student.manage.BirthdayStudent' | translate}}</a></li>
-                        <li><a routerLink="/studentendclass"><i class="fa fa-expeditedssl"></i> {{'label.student.EndClass' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE14')"><a routerLink="/studentbirthdays"><i class="fa fa-birthday-cake"></i> {{'menu.student.manage.BirthdayStudent' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('8aa6e971-1c3d-4835-b154-d662ce12a100')"><a routerLink="/studentendclass"><i class="fa fa-expeditedssl"></i> {{'label.student.EndClass' | translate}}</a></li>
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview"
+                    *ngIf="accessRightService.isViewFeatureGroup('90646515-e1c4-4e51-94f3-ca0e87ebb22b')">
                     <a routerLink="/mn_main_stock">
                         <i class="fa fa-shopping-cart"></i>
                         <span>{{'mainMenu.mn-stocks' | translate}}</span>
@@ -356,20 +361,21 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/mn_stock_inputs_stock"><i class="fa fa-shopping-cart"></i> {{'menu.stock.PurchaseOrder' | translate}}</a></li>
-                        <li><a routerLink="/ioinputs"><i class="fa fa-hand-holding-box"></i> {{'menu.stock.InputStock' | translate}}</a></li>
-                        <li><a routerLink="/iostudentlist"><i class="fa fa-tasks"></i> {{'menu.stock.OutputStockList' | translate}}</a></li>
-                        <li><a routerLink="/iostudents"><i class="fa fa-shipping-fast"></i> {{'menu.stock.OutputStock' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')"><a routerLink="/mn_stock_inputs_stock"><i class="fa fa-shopping-cart"></i> {{'menu.stock.PurchaseOrder' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad182a1')"><a routerLink="/ioinputs"><i class="fa fa-hand-holding-box"></i> {{'menu.stock.InputStock' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A2')"><a routerLink="/iostudentlist"><i class="fa fa-tasks"></i> {{'menu.stock.OutputStockList' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A3')"><a routerLink="/iostudents"><i class="fa fa-shipping-fast"></i> {{'menu.stock.OutputStock' | translate}}</a></li>
 
-                        <li><a routerLink="/iosummarizes"><i class="fa fa-warehouse-alt"></i> {{'menu.stock.SumaryInput' | translate}}</a></li>
-                        <li><a routerLink="/iodetails"><i class="fa fa-warehouse"></i> {{'menu.stock.DetailInput' | translate}}</a></li>
-                        <li><a routerLink="/warehousecards"><i class="fa fa-shipping-fast"></i> {{'menu.stock.StockCard' | translate}}</a></li>
-                        <li><a routerLink="/inventorieslist"><i class="fa fa-suitcase"></i> {{'menu.stock.StockInventoryDes' | translate}}</a></li>
-                        <li><a routerLink="/inventories"><i class="fa fa-cogs"></i> {{'menu.stock.UpdateInventory' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A4')"><a routerLink="/iosummarizes"><i class="fa fa-warehouse-alt"></i> {{'menu.stock.SumaryInput' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A5')"><a routerLink="/iodetails"><i class="fa fa-warehouse"></i> {{'menu.stock.DetailInput' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A6')"><a routerLink="/warehousecards"><i class="fa fa-shipping-fast"></i> {{'menu.stock.StockCard' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A8')"><a routerLink="/inventorieslist"><i class="fa fa-suitcase"></i> {{'menu.stock.StockInventoryDes' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A9')"><a routerLink="/inventories"><i class="fa fa-cogs"></i> {{'menu.stock.UpdateInventory' | translate}}</a></li>
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview"
+                    *ngIf="accessRightService.isViewFeatureGroup('47cee5c9-57b5-4f17-91ac-d16efb56b3a2')">
                     <a routerLink="/mn_main_accountant">
                         <i class="fa fa-pie-chart"></i>
                         <span>{{'mainMenu.mn-finances' | translate}}</span>
@@ -378,18 +384,19 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/payments"><i class="fa fa-fax"></i> {{'menu.accountant.IsPayment' | translate}}</a></li>
-                        <li><a routerLink="/paymentvouchers"><i class="fa fa-fax"></i> {{'menu.accountant.IsPaymentFalse' | translate}}</a></li>
-                        <li><a routerLink="/paymentlist"><i class="fa fa-tasks"></i> {{'menu.accountant.ReportSummarize' | translate}}</a></li>
-                        <li><a routerLink="/paymentdetaillist"><i class="fa fa-tasks"></i> {{'menu.accountant.ReportDetailDes' | translate}}</a></li>
-                        <li><a routerLink="/deptslist"><i class="fa fa-suitcase"></i> {{'menu.accountant.Dept' | translate}}</a></li>
-                        <li><a routerLink="/profitslist"><i class="fa fa-money"></i> {{'menu.accountant.Profit' | translate}}</a></li>
-                        <li><a routerLink="/depts"><i class="fa fa-cogs"></i> {{'menu.stock.UpdateDept' | translate}}</a></li>
-                        <li><a routerLink="/profits"><i class="fa fa-cogs"></i> {{'menu.accountant.UpdateProfit' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B31')"><a routerLink="/payments"><i class="fa fa-fax"></i> {{'menu.accountant.IsPayment' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B32')"><a routerLink="/paymentvouchers"><i class="fa fa-fax"></i> {{'menu.accountant.IsPaymentFalse' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B33')"><a routerLink="/paymentlist"><i class="fa fa-tasks"></i> {{'menu.accountant.ReportSummarize' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B34')"><a routerLink="/paymentdetaillist"><i class="fa fa-tasks"></i> {{'menu.accountant.ReportDetailDes' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B35')"><a routerLink="/deptslist"><i class="fa fa-suitcase"></i> {{'menu.accountant.Dept' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B36')"><a routerLink="/profitslist"><i class="fa fa-money"></i> {{'menu.accountant.Profit' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B37')"><a routerLink="/depts"><i class="fa fa-cogs"></i> {{'menu.stock.UpdateDept' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B38')"><a routerLink="/profits"><i class="fa fa-cogs"></i> {{'menu.accountant.UpdateProfit' | translate}}</a></li>
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview"
+                    *ngIf="accessRightService.isViewFeatureGroup('a991597c-e137-4528-9643-57502151f7ae')">
                     <a routerLink="/mn_main_sms">
                         <i class="fa fa-pie-chart"></i>
                         <span>{{'menu.main.SMS' | translate}}</span>
@@ -398,15 +405,16 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/sms"><i class="fa fa-fax"></i> {{'menu.sms.SendSMS' | translate}}</a></li>
-                        <li><a routerLink="/sms"><i class="fa fa-fax"></i> {{'menu.sms.HistorySMS' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('ADC69968-D9E7-4C9E-AD15-206ED47A6F18')"><a routerLink="/sms"><i class="fa fa-fax"></i> {{'menu.sms.SendSMS' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('ADC69968-D9E7-4C9E-AD15-206ED47A6F19')"><a routerLink="/sms"><i class="fa fa-fax"></i> {{'menu.sms.HistorySMS' | translate}}</a></li>
 
-                        <li><a routerLink="/messengers"><i class="fa fa-comments"></i> {{'menu.sms.Messenger' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('ADC69968-D9E7-4C9E-AD15-206ED47A6D30')"><a routerLink="/messengers"><i class="fa fa-comments"></i> {{'menu.sms.Messenger' | translate}}</a></li>
 
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview"
+                    *ngIf="accessRightService.isViewFeatureGroup('d17a0d74-4684-48df-b2bc-d275f5e33914')">
                     <a routerLink="/mn_main_document">
                         <i class="fa fa-anchor"></i>
                         <span>{{'menu.main.Document' | translate}}</span>
@@ -415,13 +423,14 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/grpdocuments"><i class="fa fa-anchor"></i> {{'menu.document.GrpDocument' | translate}}</a></li>
-                        <li><a routerLink="/documents"><i class="fa fa-android"></i> {{'menu.document.Document' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9C100588-C478-47C8-BE15-40523BB6BA1A')"><a routerLink="/grpdocuments"><i class="fa fa-anchor"></i> {{'menu.document.GrpDocument' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9C100588-C478-47C8-BE15-40523BB6BA1B')"><a routerLink="/documents"><i class="fa fa-android"></i> {{'menu.document.Document' | translate}}</a></li>
 
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview"
+                    *ngIf="accessRightService.isViewFeatureGroup('D17A0D74-4684-48DF-B2BC-D275F5E33915')">
                     <a routerLink="/mn_main_system">
                         <i class="fa fa-wrench"></i>
                         <span>{{'menu.main.System' | translate}}</span>
@@ -430,10 +439,10 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a routerLink="/usergroups"><i class="fa fa-user-times"></i> {{'label.usergroup.HeaderAdd' | translate}}</a></li>
-                        <li><a routerLink="/featuregroups"><i class="fa fa-universal-access"></i> {{'label.featuregroup.HeaderAdd' | translate}}</a></li>
-                        <li><a routerLink="/accessrights"><i class="fa fa-viacoin"></i> {{'label.accessright.AccessRight' | translate}}</a></li>
-                        <li><a routerLink="/userroles"><i class="fa fa-user"></i> {{'label.userrole.UserRole' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')"><a routerLink="/usergroups"><i class="fa fa-user-times"></i> {{'label.usergroup.HeaderAdd' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')"><a routerLink="/featuregroups"><i class="fa fa-universal-access"></i> {{'label.featuregroup.HeaderAdd' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')"><a routerLink="/accessrights"><i class="fa fa-viacoin"></i> {{'label.accessright.AccessRight' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')"><a routerLink="/userroles"><i class="fa fa-user"></i> {{'label.userrole.UserRole' | translate}}</a></li>
                     </ul>
                 </li>
             </ul>

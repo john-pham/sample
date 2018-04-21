@@ -24,7 +24,7 @@ namespace Ebrain.Controllers
         {
             this._logger = logger;
             this.loadPermission(unitOfWork);
-            this.loadBehavior(this.GetType());
+            //this.loadBehavior(this.GetType());
 
             if(!this.CanView)
             {
@@ -66,7 +66,7 @@ namespace Ebrain.Controllers
                     if (attr is ViewModels.Security)
                     {
                         var att = (ViewModels.Security)attr;
-                        var value = items.FirstOrDefault(x => x.FeatureID == att.ID);
+                        var value = items.FirstOrDefault(x => x.FeatureId == att.ID);
                         if (value != null)
                         {
                             view = value.View;

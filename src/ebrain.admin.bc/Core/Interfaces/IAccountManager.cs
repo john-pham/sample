@@ -43,5 +43,6 @@ namespace ebrain.admin.bc.Core.Interfaces
         Task<Tuple<bool, string[]>> UpdateUserAsync(ApplicationUser user);
         Task<Tuple<bool, string[]>> UpdateUserAsync(ApplicationUser user, IEnumerable<string> roles);
         Task<Guid?> GetBranchByUserIdAsync(string userId);
+        Task<IList<Report.AccessRight>> GetAccessRight(Guid userId);
     }
 }

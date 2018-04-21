@@ -62,8 +62,6 @@
                    [columns]="columns"
                    [columnMode]="'force'"
                    [scrollbarV]="verticalScrollbar"
-                   [headerHeight]="50"
-                   [footerHeight]="50"
                    [rowHeight]="'auto'"
                    [externalPaging]="true"
                    [count]="page.totalElements">
@@ -100,7 +98,6 @@
 
     <ng-template #createTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
-               autofocus
                 [checked]="row.create"
                (change)="updateCreateValue(row,$event,rowIndex)" />
     </ng-template>

@@ -88,7 +88,7 @@ export class AccountService {
 
     getAccessRights() {
         return this.accountEndpoint.getAccessRightsEndpoint()
-            .map((response: Response) => <[AccessRight]>response.json());
+            .map((response: Response) => <AccessRight[]>response.json());
     }
 
     newUser(user: UserEdit) {

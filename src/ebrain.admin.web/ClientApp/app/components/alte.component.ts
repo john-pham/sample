@@ -25,6 +25,8 @@ import { MessengerService } from "../services/messengers.service";
 import { Results } from "../models/results.model";
 import { Messenger } from "../models/messenger.model";
 import { Utilities } from "../services/utilities";
+import { AccessRight } from "../models/accessright.model";
+import { AccessRightsService } from "../services/access-rights.service";
 
 require('jquery');
 var alertify: any = require('../assets/scripts/alertify.js');
@@ -82,6 +84,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
     //messenger
     countMessenger: any = 0;
     messengers = [];
+    accessRights = [];
 
     get notificationsTitle() {
 
@@ -97,7 +100,8 @@ export class AlteComponent implements OnInit, AfterViewInit {
     constructor(storageManager: LocalStoreManager, private toastyService: ToastyService, private toastyConfig: ToastyConfig,
         private accountService: AccountService, private alertService: AlertService, private notificationService: NotificationService,
         private appTitleService: AppTitleService, private messengerService: MessengerService,
-        private authService: AuthService, private translationService: AppTranslationService, public configurations: ConfigurationService, public router: Router) {
+        private authService: AuthService, private translationService: AppTranslationService, public configurations: ConfigurationService,
+        public accessRightService: AccessRightsService, public router: Router) {
 
         storageManager.initialiseStorageSyncListener();
 
@@ -173,7 +177,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
                 //else
                 //    this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again", MessageSeverity.warn);
                 //
-                this.accountService.getAccessRights();
+                this.getAccessRight();
             }
         }, 2000);
 
@@ -243,10 +247,26 @@ export class AlteComponent implements OnInit, AfterViewInit {
         this.getMessenger();
     }
 
+    getAccessRight() {
+        var disp = this.accountService.getAccessRights().subscribe(
+            resulted => this.onAccessRightLoadSuccessful(resulted),
+            error => this.onLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { }, 1500);
+            });
+    }
+
+    private onAccessRightLoadSuccessful(resulted: AccessRight[]) {
+        this.accessRights = resulted;
+        this.accessRightService.accessRights = resulted;
+        this.alertService.stopLoadingMessage();
+    }
+
     getMessenger() {
         var disp = this.messengerService.getnewmessenger().subscribe(
             resulted => this.onMessengerLoadSuccessful(resulted),
-            error => this.onMessengerLoadFailed(error),
+            error => this.onLoadFailed(error),
             () => {
                 disp.unsubscribe();
                 setTimeout(() => { }, 1500);
@@ -259,7 +279,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
         this.alertService.stopLoadingMessage();
     }
 
-    private onMessengerLoadFailed(error: any) {
+    private onLoadFailed(error: any) {
         this.alertService.stopLoadingMessage();
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);

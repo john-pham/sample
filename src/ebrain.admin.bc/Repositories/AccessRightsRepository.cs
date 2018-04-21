@@ -132,9 +132,9 @@ namespace ebrain.admin.bc.Repositories
 
                     m_Ret.Add(new Report.AccessRight
                     {
-                        FeatureID = item.ID,
+                        FeatureId = item.ID,
                         FeatureName = item.Name,
-                        GroupID = data.ID,
+                        GroupId = data.ID,
                         GroupName = data.Name,
                         View = (((Behavior)value & Behavior.View) == Behavior.View),
                         Edit = (((Behavior)value & Behavior.Edit) == Behavior.Edit),
@@ -174,9 +174,9 @@ namespace ebrain.admin.bc.Repositories
 
                 m_Ret = new Report.AccessRight
                 {
-                    FeatureID = item.ID,
+                    FeatureId = item.ID,
                     FeatureName = item.Name,
-                    GroupID = data.ID,
+                    GroupId = data.ID,
                     GroupName = data.Name,
                     View = (((Behavior)item.Value & Behavior.View) == Behavior.View),
                     Edit = (((Behavior)item.Value & Behavior.Edit) == Behavior.Edit),

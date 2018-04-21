@@ -39,6 +39,15 @@ namespace Ebrain.Controllers
             _authorizationService = authorizationService;
         }
 
+        [HttpGet("users/accessrights")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetAccessRight()
+        {
+            var userId = Utilities.GetUserId(this.User);
+            var list = _accountManager.GetAccessRight(userId);
+            return this.Ok(list.Result);
+        }
+
         [HttpGet("users/me")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetCurrentUser()

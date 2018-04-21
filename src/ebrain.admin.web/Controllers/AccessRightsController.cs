@@ -67,9 +67,9 @@ namespace Ebrain.Controllers
             var ret = from c in await bus.Search(groupId, featureGroupId, page, size)
                       select new AccessRightViewModel
                       {
-                          FeatureID = c.FeatureID,
+                          FeatureID = c.FeatureId,
                           FeatureName = c.FeatureName,
-                          GroupID = c.GroupID,
+                          GroupID = c.GroupId,
                           GroupName = c.GroupName,
                           View = c.View,
                           Edit = c.Edit,
@@ -92,9 +92,9 @@ namespace Ebrain.Controllers
 
             var branch = new AccessRightViewModel
             {
-                FeatureID = item.FeatureID,
+                FeatureID = item.FeatureId,
                 FeatureName = item.FeatureName,
-                GroupID = item.GroupID,
+                GroupID = item.GroupId,
                 GroupName = item.GroupName,
                 View = item.View,
                 Edit = item.Edit,

@@ -25,7 +25,7 @@ export class AccessRightsService {
     constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: AccessRightsEndpoint) {
         this.initializeStatus();
     }
-    
+
     search(groupId: string, featureGroupId: string, page: number, size: number) {
         return this.endpointFactory.search(groupId, featureGroupId, page, size)
             .map((response: Response) => <Results<AccessRight>>response.json());
@@ -62,6 +62,24 @@ export class AccessRightsService {
     }
 
     private initializeStatus() {
-        
+
+    }
+
+    //permission accessRight
+    public accessRights = [];
+    private isViewFeatureGroup(featureGroupId: string) {
+        if (this.accessRights != null && this.accessRights.length > 0) {
+            var array = this.accessRights.filter(p => p.featureGroupId == featureGroupId.toLowerCase() && p.view == true);
+            return array != null && array.length > 0;
+        }
+        return false;
+    }
+
+    private isViewFeature(featureId: string) {
+        if (this.accessRights != null && this.accessRights.length > 0) {
+            var array = this.accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.view == true);
+            return array != null && array.length > 0;
+        }
+        return false;
     }
 }

@@ -146,9 +146,9 @@ namespace ebrain.admin.bc.Repositories
                 where r.UserId == userId && r.IsActive
                 select new Report.AccessRight
                 {
-                    FeatureID = a.FeatureID,
+                    FeatureId = a.FeatureID,
                     //FeatureName = a.fe
-                    GroupID = a.GroupID,
+                    GroupId = a.GroupID,
                     //GroupName = a.
                     View = (((Behavior)(a.Value ?? 0) & Behavior.View) == Behavior.View),
                     Edit = (((Behavior)(a.Value ?? 0) & Behavior.Edit) == Behavior.Edit),

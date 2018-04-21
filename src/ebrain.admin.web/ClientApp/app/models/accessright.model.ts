@@ -20,6 +20,8 @@ export class AccessRight {
     public featureId: string;
     public featureName: string;
 
+    public featureGroupId: string;
+
     public groupId: string;
     public groupName: string;
 

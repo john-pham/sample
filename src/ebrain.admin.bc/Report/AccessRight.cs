@@ -5,8 +5,9 @@ namespace ebrain.admin.bc.Report
 {
     public class AccessRight
     {
-        public Guid GroupID { get; set; }
-        public Guid FeatureID { get; set; }
+        public Guid GroupId { get; set; }
+        public Guid FeatureId { get; set; }
+        public Guid FeatureGroupId { get; set; }
 
         public string FeatureName { get; set; }
 

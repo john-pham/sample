@@ -18,6 +18,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using ebrain.admin.bc.Core;
+using ebrain.admin.bc.Utilities;
 
 namespace ebrain.admin.bc.Core
 {
@@ -381,6 +382,30 @@ namespace ebrain.admin.bc.Core
         {
             var result = await _roleManager.DeleteAsync(role);
             return Tuple.Create(result.Succeeded, result.Errors.Select(e => e.Description).ToArray());
+        }
+        
+        public async Task<IList<Report.AccessRight>> GetAccessRight(Guid userId)
+        {
+            var data = await (
+                from a in _context.AccessRight
+                join r in _context.UserRole on a.GroupID equals r.GroupId
+                join f in _context.Feature on a.FeatureID equals f.ID
+                join fg in _context.FeatureGroup on f.GroupID equals fg.ID
+                where r.UserId == userId && r.IsActive
+                select new Report.AccessRight
+                {
+                    FeatureId = a.FeatureID,
+                    //FeatureName = a.fe
+                    GroupId = a.GroupID,
+                    FeatureGroupId = fg.ID,
+                    //GroupName = a.
+                    View = (((Behavior)(a.Value ?? 0) & Behavior.View) == Behavior.View),
+                    Edit = (((Behavior)(a.Value ?? 0) & Behavior.Edit) == Behavior.Edit),
+                    Delete = (((Behavior)(a.Value ?? 0) & Behavior.Delete) == Behavior.Delete),
+                    Create = (((Behavior)(a.Value ?? 0) & Behavior.Create) == Behavior.Create),
+                }).ToListAsync();
+
+            return data;
         }
     }
 }
