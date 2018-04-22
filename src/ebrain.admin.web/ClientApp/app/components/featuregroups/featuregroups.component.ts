@@ -74,7 +74,7 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
          
             { headerClass: "text-center", prop: 'name', name: gT('label.featuregroup.Name'), width: 100, cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'description', name: gT('label.featuregroup.Note'), cellTemplate: this.nameTemplate },
-            { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         this.getFromServer();

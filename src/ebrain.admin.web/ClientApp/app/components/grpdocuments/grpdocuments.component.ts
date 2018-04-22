@@ -71,7 +71,7 @@ export class GrpDocumentsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'name', name: gT('label.grpdocument.Name'), cellTemplate: this.nameTemplate },
 
             { headerClass: "text-center", prop: 'note', name: gT('label.grpdocument.Note'), cellTemplate: this.descriptionTemplate },
-            { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { headerClass: "text-center", prop: 'id', name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
         
         this.getFromServer();

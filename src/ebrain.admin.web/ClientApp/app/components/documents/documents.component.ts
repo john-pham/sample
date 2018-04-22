@@ -77,7 +77,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: "code", name: gT('label.document.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
             { headerClass: "text-center", prop: 'name', name: gT('label.document.Name'), cellTemplate: this.hyperlinkTemplate },
             { headerClass: "text-center", prop: 'note', name: gT('label.document.Note'), cellTemplate: this.descriptionTemplate },
-            { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { headerClass: "text-center", prop: 'id', name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         this.getFromServer();

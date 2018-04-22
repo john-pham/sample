@@ -25,47 +25,50 @@
     </div>
 </div>
 
-<div [@fadeInOut]>
-    <!--DATA TABLE-->
-    <ngx-datatable class="material colored-header sm table-hover"
-                   [loadingIndicator]="loadingIndicator"
-                   [rows]="rows"
-                   [rowHeight]="auto"
-                   [columns]="columns"
-                   [scrollbarV]="verticalScrollbar"
-                   [columnMode]="'force'">
-    </ngx-datatable>
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table-hover"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [rowHeight]="auto"
+                       [columns]="columns"
+                       [scrollbarV]="verticalScrollbar"
+                       [columnMode]="'force'">
+        </ngx-datatable>
 
-    <!-- TEMPLATEs -->
-    <ng-template #statusHeaderTemplate>
-        <i class="fa fa-check-square-o"></i>
-    </ng-template>
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
 
-    <ng-template #nameTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
-    <ng-template #descriptionTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
-    <ng-template #priceTemplate let-row="row" let-value="value">
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #priceTemplate let-row="row" let-value="value">
 
-        <span class="currency-pipe" attr.title="{{value}}">
-            {{value | currencypipe }}
-        </span>
-        <!--<input class="form-control" currencyMask type="tel" [(ngModel)]="{{value}}">-->
+            <span class="currency-pipe" attr.title="{{value}}">
+                {{value | currencypipe }}
+            </span>
+            <!--<input class="form-control" currencyMask type="tel" [(ngModel)]="{{value}}">-->
 
-    </ng-template>
-    <ng-template #actionsTemplate let-row="row" let-value="value">
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editMaterial(template, row.id)"
-           *ngIf="accessRightService.isEdit('D7239078-E67A-42FA-86D6-4A8C3F73D544')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
-        |
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(value)"
-           *ngIf="accessRightService.isDelete('D7239078-E67A-42FA-86D6-4A8C3F73D544')"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
-    </ng-template>
+        </ng-template>
+        
+        <ng-template #actionsTemplate let-row="row" let-value="value">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editMaterial(template, row.id)"
+               *ngIf="accessRightService.isEdit('D7239078-E67A-42FA-86D6-4A8C3F73D544')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.Edit' | translate}}</a>
+            |
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(value)"
+               *ngIf="accessRightService.isDelete('D7239078-E67A-42FA-86D6-4A8C3F73D544')"><i class="fa fa-trash-o" aria-hidden="true"></i>{{'button.Delete' | translate}}</a>
+        </ng-template>
+    </div>
 </div>
 
 <ng-template #template>

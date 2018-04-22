@@ -55,118 +55,121 @@
     </div>
 </div>
 
-<div [@fadeInOut]>
-    <!--DATA TABLE-->
-    <ngx-datatable class="material colored-header sm table table-bordered"
-                   [loadingIndicator]="loadingIndicator"
-                   [rows]="rows"
-                   [columns]="columns"
-                   [columnMode]="'force'"
-                   [scrollbarV]="verticalScrollbar"
-                   [count]="page.totalElements">
-    </ngx-datatable>
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table table-bordered"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [columns]="columns"
+                       [columnMode]="'force'"
+                       [scrollbarV]="verticalScrollbar"
+                       [scrollbarH]="true"
+                       [count]="page.totalElements">
+        </ngx-datatable>
 
-    <!-- TEMPLATEs -->
-    <ng-template #statusHeaderTemplate>
-        <i class="fa fa-check-square-o"></i>
-    </ng-template>
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
 
-    <ng-template #statusTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
-
-    <ng-template #nameTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
-
-    <ng-template #headerNameTemplate let-row="row" let-value="value">
-        <div>
+        <ng-template #statusTemplate let-row="row" let-value="value">
             <span attr.title="{{value}}">
                 {{value}}
             </span>
-            <br />
-            <span attr.title="{{'label.accessright.Feature' | translate}}">
-                {{'label.accessright.Feature' | translate}}
+        </ng-template>
+
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
             </span>
-        </div>
-    </ng-template>
+        </ng-template>
 
-    <ng-template #headerViewTemplate let-row="row" let-value="value">
-        <div>
-            <input type="checkbox"
-                   (change)="updateHeaderViewValue(0,$event)" />
-            <br />
-            <span attr.title="{{'label.accessright.View' | translate}}">
-                {{'label.accessright.View' | translate}}
+        <ng-template #headerNameTemplate let-row="row" let-value="value">
+            <div>
+                <span attr.title="{{value}}">
+                    {{value}}
+                </span>
+                <br />
+                <span attr.title="{{'label.accessright.Feature' | translate}}">
+                    {{'label.accessright.Feature' | translate}}
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template #headerViewTemplate let-row="row" let-value="value">
+            <div>
+                <input type="checkbox"
+                       (change)="updateHeaderViewValue(0,$event)" />
+                <br />
+                <span attr.title="{{'label.accessright.View' | translate}}">
+                    {{'label.accessright.View' | translate}}
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template #headerEditTemplate let-row="row" let-value="value">
+            <div>
+                <input type="checkbox"
+                       (change)="updateHeaderViewValue(1,$event)" />
+                <br />
+                <span attr.title="{{'label.accessright.Edit' | translate}}">
+                    {{'label.accessright.Edit' | translate}}
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template #headerCreateTemplate let-row="row" let-value="value">
+            <div>
+                <input type="checkbox"
+                       (change)="updateHeaderViewValue(2,$event)" />
+                <br />
+                <span attr.title="{{'label.accessright.Create' | translate}}">
+                    {{'label.accessright.Create' | translate}}
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template #headerDeleteTemplate let-row="row" let-value="value">
+            <div>
+                <input type="checkbox"
+                       (change)="updateHeaderViewValue(3,$event)" />
+                <br />
+                <span attr.title="{{'label.accessright.Delete' | translate}}">
+                    {{'label.accessright.Delete' | translate}}
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template #viewTemplate let-row="row" let-value="value">
+            <input type="checkbox" value="{{value}}"
+                   [checked]="row.view"
+                   (change)="updateViewValue(row,$event,rowIndex)" />
+        </ng-template>
+
+        <ng-template #editTemplate let-row="row" let-value="value">
+            <input type="checkbox" value="{{value}}"
+                   [checked]="row.edit"
+                   (change)="updateEditValue(row,$event,rowIndex)" />
+        </ng-template>
+
+        <ng-template #createTemplate let-row="row" let-value="value">
+            <input type="checkbox" value="{{value}}"
+                   [checked]="row.create"
+                   (change)="updateCreateValue(row,$event,rowIndex)" />
+        </ng-template>
+
+        <ng-template #deleteTemplate let-row="row" let-value="value">
+            <input type="checkbox" value="{{value}}"
+                   [checked]="row.delete"
+                   (change)="updateDeleteValue(row,$event,rowIndex)" />
+        </ng-template>
+
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
             </span>
-        </div>
-    </ng-template>
+        </ng-template>
 
-    <ng-template #headerEditTemplate let-row="row" let-value="value">
-        <div>
-            <input type="checkbox"
-                   (change)="updateHeaderViewValue(1,$event)" />
-            <br />
-            <span attr.title="{{'label.accessright.Edit' | translate}}">
-                {{'label.accessright.Edit' | translate}}
-            </span>
-        </div>
-    </ng-template>
-
-    <ng-template #headerCreateTemplate let-row="row" let-value="value">
-        <div>
-            <input type="checkbox"
-                   (change)="updateHeaderViewValue(2,$event)" />
-            <br />
-            <span attr.title="{{'label.accessright.Create' | translate}}">
-                {{'label.accessright.Create' | translate}}
-            </span>
-        </div>
-    </ng-template>
-
-    <ng-template #headerDeleteTemplate let-row="row" let-value="value">
-        <div>
-            <input type="checkbox"
-                   (change)="updateHeaderViewValue(3,$event)" />
-            <br />
-            <span attr.title="{{'label.accessright.Delete' | translate}}">
-                {{'label.accessright.Delete' | translate}}
-            </span>
-        </div>
-    </ng-template>
-
-    <ng-template #viewTemplate let-row="row" let-value="value">
-        <input type="checkbox" value="{{value}}"
-               [checked]="row.view"
-               (change)="updateViewValue(row,$event,rowIndex)" />
-    </ng-template>
-
-    <ng-template #editTemplate let-row="row" let-value="value">
-        <input type="checkbox" value="{{value}}"
-               [checked]="row.edit"
-               (change)="updateEditValue(row,$event,rowIndex)" />
-    </ng-template>
-
-    <ng-template #createTemplate let-row="row" let-value="value">
-        <input type="checkbox" value="{{value}}"
-               [checked]="row.create"
-               (change)="updateCreateValue(row,$event,rowIndex)" />
-    </ng-template>
-
-    <ng-template #deleteTemplate let-row="row" let-value="value">
-        <input type="checkbox" value="{{value}}"
-               [checked]="row.delete"
-               (change)="updateDeleteValue(row,$event,rowIndex)" />
-    </ng-template>
-
-    <ng-template #descriptionTemplate let-row="row" let-value="value">
-        <span attr.title="{{value}}">
-            {{value}}
-        </span>
-    </ng-template>
-
+    </div>
 </div>

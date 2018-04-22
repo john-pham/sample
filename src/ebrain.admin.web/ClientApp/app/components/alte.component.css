@@ -258,10 +258,8 @@ header {
                         /*position: absolute;*/
                         height: 100% !important;
                         max-height: calc(100vh - 160px) !important;
-                        /*
-                        overflow-x: hidden;
+                        overflow-x: auto;
                         overflow-y: auto;
-                        */
                     }
 
                 #app_container aside.main-sidebar {
