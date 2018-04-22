@@ -14,13 +14,13 @@
 <div class="row control-box">
     <div class="col-sm-5">
         <label for="message-text" class="control-label">{{'label.accessright.UserGroup' | translate}}</label>
-        <div >
+        <div>
             <select id="types-user-info" name="type" [(ngModel)]="groupId" class="form-control"
                     data-live-search="true" data-actions-box="false"
                     (change)="search()"
                     title="{{'label.accessright.UserGroup' | translate}}">
-                <option *ngFor="let user of userGroups" 
-                         attr.value="{{user.id}}"
+                <option *ngFor="let user of userGroups"
+                        attr.value="{{user.id}}"
                         attr.data-content="<span title='{{user.note}}' class='badge'>{{user.name}}</span>">
                     {{user.name}}
                 </option>
@@ -36,8 +36,8 @@
                     (change)="search()"
                     title="{{'label.accessright.FeatureGroup' | translate}}">
                 <option>All</option>
-                <option *ngFor="let fea of featureGroups" 
-                         attr.value="{{fea.id}}"
+                <option *ngFor="let fea of featureGroups"
+                        attr.value="{{fea.id}}"
                         attr.data-content="<span title='{{fea.note}}' class='badge'>{{fea.name}}</span>">
                     {{fea.name}}
                 </option>
@@ -47,8 +47,8 @@
     </div>
     <div class="col-sm-2">
         <div class="text-right">
-            <button type="button" class="btn btn-primary" (click)="save()"
-                    *ngIf="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A9D32')">
+            <button type="button" class="btn btn-primary" (click)="save()">
+                <!--*ngIf="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A9D32')"-->
                 <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
             </button>
         </div>
@@ -57,14 +57,12 @@
 
 <div [@fadeInOut]>
     <!--DATA TABLE-->
-    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+    <ngx-datatable class="material colored-header sm table table-bordered"
                    [loadingIndicator]="loadingIndicator"
                    [rows]="rows"
                    [columns]="columns"
                    [columnMode]="'force'"
                    [scrollbarV]="verticalScrollbar"
-                   [rowHeight]="'auto'"
-                   [externalPaging]="true"
                    [count]="page.totalElements">
     </ngx-datatable>
 
@@ -85,6 +83,62 @@
         </span>
     </ng-template>
 
+    <ng-template #headerNameTemplate let-row="row" let-value="value">
+        <div>
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+            <br />
+            <span attr.title="{{'label.accessright.Feature' | translate}}">
+                {{'label.accessright.Feature' | translate}}
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template #headerViewTemplate let-row="row" let-value="value">
+        <div>
+            <input type="checkbox"
+                   (change)="updateHeaderViewValue(0,$event)" />
+            <br />
+            <span attr.title="{{'label.accessright.View' | translate}}">
+                {{'label.accessright.View' | translate}}
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template #headerEditTemplate let-row="row" let-value="value">
+        <div>
+            <input type="checkbox"
+                   (change)="updateHeaderViewValue(1,$event)" />
+            <br />
+            <span attr.title="{{'label.accessright.Edit' | translate}}">
+                {{'label.accessright.Edit' | translate}}
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template #headerCreateTemplate let-row="row" let-value="value">
+        <div>
+            <input type="checkbox"
+                   (change)="updateHeaderViewValue(2,$event)" />
+            <br />
+            <span attr.title="{{'label.accessright.Create' | translate}}">
+                {{'label.accessright.Create' | translate}}
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template #headerDeleteTemplate let-row="row" let-value="value">
+        <div>
+            <input type="checkbox"
+                   (change)="updateHeaderViewValue(3,$event)" />
+            <br />
+            <span attr.title="{{'label.accessright.Delete' | translate}}">
+                {{'label.accessright.Delete' | translate}}
+            </span>
+        </div>
+    </ng-template>
+
     <ng-template #viewTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
                [checked]="row.view"
@@ -93,19 +147,19 @@
 
     <ng-template #editTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
-                [checked]="row.edit"
+               [checked]="row.edit"
                (change)="updateEditValue(row,$event,rowIndex)" />
     </ng-template>
 
     <ng-template #createTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
-                [checked]="row.create"
+               [checked]="row.create"
                (change)="updateCreateValue(row,$event,rowIndex)" />
     </ng-template>
 
     <ng-template #deleteTemplate let-row="row" let-value="value">
         <input type="checkbox" value="{{value}}"
-                [checked]="row.delete"
+               [checked]="row.delete"
                (change)="updateDeleteValue(row,$event,rowIndex)" />
     </ng-template>
 
@@ -114,5 +168,5 @@
             {{value}}
         </span>
     </ng-template>
-   
+
 </div>

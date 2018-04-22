@@ -62,8 +62,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         private modalService: BsModalService) {
         this.pointer = new AccessRight();
         this.page = new Page();
-        this.page.pageNumber = 0;
-        this.page.size = 20;
+
     }
 
     ngOnInit() {
@@ -72,11 +71,11 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
         this.columns = [
 
-            { headerClass: "text-center", prop: 'featureName', name: gT('label.accessright.Feature'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'view', name: gT('label.accessright.View'), cellTemplate: this.viewTemplate },
-            { headerClass: "text-center", prop: 'edit', name: gT('label.accessright.Edit'), cellTemplate: this.editTemplate },
-            { headerClass: "text-center", prop: 'create', name: gT('label.accessright.Create'), cellTemplate: this.createTemplate },
-            { headerClass: "text-center", prop: 'delete', name: gT('label.accessright.Delete'), cellTemplate: this.deleteTemplate }
+            { headerClass: "text-center", prop: 'featureName', name: gT('label.accessright.Feature'), headerTemplate: this.headerNameTemplate, cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'view', name: gT('label.accessright.View'), headerTemplate: this.headerViewTemplate, cellTemplate: this.viewTemplate },
+            { headerClass: "text-center", prop: 'edit', name: gT('label.accessright.Edit'), headerTemplate: this.headerEditTemplate, cellTemplate: this.editTemplate },
+            { headerClass: "text-center", prop: 'create', name: gT('label.accessright.Create'), headerTemplate: this.headerCreateTemplate,cellTemplate: this.createTemplate },
+            { headerClass: "text-center", prop: 'delete', name: gT('label.accessright.Delete'), headerTemplate: this.headerDeleteTemplate, cellTemplate: this.deleteTemplate }
         ];
 
         this.getFromServer();
@@ -103,11 +102,6 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
             });
     }
 
-    setPage(pageInfo) {
-        this.page.pageNumber = pageInfo.offset;
-        this.getFromServer();
-    }
-
     private getFromServer() {
         this.loadingIndicator = true;
         //
@@ -119,11 +113,11 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
 
-       
+
     }
 
     private getFeature() {
-        var disp =  this.featureGroupService.getAll().subscribe(
+        var disp = this.featureGroupService.getAll().subscribe(
             resulted => this.onDataLoadFeatureGroupSuccessful(resulted),
             error => this.onDataLoadFailed(error),
             () => {
@@ -188,6 +182,26 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         this.modalRef.hide();
     }
 
+    updateHeaderViewValue(index, event) {
+        var isChecked = event.target.checked;
+        let rowTemps = [...this.rows] as AccessRight[];
+        rowTemps.forEach(item => {
+            if (index == 0) {
+                item.view = isChecked;
+            } else if (index == 1) {
+                item.edit = isChecked;
+            }
+            else if (index == 2) {
+                item.create = isChecked;
+            }
+            else if (index == 3) {
+                item.delete = isChecked;
+            }
+        })
+
+        this.rows = rowTemps;
+    }
+
     updateViewValue(row, event, rowIndex) {
         row.view = event.target.checked;
     }
@@ -239,4 +253,16 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
     @ViewChild('deleteTemplate')
     deleteTemplate: TemplateRef<any>;
+
+    @ViewChild('headerViewTemplate')
+    headerViewTemplate: TemplateRef<any>;
+    @ViewChild('headerEditTemplate')
+    headerEditTemplate: TemplateRef<any>;
+    @ViewChild('headerCreateTemplate')
+    headerCreateTemplate: TemplateRef<any>;
+    @ViewChild('headerDeleteTemplate')
+    headerDeleteTemplate: TemplateRef<any>;
+    @ViewChild('headerNameTemplate')
+    headerNameTemplate: TemplateRef<any>;
+    
 }
