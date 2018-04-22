@@ -22,7 +22,7 @@ import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
 import { UserGroups } from "../../models/usergroups.model";
 import { UserGroupsService } from "../../services/usergroup.service";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'usergroups',
     templateUrl: './usergroups.component.html',

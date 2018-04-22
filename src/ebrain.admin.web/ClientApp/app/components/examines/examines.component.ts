@@ -16,7 +16,7 @@ import { Utilities } from '../../services/utilities';
 import { Examine } from '../../models/examine.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'examines',
     templateUrl: './examines.component.html',
