@@ -32,26 +32,20 @@ namespace ebrain.admin.bc.Repositories
             if (value != null)
             {
                 var cus = await appContext.UserGroup.FirstOrDefaultAsync(x => x.ID == index);
-
+                value.BranchId = value.CreatedBy.HasValue ? value.CreatedBy.Value.GetBranchOfCurrentUser(this.appContext) : Guid.Empty;
                 if (cus == null)
                 {
-                    cus = new UserGroup
-                    {
-                        ID = value.ID = Guid.NewGuid(),
-                        Code = Guid.NewGuid().ToString(),
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = value.CreatedBy
-                    };
-                    //
-                    appContext.Add(cus);
+                    var result = await appContext.UserGroup.AddAsync(cus);
+                    cus = result.Entity;
                 }
-
-                cus.BranchId = value.CreatedBy.HasValue ? value.CreatedBy.Value.GetBranchOfCurrentUser(this.appContext) : Guid.Empty;
-                cus.Name = value.Name;
-                cus.Description = value.Description;
-                cus.UpdatedDate = DateTime.Now;
-                cus.UpdatedBy = value.UpdatedBy;
-
+                else
+                {
+                    cus.BranchId = value.BranchId;
+                    cus.Name = value.Name;
+                    cus.Description = value.Description;
+                    cus.UpdatedDate = DateTime.Now;
+                    cus.UpdatedBy = value.UpdatedBy;
+                }
                 //
                 if (await appContext.SaveChangesAsync() > 0)
                 {
@@ -140,7 +134,7 @@ namespace ebrain.admin.bc.Repositories
 
             return m_Ret;
         }
-        
+
         public async Task<IList<Models.UserGroup>> GetRoleFromUser(Guid userId, string branchIds)
         {
             var m_Ret = new List<Models.UserGroup>();

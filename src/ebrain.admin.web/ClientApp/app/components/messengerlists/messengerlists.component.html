@@ -41,7 +41,7 @@
                             <a style.font-weight="{{row.isRead != true ? 'bold' : 'normal'}}"
                                class="notify-info-title" href="javascript:;"
                                (click)="edit(template, row.messengerId)">{{row.messengerTitle}}</a>
-                            <p class="notify-info-time">đăng bởi <strong>admin</strong> <i class="fa fa-clock-o"></i> {{(row.createDate) | date:'dd/MM/yyyy'}}</p>
+                            <p class="notify-info-time"> {{'label.messenger.CreateBy'| translate}} <strong> {{row.branchName}} </strong> <i class="fa fa-clock-o"></i> {{(row.createDate) | date:'dd/MM/yyyy'}}</p>
                         </div>
                     </div>
                 </ng-template>

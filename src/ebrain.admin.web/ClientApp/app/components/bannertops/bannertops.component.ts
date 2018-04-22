@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -58,51 +58,35 @@ export class BannerTopsComponent implements OnInit, OnDestroy {
         //this.saveToDisk();
     }
 
- 
+
 
     private getFromServer() {
-       var disp = this.studentService.getNewStudent().subscribe(
+        var disp = this.studentService.getNewStudent().subscribe(
             count => {
                 this.newStudent = count;
             },
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
         disp = this.studentService.getAllStudent().subscribe(
             count => {
                 this.allStudent = count;
             },
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
         disp = this.ioService.getIONew().subscribe(
             count => {
                 this.ioNew = count;
             },
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
         disp = this.ioService.getIOAll().subscribe(
             count => {
                 this.ioAll = count;
             },
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
     }
-    
+
     private onDataLoadFailed(error: any) {
         this.alertService.stopLoadingMessage();
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);
     }
-    
+
 }

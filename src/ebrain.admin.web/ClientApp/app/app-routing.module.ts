@@ -15,6 +15,8 @@ import { AccessRightsComponent } from "./components/access-rights/access-rights"
 import { UserRolesComponent } from "./components/userroles/userroles.component";
 import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
 import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
+import { UserInfoComponent } from "./components/controls/user-info.component";
+import { UsersManagementComponent } from "./components/controls/users-management.component";
 
 import { MessengerComponent } from "./components/messengers/messengers.component";
 
@@ -174,7 +176,9 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "featuregroups", component: FeatureGroupsComponent, canActivate: [AuthGuard], data: { title: "Feature Groups" } },
             { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },
-
+            { path: "user-info", component: UserInfoComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
+            { path: "users-management", component: UsersManagementComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
+            
             { path: "branches", component: BranchesComponent, canActivate: [AuthGuard], data: { title: "Branches" } },
             { path: "stocks", component: StocksComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
             { path: "typemateriallearns", component: TypeMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "typeMaterialLearns" } },

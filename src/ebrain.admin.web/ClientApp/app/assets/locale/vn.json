@@ -35,10 +35,11 @@
       "Title": "Tiêu đề",
       "Body": "Nội dung",
       "BranchName": "Cơ sở gửi",
-      "CreateDate": "Ngày tạo"
+      "CreateDate": "Ngày tạo",
+      "CreateBy": "đăng bởi"
     },
     "userrole": {
-
+      "UserLogin": "Người dùng",
       "FullName": "Tên đầy đủ",
       "UserName": "Tên đăng nhập",
       "BranchName": "Chi nhánh",
