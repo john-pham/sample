@@ -89,13 +89,15 @@ namespace Ebrain.Controllers
                 var grp = new UserGroup
                 {
                     ID = Guid.NewGuid(),
-                    Code = value.Code,
+                    Code = Guid.NewGuid().ToString(),
                     Name = value.Name,
                     Description = value.Description,
                     CreatedBy = userId,
                     UpdatedBy = userId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
+                    UserId = userId,
+                    IsActive = true
                     
                 };
 

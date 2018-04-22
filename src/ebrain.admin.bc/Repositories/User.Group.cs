@@ -35,7 +35,7 @@ namespace ebrain.admin.bc.Repositories
                 value.BranchId = value.CreatedBy.HasValue ? value.CreatedBy.Value.GetBranchOfCurrentUser(this.appContext) : Guid.Empty;
                 if (cus == null)
                 {
-                    var result = await appContext.UserGroup.AddAsync(cus);
+                    var result = await appContext.UserGroup.AddAsync(value);
                     cus = result.Entity;
                 }
                 else
