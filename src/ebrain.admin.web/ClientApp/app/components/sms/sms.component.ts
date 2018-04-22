@@ -20,7 +20,7 @@ import { File } from '../../models/file.model';
 import { SMS } from '../../models/sms.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'sms',
     templateUrl: './sms.component.html',
@@ -51,7 +51,7 @@ export class SMSComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: SMSService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: SMSService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
         this.pointer = new SMS();
         this.page = new Page();
 

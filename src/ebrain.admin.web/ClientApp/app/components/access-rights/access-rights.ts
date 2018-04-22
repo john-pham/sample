@@ -57,7 +57,8 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
-        private localService: AccessRightsService, private featureGroupService: FeatureGroupsService, private userGroupService: UserGroupsService,
+        private localService: AccessRightsService, private featureGroupService: FeatureGroupsService,
+        private userGroupService: UserGroupsService, public accessRightService: AccessRightsService,
         private modalService: BsModalService) {
         this.pointer = new AccessRight();
         this.page = new Page();

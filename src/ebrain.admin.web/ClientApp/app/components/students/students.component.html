@@ -16,7 +16,7 @@
     <div class="col-sm-10">
         <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.student.searchBox' | translate}}">></search-box>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE98')">
         <div class="text-right">
             <button class="btn btn-primary" (click)="addMaterialLearn(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.student.newStudent' | translate}}</button>
         </div>
@@ -55,11 +55,14 @@
             </span>
         </ng-template>
         <ng-template #actionsTemplate let-row="row">
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editClass(templateStudent, row.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Class' | translate}}</a>
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editClass(templateStudent, row.id)"
+               *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Class' | translate}}</a>
             |
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"
+               *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
             |
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"
+               *ngIf="accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
         </ng-template>
     </div>
 </div>

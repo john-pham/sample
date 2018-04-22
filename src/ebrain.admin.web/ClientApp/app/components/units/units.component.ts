@@ -16,7 +16,7 @@ import { Utilities } from '../../services/utilities';
 import { Unit } from '../../models/Unit.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'units',
     templateUrl: './units.component.html',
@@ -40,7 +40,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: UnitsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: UnitsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Unit();
     }
 

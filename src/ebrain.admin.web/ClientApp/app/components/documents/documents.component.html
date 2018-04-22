@@ -37,7 +37,7 @@
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.document.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2" *ngIf="accessRightService.isCreate('9C100588-C478-47C8-BE15-40523BB6BA1B')">
         <div class="text-right">
             <button class="btn btn-primary" (click)="addDocument(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.document.newDocument' | translate}}</button>
         </div>
@@ -90,9 +90,11 @@
     </ng-template>
 
     <ng-template #actionsTemplate let-row="row" let-value="value">
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editDocument(template, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="editDocument(template, value)"
+           *ngIf="accessRightService.isEdit('9C100588-C478-47C8-BE15-40523BB6BA1B')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
         |
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteDocument(value)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteDocument(value)"
+           *ngIf="accessRightService.isDelete('9C100588-C478-47C8-BE15-40523BB6BA1B')"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
     </ng-template>
 </div>
 

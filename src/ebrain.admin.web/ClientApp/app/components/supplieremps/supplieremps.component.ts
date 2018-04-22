@@ -17,7 +17,7 @@ import { Supplier } from '../../models/Supplier.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Grpsupplier } from "../../models/grpsupplier.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'supplieremps',
     templateUrl: './supplieremps.component.html',
@@ -43,7 +43,7 @@ export class SupplierEmpsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: SuppliersService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: SuppliersService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Supplier();
     }
 

@@ -18,7 +18,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'iodetails',
     templateUrl: './iodetails.component.html',
@@ -44,7 +44,7 @@ export class IODetailsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: IOStudentListService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: IOStudentListService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Grpsupplier();
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);

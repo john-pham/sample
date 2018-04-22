@@ -17,6 +17,7 @@ import { GrpMaterialLearn } from '../../models/GrpMaterialLearn.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TypeMaterialLearn } from "../../models/TypeMaterialLearn.model";
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'grpmateriallearns',
@@ -41,7 +42,8 @@ export class GrpMaterialLearnsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: GrpMaterialLearnsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: GrpMaterialLearnsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new GrpMaterialLearn();
     }
 
@@ -150,7 +152,7 @@ export class GrpMaterialLearnsComponent implements OnInit, OnDestroy {
             item => {
                 //
                 this.pointer = item;
-               this.modalRef = this.modalService.show(template);
+                this.modalRef = this.modalService.show(template);
             },
             error => {
             },

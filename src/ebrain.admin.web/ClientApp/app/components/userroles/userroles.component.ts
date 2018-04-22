@@ -23,7 +23,7 @@ import { Page } from '../../models/page.model';
 import { UserRolesService } from "../../services/userroles.service";
 import { UserGroupsService } from "../../services/usergroup.service";
 import { UserRoles } from "../../models/userroles.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'userroles',
@@ -57,7 +57,7 @@ export class UserRolesComponent implements OnInit, OnDestroy {
     modalHeadRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService, 
-        private localService: UserRolesService,
+        private localService: UserRolesService, public accessRightService: AccessRightsService,
         private groupService: UserGroupsService, private modalService: BsModalService) {
 
         this.pointer = new UserRoles();

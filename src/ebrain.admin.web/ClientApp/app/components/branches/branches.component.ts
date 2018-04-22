@@ -20,6 +20,7 @@ import { File } from '../../models/file.model';
 import { Branch } from '../../models/branch.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'branches',
@@ -51,7 +52,8 @@ export class BranchesComponent implements OnInit, OnDestroy {
     modalHeadRef: BsModalRef;
     
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: BranchesService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: BranchesService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
         this.pointer = new Branch();
         this.page = new Page();
 

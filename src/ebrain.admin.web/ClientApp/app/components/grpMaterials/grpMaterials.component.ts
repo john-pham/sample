@@ -17,6 +17,7 @@ import { GrpMaterial } from '../../models/GrpMaterial.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TypeMaterial } from "../../models/typeMaterial.model";
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'grpmaterials',
@@ -43,7 +44,7 @@ export class GrpMaterialsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: GrpMaterialsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: GrpMaterialsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new GrpMaterial();
     }
 

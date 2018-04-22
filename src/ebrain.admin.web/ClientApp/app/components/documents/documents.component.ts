@@ -22,6 +22,7 @@ import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
 import { GrpDocumentsService } from "../../services/grpdocuments.service";
 import { GrpDocument } from "../../models/grpdocument.model";
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'documents',
@@ -54,7 +55,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     modalHeadRef: BsModalRef;
 
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: DocumentsService, private modalService: BsModalService, private grpService: GrpDocumentsService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: DocumentsService, private modalService: BsModalService,
+        private grpService: GrpDocumentsService, public accessRightService: AccessRightsService) {
         this.pointer = new Document();
         this.page = new Page();
         this.pointer.logo = new File();

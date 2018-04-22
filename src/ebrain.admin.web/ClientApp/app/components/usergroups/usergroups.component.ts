@@ -53,7 +53,7 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: UserGroupsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: UserGroupsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new UserGroups();
         this.page = new Page();
 

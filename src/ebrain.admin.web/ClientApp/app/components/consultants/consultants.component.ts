@@ -16,6 +16,7 @@ import { Utilities } from '../../services/utilities';
 import { Consultant } from '../../models/Consultant.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'consultants',
@@ -40,7 +41,8 @@ export class ConsultantsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: ConsultantsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: ConsultantsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Consultant();
     }
 

@@ -34,7 +34,8 @@
         </div>
         <div class="col-sm-2">
             <div class="text-right">
-                <button class="btn btn-primary" (click)="updated()"><i class="fa fa-plus-circle"></i> {{'button.Update' | translate}}</button>
+                <button class="btn btn-primary" (click)="updated()"
+                        *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B37')"><i class="fa fa-plus-circle"></i> {{'button.Update' | translate}}</button>
             </div>
         </div>
     </div>

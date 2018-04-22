@@ -32,7 +32,7 @@ import { IOStock } from "../../models/iostock.model";
 import { User } from "../../models/user.model";
 import { Material } from "../../models/material.model";
 import { IOStockDetail } from "../../models/iostockdetail.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'iostudents',
     templateUrl: './iostudents.component.html',
@@ -71,6 +71,7 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
 
     constructor(private alertService: AlertService, private route: ActivatedRoute, private translationService: AppTranslationService,
         private localService: IOStudentsService, private modalService: BsModalService,
+        public accessRightService: AccessRightsService,
         private typeservice: TypeMaterialsService, private router: Router) {
         this.pointer = new IOStock();
     }

@@ -21,7 +21,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStockReport } from "../../models/iostockreport.model";
 import { InventoriesService } from "../../services/inventories.service";
 import { Inventories } from "../../models/inventories.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'inventories',
     templateUrl: './inventories.component.html',
@@ -45,7 +45,7 @@ export class InventoriesComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: InventoriesService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: InventoriesService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);

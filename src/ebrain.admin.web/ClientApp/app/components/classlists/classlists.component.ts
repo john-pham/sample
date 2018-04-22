@@ -27,6 +27,7 @@ import { SuppliersService } from "../../services/suppliers.service";
 import { ClassStatusService } from "../../services/classstatus.service";
 import { Supplier } from "../../models/supplier.model";
 import { ClassStatus } from "../../models/classstatus.model";
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'classlists',
@@ -57,7 +58,8 @@ export class ClassListsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
 
     constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService,
-        private localService: ClassesService, private supplierService: SuppliersService, private classStatusService: ClassStatusService,
+        private localService: ClassesService, private supplierService: SuppliersService,
+        private classStatusService: ClassStatusService, public accessRightService: AccessRightsService,
         private modalService: BsModalService) {
         this.filterValue = '';
     }

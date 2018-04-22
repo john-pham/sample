@@ -20,7 +20,7 @@ import { Unit } from "../../models/unit.model";
 import { GrpMaterialLearn } from "../../models/grpMaterialLearn.model";
 import { TypeMaterialLearn } from "../../models/typeMaterialLearn.model";
 import { TypeMaterialLearnsService } from "../../services/typeMaterialLearns.service";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'materiallearns',
     templateUrl: './materialLearns.component.html',
@@ -49,6 +49,7 @@ export class MaterialLearnsComponent implements OnInit, OnDestroy {
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: MaterialLearnsService, private modalService: BsModalService,
+        public accessRightService: AccessRightsService,
         private typeservice: TypeMaterialLearnsService) {
         this.pointer = new MaterialLearn();
     }

@@ -83,7 +83,9 @@
             </span>
         </ng-template>
         <ng-template #actionsTemplate let-row="row">
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row)"
+               *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE12') || accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A2')">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
         </ng-template>
     </div>
 </div>

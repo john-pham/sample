@@ -47,7 +47,8 @@
     </div>
     <div class="col-sm-2">
         <div class="text-right">
-            <button type="button" class="btn btn-primary" (click)="save()">
+            <button type="button" class="btn btn-primary" (click)="save()"
+                    *ngIf="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A9D32')">
                 <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
             </button>
         </div>

@@ -16,7 +16,7 @@ import { Utilities } from '../../services/utilities';
 import { Studentstatus } from '../../models/Studentstatus.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'studentstatus',
     templateUrl: './studentstatus.component.html',
@@ -40,7 +40,7 @@ export class StudentstatusComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: StudentstatusService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: StudentstatusService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
         this.pointer = new Studentstatus();
     }
 

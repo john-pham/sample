@@ -20,7 +20,7 @@ import { File } from '../../models/file.model';
 import { Messenger } from '../../models/messenger.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'messengerlists',
     templateUrl: './messengerlists.component.html',
@@ -62,7 +62,7 @@ export class MessengerListComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: MessengerService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: MessengerService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Messenger();
         this.page = new Page();
 

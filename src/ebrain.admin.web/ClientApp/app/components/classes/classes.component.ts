@@ -35,6 +35,7 @@ import { ClassTime } from "../../models/classtime.model";
 import { ClassStudent } from "../../models/classstudent.model";
 import { ShiftclassesService } from "../../services/shiftclasses.service";
 import { Shiftclass } from "../../models/Shiftclass.model";
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'classes',
@@ -79,7 +80,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         private localService: ClassesService, private modalService: BsModalService,
         private materialService: MaterialLearnsService, private classStatusService: ClassStatusService,
         private studentService: StudentsService, private supplierService: SuppliersService,
-        private todayService: TodayService, private roomService: RoomsService,
+        private todayService: TodayService, private roomService: RoomsService, public accessRightService: AccessRightsService,
         private shiftService: ShiftclassesService, private route: ActivatedRoute, private router: Router) {
 
         this.pointer = new Class();

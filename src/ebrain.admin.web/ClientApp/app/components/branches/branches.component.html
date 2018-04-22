@@ -18,7 +18,7 @@
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.branch.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2" *ngIf="accessRightService.isCreate('D7239078-E67A-42FA-86D7-4A8C3F73D521')">
         <div class="text-right">
             <button class="btn btn-primary" (click)="addBranch(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.branch.newBranch' | translate}}</button>
         </div>
@@ -72,11 +72,14 @@
             </span>
         </ng-template>
         <ng-template #actionsTemplate let-row="row" let-value="value">
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editHead(templateHead, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Manage' | translate}}</a>
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editHead(templateHead, value)"
+               *ngIf="accessRightService.isEdit('D7239078-E67A-42FA-86D7-4A8C3F73D521')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Manage' | translate}}</a>
             |
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editBranch(template, value)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editBranch(template, value)"
+               *ngIf="accessRightService.isEdit('D7239078-E67A-42FA-86D7-4A8C3F73D521')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
             |
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteBranch(value)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteBranch(value)"
+               *ngIf="accessRightService.isDelete('D7239078-E67A-42FA-86D7-4A8C3F73D521')"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
         </ng-template>
     </div>
 </div>

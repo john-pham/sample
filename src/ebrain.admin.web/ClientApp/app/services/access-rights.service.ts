@@ -85,4 +85,31 @@ export class AccessRightsService {
         }
         return false;
     }
+
+    private isEdit(featureId: string) {
+        var accessRights = Utilities.accessRights;
+        if (accessRights != null && accessRights.length > 0) {
+            var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.edit == true);
+            return array != null && array.length > 0;
+        }
+        return false;
+    }
+
+    private isCreate(featureId: string) {
+        var accessRights = Utilities.accessRights;
+        if (accessRights != null && accessRights.length > 0) {
+            var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.create == true);
+            return array != null && array.length > 0;
+        }
+        return false;
+    }
+
+    private isDelete(featureId: string) {
+        var accessRights = Utilities.accessRights;
+        if (accessRights != null && accessRights.length > 0) {
+            var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.delete == true);
+            return array != null && array.length > 0;
+        }
+        return false;
+    }
 }

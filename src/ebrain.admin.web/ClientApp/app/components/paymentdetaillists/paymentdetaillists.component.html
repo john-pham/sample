@@ -82,7 +82,8 @@
             {{value}}
         </span>
     </ng-template>
-    <ng-template #actionsTemplate let-row="row" let-value="value">
+    <ng-template #actionsTemplate let-row="row" let-value="value"
+                 *ngIf="accessRightService.isEdit('376F3FFE-408A-49A8-B0EA-B69654E11B34')">
         <a class="btn btn-link btn-xs" routerLink="/payment/?id={{value}}" (click)="goDetails(template, row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
     </ng-template>
 </div>

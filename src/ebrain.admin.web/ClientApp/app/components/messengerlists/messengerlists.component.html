@@ -4,7 +4,8 @@
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.messenger.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2"
+         *ngIf="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A6D30')">
         <div class="text-right">
             <button class="btn btn-primary" (click)="addMessenger(template)"><i class="fa fa-plus-circle"></i> {{'button.SendMessenger' | translate}}</button>
         </div>
@@ -110,7 +111,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
-                    <button type="submit" class="btn btn-primary">{{'button.Save' | translate}}</button>
+                    <button type="submit" class="btn btn-primary" *ngIf="pointer.messengerId?.length > 0">{{'button.Save' | translate}}</button>
                 </div>
             </div>
         </form>

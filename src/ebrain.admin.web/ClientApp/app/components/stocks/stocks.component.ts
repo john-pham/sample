@@ -16,7 +16,7 @@ import { Utilities } from '../../services/utilities';
 import { Stock } from '../../models/Stock.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'stocks',
     templateUrl: './stocks.component.html',
@@ -40,7 +40,7 @@ export class StocksComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: StocksService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: StocksService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
         this.pointer = new Stock();
     }
 

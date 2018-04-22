@@ -22,14 +22,16 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="text-right">
-                        <button type="button" class="btn btn-success" (click)="addnew()">
+                        <button type="button" class="btn btn-success" (click)="addnew()"
+                                *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
                             <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
                         </button>
 
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
                             <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
                         </button>
-                        <button *ngIf="pointer.id?.length > 0" type="button" class="btn btn-warning" (click)="deletemaster()">
+                        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE95')" 
+                                type="button" class="btn btn-warning" (click)="deletemaster()">
                             <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
                         </button>
                     </div>

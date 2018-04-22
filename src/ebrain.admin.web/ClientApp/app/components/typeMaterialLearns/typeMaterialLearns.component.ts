@@ -17,7 +17,7 @@ import { TypeMaterialLearn } from '../../models/TypeMaterialLearn.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TypeMaterialsService } from "../../services/typeMaterials.service";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'typemateriallearns',
     templateUrl: './typeMaterialLearns.component.html',
@@ -42,7 +42,7 @@ export class TypeMaterialLearnsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
-        private localService: TypeMaterialLearnsService,
+        private localService: TypeMaterialLearnsService, public accessRightService: AccessRightsService,
         private localTypeService: TypeMaterialsService,private modalService: BsModalService) {
         this.pointer = new TypeMaterialLearn();
     }

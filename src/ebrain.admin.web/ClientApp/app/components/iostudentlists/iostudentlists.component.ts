@@ -19,7 +19,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'iostudentlist',
     templateUrl: './iostudentlists.component.html',
@@ -46,6 +46,7 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        public accessRightService: AccessRightsService,
         private localService: IOStudentListService, private modalService: BsModalService, private router: Router) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);

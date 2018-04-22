@@ -21,6 +21,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStockReport } from "../../models/iostockreport.model";
 import { DeptService } from "../../services/depts.service";
 import { Depts } from "../../models/depts.model";
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'deptslist',
@@ -45,7 +46,10 @@ export class DeptsListsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: DeptService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private router: Router,
+        private translationService: AppTranslationService, private localService: DeptService,
+        public accessRightService: AccessRightsService,
+        private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);

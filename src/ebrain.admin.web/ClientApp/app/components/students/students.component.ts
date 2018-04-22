@@ -29,7 +29,7 @@ import { Supplier } from "../../models/supplier.model";
 import { Studentstatus } from "../../models/studentstatus.model";
 import { GenderStudent } from "../../models/genderstudent.model";
 import { Class } from "../../models/class.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'students',
     templateUrl: './students.component.html',
@@ -69,7 +69,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
     modalStudentRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
-        private localService: StudentsService, private modalService: BsModalService,
+        private localService: StudentsService, private modalService: BsModalService, public accessRightService: AccessRightsService,
         private typeservice: TypeMaterialsService) {
         this.pointer = new Student();
     }

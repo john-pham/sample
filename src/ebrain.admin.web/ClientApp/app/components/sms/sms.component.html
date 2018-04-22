@@ -20,7 +20,8 @@
     </div>
     <div class="col-sm-2">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addSMS(template)"><i class="fa fa-plus-circle"></i> {{'button.Add' | translate}}</button>
+            <button class="btn btn-primary" (click)="addSMS(template)"
+                    *ngIf="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A6F18')"><i class="fa fa-plus-circle"></i> {{'button.Add' | translate}}</button>
         </div>
     </div>
 </div>

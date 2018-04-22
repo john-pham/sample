@@ -21,7 +21,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStockReport } from "../../models/iostockreport.model";
 import { PaymentsService } from "../../services/payments.service";
 import { Payment } from "../../models/payment.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'paymentdetaillist',
     templateUrl: './paymentdetaillists.component.html',
@@ -47,7 +47,7 @@ export class PaymentDetailListsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: PaymentsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: PaymentsService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);

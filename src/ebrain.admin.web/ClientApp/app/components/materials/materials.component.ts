@@ -25,7 +25,7 @@ import { TypeMaterial } from "../../models/typeMaterial.model";
 import { Material } from "../../models/material.model";
 import { GrpMaterial } from "../../models/grpMaterial.model";
 import { Supplier } from "../../models/supplier.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'materials',
     templateUrl: './materials.component.html',
@@ -56,6 +56,7 @@ export class MaterialsComponent implements OnInit, OnDestroy {
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: MaterialsService, private modalService: BsModalService,
+        public accessRightService: AccessRightsService,
         private typeservice: TypeMaterialsService) {
         this.pointer = new Material();
     }

@@ -18,7 +18,7 @@
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.featuregroup.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2" *ngIf="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A9D31')">
         <div class="text-right">
             <button class="btn btn-primary" (click)="add(template)"><i class="fa fa-plus-circle"></i> {{'button.Add' | translate}}</button>
         </div>
@@ -66,9 +66,11 @@
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row">
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"
+           *ngIf="accessRightService.isEdit('ADC69968-D9E7-4C9E-AD15-206ED47A9D31')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
         |
-        <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+        <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"
+           *ngIf="accessRightService.isDelete('ADC69968-D9E7-4C9E-AD15-206ED47A9D31')"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
     </ng-template>
 </div>
 

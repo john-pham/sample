@@ -97,7 +97,8 @@
         </ng-template>
         <ng-template #actionsTemplate let-row="row" let-value="value">
             <a class="btn btn-link btn-xs"
-               routerLink="/classdetails/?id={{value}}" (click)="goDetails(template, row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.Detail' | translate}}</a>
+               routerLink="/classdetails/?id={{value}}" (click)="goDetails(template, row)"
+               *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE96')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.Detail' | translate}}</a>
         </ng-template>
     </div>
 </div>

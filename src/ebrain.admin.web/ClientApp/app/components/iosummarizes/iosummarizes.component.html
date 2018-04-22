@@ -85,7 +85,8 @@
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row">
-        <a class="btn btn-link btn-xs" routerLink="/iostudent/?id={{value}}" (click)="goDetails(template, row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+        <a class="btn btn-link btn-xs" routerLink="/iostudent/?id={{value}}" (click)="goDetails(template, row)"
+           *ngIf="accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A4')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
     </ng-template>
 </div>
 

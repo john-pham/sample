@@ -16,7 +16,7 @@ import { Utilities } from '../../services/utilities';
 import { TypeMaterial } from '../../models/TypeMaterial.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'typematerials',
     templateUrl: './typeMaterials.component.html',
@@ -40,7 +40,7 @@ export class TypeMaterialsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: TypeMaterialsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: TypeMaterialsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new TypeMaterial();
     }
 

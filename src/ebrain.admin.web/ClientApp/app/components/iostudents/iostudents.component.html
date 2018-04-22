@@ -16,24 +16,26 @@
     
     <div class="col-sm-12">
         <div class="text-right">
-            <button type="button" class="btn btn-success" (click)="addnew()">
+            <button type="button" class="btn btn-success" (click)="addnew()"
+                    *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3')">
                 <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
             </button>
             <button type="button" class="btn btn-info" (click)="showmaterial(template)">
                 <span class="glyphicon glyphicon-search"></span> {{'button.SearchMaterial' | translate}}
             </button>
-            <button type="button" class="btn btn-primary" (click)="save()">
+            <button type="button" class="btn btn-primary" (click)="save()"
+                    *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3')">
                 <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
             </button>
-            <button *ngIf="pointer.id?.length > 0" type="button" class="btn btn-success"
+            <button *ngIf="pointer.id?.length > 0 && (accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') ||accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3'))" type="button" class="btn btn-success"
                     routerLink="/paymentio/?ioid={{pointer.id}}" (click)="goPayment(pointer.id)">
                 <span class="glyphicon glyphicon-user"></span> {{'button.PaymentReceipt' | translate}}
             </button>
                
-            <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-warning" (click)="deletemaster()">
+            <button *ngIf="pointer.id?.length > 0 && (accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isDelete('9ECBD467-7642-467B-AAE2-96484AD182A3'))"  type="button" class="btn btn-warning" (click)="deletemaster()">
                 <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
             </button>
-            <button *ngIf="pointer.id?.length > 0"  type="button" class="btn btn-danger" (click)="cancelmaster()">
+            <button *ngIf="pointer.id?.length > 0 && (accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isDelete('9ECBD467-7642-467B-AAE2-96484AD182A3'))"  type="button" class="btn btn-danger" (click)="cancelmaster()">
                 <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
             </button>
         </div>

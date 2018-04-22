@@ -18,6 +18,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ClassesService } from "../../services/classes.service";
 import { Class } from '../../models/Class.model';
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'attendances',
@@ -43,7 +44,8 @@ export class AttendancesComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: AttendancesService,
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: AttendancesService, public accessRightService: AccessRightsService,
         private modalService: BsModalService,
         private classService: ClassesService) {
      

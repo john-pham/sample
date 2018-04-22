@@ -20,7 +20,7 @@ import { File } from '../../models/file.model';
 import { GrpDocument } from '../../models/grpdocument.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'grpdocuments',
     templateUrl: './grpdocuments.component.html',
@@ -51,7 +51,8 @@ export class GrpDocumentsComponent implements OnInit, OnDestroy {
     modalHeadRef: BsModalRef;
 
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: GrpDocumentsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: GrpDocumentsService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
         this.pointer = new GrpDocument();
         this.page = new Page();
         

@@ -34,7 +34,7 @@ import { PaymentDetail } from "../../models/paymentdetail.model";
 import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
 import { PaymentType } from "../../models/paymenttype.model";
-
+import { AccessRightsService } from "../../services/access-rights.service";
 @Component({
     selector: 'payments',
     templateUrl: './payments.component.html',
@@ -72,6 +72,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
     constructor(private alertService: AlertService, private route: ActivatedRoute, private translationService: AppTranslationService,
         private localService: PaymentsService, private modalService: BsModalService,
+        public accessRightService: AccessRightsService,
         private typeservice: TypeMaterialsService, private ioservice: IOStudentListService) {
         this.pointer = new Payment();
 

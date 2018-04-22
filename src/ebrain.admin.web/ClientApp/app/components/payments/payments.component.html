@@ -14,20 +14,24 @@
 
 <div class="row control-box">
     <div class="col-sm-12 text-right">
-        <button type="button" class="btn btn-success" (click)="addnew()">
+        <button type="button" class="btn btn-success" (click)="addnew()"
+                *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
             <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
         </button>
         <button type="button" class="btn btn-info" (click)="showpayment(template)">
             <span class="glyphicon glyphicon-search"></span> {{'button.IOStockOutput' | translate}}
         </button>
-        <button type="button" class="btn btn-primary" (click)="save()">
+        <button type="button" class="btn btn-primary" (click)="save()"
+                *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
             <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
         </button>
 
-        <button *ngIf="pointer.id?.length > 0" type="button" class="btn btn-warning" (click)="deletemaster()">
+        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')" 
+                type="button" class="btn btn-warning" (click)="deletemaster()">
             <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
         </button>
-        <button *ngIf="pointer.id?.length > 0" type="button" class="btn btn-danger" (click)="cancelmaster()">
+        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')" 
+                type="button" class="btn btn-danger" (click)="cancelmaster()">
             <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
         </button>
     </div>

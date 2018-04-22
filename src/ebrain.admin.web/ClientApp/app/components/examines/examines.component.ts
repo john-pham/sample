@@ -40,7 +40,8 @@ export class ExamineComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: ExaminesService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: ExaminesService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Examine();
     }
 

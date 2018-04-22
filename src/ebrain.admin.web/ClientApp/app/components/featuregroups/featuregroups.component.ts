@@ -22,6 +22,7 @@ import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
 import { FeatureGroups } from "../../models/featuregroups.model";
 import { FeatureGroupsService } from "../../services/featuregroup.service";
+import { AccessRightsService } from "../../services/access-rights.service";
 
 @Component({
     selector: 'featuregroups',
@@ -53,7 +54,9 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: FeatureGroupsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, 
+        private localService: FeatureGroupsService, public accessRightService: AccessRightsService,
+        private modalService: BsModalService) {
         this.pointer = new FeatureGroups();
         this.page = new Page();
         this.filterName = "";
