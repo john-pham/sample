@@ -64,7 +64,7 @@ export class MaterialLearnsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'typeName', name: gT('label.materialLearn.Learning'), cellTemplate: this.typenameTemplate },
             //{ headerClass: "text-center", prop: 'grpName', name: gT('label.materialLearn.LevelClass'), cellTemplate: this.grpnameTemplate },
             { headerClass: "text-center", prop: 'note', name: gT('label.materialLearn.Note'), cellTemplate: this.descriptionTemplate },
-            { headerClass: "text-center", prop: 'id', name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { headerClass: "text-center", prop: 'id', name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //

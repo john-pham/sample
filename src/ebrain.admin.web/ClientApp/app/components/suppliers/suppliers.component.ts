@@ -56,7 +56,7 @@ export class SuppliersComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'phone', name: gT('label.supplier.Phone'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'address', name: gT('label.supplier.Address'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'note', name: gT('label.supplier.Note'), cellTemplate: this.descriptionTemplate },
-            { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //
