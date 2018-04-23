@@ -158,9 +158,14 @@ label.control-label {
 }
 
 .modal-content ngx-datatable datatable-body {
+    width: 100% !important;
     max-height: 400px;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+.modal-content ngx-datatable.paymentvouchers datatable-body .datatable-row-wrapper:hover {
+    cursor: pointer;
 }
 
 /* breadcrumb  */
@@ -257,6 +262,7 @@ header {
                     #app_container .content-wrapper section.content ngx-datatable datatable-body {
                         /*position: absolute;*/
                         height: 100% !important;
+                        width: 100% !important;
                         max-height: calc(100vh - 160px) !important;
                         overflow-x: auto;
                         overflow-y: auto;
