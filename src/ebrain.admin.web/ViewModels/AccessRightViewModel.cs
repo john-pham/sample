@@ -32,5 +32,12 @@ namespace Ebrain.ViewModels
         public bool Delete { get; set; }
 
         public bool Create { get; set; }
+        
+        public Guid UserId { get; set; }
+        public bool IsActive { get; set; }
+
+        public string FullName { get; set; }
+        public string UserName { get; set; }
+        public string BranchName { get; set; }
     }
 }

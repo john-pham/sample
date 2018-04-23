@@ -84,6 +84,59 @@ namespace Ebrain.Controllers
             });
         }
 
+        [HttpGet("accessrightperson")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetAccessRightPersons(Guid featureId, string filterValue)
+        {
+            var bus = this._unitOfWork.AccessRightPersons;
+            var ret = from c in await bus.Search(Guid.Empty, featureId, filterValue, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
+                      select new AccessRightViewModel
+                      {
+                          FeatureID = featureId,
+                          UserId = c.UserId,
+                          UserName = c.UserName,
+                          FullName = c.FullName,
+                          IsActive = c.IsActive,
+                          BranchName = c.BranchName
+                      };
+
+            return Json(new
+            {
+                Total = bus.Total,
+                List = ret
+            });
+        }
+
+        [HttpPost("updateaccessrightperson")]
+        public async Task<IActionResult> UpdateAccessRightPerson([FromBody] AccessRightViewModel[] values)
+        {
+            if (ModelState.IsValid)
+            {
+                //
+                var userId = Utilities.GetUserId(this.User);
+
+                var ar = values.Select(p => new AccessRightPerson
+                {
+                    FeatureId = p.FeatureID,
+                    UserId = p.UserId,
+                    IsActive = p.IsActive,
+                    CreatedBy = userId,
+                    UpdatedBy = userId,
+                    Note = string.Empty,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now
+                });
+
+                //commit
+                var ret = await this._unitOfWork.AccessRightPersons.Update(ar);
+
+                //return client side
+                return Ok(ret);
+            }
+
+            return BadRequest(ModelState);
+        }
+
         [HttpGet("get")]
         [Produces(typeof(UserViewModel))]
         public async Task<AccessRightViewModel> Get(Guid featureId, Guid groupId)

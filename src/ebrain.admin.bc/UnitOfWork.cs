@@ -20,6 +20,7 @@ namespace ebrain.admin.bc
     {
         readonly ApplicationDbContext _context;
 
+        IAccessRightPersonsRepository _accessRightPersons;
         IAccessRightsRepository _accessRights;
         IUserGroupRepository _userGroups;
         IUserRoleRepository _userRoles;
@@ -78,6 +79,18 @@ namespace ebrain.admin.bc
                 return _accessRights;
             }
         }
+
+        public IAccessRightPersonsRepository AccessRightPersons
+        {
+            get
+            {
+                if (_accessRightPersons == null)
+                    _accessRightPersons = new AccessRightPersonsRepository(_context);
+
+                return _accessRightPersons;
+            }
+        }
+        
 
         public IFeatureRepository Features
         {

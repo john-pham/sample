@@ -15,6 +15,8 @@ namespace ebrain.admin.bc.Utilities
 
     public class Constants
     {
+        public const string PAYMENTLIST = "376F3FFE-408A-49A8-B0EA-B69654E11B33";
+        public const string PAYMENTDETAIL = "376F3FFE-408A-49A8-B0EA-B69654E11B34";
     }
 
     public enum EnumIOType

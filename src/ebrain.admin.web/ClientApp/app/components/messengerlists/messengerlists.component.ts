@@ -68,7 +68,7 @@ export class MessengerListComponent implements OnInit, OnDestroy {
 
         this.filterValue = "";
         this.page.pageNumber = 0;
-        this.page.size = 20;
+        this.page.size = 5;
     }
 
     ngOnInit() {

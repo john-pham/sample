@@ -91,6 +91,7 @@ namespace ebrain.admin.bc
         public DbSet<Unit> Unit { get; set; }
         public DbSet<StudentStatus> StudentStatus { get; set; }
         public DbSet<AccessRight> AccessRight { get; set; }
+        public DbSet<AccessRightPerson> AccessRightPerson { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<FeatureGroup> FeatureGroup { get; set; }//Chuc nang, Danh muc,..
         public DbSet<Feature> Feature { get; set; }//Phan tich hoat dong, Du doan dau tu,..
@@ -203,6 +204,7 @@ namespace ebrain.admin.bc
             builder.Entity<Supplier>().ToTable(nameof(this.Supplier));
             builder.Entity<Unit>().ToTable(nameof(this.Unit));
             builder.Entity<AccessRight>().ToTable(nameof(this.AccessRight)).HasKey(x => new { x.FeatureID, x.GroupID });
+            builder.Entity<AccessRightPerson>().ToTable(nameof(this.AccessRightPerson)).HasKey(x => new { x.FeatureId, x.UserId });
             builder.Entity<UserRole>().ToTable(nameof(this.UserRole)).HasKey(x => new { x.UserId, x.GroupId });
             builder.Entity<FeatureGroup>().ToTable(nameof(this.FeatureGroup));
             builder.Entity<Feature>().ToTable(nameof(this.Feature));

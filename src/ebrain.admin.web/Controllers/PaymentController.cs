@@ -86,13 +86,17 @@ namespace Ebrain.Controllers
 
         [HttpGet("searchpaymentsummarize")]
         [Produces(typeof(UserViewModel))]
-        public IEnumerable<PaymentViewModel> SearchPaymentSummarize(string filter, string value, string fromDate, string toDate)
+        public async Task<IEnumerable<PaymentViewModel>> SearchPaymentSummarize(string filter, string value, string fromDate, string toDate)
         {
+            //get userId accessRightPerson
+            var userAccessRightPerson = await this._unitOfWork.AccessRightPersons.GetUserIdFromAccessRightPerson(Guid.Parse(Constants.PAYMENTLIST), userId);
+
             var results = this._unitOfWork.Payments.GetPaymentList(
                 fromDate.BuildDateTimeFromSEFormat(),
-                toDate.BuildLastDateTimeFromSEFormat(), 
-                value, 
-                0, false, 
+                toDate.BuildLastDateTimeFromSEFormat(),
+                value,
+                0, false,
+                userAccessRightPerson,
                 this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
             var list = new List<PaymentViewModel>();
             foreach (var item in results)
@@ -114,13 +118,16 @@ namespace Ebrain.Controllers
 
         [HttpGet("searchpaymentdetail")]
         [Produces(typeof(UserViewModel))]
-        public IEnumerable<PaymentViewModel> SearchPaymentDetail(string filter, string value, string fromDate, string toDate)
+        public async Task<IEnumerable<PaymentViewModel>> SearchPaymentDetail(string filter, string value, string fromDate, string toDate)
         {
+            //get userId accessRightPerson
+            var userAccessRightPerson = await this._unitOfWork.AccessRightPersons.GetUserIdFromAccessRightPerson(Guid.Parse(Constants.PAYMENTDETAIL), userId);
+
             var results = this._unitOfWork.Payments.GetPaymentDetailList(
                     fromDate.BuildDateTimeFromSEFormat(),
                     toDate.BuildLastDateTimeFromSEFormat(),
-                    value, 
-                    0, false, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                    value,
+                    0, false, userAccessRightPerson, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
             var list = new List<PaymentViewModel>();
             foreach (var item in results)
             {
@@ -169,7 +176,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetDefaultAsync(Guid? index)
         {
-           if (index.IsNullOrDefault())
+            if (index.IsNullOrDefault())
             {
                 var ioNumber = this._unitOfWork.ConfigNumberOfCodes.GenerateCodePayment((int)EnumPayment.PaymentIOOUT, userId.ToString());
 
@@ -299,6 +306,6 @@ namespace Ebrain.Controllers
 
             return BadRequest(ModelState);
         }
-        
+
     }
 }

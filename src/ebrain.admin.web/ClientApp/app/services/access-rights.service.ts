@@ -47,6 +47,16 @@ export class AccessRightsService {
             .map((response: Response) => <Boolean>response.json());
     }
 
+    getAccessRightPerson(featureId: string, value: string) {
+        return this.endpointFactory.getAccessRightPerson(featureId, value)
+            .map((response: Response) => <Results<AccessRight>>response.json());
+    }
+
+    saveAccessRightPerson(value: AccessRight[]) {
+        return this.endpointFactory.saveAccessRightPerson(value)
+            .map((response: Response) => <boolean>response.json());
+    }
+
     saveHead(value: Branch[]) {
         return this.endpointFactory.saveHead(value)
             .map((response: Response) => <Branch[]>response.json());

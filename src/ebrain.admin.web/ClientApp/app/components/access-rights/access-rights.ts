@@ -39,7 +39,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
     userGroups = [];
     featureGroups = [];
-
+    rowAccessRightPerson = [];
     loadingIndicator: boolean = true;
 
     groupId: string;
@@ -55,6 +55,8 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
+    private filterValue = "";
+    private featureId = "";
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: AccessRightsService, private featureGroupService: FeatureGroupsService,
@@ -62,7 +64,8 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         private modalService: BsModalService) {
         this.pointer = new AccessRight();
         this.page = new Page();
-
+        this.filterValue = "";
+        this.featureId = "";
     }
 
     ngOnInit() {
@@ -72,10 +75,11 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
         this.columns = [
 
             { headerClass: "text-center", prop: 'featureName', name: gT('label.accessright.Feature'), headerTemplate: this.headerNameTemplate, cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'view', name: gT('label.accessright.View'), headerTemplate: this.headerViewTemplate, cellTemplate: this.viewTemplate },
-            { headerClass: "text-center", prop: 'edit', name: gT('label.accessright.Edit'), headerTemplate: this.headerEditTemplate, cellTemplate: this.editTemplate },
-            { headerClass: "text-center", prop: 'create', name: gT('label.accessright.Create'), headerTemplate: this.headerCreateTemplate,cellTemplate: this.createTemplate },
-            { headerClass: "text-center", prop: 'delete', name: gT('label.accessright.Delete'), headerTemplate: this.headerDeleteTemplate, cellTemplate: this.deleteTemplate }
+            { headerClass: "text-center", prop: 'view', name: gT('label.accessright.View'), width: 50, headerTemplate: this.headerViewTemplate, cellTemplate: this.viewTemplate },
+            { headerClass: "text-center", prop: 'edit', name: gT('label.accessright.Edit'), width: 50, headerTemplate: this.headerEditTemplate, cellTemplate: this.editTemplate },
+            { headerClass: "text-center", prop: 'create', name: gT('label.accessright.Create'), width: 50, headerTemplate: this.headerCreateTemplate, cellTemplate: this.createTemplate },
+            { headerClass: "text-center", prop: 'delete', name: gT('label.accessright.Delete'), width: 50, headerTemplate: this.headerDeleteTemplate, cellTemplate: this.deleteTemplate },
+            { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         this.getFromServer();
@@ -178,7 +182,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
             this.changesFailedCallback();
     }
 
-    close() {
+    closeAccessRightPerson() {
         this.modalRef.hide();
     }
 
@@ -216,6 +220,42 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
 
     updateDeleteValue(row, event, rowIndex) {
         row.delete = event.target.checked;
+    }
+
+    updateAccessRightValue(row, event, rowIndex) {
+        row.isActive = event.target.checked;
+    }
+
+    onSearchChanged(value: string) {
+        this.file_name
+        this.getAccessRightPerson();
+    }
+
+    editAccessRightPerson(template: TemplateRef<any>, index: string) {
+        this.modalHeadRef = this.modalService.show(template, { class: 'modal-lg' });
+        this.featureId = index;
+        this.getAccessRightPerson();
+    }
+
+    private getAccessRightPerson() {
+        var disp = this.localService.getAccessRightPerson(this.featureId, this.filterValue).subscribe(
+            resulted => this.onDataLoadAccessRightPersonSuccessful(resulted),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
+    }
+
+    private saveAccessRightPerson() {
+        this.alertService.startLoadingMessage("Saving changes...");
+
+        this.localService.saveAccessRightPerson(this.rowAccessRightPerson).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+    }
+
+    private onDataLoadAccessRightPersonSuccessful(resulted: Results<AccessRight>) {
+        this.rowAccessRightPerson = resulted.list;
+        this.alertService.stopLoadingMessage();
     }
 
     private uniqueId: string = Utilities.uniqueId();
@@ -264,5 +304,5 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     headerDeleteTemplate: TemplateRef<any>;
     @ViewChild('headerNameTemplate')
     headerNameTemplate: TemplateRef<any>;
-    
+
 }

@@ -70,6 +70,33 @@ export class AccessRightsEndpoint extends EndpointFactory {
             });
     }
 
+    getAccessRightPerson(featureId: string, filterValue: string): Observable<Response> {
+
+        let url = this.getUrl('accessrightperson?featureId=' + featureId + '&filterValue=' + filterValue + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getAccessRightPerson(featureId, filterValue));
+            });
+    }
+
+    saveAccessRightPerson(value: any): Observable<Response> {
+        let url = this.getUrl('updateaccessrightperson');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
     save(value: any): Observable<Response> {
         let url = this.getUrl('update');
         let header = this.getAuthHeader(true);

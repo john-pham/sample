@@ -26,8 +26,8 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<IEnumerable<PaymentDetail>> GetDetailByIOId(Guid? id);
         Task<Boolean> DeleteMaster(Guid? id);
         Task<Boolean> CancelMaster(Guid? id);
-        IEnumerable<PaymentList> GetPaymentList(DateTime fromDate, DateTime toDate, string ioNumber, int paymentTypeId, bool isPayment, string branchIds);
-        IEnumerable<PaymentDetailList> GetPaymentDetailList(DateTime fromDate, DateTime toDate, string ioNumber, int paymentTypeId, bool isPayment, string branchIds);
+        IEnumerable<PaymentList> GetPaymentList(DateTime fromDate, DateTime toDate, string ioNumber, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds);
+        IEnumerable<PaymentDetailList> GetPaymentDetailList(DateTime fromDate, DateTime toDate, string ioNumber, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds);
         Task<IEnumerable<PaymentType>> GetAllPaymentTypes(bool isPayment, string branchIds);
     }
 }

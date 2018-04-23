@@ -29,4 +29,11 @@ export class AccessRight {
     public edit: Boolean;
     public create: Boolean;
     public delete: Boolean;
+
+    public userId: string;
+    public isActive: Boolean;
+
+    public fullName: string;
+    public userName: string;
+    public branchName: string;
 }

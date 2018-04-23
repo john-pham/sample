@@ -65,7 +65,12 @@
       "View": "Xem",
       "Edit": "Sửa",
       "Create": "Tạo",
-      "Delete": "Xóa"
+      "Delete": "Xóa",
+      "AccessRightPerson": "Người dùng thấy toàn bộ dữ liệu",
+      "FullName": "Tên đầy đủ",
+      "UserName": "Tên đăng nhập",
+      "BranchName": "Cơ sở",
+      "Search": "Tìm kiếm"
     },
     "featuregroup": {
       "header": "Nhóm tài liệu",
@@ -849,7 +854,8 @@
     "Mark": "Điểm",
     "Manage": "Quản lý",
     "Search": "Tìm kiếm",
-    "SendMessenger": "Gửi tin"
+    "SendMessenger": "Gửi tin",
+    "AccessRight": "Thấy dữ liệu"
   },
   "menu": {
     "document": {

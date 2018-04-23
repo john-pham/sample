@@ -171,5 +171,84 @@
             </span>
         </ng-template>
 
+        <ng-template #actionsTemplate let-row="row" let-value="value">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editAccessRightPerson(templateAccessRightPerson, row.featureID)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.AccessRight' | translate}}
+            </a>
+        </ng-template>
+
+
     </div>
 </div>
+
+<ng-template #templateAccessRightPerson>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closeAccessRightPerson()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.accessright.AccessRightPerson' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group search-box">
+                    <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'label.accessright.Search' | translate}}">></search-box>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary" (click)="saveAccessRightPerson()">{{'button.Save' | translate}}</button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                <!--DATA TABLE-->
+                <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                               [loadingIndicator]="loadingIndicator"
+                               [rows]="rowAccessRightPerson"
+                               [rowHeight]="auto"
+                               [scrollbarV]="verticalScrollbar"
+                               [columnMode]="'force'">
+                    <ngx-datatable-column [width]="100"
+                                          [sortable]="false"
+                                          [canAutoResize]="false"
+                                          [draggable]="false" [resizeable]="false"
+                                          headerClass="text-center"
+                                          cellClass="text-center"
+                                          [prop]='isActive'>
+                        <ng-template ngx-datatable-header-template
+                                     let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value"
+                                     let-rowIndex="rowIndex" let-row="row">
+                            <input type="checkbox"
+                                   (change)="updateAccessRightValue(row,$event,rowIndex)"
+                                   [checked]="row.isActive"
+                                   value="isActive"
+                                   ng-model="isActive" />
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column headerClass="text-center"
+                                          name="{{'label.accessright.BranchName' | translate}}" prop='branchName'>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column headerClass="text-center"
+                                          name="{{'label.accessright.FullName' | translate}}" prop='fullName'>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column headerClass="text-center"
+                                          name="{{'label.accessright.UserName' | translate}}" prop='userName'>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <!--<button type="button" class="btn btn-default" (click)="closeHead()" data-dismiss="modal">{{'button.Close' | translate}}</button>-->
+        <button type="button" class="btn btn-primary" (click)="saveAccessRightPerson()">{{'button.Save' | translate}}</button>
+    </div>
+</ng-template>

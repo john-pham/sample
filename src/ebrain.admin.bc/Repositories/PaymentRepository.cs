@@ -52,7 +52,8 @@ namespace ebrain.admin.bc.Repositories
                 ).ToListAsync();
         }
 
-        public IEnumerable<PaymentList> GetPaymentList(DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool isPayment, string branchIds)
+        public IEnumerable<PaymentList> GetPaymentList
+            (DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds)
         {
             try
             {
@@ -63,6 +64,7 @@ namespace ebrain.admin.bc.Repositories
                                .WithSqlParam("paymentTypeId", paymentTypeId)
                                .WithSqlParam("filterValue", filterValue)
                                .WithSqlParam("isPayment", isPayment)
+                               .WithSqlParam("userAccessRightPerson", userAccessRightPerson.HasValue ? userAccessRightPerson.ToString() : null)
                                .WithSqlParam("branchIds", branchIds)
                                .ExecuteStoredProc((handler) =>
                                {
@@ -76,7 +78,9 @@ namespace ebrain.admin.bc.Repositories
                 throw ex;
             }
         }
-        public IEnumerable<PaymentDetailList> GetPaymentDetailList(DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool isPayment, string branchIds)
+        public IEnumerable<PaymentDetailList> GetPaymentDetailList(
+            DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson
+            , string branchIds)
         {
             try
             {
@@ -87,6 +91,7 @@ namespace ebrain.admin.bc.Repositories
                                .WithSqlParam("paymentTypeId", paymentTypeId)
                                .WithSqlParam("filterValue", filterValue)
                                .WithSqlParam("isPayment", isPayment)
+                               .WithSqlParam("userAccessRightPerson", userAccessRightPerson.HasValue ? userAccessRightPerson.ToString() : null)
                                .WithSqlParam("branchIds", branchIds)
                                .ExecuteStoredProc((handler) =>
                                {
