@@ -53,7 +53,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-    modalHeadRef: BsModalRef;
+    modalAccessRightRef: BsModalRef;
 
     private filterValue = "";
     private featureId = "";
@@ -183,7 +183,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     }
 
     closeAccessRightPerson() {
-        this.modalRef.hide();
+        this.modalAccessRightRef.hide();
     }
 
     updateHeaderViewValue(index, event) {
@@ -232,7 +232,7 @@ export class AccessRightsComponent implements OnInit, OnDestroy {
     }
 
     editAccessRightPerson(template: TemplateRef<any>, index: string) {
-        this.modalHeadRef = this.modalService.show(template, { class: 'modal-lg' });
+        this.modalAccessRightRef = this.modalService.show(template, { class: 'modal-lg' });
         this.featureId = index;
         this.getAccessRightPerson();
     }
