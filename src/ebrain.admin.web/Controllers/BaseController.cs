@@ -66,13 +66,16 @@ namespace Ebrain.Controllers
                     if (attr is ViewModels.Security)
                     {
                         var att = (ViewModels.Security)attr;
-                        var value = items.FirstOrDefault(x => x.FeatureId == att.ID);
-                        if (value != null)
+                        var list = from c in items
+                                   join s in att.IDs on c.FeatureId equals s
+                                   select c;
+
+                        foreach(var value in list)
                         {
-                            view = value.View;
-                            edit = value.Edit;
-                            delete = value.Delete;
-                            create = value.Create;
+                            view = view || value.View;
+                            edit = edit || value.Edit;
+                            delete = delete || value.Delete;
+                            create = create || value.Create;
                         }
 
                         break;

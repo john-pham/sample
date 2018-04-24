@@ -8,13 +8,18 @@ namespace Ebrain.ViewModels
     [System.AttributeUsage(System.AttributeTargets.Class |System.AttributeTargets.Struct)]
     public class Security : System.Attribute
     {
-        public Guid ID { get; set; }
+        public IList<Guid> IDs { get; set; }
 
-        public Security(string index)
+        public Security(params string[] ids)
         {
-            if (!string.IsNullOrEmpty(index))
+            this.IDs = new List<Guid>();
+
+            foreach (var index in ids)
             {
-                this.ID = new Guid(index);
+                if (!string.IsNullOrEmpty(index))
+                {
+                    this.IDs.Add(new Guid(index));
+                }
             }
         }
 
