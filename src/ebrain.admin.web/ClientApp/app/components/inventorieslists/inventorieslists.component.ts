@@ -60,12 +60,12 @@ export class InventoriesListsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'name', name: gT('label.inventorieslist.Name'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'typeName', name: gT('label.inventorieslist.TypeName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'grpName', name: gT('label.inventorieslist.GrpName'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'quantityInv', name: gT('label.inventorieslist.QuantityInv'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right'},
-            { headerClass: "text-center", prop: 'quantityInput', name: gT('label.inventorieslist.QuantityInput'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'quantityOutput', name: gT('label.inventorieslist.QuantityOutput'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'quantityEnd', name: gT('label.inventorieslist.QuantityEnd'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'quantityInv', width: 60, name: gT('label.inventorieslist.QuantityInv'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'quantityInput', width: 60, name: gT('label.inventorieslist.QuantityInput'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'quantityOutput', width: 60, name: gT('label.inventorieslist.QuantityOutput'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'quantityEnd', width: 60, name: gT('label.inventorieslist.QuantityEnd'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
 
-            { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { name: '', cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
         //
@@ -116,6 +116,11 @@ export class InventoriesListsComponent implements OnInit, OnDestroy {
 
     close() {
         this.modalRef.hide();
+    }
+
+    goDetails(value: Inventories) {
+        var url = '/warehousecards';
+        this.router.navigate([url, value.id]);
     }
 
     @ViewChild('statusHeaderTemplate')

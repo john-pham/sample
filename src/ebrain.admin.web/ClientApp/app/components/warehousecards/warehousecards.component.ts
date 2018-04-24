@@ -6,7 +6,9 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { fadeInOut } from '../../services/animations';
 import { AppTranslationService } from "../../services/app-translation.service";
@@ -44,7 +46,8 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: IOStudentListService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: IOStudentListService, private modalService: BsModalService, private router: Router, private route: ActivatedRoute) {
         this.pointer = new Grpsupplier();
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
@@ -77,46 +80,33 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
         //this.saveToDisk();
     }
 
-    addGrpsupplier(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
-    }
-
-    imageFinishedUploading(file: any) {
-        console.log(JSON.stringify(file.serverResponse));
-    }
-
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
-    }
-
     onSearchChanged(value: string) {
         this.filterValue = value;
     }
 
     search() {
+        this.router.navigate(["/warehousecards", ""]);
         this.getFromServer();
     }
 
     private getFromServer() {
         this.loadingIndicator = true;
-        //
-        var disp = this.localService.getWarehouseCard(this.filterName, this.filterValue, this.fromDate, this.toDate).subscribe(
-            list => this.onDataLoadSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+
+        this.route.paramMap
+            .switchMap((params: ParamMap) => {
+                var id = params.get('id');
+                this.filterValue = id;
+                
+                return this.localService.getWarehouseCard(this.filterName, this.filterValue, this.fromDate, this.toDate);
+            })
+            .subscribe(results => this.onDataLoadSuccessful(results), error => this.onDataLoadFailed(error));
     }
 
     private onDataLoadSuccessful(list: IOStockReport[]) {
         this.rows = list;
         this.alertService.stopLoadingMessage();
-
+        this.loadingIndicator = false;
+        this.filterValue = "";
     }
 
     private onDataLoadFailed(error: any) {
@@ -130,7 +120,7 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
     close() {
         this.modalRef.hide();
     }
-
+    
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
 

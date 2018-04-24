@@ -251,11 +251,7 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
         //
         var disp = this.localService.getUsers(-1, -1).subscribe(
             results => this.allUsers = results,
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
         //return this.localService.getAll().subscribe(
         //    results => this.onDataLoadSuccessful(results[0]),
         //    error => this.onDataLoadFailed(error));
@@ -388,6 +384,10 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
 
         if (this.changesFailedCallback)
             this.changesFailedCallback();
+    }
+
+    private close() {
+        this.modalRef.hide();
     }
 
     @ViewChild('f')

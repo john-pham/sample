@@ -178,7 +178,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },
             { path: "user-info", component: UserInfoComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
             { path: "users-management", component: UsersManagementComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
-            
+
             { path: "branches", component: BranchesComponent, canActivate: [AuthGuard], data: { title: "Branches" } },
             { path: "stocks", component: StocksComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
             { path: "typemateriallearns", component: TypeMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "typeMaterialLearns" } },
@@ -195,7 +195,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
             { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },
-            { path: "studentendclass", component: StudentEndClassComponent , canActivate: [AuthGuard], data: { title: "students end classes" } },
+            { path: "studentendclass", component: StudentEndClassComponent, canActivate: [AuthGuard], data: { title: "students end classes" } },
 
 
             { path: "payments", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
@@ -222,6 +222,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "iosummarizes", component: IOSummarizesComponent, canActivate: [AuthGuard], data: { title: "iosummarizes" } },
             { path: "iodetails", component: IODetailsComponent, canActivate: [AuthGuard], data: { title: "iodetails" } },
             { path: "warehousecards", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },
+            { path: "warehousecards/:id", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },
 
             { path: "iooutput/:id", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "Output" } },
             { path: "ioinput/:id", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "Input" } },

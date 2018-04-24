@@ -85,7 +85,7 @@
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row" let-value="value">
-        <a class="btn btn-link btn-xs" routerLink="/payment/?id={{value}}" (click)="goDetails(template, row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+        <a class="btn btn-link btn-xs" routerLink="/warehousecards/?id={{value}}" (click)="goDetails(row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
     </ng-template>
 </div>
 
