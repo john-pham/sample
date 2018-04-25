@@ -29,6 +29,7 @@ namespace ebrain.admin.bc
 
         ISMSRepository _SMSs;
         IMessengerRepository _messengers;
+        ISupportRepository _supports;
         IGroupDocumentRepository _GroupDocuments;
         IDocumentRepository _Documents;
         IGenderRepository _Genders;
@@ -291,7 +292,18 @@ namespace ebrain.admin.bc
                 return _messengers;
             }
         }
-        
+
+        public ISupportRepository Supports
+        {
+            get
+            {
+                if (_supports == null)
+                    _supports = new SupportRepository(_context);
+
+                return _supports;
+            }
+        }
+
         public IGenderRepository Genders
         {
             get

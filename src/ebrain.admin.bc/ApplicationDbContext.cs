@@ -67,6 +67,7 @@ namespace ebrain.admin.bc
         public DbSet<Material> Material { get; set; }
         public DbSet<MessengerBranch> MessengerBranch { get; set; }
         public DbSet<Messenger> Messenger { get; set; }
+        public DbSet<Support> Support { get; set; }
         public DbSet<MessengerRead> MessengerRead { get; set; }
         public DbSet<MaterialHead> MaterialHead { get; set; }
         public DbSet<Payment> Payment { get; set; }
@@ -176,7 +177,8 @@ namespace ebrain.admin.bc
             builder.Entity<Messenger>().ToTable(nameof(this.Messenger));
             builder.Entity<MessengerBranch>().ToTable(nameof(this.MessengerBranch));
             builder.Entity<MessengerRead>().ToTable(nameof(this.MessengerRead));
-
+            builder.Entity<Support>().ToTable(nameof(this.Support));
+            
             builder.Entity<PaymentDetail>().ToTable(nameof(this.PaymentDetail));
             builder.Entity<PaymentType>().ToTable(nameof(this.PaymentType));
             builder.Entity<PaymentTypeHead>().ToTable(nameof(this.PaymentTypeHeads));

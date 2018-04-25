@@ -67,7 +67,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-3 col-md-3 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('adc69968-d9e7-4c9e-ad15-206ed47a9d33')">
+                <div class="col-lg-3 col-md-3 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('adc69968-d9e7-4c9e-ad15-206ed47a9d34')">
                     <a routerLink="/users-management" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -76,6 +76,19 @@
                         <span class="clear">
                             <span class="h3 block m-t-xs text-warning">{{'label.userrole.UserLogin' | translate}}</span>
                             <small class="text-muted text-u-c">"{{'label.userrole.UserLogin' | translate}}"</small>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-3 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('adc69968-d9e7-4c9e-ad15-206ed47a9d35')">
+                    <a routerLink="/supports" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-phone text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'pageMain.support.header' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'pageMain.support.header' | translate}}"</small>
                         </span>
                     </a>
                 </div>

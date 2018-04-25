@@ -1,0 +1,138 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_system">{{'menu.main.System' | translate}}</a></li>
+                <li>{{'pageMain.support.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-10">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.support.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-2" *ngIf="accessRightService.isCreate('adc69968-d9e7-4c9e-ad15-206ed47a9d35')">
+        <div class="text-right">
+            <button class="btn btn-primary" (click)="add(template)"><i class="fa fa-plus-circle"></i> {{'button.Add' | translate}}</button>
+        </div>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [columns]="columns"
+                       [columnMode]="'force'"
+                       [scrollbarV]="verticalScrollbar"
+                       [scrollbarH]="true"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="'auto'"
+                       [externalPaging]="true"
+                       [count]="page.totalElements"
+                       [offset]="page.pageNumber"
+                       [limit]="page.size"
+                       (page)='setPage($event)'>
+        </ngx-datatable>
+
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
+
+        <ng-template #statusTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #actionsTemplate let-row="row">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"
+               *ngIf="accessRightService.isEdit('adc69968-d9e7-4c9e-ad15-206ed47a9d35')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.Edit' | translate}}</a>
+            |
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"
+               *ngIf="accessRightService.isDelete('adc69968-d9e7-4c9e-ad15-206ed47a9d35')"><i class="fa fa-trash-o" aria-hidden="true"></i>{{'button.Delete' | translate}}</a>
+        </ng-template>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.featuregroup.HeaderAdd' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="branchForm" #f="ngForm"
+              novalidate
+              (ngSubmit)="f.form.valid ? save() :
+          (showErrorAlert('Input is required', 'Please enter at controls'));">
+            <div class="modal-body">
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">{{'label.support.SupportName' | translate}}</label>
+                        <div [ngClass]="{'has-success': f.submitted && supportName.valid, 'has-error' : f.submitted && !supportName.valid}">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.supportName" name="supportName" required
+                                   #supportName="ngModel"
+                                   attr.id="supportName-{{uniqueId}}" minlength="2" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">{{'label.support.Title' | translate}}</label>
+                        <div [ngClass]="{'has-success': f.submitted && title.valid, 'has-error' : f.submitted && !title.valid}">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.title" name="title" required
+                                   #title="ngModel"
+                                   attr.id="title-{{uniqueId}}" minlength="2" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">{{'label.support.Phone' | translate}}</label>
+                        <div [ngClass]="{'has-success': f.submitted && phone.valid, 'has-error' : f.submitted && !phone.valid}">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.phone" name="phone" required
+                                   #phone="ngModel"
+                                   attr.id="phone-{{uniqueId}}" minlength="2" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">{{'label.support.Email' | translate}}</label>
+                        <div [ngClass]="{'has-success': f.submitted && email.valid, 'has-error' : f.submitted && !email.valid}">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.email" name="email" required
+                                   #email="ngModel"
+                                   attr.id="email-{{uniqueId}}" minlength="2" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">{{'label.support.Note' | translate}}</label>
+                        <textarea class="form-control" [(ngModel)]="pointer.note" name="note"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'button.Save' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+

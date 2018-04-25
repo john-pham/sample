@@ -19,7 +19,7 @@ import { UserInfoComponent } from "./components/controls/user-info.component";
 import { UsersManagementComponent } from "./components/controls/users-management.component";
 
 import { MessengerComponent } from "./components/messengers/messengers.component";
-
+import { SupportComponent } from "./components/supports/supports.component";
 import { BranchesComponent } from "./components/branches/branches.component";
 import { StocksComponent } from "./components/stocks/stocks.component";
 
@@ -173,6 +173,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "accessrights", component: AccessRightsComponent, canActivate: [AuthGuard], data: { title: "Access Rights" } },
             { path: "userroles", component: UserRolesComponent, canActivate: [AuthGuard], data: { title: "User Roles" } },
             { path: "messengers", component: MessengerComponent, canActivate: [AuthGuard], data: { title: "Messenger" } },
+            { path: "supports", component: SupportComponent, canActivate: [AuthGuard], data: { title: "Supports" } },
 
             { path: "featuregroups", component: FeatureGroupsComponent, canActivate: [AuthGuard], data: { title: "Feature Groups" } },
             { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },

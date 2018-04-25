@@ -51,6 +51,9 @@ import { CurrencyPipe } from "./pipes/currency.pipe";
 import { MessengerService } from './services/messengers.service';
 import { MessengerEndpoint } from './services/messengers-endpoint.service';
 
+import { SupportService } from './services/support.service';
+import { SupportEndpoint } from './services/support-endpoint.service';
+
 import { AccessRightsService } from './services/access-rights.service';
 import { AccessRightsEndpoint } from './services/access-rights.endpoint';
 
@@ -188,6 +191,7 @@ import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups
 import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
 
 import { MessengerComponent } from "./components/messengers/messengers.component";
+import { SupportComponent } from "./components/supports/supports.component";
 import { MessengerListComponent } from "./components/messengerlists/messengerlists.component";
 
 import { BranchesComponent } from "./components/branches/branches.component";
@@ -348,6 +352,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         MessengerComponent,
         MessengerListComponent,
+        SupportComponent,
 
         BranchesComponent,
         StocksComponent,
@@ -482,6 +487,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         AccessRightsEndpoint,
         MessengerService,
         MessengerEndpoint,
+        SupportService,
+        SupportEndpoint,
         UserRolesService,
         UserRolesEndpoint,
         UserGroupsEndpoint,

@@ -24,6 +24,13 @@
     "Payment": "Phiếu thu"
   },
   "label": {
+    "support": {
+      "SupportName": "Người hỗ trợ",
+      "Title": "Chức vụ",
+      "Email": "Email",
+      "Phone": "Điện thoại",
+      "Note": "Ghi chú"
+    },
     "home": {
       "AllStudent": "Học viên",
       "NewStudent": "Học viên mới",
@@ -676,6 +683,11 @@
       "header": "Danh sách nhóm chức năng",
       "searchBox": "Tìm kiếm nhóm chức năng",
       "newDocument": "Thêm mới"
+    },
+    "support": {
+      "header": "Danh sách hỗ trợ",
+      "searchBox": "Tìm kiếm hỗ trợ",
+      "newSupport": "Thêm mới"
     },
     "usergroup": {
       "header": "Danh sách nhóm người dùng",
