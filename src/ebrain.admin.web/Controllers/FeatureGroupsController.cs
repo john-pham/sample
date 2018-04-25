@@ -23,13 +23,14 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class FeatureGroupsController : Controller
+    [Security("ADC69968-D9E7-4C9E-AD15-206ED47A9D31")]
+    public class FeatureGroupsController : BaseController
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
         readonly IHostingEnvironment _env;
 
-        public FeatureGroupsController(IUnitOfWork unitOfWork, ILogger<FeatureGroupsController> logger, IHostingEnvironment env)
+        public FeatureGroupsController(IUnitOfWork unitOfWork, ILogger<DocumentController> logger, IHostingEnvironment env) : base(unitOfWork, logger)
         {
             this._unitOfWork = unitOfWork;
             this._logger = logger;

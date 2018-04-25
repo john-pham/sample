@@ -26,7 +26,9 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("")]
+    [Security("9ECBD467-7642-467B-AAE2-96484AD182A1", "9ECBD467-7642-467B-AAE2-96484AD182A2",
+        "9ECBD467-7642-467B-AAE2-96484AD182A3", "9ECBD467-7642-467B-AAE2-96484AD182A4", "9ECBD467-7642-467B-AAE2-96484AD182A5",
+        "9ECBD467-7642-467B-AAE2-96484AD182A5", "9ECBD467-7642-467B-AAE2-96484AD182A8", "9ECBD467-7642-467B-AAE2-96484AD182A9")]
     public class IOStockController : BaseController
     {
         private IUnitOfWork _unitOfWork;

@@ -24,7 +24,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("8AA6E971-1C3D-4835-B154-D662CE12AE92")]
+    [Security("8AA6E971-1C3D-4835-B154-D662CE12AE9E")]
     public class TypeMaterialLearnsController : BaseController
     {
         private IUnitOfWork _unitOfWork;

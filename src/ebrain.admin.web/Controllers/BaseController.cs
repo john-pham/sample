@@ -24,7 +24,7 @@ namespace Ebrain.Controllers
         {
             this._logger = logger;
             this.loadPermission(unitOfWork);
-            //this.loadBehavior(this.GetType());
+            this.loadBehavior(this.GetType());
 
             if(!this.CanView)
             {

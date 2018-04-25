@@ -25,7 +25,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("")]
+    [Security("8AA6E971-1C3D-4835-B154-D662CE12AE13")]
     public class AttendanceController : BaseController
     {
         private IUnitOfWork _unitOfWork;

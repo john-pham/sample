@@ -23,7 +23,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("")]
+    [Security("ADC69968-D9E7-4C9E-AD15-206ED47A6F18", "ADC69968-D9E7-4C9E-AD15-206ED47A6F19")]
     public class SMSController : BaseController
     {
         private IUnitOfWork _unitOfWork;

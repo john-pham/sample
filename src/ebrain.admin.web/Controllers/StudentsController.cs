@@ -24,7 +24,8 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("")]
+    [Security("8AA6E971-1C3D-4835-B154-D662CE12AE98", "8AA6E971-1C3D-4835-B154-D662CE12AE14",
+        "8AA6E971-1C3D-4835-B154-D662CE12AE99")]
     public class StudentsController : BaseController
     {
         private IUnitOfWork _unitOfWork;

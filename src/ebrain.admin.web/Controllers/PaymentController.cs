@@ -26,7 +26,8 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("")]
+    [Security("376F3FFE-408A-49A8-B0EA-B69654E11B31", "376F3FFE-408A-49A8-B0EA-B69654E11B32", "376F3FFE-408A-49A8-B0EA-B69654E11B33",
+        "376F3FFE-408A-49A8-B0EA-B69654E11B34")]
     public class PaymentController : BaseController
     {
         private IUnitOfWork _unitOfWork;

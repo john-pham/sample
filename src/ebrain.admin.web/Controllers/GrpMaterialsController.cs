@@ -24,7 +24,8 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("D7239078-E67A-42FA-86D6-4A8C3F73D721")]
+    [Security("D7239078-E67A-42FA-86D6-4A8C3F73D721", "D7239078-E67A-42FA-86D6-4A8C3F73D735"
+        , "8AA6E971-1C3D-4835-B154-D662CE12AE91")]
     public class GrpMaterialsController : BaseController
     {
         private IUnitOfWork _unitOfWork;

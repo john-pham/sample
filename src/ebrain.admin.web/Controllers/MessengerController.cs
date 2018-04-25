@@ -24,7 +24,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("")]
+    [Security("ADC69968-D9E7-4C9E-AD15-206ED47A6D30")]
     public class MessengerController : BaseController
     {
         private IUnitOfWork _unitOfWork;

@@ -24,7 +24,7 @@ namespace Ebrain.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Security("")]
+    [Security("D7239078-E67A-42FA-86D6-4A8C3F73D533")]
     public class RoomsController : BaseController
     {
         private IUnitOfWork _unitOfWork;
