@@ -27,6 +27,8 @@ import { Messenger } from "../models/messenger.model";
 import { Utilities } from "../services/utilities";
 import { AccessRight } from "../models/accessright.model";
 import { AccessRightsService } from "../services/access-rights.service";
+import { SupportService } from "../services/support.service";
+import { Support } from "../models/support.model";
 
 require('jquery');
 var alertify: any = require('../assets/scripts/alertify.js');
@@ -83,8 +85,10 @@ export class AlteComponent implements OnInit, AfterViewInit {
 
     //messenger
     countMessenger: any = 0;
+    countSupport: any = 0;
     messengers = [];
     accessRights = [];
+    supports = [];
 
     get notificationsTitle() {
 
@@ -99,7 +103,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
 
     constructor(storageManager: LocalStoreManager, private toastyService: ToastyService, private toastyConfig: ToastyConfig,
         private accountService: AccountService, private alertService: AlertService, private notificationService: NotificationService,
-        private appTitleService: AppTitleService, private messengerService: MessengerService,
+        private appTitleService: AppTitleService, private messengerService: MessengerService, private supportService: SupportService,
         private authService: AuthService, private translationService: AppTranslationService, public configurations: ConfigurationService,
         public accessRightService: AccessRightsService, public router: Router) {
 
@@ -244,7 +248,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
             });
 
         //load messenger
-        this.getMessenger();
+        this.getData();
     }
 
     getAccessRight() {
@@ -263,14 +267,21 @@ export class AlteComponent implements OnInit, AfterViewInit {
         this.alertService.stopLoadingMessage();
     }
 
-    getMessenger() {
-        var disp = this.messengerService.getnewmessenger().subscribe(
+    getData() {
+        this.messengerService.getnewmessenger().subscribe(
             resulted => this.onMessengerLoadSuccessful(resulted),
-            error => this.onLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { }, 1500);
-            });
+            error => this.onLoadFailed(error));
+
+        this.supportService.search("", "", 0, 0).subscribe(
+            resulted => this.onSupportLoadSuccessful(resulted),
+            error => this.onLoadFailed(error));
+
+    }
+
+    private onSupportLoadSuccessful(resulted: Results<Support>) {
+        this.countSupport = resulted.total;
+        this.supports = resulted.list;
+        this.alertService.stopLoadingMessage();
     }
 
     private onMessengerLoadSuccessful(resulted: Results<Messenger>) {
@@ -349,7 +360,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
                 break;
         }
     }
-    
+
     showToast(message: AlertMessage, isSticky: boolean) {
 
         if (message == null) {
