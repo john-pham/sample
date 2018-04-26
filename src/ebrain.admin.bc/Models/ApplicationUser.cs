@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using ebrain.admin.bc.Models.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ebrain.admin.bc.Models
 {
@@ -39,6 +40,8 @@ namespace ebrain.admin.bc.Models
         public bool IsLockedOut => this.LockoutEnabled && this.LockoutEnd >= DateTimeOffset.UtcNow;
 
         public Guid? BranchId { get; set; }
+        [NotMapped]
+        public string BranchName { get; set; }
 
         public Guid? GroupId { get; set; }
 

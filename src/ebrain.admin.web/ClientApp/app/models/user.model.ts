@@ -41,4 +41,14 @@ export class User {
     public isLockedOut: boolean;
     public roles: string[];
     public branchId: string;
+    public _branchTempId: string;
+
+    get branchTempId(): string {
+        return this._branchTempId;
+    }
+    set branchTempId(theBar: string) {
+        this._branchTempId = theBar;
+    }
+
+    public branchName: string;
 }

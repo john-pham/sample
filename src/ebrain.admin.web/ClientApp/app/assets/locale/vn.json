@@ -1117,7 +1117,8 @@
       "FullName": "Tên đầy đủ",
       "Email": "Email",
       "Roles": "Vai trò",
-      "PhoneNumber": "Điện thoại"
+      "PhoneNumber": "Điện thoại",
+      "Branch": "Chi nhánh"
     },
     "editor": {
       "Branch": "Chi nhánh: ",

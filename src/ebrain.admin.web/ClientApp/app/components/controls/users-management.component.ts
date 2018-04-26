@@ -65,7 +65,7 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
         this.columns = [
             { headerClass: "text-center", prop: "index", name: '#', width: 40, cellTemplate: this.indexTemplate, canAutoResize: false },
-            { headerClass: "text-center", prop: 'branchId', name: gT('users.editor.Branch') },
+            { headerClass: "text-center", prop: 'branchName', name: gT('users.management.Branch') },
             { headerClass: "text-center", prop: 'jobTitle', name: gT('users.management.Title') },
             { headerClass: "text-center", prop: 'userName', name: gT('users.management.UserName'), cellTemplate: this.userNameTemplate },
             { headerClass: "text-center", prop: 'fullName', name: gT('users.management.FullName') },
@@ -180,17 +180,18 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
 
     editUser(row: UserEdit) {
+        this.userEditor.getBranch();
         this.editingUserName = { name: row.userName };
         this.sourceUser = row;
         this.editedUser = this.userEditor.editUser(row, this.allRoles);
         this.editorModal.show();
+        
     }
 
     deleteUser(row: UserEdit) {
         this.alertService.showDialog('Are you sure you want to delete \"' + row.userName + '\"?', DialogType.confirm, () => this.deleteUserHelper(row));
     }
-
-
+    
     deleteUserHelper(row: UserEdit) {
 
         this.alertService.startLoadingMessage("Deleting...");

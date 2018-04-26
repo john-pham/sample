@@ -41,7 +41,7 @@ namespace Ebrain.ViewModels
         public bool IsLockedOut { get; set; }
 
         public Guid? BranchId { get; set; }
-
+        public string BranchName { get; set; }
         [MinimumCount(1, ErrorMessage = "Roles cannot be empty")]
         public string[] Roles { get; set; }
 

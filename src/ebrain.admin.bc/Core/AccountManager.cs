@@ -98,6 +98,13 @@ namespace ebrain.admin.bc.Core
 
             var users = await usersQuery.ToListAsync();
 
+            var branches = this._context.Branch.Where(p => p.IsDeleted == false);
+            foreach(var item in users)
+            {
+                var itemBr = branches.FirstOrDefault(p => p.BranchId == item.BranchId);
+                item.BranchName = itemBr != null ? itemBr.BranchName : string.Empty;
+            }
+
             var userRoleIds = users.SelectMany(u => u.Roles.Select(r => r.RoleId)).ToList();
 
             var roles = await _context.Roles

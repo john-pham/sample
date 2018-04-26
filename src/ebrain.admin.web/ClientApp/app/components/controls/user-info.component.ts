@@ -138,7 +138,6 @@ export class UserInfoComponent implements OnInit {
 
 
     private edit() {
-        this.getBranch();
         if (!this.isGeneralEditor) {
             this.isEditingSelf = true;
             this.userEdit = new UserEdit();
@@ -147,10 +146,8 @@ export class UserInfoComponent implements OnInit {
         else {
             if (!this.userEdit)
                 this.userEdit = new UserEdit();
-
             this.isEditingSelf = this.accountService.currentUser ? this.userEdit.id == this.accountService.currentUser.id : false;
         }
-
         
         this.isEditMode = true;
         this.showValidationErrors = true;
@@ -162,6 +159,9 @@ export class UserInfoComponent implements OnInit {
         this.isSaving = true;
         this.alertService.startLoadingMessage("Saving changes...");
 
+        var branch = this.branches.find(p => p.id == this.userEdit.branchId);
+        this.userEdit.branchName = branch != null ? branch.name : "";
+        this.user.branchId = this.userEdit.branchId;
         if (this.isNewUser) {
             this.accountService.newUser(this.userEdit).subscribe(user => this.saveSuccessHelper(user), error => this.saveFailedHelper(error));
         }
@@ -170,17 +170,13 @@ export class UserInfoComponent implements OnInit {
         }
     }
 
-    private getBranch() {
+    getBranch() {
         this.branchService.getAll().subscribe(user => this.loadBranchSuccessHelper(user), error => this.saveFailedHelper(error));
     }
 
     private loadBranchSuccessHelper(branches: Branch[]) {
-        var branchId = this.userEdit.branchId;
-        if (branches != null && branches.length > 0) {
-            this.userEdit.branchId = branches[0].id;
-        }
+        this.userEdit.branchId = this.userEdit.branchId;
         this.branches = branches;
-        this.userEdit.branchId = branchId;
     }
     private saveSuccessHelper(user?: User) {
         this.testIsRoleUserCountChanged(this.user, this.userEdit);
