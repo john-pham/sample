@@ -172,6 +172,7 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
 
     newUser() {
+        this.userEditor.getBranch();
         this.editingUserName = null;
         this.sourceUser = null;
         this.editedUser = this.userEditor.newUser(this.allRoles);
