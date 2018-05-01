@@ -27,6 +27,7 @@ import { GrpMaterial } from "../../models/grpMaterial.model";
 import { Supplier } from "../../models/supplier.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'materials',
     templateUrl: './materials.component.html',
@@ -60,6 +61,7 @@ export class MaterialsComponent implements OnInit, OnDestroy {
         public accessRightService: AccessRightsService,
         private typeservice: TypeMaterialsService) {
         this.pointer = new Material();
+        this.filterValue = "";
         this.page = new Page();
         this.page.pageNumber = 0;
         this.page.size = 20;
@@ -178,7 +180,8 @@ export class MaterialsComponent implements OnInit, OnDestroy {
         return this.localService.getTypeMaterial().subscribe(results => this.onDataLoadSuccessfulTypeMaterial(results), error => this.onDataLoadFailed(error));
     }
 
-    private onDataLoadSuccessfulTypeMaterial(types: TypeMaterial[]) {
+    private onDataLoadSuccessfulTypeMaterial(resulted: Results<TypeMaterial>) {
+        var types = resulted.list;
         if (types.length > 0) {
             var typeId = types[0].id;
             this.pointer.typeMaterialId = typeId;
@@ -194,7 +197,8 @@ export class MaterialsComponent implements OnInit, OnDestroy {
         return this.localService.getSupplier().subscribe(results => this.onDataLoadSuccessfulSupplier(results), error => this.onDataLoadFailed(error));
     }
 
-    private onDataLoadSuccessfulSupplier(suppliers: Supplier[]) {
+    private onDataLoadSuccessfulSupplier(resulted: Results<Supplier>) {
+        var suppliers = resulted.list;
         if (suppliers.length > 0) {
             this.pointer.supplierId = suppliers[0].id;
         }
@@ -203,8 +207,9 @@ export class MaterialsComponent implements OnInit, OnDestroy {
 
     }
 
-    private onDataLoadSuccessful(materialLearns: Material[]) {
-        this.rows = materialLearns;
+    private onDataLoadSuccessful(resulted: Results<Material>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

@@ -18,6 +18,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'typematerials',
     templateUrl: './typeMaterials.component.html',
@@ -44,6 +45,7 @@ export class TypeMaterialsComponent implements OnInit, OnDestroy {
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: TypeMaterialsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new TypeMaterial();
         this.page = new Page();
+this.filterValue = '';
         this.page.pageNumber = 0;
         this.page.size = 20;
     }
@@ -132,8 +134,9 @@ export class TypeMaterialsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: TypeMaterial[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<TypeMaterial>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

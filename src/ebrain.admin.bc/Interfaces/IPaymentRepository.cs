@@ -17,6 +17,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IPaymentRepository : IRepository<Payment>
     {
+        int Total { get; }
         IEnumerable<Payment> GetTopActive(int count, string branchIds);
         Task<Payment> FindById(Guid? id);
         Task<IEnumerable<Payment>> Search(string filter, string value, string branchIds);
@@ -26,8 +27,10 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<IEnumerable<PaymentDetail>> GetDetailByIOId(Guid? id);
         Task<Boolean> DeleteMaster(Guid? id);
         Task<Boolean> CancelMaster(Guid? id);
-        IEnumerable<PaymentList> GetPaymentList(DateTime fromDate, DateTime toDate, string ioNumber, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds);
-        IEnumerable<PaymentDetailList> GetPaymentDetailList(DateTime fromDate, DateTime toDate, string ioNumber, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds);
+        IEnumerable<PaymentList> GetPaymentList(DateTime fromDate, DateTime toDate, string ioNumber, 
+            int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds, int page, int size);
+        IEnumerable<PaymentDetailList> GetPaymentDetailList(DateTime fromDate, DateTime toDate, string ioNumber, 
+            int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds, int page, int size);
         Task<IEnumerable<PaymentType>> GetAllPaymentTypes(bool isPayment, string branchIds);
     }
 }

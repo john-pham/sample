@@ -16,6 +16,7 @@ import 'rxjs/add/operator/map';
 import { GrpsuppliersEndpoint } from './grpsuppliers-endpoint.service';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class GrpsuppliersService {
@@ -26,7 +27,7 @@ export class GrpsuppliersService {
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <Grpsupplier[]>response.json());
+            .map((response: Response) => <Results<Grpsupplier>>response.json());
     }
 
     getAll(option: number) {

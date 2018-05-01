@@ -23,6 +23,7 @@ import { ProfitsService } from "../../services/profits.service";
 import { Profit } from "../../models/profits.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'profitslist',
     templateUrl: './profitslist.component.html',
@@ -68,9 +69,9 @@ export class ProfitsListsComponent implements OnInit, OnDestroy {
         this.columns = [
             { headerClass: "text-center", prop: 'code', name: gT('label.profitslist.Code'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'name', name: gT('label.profitslist.Name'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'totalPriceFirst', name: gT('label.profitslist.TotalPriceFirst'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right'},
+            { headerClass: "text-center", prop: 'totalPriceFirst', name: gT('label.profitslist.TotalPriceFirst'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'totalPriceReceipt', name: gT('label.profitslist.TotalPriceReceipt'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.profitslist.TotalPricePayment'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right'},
+            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.profitslist.TotalPricePayment'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'totalPriceEnd', name: gT('label.profitslist.TotalPriceEnd'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
 
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
@@ -114,8 +115,9 @@ export class ProfitsListsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: Profit[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Profit>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
     }
 

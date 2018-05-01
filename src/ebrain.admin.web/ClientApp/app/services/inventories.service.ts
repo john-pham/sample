@@ -28,7 +28,7 @@ import { Supplier } from "../models/supplier.model";
 import { Inventories } from "../models/inventories.model";
 import { AccountService } from "./account.service";
 import { AccountEndpoint } from "./account-endpoint.service";
-
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class InventoriesService {
@@ -39,7 +39,7 @@ export class InventoriesService {
 
     getInventories(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.getInventories(filter, value, fromDate, toDate, page, size)
-            .map((response: Response) => <Inventories[]>response.json());
+            .map((response: Response) => <Results<Inventories>>response.json());
     }
     updateInventories(filter: string, value: string, fromDate: Date, toDate: Date) {
         return this.endpointFactory.updateInventories(filter, value, fromDate, toDate)

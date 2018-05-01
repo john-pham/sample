@@ -19,6 +19,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TypeMaterialsService } from "../../services/typeMaterials.service";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'typemateriallearns',
     templateUrl: './typeMaterialLearns.component.html',
@@ -139,8 +140,9 @@ export class TypeMaterialLearnsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: TypeMaterialLearn[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<TypeMaterialLearn>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

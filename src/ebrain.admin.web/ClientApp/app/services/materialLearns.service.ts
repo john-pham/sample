@@ -24,6 +24,7 @@ import { TypeMaterialLearnsEndpoint } from "./typeMaterialLearns-endpoint.servic
 import { GrpMaterialLearnsService } from "./grpMaterialLearns.service";
 import { GrpMaterialLearn } from "../models/grpMaterialLearn.model";
 import { GrpMaterialLearnsEndpoint } from "./grpMaterialLearns-endpoint.service";
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class MaterialLearnsService {
@@ -35,7 +36,7 @@ export class MaterialLearnsService {
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <MaterialLearn[]>response.json());
+            .map((response: Response) => <Results<MaterialLearn>>response.json());
     }
 
     get(index: string) {
@@ -45,7 +46,7 @@ export class MaterialLearnsService {
 
     getMaterialLearn(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.getMaterialLearn(filter, value, page, size)
-            .map((response: Response) => <MaterialLearn[]>response.json());
+            .map((response: Response) => <Results<MaterialLearn>>response.json());
     }
 
     getTypeMaterial(index: string) {

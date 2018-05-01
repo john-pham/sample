@@ -17,6 +17,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IIOStockRepository : IRepository<IOStock>
     {
+        int Total { get; }
         IEnumerable<IOStock> GetTopActive(int count);
         Task<IOStock> FindById(Guid? id);
         Task<IEnumerable<IOStock>> Search(string filter, string value, string branchIds);
@@ -26,10 +27,11 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<IEnumerable<IOStockDetail>> GetDetailByIOId(Guid? id);
         Task<Boolean> DeleteMaster(Guid? id);
         Task<Boolean> CancelMaster(Guid? id);
-        IEnumerable<IOStockList> GetIOStockList(DateTime fromDate, DateTime toDate, string ioNumber, int ioTypeId, string branchIds);
-        IEnumerable<IOStockDetailList> GetIOStockDetailList(DateTime fromDate, DateTime toDate, string ioNumber, int ioTypeId, string branchIds);
-        IEnumerable<IOStockDetailList> GetWarehouseCard(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds);
-        IEnumerable<IOStockListPayment> GetIOStockPaymentList(DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId,bool isInput, string branchIds);
+        IEnumerable<IOStockList> GetIOStockList(DateTime fromDate, DateTime toDate, string ioNumber, int ioTypeId, string branchIds, int page, int size);
+        IEnumerable<IOStockDetailList> GetIOStockDetailList(DateTime fromDate, DateTime toDate, string ioNumber, int ioTypeId, string branchIds, int page, int size);
+        IEnumerable<IOStockDetailList> GetWarehouseCard(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds, int page, int size);
+        IEnumerable<IOStockListPayment> GetIOStockPaymentList(DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId,
+            bool isInput, string branchIds, int page, int size);
        
     }
 }

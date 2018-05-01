@@ -17,6 +17,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IInventoriesRepository : IRepository<Inventory>
     {
+        int Total { get; }
         IEnumerable<Inventory> GetTopActive(int count);
         Task<Inventory> FindById(Guid? id);
         Task<IEnumerable<Inventory>> Search(string filter, string value);
@@ -26,7 +27,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<IEnumerable<InventoryDetail>> GetDetailByIOId(Guid? id);
         Task<Boolean> DeleteMaster(Guid? id);
         Task<Boolean> CancelMaster(Guid? id);
-        IEnumerable<InventorieslList> GetInventoryList(DateTime fromDate, DateTime toDate, string filter, string branchIds);
+        IEnumerable<InventorieslList> GetInventoryList(DateTime fromDate, DateTime toDate, string filter, string branchIds, int page, int size);
         Task<bool> UpdateInventory(DateTime fromDate, DateTime toDate, string filter, string branchIds, Guid userId);
 
     }

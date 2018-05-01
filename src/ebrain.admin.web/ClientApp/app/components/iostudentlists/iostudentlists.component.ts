@@ -21,6 +21,7 @@ import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'iostudentlist',
     templateUrl: './iostudentlists.component.html',
@@ -119,8 +120,9 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: IOStockReport[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<IOStockReport>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

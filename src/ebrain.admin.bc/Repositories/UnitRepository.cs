@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class UnitRepository : Repository<Unit>, IUnitRepository
     {
+        public int Total { get; private set; }
         public UnitRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -39,10 +40,18 @@ namespace ebrain.admin.bc.Repositories
             return await this.appContext.Unit.Where(p => p.IsDeleted == false && branchIds.Contains(p.BranchId.ToString())).ToListAsync();
         }
 
-        public async Task<IEnumerable<Unit>> Search(string filter, string value, string branchIds)
+        public async Task<IEnumerable<Unit>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.Unit.Where(p => p.IsDeleted == false
-                            && branchIds.Contains(p.BranchId.ToString())).ToListAsync();
+            var results = this.appContext.Unit.Where(p => p.IsDeleted == false
+                            && branchIds.Contains(p.BranchId.ToString()));
+
+            //paging
+            this.Total = results.Count();
+            if (size > 0 && page >= 0)
+            {
+                results = (from c in results select c).Skip(page * size).Take(size);
+            }
+            return results;
         }
 
         public async Task<Unit> Save(Unit value, Guid? id)

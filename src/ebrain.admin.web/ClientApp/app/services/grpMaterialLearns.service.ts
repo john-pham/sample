@@ -18,6 +18,7 @@ import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
 import { TypeMaterialLearnsEndpoint } from "./typeMaterialLearns-endpoint.service";
 import { TypeMaterialLearn } from "../models/TypeMaterialLearn.model";
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class GrpMaterialLearnsService {
@@ -28,7 +29,7 @@ export class GrpMaterialLearnsService {
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <GrpMaterialLearn[]>response.json());
+            .map((response: Response) => <Results<GrpMaterialLearn>>response.json());
     }
 
     findFromTypeId(typeid: string) {
@@ -39,7 +40,7 @@ export class GrpMaterialLearnsService {
     getAll(page?: number, pageSize?: number) {
         return Observable.forkJoin(
             this.search("", "", 0, 0),
-            this.typeMaterialEndpoint.search("", "", 0, 0).map((response: Response) => <TypeMaterialLearn[]>response.json()));
+            this.typeMaterialEndpoint.search("", "", 0, 0).map((response: Response) => <Results<TypeMaterialLearn>>response.json()));
     }
 
     save(value: GrpMaterialLearn) {

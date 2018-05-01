@@ -21,6 +21,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class MaterialRepository : Repository<Material>, IMaterialRepository
     {
+        public int Total { get; private set; }
         public MaterialRepository(ApplicationDbContext context) : base(context)
         {
         }
@@ -51,16 +52,20 @@ namespace ebrain.admin.bc.Repositories
 
             return materials.Select(u => Tuple.Create(u, units.ToArray())).ToList();
         }
-        public async Task<IEnumerable<Material>> Search(string filter, string value, int? page, int? size, string branchIds)
+        public async Task<IEnumerable<Material>> Search(string filter, string value, int page, int size, string branchIds)
         {
-            return await this.appContext
+            var results = this.appContext
                 .Material
                 .Where(p => p.IsDeleted == false &&
                     branchIds.Contains(p.BranchId.ToString())
-                )
-                //.Take(size)
-                //.Skip(page)
-                .ToListAsync();
+                );
+            //paging
+            this.Total = results.Count();
+            if (size > 0 && page >= 0)
+            {
+                results = (from c in results select c).Skip(page * size).Take(size);
+            }
+            return results;
         }
 
         public IEnumerable<MaterialList> GetAllMaterialList(int page, int size, string filterValue, string branchIds, bool isLearn)

@@ -31,6 +31,7 @@ import { GenderStudent } from "../../models/genderstudent.model";
 import { Class } from "../../models/class.model";
 import { ClassesService } from "../../services/classes.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'studentendclass',
@@ -115,8 +116,9 @@ export class StudentEndClassComponent implements OnInit, OnDestroy {
         this.loadingIndicator = false;
     }
 
-    private onDataLoadSuccessful(list: Student[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Student>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
         this.loadingIndicator = false;
     }

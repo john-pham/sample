@@ -21,6 +21,7 @@ import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
 import { Page } from '../../models/page.model';
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'iosummarizes',
     templateUrl: './iosummarizes.component.html',
@@ -45,7 +46,7 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: IOStudentListService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: IOStudentListService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
@@ -114,8 +115,9 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: IOStockReport[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<IOStockReport>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

@@ -20,6 +20,8 @@ namespace ebrain.admin.bc.Repositories
 {
     public class ConsultantRepository : Repository<Consultant>, IConsultantRepository
     {
+        public int Total { get; private set; }
+
         public ConsultantRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -30,11 +32,19 @@ namespace ebrain.admin.bc.Repositories
         }
 
 
-        public async Task<IEnumerable<Consultant>> Search(string filter, string value, string branchIds)
+        public async Task<IEnumerable<Consultant>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.Consultant.Where(p => p.IsDeleted == false &&
-                    branchIds.Contains(p.BranchId.ToString())
-                ).ToListAsync();
+            var someTypeList = this.appContext.Consultant.Where(p => p.IsDeleted == false &&
+                   branchIds.Contains(p.BranchId.ToString())
+                );
+
+            //paging
+            this.Total = someTypeList.Count();
+            if (size > 0 && page >= 0)
+            {
+                someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size);
+            }
+            return someTypeList;
         }
 
         public async Task<Consultant> Save(Consultant value, Guid? index)

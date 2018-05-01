@@ -29,6 +29,7 @@ import { Supplier } from "../../models/supplier.model";
 import { ClassStatus } from "../../models/classstatus.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'classlists',
@@ -147,8 +148,8 @@ export class ClassListsComponent implements OnInit, OnDestroy {
 
     }
 
-    private onDataLoadSupplierSuccessful(list: Supplier[]) {
-        this.suppliers = list;
+    private onDataLoadSupplierSuccessful(resulted: Results<Supplier>) {
+        this.suppliers = resulted.list;
         this.suppliers = [...this.suppliers];
         this.alertService.stopLoadingMessage();
     }
@@ -161,8 +162,9 @@ export class ClassListsComponent implements OnInit, OnDestroy {
     }
 
 
-    private onDataLoadSuccessful(list: ClassList[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<ClassList>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

@@ -23,6 +23,7 @@ import { PaymentsService } from "../../services/payments.service";
 import { Payment } from "../../models/payment.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'paymentdetaillist',
     templateUrl: './paymentdetaillists.component.html',
@@ -113,8 +114,9 @@ export class PaymentDetailListsComponent implements OnInit, OnDestroy {
             error => this.onDataLoadFailed(error));
     }
 
-    private onDataLoadSuccessful(list: Payment[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Payment>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

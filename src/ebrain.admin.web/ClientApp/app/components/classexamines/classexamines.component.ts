@@ -35,6 +35,7 @@ import { ClassTime } from "../../models/classtime.model";
 import { ClassStudent } from "../../models/classstudent.model";
 import { ClassList } from "../../models/classlists.model";
 import { ClassExamine } from "../../models/classexamine.model";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'classexamines',

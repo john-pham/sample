@@ -16,6 +16,7 @@ import 'rxjs/add/operator/map';
 import { RoomsEndpoint } from './rooms-endpoint.service';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class RoomsService {
@@ -26,7 +27,7 @@ export class RoomsService {
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <Room[]>response.json());
+            .map((response: Response) => <Results<Room>>response.json());
     }
 
     save(value: Room) {

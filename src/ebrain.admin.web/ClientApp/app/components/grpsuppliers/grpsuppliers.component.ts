@@ -18,6 +18,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'grpsuppliers',
     templateUrl: './grpsuppliers.component.html',
@@ -151,8 +152,9 @@ export class GrpsuppliersComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: Grpsupplier[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Grpsupplier>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

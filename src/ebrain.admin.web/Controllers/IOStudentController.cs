@@ -48,14 +48,15 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<IOStockViewModel>> Search(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> Search(string filter, string value, string fromDate, string toDate, int page, int size)
         {
-            // var results = await this._unitOfWork.IOStocks.Search(filter, value);
-            var results = this._unitOfWork.IOStocks.GetIOStockList(
+            var unit = this._unitOfWork.IOStocks;
+            var results = unit.GetIOStockList(
                             fromDate.BuildDateTimeFromSEFormat(),
-                            toDate.BuildLastDateTimeFromSEFormat(), 
-                            value, (int)EnumIOType.IORegisCourse, 
-                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                            toDate.BuildLastDateTimeFromSEFormat(),
+                            value, (int)EnumIOType.IORegisCourse,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page, size);
             var list = new List<IOStockViewModel>();
             foreach (var item in results)
             {
@@ -72,7 +73,11 @@ namespace Ebrain.Controllers
                     StudentId = item.StudentId
                 });
             }
-            return list;
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
         }
 
 

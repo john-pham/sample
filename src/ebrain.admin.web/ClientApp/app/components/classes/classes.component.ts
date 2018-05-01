@@ -36,6 +36,7 @@ import { ClassStudent } from "../../models/classstudent.model";
 import { ShiftclassesService } from "../../services/shiftclasses.service";
 import { Shiftclass } from "../../models/Shiftclass.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'classes',
@@ -266,7 +267,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
         //    });
     }
 
-    private onDataLoadShiftSuccessful(list: Shiftclass[]) {
+    private onDataLoadShiftSuccessful(resulted: Results<Shiftclass>) {
+        let list = resulted.list;
         if (list.length > 0) {
             this.pointer.shiftId = list[0].id;
         }
@@ -280,7 +282,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.students = list;
     }
 
-    private onDataLoadRoomSuccessful(list: Room[]) {
+    private onDataLoadRoomSuccessful(resulted: Results<Room>) {
+        var list = resulted.list;
         if (list.length > 0) {
             this.pointer.roomId = list[0].id;
         }
@@ -294,7 +297,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.todays = list;
     }
 
-    private onDataLoadSupplierSuccessful(list: Supplier[]) {
+    private onDataLoadSupplierSuccessful(resulted: Results<Supplier>) {
+        var list = resulted.list;
         if (list.length > 0) {
             this.pointer.supplierId = list[0].id;
             this.pointer.teacherTodayId = list[0].id;
@@ -311,7 +315,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
     }
 
-    private onDataLoadMaterialSuccessful(list: MaterialLearn[]) {
+    private onDataLoadMaterialSuccessful(resulted: Results<MaterialLearn>) {
+        var list = resulted.list;
         if (list.length > 0) {
             this.pointer.materialId = list[0].id;
         }

@@ -16,6 +16,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface ILevelClassRepository : IRepository<LevelClass>
     {
+        int Total { get; }
         IEnumerable<LevelClass> GetTopActive(int count, string branchIds);
 
         Task<IEnumerable<LevelClass>> Search(string filter, string value, string branchIds);

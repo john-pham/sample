@@ -17,11 +17,12 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IMaterialRepository : IRepository<Material>
     {
+        int Total { get; }
         Task<Material> Get(Guid? index);
 
         Task<List<Tuple<Material, Unit[]>>> GetMaterialsAndUnits(int page, int pageSize, string branchIds);
 
-        Task<IEnumerable<Material>> Search(string filter, string value, int? page, int? size, string branchIds);
+        Task<IEnumerable<Material>> Search(string filter, string value, int page, int size, string branchIds);
 
         Task<MaterialHead> FindHeadByMaterialId(Guid guid);
 

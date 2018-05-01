@@ -39,9 +39,10 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<TypeMaterialViewModel>> Search(string filter, string value)
+        public async Task<JsonResult> Search(string filter, string value, int page, int size)
         {
-            var ret = from c in await this._unitOfWork.TypeMaterials.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
+            var unit = this._unitOfWork.TypeMaterials;
+            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
                       select new TypeMaterialViewModel
                       {
                           ID = c.TypeMaterialId,
@@ -52,7 +53,11 @@ namespace Ebrain.Controllers
                           IsLearning = c.IsLearning
                       };
 
-            return ret;
+            return Json(new
+            {
+                Total = unit.Total,
+                List = ret
+            });
         }
 
         private Guid userId

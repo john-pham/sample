@@ -21,6 +21,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class PaymentRepository : Repository<Payment>, IPaymentRepository
     {
+        public int Total { get; private set; }
         public PaymentRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -53,7 +54,8 @@ namespace ebrain.admin.bc.Repositories
         }
 
         public IEnumerable<PaymentList> GetPaymentList
-            (DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds)
+            (DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds
+            , int page, int size)
         {
             try
             {
@@ -71,6 +73,13 @@ namespace ebrain.admin.bc.Repositories
                                    someTypeList = handler.ReadToList<PaymentList>().ToList();
                                });
 
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+
                 return someTypeList;
             }
             catch (Exception ex)
@@ -80,7 +89,7 @@ namespace ebrain.admin.bc.Repositories
         }
         public IEnumerable<PaymentDetailList> GetPaymentDetailList(
             DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson
-            , string branchIds)
+            , string branchIds, int page, int size)
         {
             try
             {
@@ -97,6 +106,13 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<PaymentDetailList>().ToList();
                                });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
 
                 return someTypeList;
             }

@@ -34,6 +34,7 @@ import { Material } from "../models/material.model";
 import { PaymentDetail } from "../models/paymentdetail.model";
 import { StudentsEndpoint } from "./students-endpoint.service";
 import { PaymentType } from "../models/paymenttype.model";
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class PaymentsService {
@@ -53,12 +54,12 @@ export class PaymentsService {
 
     searchSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.searchSummarize(filter, value, fromDate, toDate, page, size)
-            .map((response: Response) => <Payment[]>response.json());
+            .map((response: Response) => <Results<Payment>>response.json());
     }
 
     searchDetail(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.searchDetail(filter, value, fromDate, toDate, page, size)
-            .map((response: Response) => <Payment[]>response.json());
+            .map((response: Response) => <Results<Payment>>response.json());
     }
 
     findGrpByTypeId(typeId: string) {
@@ -79,7 +80,7 @@ export class PaymentsService {
 
     getMaterial(filter: string, value: string) {
         return this.materialendpoint.search(filter, value, 0, 0)
-            .map((response: Response) => <Material[]>response.json());
+            .map((response: Response) => <Results<Material>>response.json());
     }
 
     getPaymentTypes(isInput: boolean) {

@@ -21,6 +21,8 @@ namespace ebrain.admin.bc.Repositories
 {
     public class ClassRepository : Repository<Class>, IClassRepository
     {
+        public int Total { get; private set; }
+
         public ClassRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -263,7 +265,7 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
-        public List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId)
+        public List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, int page, int size)
         {
             try
             {
@@ -278,6 +280,13 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<ClassList>().ToList();
                                });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
 
                 return someTypeList;
             }

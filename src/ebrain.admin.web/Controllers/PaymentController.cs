@@ -87,18 +87,20 @@ namespace Ebrain.Controllers
 
         [HttpGet("searchpaymentsummarize")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<PaymentViewModel>> SearchPaymentSummarize(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> SearchPaymentSummarize(string filter, string value, string fromDate, string toDate, int page, int size)
         {
             //get userId accessRightPerson
             var userAccessRightPerson = await this._unitOfWork.AccessRightPersons.GetUserIdFromAccessRightPerson(Guid.Parse(Constants.PAYMENTLIST), userId);
-
-            var results = this._unitOfWork.Payments.GetPaymentList(
+            var unit = this._unitOfWork.Payments;
+            var results = unit.GetPaymentList(
                 fromDate.BuildDateTimeFromSEFormat(),
                 toDate.BuildLastDateTimeFromSEFormat(),
                 value,
                 0, false,
                 userAccessRightPerson,
-                this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                page, size);
+
             var list = new List<PaymentViewModel>();
             foreach (var item in results)
             {
@@ -114,21 +116,27 @@ namespace Ebrain.Controllers
                     Note = item.Note,
                 });
             }
-            return list;
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
         }
 
         [HttpGet("searchpaymentdetail")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<PaymentViewModel>> SearchPaymentDetail(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> SearchPaymentDetail(string filter, string value, string fromDate, string toDate, int page, int size)
         {
             //get userId accessRightPerson
             var userAccessRightPerson = await this._unitOfWork.AccessRightPersons.GetUserIdFromAccessRightPerson(Guid.Parse(Constants.PAYMENTDETAIL), userId);
-
-            var results = this._unitOfWork.Payments.GetPaymentDetailList(
+            var unit = this._unitOfWork.Payments;
+            var results = unit.GetPaymentDetailList(
                     fromDate.BuildDateTimeFromSEFormat(),
                     toDate.BuildLastDateTimeFromSEFormat(),
                     value,
-                    0, false, userAccessRightPerson, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                    0, false, userAccessRightPerson, this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                    page, size);
             var list = new List<PaymentViewModel>();
             foreach (var item in results)
             {
@@ -146,7 +154,12 @@ namespace Ebrain.Controllers
                     IONumber = item.IONumber
                 });
             }
-            return list;
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
         }
 
         [HttpGet("search")]

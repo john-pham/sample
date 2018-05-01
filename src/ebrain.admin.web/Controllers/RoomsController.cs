@@ -47,9 +47,10 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<RoomViewModel>> Search(string filter, string value)
+        public async Task<JsonResult> Search(string filter, string value, int page, int size)
         {
-            var ret = from c in await this._unitOfWork.Rooms.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
+            var unit = this._unitOfWork.Rooms;
+            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
                       select new RoomViewModel
                       {
                           ID = c.RoomId,
@@ -58,7 +59,11 @@ namespace Ebrain.Controllers
                           Note = c.Note
                       };
 
-            return ret;
+            return Json(new
+            {
+                Total = unit.Total,
+                List = ret
+            });
         }
 
         [HttpPost("update")]
@@ -76,7 +81,7 @@ namespace Ebrain.Controllers
                     UpdatedBy = userId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now
-                },value.ID);
+                }, value.ID);
 
                 return Ok(ret);
             }

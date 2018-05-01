@@ -22,6 +22,7 @@ import { TypeMaterialLearn } from "../../models/typeMaterialLearn.model";
 import { TypeMaterialLearnsService } from "../../services/typeMaterialLearns.service";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'materiallearns',
     templateUrl: './materialLearns.component.html',
@@ -203,8 +204,9 @@ export class MaterialLearnsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(materialLearns: MaterialLearn[]) {
-        this.rows = materialLearns;
+    private onDataLoadSuccessful(resulted: Results<MaterialLearn>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
         //this.allTypes = types;
     }

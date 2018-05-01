@@ -23,6 +23,7 @@ import { DeptService } from "../../services/depts.service";
 import { Depts } from "../../models/depts.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'deptslist',
@@ -121,8 +122,9 @@ export class DeptsListsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: Depts[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Depts>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
     }
 

@@ -21,6 +21,8 @@ namespace ebrain.admin.bc.Repositories
 {
     public class AttendanceRepository : Repository<Attendance>, IAttendanceRepository
     {
+        public int Total { get; private set; }
+
         public AttendanceRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -30,8 +32,7 @@ namespace ebrain.admin.bc.Repositories
             throw new NotImplementedException();
         }
 
-
-        public async Task<IEnumerable<AttendanceList>> Search(string classId, string studentId, DateTime createDate, string branchIds)
+        public async Task<IEnumerable<AttendanceList>> Search(string classId, string studentId, DateTime createDate, string branchIds, int page, int size)
         {
             try
             {
@@ -45,6 +46,13 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<AttendanceList>().ToList();
                                });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
 
                 return someTypeList;
             }
@@ -82,7 +90,7 @@ namespace ebrain.admin.bc.Repositories
 
                 return await appContext.SaveChangesAsync() > 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

@@ -16,6 +16,7 @@ import 'rxjs/add/operator/map';
 import { TypeMaterialsEndpoint } from './typeMaterials-endpoint.service';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class TypeMaterialsService {
@@ -26,7 +27,7 @@ export class TypeMaterialsService {
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <TypeMaterial[]>response.json());
+            .map((response: Response) => <Results<TypeMaterial>>response.json());
     }
 
     get(index: string) {

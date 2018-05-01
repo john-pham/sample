@@ -16,6 +16,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IStudentStatusRepository : IRepository<StudentStatus>
     {
+        int Total { get; }
         IEnumerable<StudentStatus> GetTopActive(int count);
         Task<StudentStatus> FindById(Guid? id);
         Task<IEnumerable<StudentStatus>> Search(string filter, string value, string branchIds);

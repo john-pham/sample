@@ -35,6 +35,7 @@ import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
 import { PaymentType } from "../../models/paymenttype.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'payments',
     templateUrl: './payments.component.html',
@@ -201,7 +202,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
     private getIO() {
         //load user
-        this.ioservice.getiopayment(this.filterName, this.filterValue, false, this.ioId, this.fromDate, this.toDate).subscribe(results => this.onDataLoadSuccessfulPayment(results), error => this.onDataLoadFailed(error));
+        this.ioservice.getiopayment(this.filterName, this.filterValue, false, this.ioId, this.fromDate, this.toDate, 0, 0).subscribe(results => this.onDataLoadSuccessfulPayment(results), error => this.onDataLoadFailed(error));
 
     }
 
@@ -228,7 +229,8 @@ export class PaymentsComponent implements OnInit, OnDestroy {
                     //get io
                     var ioid = params.get('ioid');
                     if (ioid != null && ioid.length > 0) {
-                        this.ioservice.getiopayment(this.filterName, this.filterValue, false, ioid, this.fromDate, this.toDate).subscribe(results => {
+                        this.ioservice.getiopayment(this.filterName, this.filterValue, false, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
+                            var results = resulted.list;
                             results.forEach(row => {
                                 this.onMappingIOToPaymentDetail(row);
                             });
@@ -255,7 +257,8 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         this.allPaymentTypes = types;
     }
 
-    private onDataLoadSuccessfulPayment(ios: IOStockReport[]) {
+    private onDataLoadSuccessfulPayment(resulted: Results<IOStockReport>) {
+        var ios = resulted.list;
         this.rowios = ios;
 
     }

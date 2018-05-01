@@ -48,18 +48,21 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<AttendanceViewModel>> Search(string classId, string studentId, string createDate)
+        public async Task<JsonResult> Search(string classId, string studentId, string createDate, int page, int size)
         {
-            return await SearchMain(classId, studentId, createDate.BuildDateTimeFromSEFormat());
+            return await SearchMain(classId, studentId, createDate.BuildDateTimeFromSEFormat(), page, size);
         }
 
-        private async Task<IEnumerable<AttendanceViewModel>> SearchMain(string classId, string studentId, DateTime createDate)
+        private async Task<JsonResult> SearchMain(string classId, string studentId, DateTime createDate, int page, int size)
         {
-            var ret = from c in await this._unitOfWork.Attendances.Search(
+            var unit = this._unitOfWork.Attendances;
+            var ret = from c in await unit.Search(
                     classId,
                     studentId,
                     createDate,
-                    this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
+                    this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                    page,
+                    size)
                       select new AttendanceViewModel
                       {
                           ClassId = c.ClassId,
@@ -73,7 +76,11 @@ namespace Ebrain.Controllers
                           Phone = c.Phone
                       };
 
-            return ret;
+            return Json(new
+            {
+                Total = unit.Total,
+                List = ret
+            });
         }
 
         [HttpPost("update")]
@@ -99,7 +106,7 @@ namespace Ebrain.Controllers
                 {
                     var classId = values[0].ClassId.ToString();
                     var createDate = values[0].AttendanceDate;
-                    return Ok(SearchMain(classId, string.Empty, createDate));
+                    return Ok(SearchMain(classId, string.Empty, createDate, Constants.PAGING_DEFAULT, Constants.SIZE_DEFAULT));
                 }
                 return Ok(ret);
             }

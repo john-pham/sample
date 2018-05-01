@@ -71,15 +71,16 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
-    getWarehouseCard(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    getWarehouseCard(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrlIO('getwarehousecard?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrlIO('getwarehousecard?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getWarehouseCard(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.getWarehouseCard(filter, value, fromDate, toDate, page, size));
             });
     }
 
@@ -107,14 +108,16 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
-    getiopayment(filter: string, value: string, ioid: string, isInput: boolean, fromDate: Date, toDate: Date): Observable<Response> {
+    getiopayment(filter: string, value: string, ioid: string, isInput: boolean, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
         let url = "";
         if (isInput == false) {
-            url = this.getUrlIO('getiopayment?filter=' + filter + '&value=' + value + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+            url = this.getUrlIO('getiopayment?filter=' + filter + '&value=' + value + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
+                + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         }
         else {
-            url = this.getUrlIO('getiopaymentvoucher?filter=' + filter + '&value=' + value + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+            url = this.getUrlIO('getiopaymentvoucher?filter=' + filter + '&value=' + value + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
+                + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         }
 
         return this.http.get(url, this.getAuthHeader())
@@ -122,7 +125,7 @@ export class IOStudentListEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getiopayment(filter, value, ioid, isInput, fromDate, toDate));
+                return this.handleError(error, () => this.getiopayment(filter, value, ioid, isInput, fromDate, toDate, page, size));
             });
     }
 

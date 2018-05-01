@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class RoomRepository : Repository<Room>, IRoomRepository
     {
+        public int Total { get; private set; }
         public RoomRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -30,11 +31,18 @@ namespace ebrain.admin.bc.Repositories
         }
 
 
-        public async Task<IEnumerable<Room>> Search(string filter, string value, string branchIds)
+        public async Task<IEnumerable<Room>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.Room.Where(p => p.IsDeleted == false &&
+            var someTypeList = this.appContext.Room.Where(p => p.IsDeleted == false &&
                     branchIds.Contains(p.BranchId.ToString())
-                ).ToListAsync();
+                );
+            //paging
+            this.Total = someTypeList.Count();
+            if (size > 0 && page >= 0)
+            {
+                someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size);
+            }
+            return someTypeList;
         }
 
         public async Task<Room> Save(Room value, Guid? index)

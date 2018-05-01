@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class GrpMaterialRepository : Repository<GrpMaterial>, IGrpMaterialRepository
     {
+        public int Total { get; private set; }
         public GrpMaterialRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -67,13 +68,20 @@ namespace ebrain.admin.bc.Repositories
             return itemExists.Select(p => p.GrpMaterialId).ToList();
         }
 
-        public async Task<IEnumerable<GrpMaterial>> Search(string filter, string value, string branchIds)
+        public async Task<IEnumerable<GrpMaterial>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.GrpMaterial.Where
+            var someTypeList = this.appContext.GrpMaterial.Where
                 (
                     p => p.IsDeleted == false &&
                     branchIds.Contains(p.BranchId.ToString())
-                ).ToListAsync();
+                );
+            //paging
+            this.Total = someTypeList.Count();
+            if (size > 0 && page >= 0)
+            {
+                someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size);
+            }
+            return someTypeList;
         }
 
         public async Task<GrpMaterial> Save(GrpMaterial value, Guid? index)

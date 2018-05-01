@@ -40,10 +40,12 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IActionResult> Search(string filter, string value, int isOption)
+        public async Task<JsonResult> Search(string filter, string value, int isOption, int page, int size)
         {
             var userId = Utilities.GetUserId(this.User);
-            var ret = from c in await this._unitOfWork.Suppliers.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), isOption)
+            var unit = this._unitOfWork.Suppliers;
+            var ret = from c in await unit.Search
+                      (filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), isOption, page, size)
                       select new SupplierViewModel
                       {
                           ID = c.SupplierId,
@@ -59,7 +61,11 @@ namespace Ebrain.Controllers
                           GrpSupplierId = c.GrpSupplierId
                       };
 
-            return Ok(ret);
+            return Json(new
+            {
+                Total = unit.Total,
+                List = ret
+            });
         }
 
         [HttpPost("update")]

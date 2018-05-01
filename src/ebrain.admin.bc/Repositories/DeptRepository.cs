@@ -21,6 +21,8 @@ namespace ebrain.admin.bc.Repositories
 {
     public class DeptRepository : Repository<Dept>, IDeptRepository
     {
+        public int Total { get; private set; }
+
         public DeptRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -61,7 +63,7 @@ namespace ebrain.admin.bc.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<DeptList> GetDeptList(DateTime fromDate, DateTime toDate, string filter, string branchIds)
+        public IEnumerable<DeptList> GetDeptList(DateTime fromDate, DateTime toDate, string filter, string branchIds, int page, int size)
         {
             try
             {
@@ -77,6 +79,13 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<DeptList>().ToList();
                                });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
 
                 return someTypeList;
             }
@@ -121,7 +130,7 @@ namespace ebrain.admin.bc.Repositories
                         }
 
                         toDate = toDate.AddMonths(1).AddSeconds(-1);//ve cuoi thang nay
-                        var results = this.GetDeptList(fromDate, toDate, filter, branchIds);
+                        var results = this.GetDeptList(fromDate, toDate, filter, branchIds, 0, 0);
                         if (results != null && results.Count() > 0)
                         {
                             var endDate = fromDate.AddMonths(1);

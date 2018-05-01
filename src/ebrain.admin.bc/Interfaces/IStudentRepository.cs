@@ -17,6 +17,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IStudentRepository : IRepository<Student>
     {
+        int Total { get; }
         Task<IEnumerable<Student>> GetAll(int page, int pageSize, string branchIds);
         Task<IEnumerable<Student>> Search(string filter, string value, string branchIds);
         Task<StudentRelationShip> FindRelationShipByStudentId(Guid guid);

@@ -150,8 +150,8 @@ export class ClassesEndpoint extends EndpointFactory {
 
     getsummaries(filter: string, value: string, statusId: string, supplierId: string, classId: string, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('getsummaries?filter=' + filter + '&value=' + value + '&statusId=' + statusId + '&supplierId=' + supplierId + '&classId=' + classId + '&hash_id='
-            + '&page=' + page + '&size=' + size + Math.random());
+        let url = this.getUrl('getsummaries?filter=' + filter + '&value=' + value + '&statusId=' + statusId + '&supplierId=' + supplierId + '&classId=' + classId
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;

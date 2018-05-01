@@ -16,9 +16,10 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IGrpMaterialRepository : IRepository<GrpMaterial>
     {
+        int Total { get; }
         IEnumerable<GrpMaterial> GetTopActive(int count);
 
-        Task<IEnumerable<GrpMaterial>> Search(string filter, string value, string branchIds);
+        Task<IEnumerable<GrpMaterial>> Search(string filter, string value, string branchIds, int page, int size);
         Task<IEnumerable<GrpMaterial>> FindByTypeId(string typeid, string branchIds);
         Task<IEnumerable<GrpMaterial>> GrpMaterialsLearn(List<Guid> typeLearnIds, string branchIds);
         Task<IEnumerable<Guid>> GrpMaterialIdsLearn(List<Guid> typeLearnIds, string branchIds);

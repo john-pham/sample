@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class ShiftClassRepository : Repository<ShiftClass>, IShiftClassRepository
     {
+        public int Total { get; private set; }
         public ShiftClassRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -30,11 +31,18 @@ namespace ebrain.admin.bc.Repositories
         }
 
 
-        public async Task<IEnumerable<ShiftClass>> Search(string filter, string value, string branchIds)
+        public async Task<IEnumerable<ShiftClass>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.ShiftClass.Where(p => p.IsDeleted == false &&
-                    branchIds.Contains(p.BranchId.ToString())
-                ).ToListAsync();
+            var someTypeList = this.appContext.ShiftClass.Where(p => p.IsDeleted == false &&
+                     branchIds.Contains(p.BranchId.ToString())
+                );
+            //paging
+            this.Total = someTypeList.Count();
+            if (size > 0 && page >= 0)
+            {
+                someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size);
+            }
+            return someTypeList;
         }
 
         public async Task<ShiftClass> Save(ShiftClass value, Guid? index)

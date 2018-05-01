@@ -30,7 +30,7 @@ import { Studentstatus } from "../../models/studentstatus.model";
 import { GenderStudent } from "../../models/genderstudent.model";
 import { Class } from "../../models/class.model";
 import { Page } from "../../models/page.model";
-
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'studentbirthdays',
     templateUrl: './studentbirthdays.component.html',
@@ -97,8 +97,9 @@ export class StudentBirthdaysComponent implements OnInit, OnDestroy {
 
     }
 
-    private onDataLoadSuccessful(list: Student[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Student>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
     }
 

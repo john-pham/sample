@@ -18,6 +18,7 @@ import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
 import { ClassList } from "../models/classlists.model";
 import { ClassExamine } from "../models/classexamine.model";
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class ClassesService {
@@ -72,7 +73,7 @@ export class ClassesService {
 
     getsummaries(filter: string, value: string, statusId: string, supplierId: string, classId: string, page: number, size: number) {
         return this.endpointFactory.getsummaries(filter, value, statusId, supplierId, classId, page, size)
-            .map((response: Response) => <ClassList[]>response.json());
+            .map((response: Response) => <Results<ClassList>>response.json());
     }
 
     getClassByStudentId(filter: string, value: string, statusId: string, supplierId: string, classId: string, studentId: string) {

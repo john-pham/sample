@@ -82,17 +82,24 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IActionResult> Search(string filter, string value, int page, int size)
+        public async Task<JsonResult> Search(string filter, string value, int page, int size)
         {
-            var materials = await this._unitOfWork.Materials.Search(filter, value, page, size, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
-            return Ok(await MappingMaterial(materials));
+            var unit = this._unitOfWork.Materials;
+            var materials = await unit.Search(filter, value, page, size, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+            var results = MappingMaterial(materials);
+            return Json(new
+            {
+                Total = unit.Total,
+                List = results
+            });
         }
 
         [HttpGet("getallmateriallearnlist")]
         [Produces(typeof(UserViewModel))]
-        public IActionResult GetAllMaterialList(string filter, string value, int page, int size)
+        public async Task<JsonResult> GetAllMaterialList(string filter, string value, int page, int size)
         {
-            var materials = this._unitOfWork.Materials.GetAllMaterialList(page, size, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), true)
+            var unit = this._unitOfWork.Materials;
+            var materials = unit.GetAllMaterialList(page, size, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), true)
                 .Select(p => new MaterialViewModel
                 {
                     ID = p.MaterialId,
@@ -102,7 +109,11 @@ namespace Ebrain.Controllers
                     GrpName = p.GrpMaterialName,
                     Note = p.Note,
                 });
-            return Ok(materials);
+            return Json(new
+            {
+                Total = unit.Total,
+                List = materials
+            });
         }
 
         [HttpGet("get")]

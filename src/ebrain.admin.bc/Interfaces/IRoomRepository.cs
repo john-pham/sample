@@ -16,9 +16,10 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IRoomRepository : IRepository<Room>
     {
+        int Total { get; }
         IEnumerable<Room> GetTopActive(int count);
 
-        Task<IEnumerable<Room>> Search(string filter, string value, string branchIds);
+        Task<IEnumerable<Room>> Search(string filter, string value, string branchIds, int page, int size);
         Task<Room> Get(Guid? index);
         Task<Room> Save(Room value, Guid? index);
         Task<Boolean> Delete(string id);

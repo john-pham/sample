@@ -21,6 +21,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class IOStockRepository : Repository<IOStock>, IIOStockRepository
     {
+        public int Total { get; private set; }
         public IOStockRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -51,7 +52,8 @@ namespace ebrain.admin.bc.Repositories
                     branchIds.Contains(p.BranchId.ToString())
                 ).ToListAsync();
         }
-        public IEnumerable<IOStockDetailList> GetIOStockDetailList(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds)
+        public IEnumerable<IOStockDetailList> GetIOStockDetailList
+            (DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds, int page, int size)
         {
             try
             {
@@ -66,7 +68,14 @@ namespace ebrain.admin.bc.Repositories
                                    someTypeList = handler.ReadToList<IOStockDetailList>().ToList();
                                });
 
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
                 return someTypeList;
+
             }
             catch (Exception ex)
             {
@@ -74,7 +83,8 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
-        public IEnumerable<IOStockDetailList> GetWarehouseCard(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds)
+        public IEnumerable<IOStockDetailList> GetWarehouseCard(
+            DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds, int page, int size)
         {
             try
             {
@@ -89,6 +99,13 @@ namespace ebrain.admin.bc.Repositories
                                    someTypeList = handler.ReadToList<IOStockDetailList>().ToList();
                                });
 
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+
                 return someTypeList;
             }
             catch (Exception ex)
@@ -97,7 +114,7 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
-        public IEnumerable<IOStockList> GetIOStockList(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds)
+        public IEnumerable<IOStockList> GetIOStockList(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds, int page, int size)
         {
             try
             {
@@ -112,6 +129,13 @@ namespace ebrain.admin.bc.Repositories
                                    someTypeList = handler.ReadToList<IOStockList>().ToList();
                                });
 
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+
                 return someTypeList;
             }
             catch (Exception ex)
@@ -120,7 +144,8 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
-        public IEnumerable<IOStockListPayment> GetIOStockPaymentList(DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput, string branchIds)
+        public IEnumerable<IOStockListPayment> GetIOStockPaymentList
+            (DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput, string branchIds, int page, int size)
         {
             try
             {
@@ -136,6 +161,13 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<IOStockListPayment>().ToList();
                                });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
 
                 return someTypeList;
             }

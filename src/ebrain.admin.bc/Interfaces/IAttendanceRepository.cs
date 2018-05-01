@@ -17,8 +17,9 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IAttendanceRepository : IRepository<Attendance>
     {
+        int Total { get; }
         IEnumerable<Attendance> GetTopActive(int count);
-        Task<IEnumerable<AttendanceList>> Search(string classId, string studentId, DateTime createDate, string branchIds);
+        Task<IEnumerable<AttendanceList>> Search(string classId, string studentId, DateTime createDate, string branchIds, int page, int size);
         Task<Attendance> Get(Guid? index);
         Task<bool> Save(Attendance[] values, Guid createBy);
         Task<Boolean> Delete(string id);

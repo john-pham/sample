@@ -18,6 +18,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'rooms',
     templateUrl: './rooms.component.html',
@@ -135,8 +136,9 @@ export class RoomsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: Room[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Room>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

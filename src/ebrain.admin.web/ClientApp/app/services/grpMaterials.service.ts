@@ -18,6 +18,7 @@ import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
 import { TypeMaterial } from "../models/typeMaterial.model";
 import { TypeMaterialsEndpoint } from "./typeMaterials-endpoint.service";
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class GrpMaterialsService {
@@ -29,7 +30,7 @@ export class GrpMaterialsService {
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <GrpMaterial[]>response.json());
+            .map((response: Response) => <Results<GrpMaterial>>response.json());
     }
 
     getAll(filter: string, value: string, page: number, size: number) {

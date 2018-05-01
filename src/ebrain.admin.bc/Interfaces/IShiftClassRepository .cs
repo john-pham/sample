@@ -16,9 +16,10 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IShiftClassRepository : IRepository<ShiftClass>
     {
+        int Total { get; }
         IEnumerable<ShiftClass> GetTopActive(int count);
 
-        Task<IEnumerable<ShiftClass>> Search(string filter, string value, string branchIds);
+        Task<IEnumerable<ShiftClass>> Search(string filter, string value, string branchIds, int page, int size);
         Task<ShiftClass> Get(Guid? index);
         Task<ShiftClass> Save(ShiftClass value, Guid? index);
         Task<Boolean> Delete(string id);

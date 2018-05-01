@@ -28,6 +28,7 @@ import { Supplier } from "../models/supplier.model";
 import { Depts } from "../models/depts.model";
 import { AccountService } from "./account.service";
 import { AccountEndpoint } from "./account-endpoint.service";
+import { Results } from "../models/results.model";
 
 
 @Injectable()
@@ -39,7 +40,7 @@ export class DeptService {
 
     getDepts(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.getDepts(filter, value, fromDate, toDate, page, size)
-            .map((response: Response) => <Depts[]>response.json());
+            .map((response: Response) => <Results<Depts>>response.json());
     }
     updateDepts(filter: string, value: string, fromDate: Date, toDate: Date) {
         return this.endpointFactory.updateDepts(filter, value, fromDate, toDate)

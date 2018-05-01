@@ -23,6 +23,7 @@ import { InventoriesService } from "../../services/inventories.service";
 import { Inventories } from "../../models/inventories.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'inventorieslist',
     templateUrl: './inventorieslists.component.html',
@@ -112,8 +113,9 @@ export class InventoriesListsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: Inventories[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Inventories>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
     }
 

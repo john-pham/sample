@@ -16,9 +16,10 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface ISupplierRepository : IRepository<Supplier>
     {
+        int Total { get; }
         IEnumerable<Supplier> GetTopActive(int count);
 
-        Task<IEnumerable<Supplier>> Search(string filter, string value, string branchIds,int isOption);
+        Task<IEnumerable<Supplier>> Search(string filter, string value, string branchIds, int isOption, int page, int size);
 
         Task<Supplier> Save(Supplier value, Guid? index);
         Task<Boolean> Delete(string id);

@@ -17,6 +17,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IDeptRepository : IRepository<Dept>
     {
+        int Total { get; }
         IEnumerable<Dept> GetTopActive(int count);
         Task<Dept> FindById(Guid? id);
         Task<IEnumerable<Dept>> Search(string filter, string value);
@@ -26,7 +27,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<IEnumerable<DeptDetail>> GetDetailByIOId(Guid? id);
         Task<Boolean> DeleteMaster(Guid? id);
         Task<Boolean> CancelMaster(Guid? id);
-        IEnumerable<DeptList> GetDeptList(DateTime fromDate, DateTime toDate, string filter, string branchIds);
+        IEnumerable<DeptList> GetDeptList(DateTime fromDate, DateTime toDate, string filter, string branchIds, int page, int size);
         Task<bool> UpdateDept(DateTime fromDate, DateTime toDate, string filter, string branchIds, Guid userId);
 
     }

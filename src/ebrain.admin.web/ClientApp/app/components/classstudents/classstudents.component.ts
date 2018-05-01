@@ -34,6 +34,7 @@ import { StudentsService } from "../../services/students.service";
 import { ClassTime } from "../../models/classtime.model";
 import { ClassStudent } from "../../models/classstudent.model";
 import { ClassList } from "../../models/classlists.model";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'classstudents',
@@ -176,7 +177,8 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
         this.alertService.stopLoadingMessage();
     }
 
-    private onDataLoadClassSuccessful(items: ClassList[]) {
+    private onDataLoadClassSuccessful(resulted: Results<ClassList>) {
+        var items = resulted.list;
         if (items != null && items.length > 0) {
             var item = items[0];
 

@@ -19,6 +19,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Grpsupplier } from "../../models/grpsupplier.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'suppliercus',
     templateUrl: './suppliercus.component.html',
@@ -139,8 +140,9 @@ export class SupplierCusComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(suppliers: Supplier[]) {
-        this.rows = suppliers;
+    private onDataLoadSuccessful(resulted: Results<Supplier>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
     }
 

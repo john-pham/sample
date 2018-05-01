@@ -20,6 +20,7 @@ import { TypeMaterialLearn } from "../../models/TypeMaterialLearn.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { TypeMaterialLearnsService } from "../../services/typeMaterialLearns.service";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'grpmateriallearns',
@@ -142,14 +143,15 @@ export class GrpMaterialLearnsComponent implements OnInit, OnDestroy {
             error => this.onDataLoadFailed(error));
     }
 
-    private onDataLoadTypeSuccessful(typeMaterials: TypeMaterialLearn[]) {
-        this.allTypeMaterials = typeMaterials;
+    private onDataLoadTypeSuccessful(resulted: Results<TypeMaterialLearn>) {
+        this.allTypeMaterials = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }
 
-    private onDataLoadSuccessful(list: GrpMaterialLearn[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<GrpMaterialLearn>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

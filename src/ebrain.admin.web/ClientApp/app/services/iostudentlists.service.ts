@@ -20,6 +20,7 @@ import { TypeMaterial } from "../models/typeMaterial.model";
 import { TypeMaterialsEndpoint } from "./typeMaterials-endpoint.service";
 import { IOStudentListEndpoint } from "./iostudentlists-endpoint.service";
 import { IOStockReport } from "../models/iostockreport.model";
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class IOStudentListService {
@@ -30,30 +31,30 @@ export class IOStudentListService {
 
     search(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.search(filter, value, fromDate, toDate, page, size)
-            .map((response: Response) => <IOStockReport[]>response.json());
+            .map((response: Response) => <Results<IOStockReport>>response.json());
     }
 
-    getiopayment(filter: string, value: string, isInput: boolean, ioid: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.getiopayment(filter, value, ioid, isInput, fromDate, toDate)
-            .map((response: Response) => <IOStockReport[]>response.json());
+    getiopayment(filter: string, value: string, isInput: boolean, ioid: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getiopayment(filter, value, ioid, isInput, fromDate, toDate, page, size)
+            .map((response: Response) => <Results<IOStockReport>>response.json());
     }
 
     getiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.getiobyiotypeid(filter, value, fromDate, toDate, page, size)
-            .map((response: Response) => <IOStockReport[]>response.json());
+            .map((response: Response) => <Results<IOStockReport>>response.json());
     }
 
     getiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.getiodetailbyiotypeid(filter, value, fromDate, toDate, page, size)
-            .map((response: Response) => <IOStockReport[]>response.json());
+            .map((response: Response) => <Results<IOStockReport>>response.json());
     }
 
-    getWarehouseCard(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.getWarehouseCard(filter, value, fromDate, toDate)
-            .map((response: Response) => <IOStockReport[]>response.json());
+    getWarehouseCard(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getWarehouseCard(filter, value, fromDate, toDate, page, size)
+            .map((response: Response) => <Results<IOStockReport>>response.json());
     }
 
-    getIONew(){
+    getIONew() {
         return this.endpointFactory.getIONew()
             .map((response: Response) => <number>response.json());
     }

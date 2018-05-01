@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class GrpSupplierRepository : Repository<GrpSupplier>, IGrpSupplierRepository
     {
+        public int Total { get; private set; }
         public GrpSupplierRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -30,28 +31,42 @@ namespace ebrain.admin.bc.Repositories
         }
 
 
-        public async Task<IEnumerable<GrpSupplier>> Search(string filter, string value, string branchIds)
+        public async Task<IEnumerable<GrpSupplier>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.GrpSupplier.Where(p => p.IsDeleted == false && branchIds.Contains(p.BranchId.ToString())).ToListAsync();
+            var results =  this.appContext.GrpSupplier.Where(p => p.IsDeleted == false && branchIds.Contains(p.BranchId.ToString()));
+
+            //paging
+            this.Total = results.Count();
+            if (size > 0 && page >= 0)
+            {
+                results = (from c in results select c).Skip(page * size).Take(size);
+            }
+            return results;
         }
 
-        public async Task<IEnumerable<GrpSupplier>> GetAll(string branchIds, int option)
+        public async Task<IEnumerable<GrpSupplier>> GetAll(string branchIds, int option, int page, int size)
         {
-            var results = await this.appContext.GrpSupplier.Where(p => p.IsDeleted == false && branchIds.Contains(p.BranchId.ToString())).ToListAsync();
+            var results = this.appContext.GrpSupplier.Where(p => p.IsDeleted == false && branchIds.Contains(p.BranchId.ToString()));
             switch (option)
             {
                 case 1://customer
-                    results = results.Where(p => p.IsCustomer).ToList();
+                    results = results.Where(p => p.IsCustomer);
                     break;
                 case 2://supplier
-                    results = results.Where(p => p.IsSupplier).ToList();
+                    results = results.Where(p => p.IsSupplier);
                     break;
                 case 3://Employee
-                    results = results.Where(p => p.IsEmployee).ToList();
+                    results = results.Where(p => p.IsEmployee);
                     break;
                 case 4://Employee
-                    results = results.Where(p => p.IsTeacher).ToList();
+                    results = results.Where(p => p.IsTeacher);
                     break;
+            }
+            //paging
+            this.Total = results.Count();
+            if (size > 0 && page >= 0)
+            {
+                results = (from c in results select c).Skip(page * size).Take(size);
             }
             return results;
         }

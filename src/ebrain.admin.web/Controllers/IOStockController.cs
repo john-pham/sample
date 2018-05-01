@@ -50,19 +50,25 @@ namespace Ebrain.Controllers
 
         [HttpGet("getiobyiotypeid")]
         [Produces(typeof(UserViewModel))]
-        public IEnumerable<IOStockViewModel> GetIOByIOTypeId(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> GetIOByIOTypeId(string filter, string value, string fromDate, string toDate, int page, int size)
         {
-            return GetIOByIOTypeIdMain(filter, value, fromDate.BuildDateTimeFromSEFormat(), toDate.BuildLastDateTimeFromSEFormat(), 0);
-
+            var results = GetIOByIOTypeIdMain(filter, value, fromDate.BuildDateTimeFromSEFormat(), toDate.BuildLastDateTimeFromSEFormat(), 0, page, size);
+            return Json(new
+            {
+                Total = this._unitOfWork.IOStocks.Total,
+                List = results
+            });
         }
 
-        public IEnumerable<IOStockViewModel> GetIOByIOTypeIdMain(string filter, string value, DateTime fromDate, DateTime toDate, int ioTypeId)
+        public IEnumerable<IOStockViewModel> GetIOByIOTypeIdMain(string filter, string value, DateTime fromDate, DateTime toDate, int ioTypeId, int page, int size)
         {
             // var results = await this._unitOfWork.IOStocks.Search(filter, value);
             var results = this._unitOfWork.IOStocks.GetIOStockList(
                             fromDate,
                             toDate,
-                            value, ioTypeId, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                            value, ioTypeId, this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page, size
+                            );
             var list = new List<IOStockViewModel>();
             foreach (var item in results)
             {
@@ -87,7 +93,7 @@ namespace Ebrain.Controllers
         public IActionResult GetIONew()
         {
             var dt = DateTime.Now;
-            var list = GetIOByIOTypeIdMain(string.Empty, string.Empty, dt.Date, new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59), (int)EnumIOType.IORegisCourse);
+            var list = GetIOByIOTypeIdMain(string.Empty, string.Empty, dt.Date, new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59), (int)EnumIOType.IORegisCourse, 0, 0);
             return this.Ok(list.Count());
 
         }
@@ -97,21 +103,23 @@ namespace Ebrain.Controllers
         public IActionResult GetIOAll()
         {
             var dt = DateTime.Now;
-            var list = GetIOByIOTypeIdMain(string.Empty, string.Empty, new DateTime(1900, 01, 01), dt, (int)EnumIOType.IORegisCourse);
+            var list = GetIOByIOTypeIdMain(string.Empty, string.Empty, new DateTime(1900, 01, 01), dt, (int)EnumIOType.IORegisCourse, 0, 0);
             return this.Ok(list.Count());
 
         }
 
         [HttpGet("getiodetailbyiotypeid")]
         [Produces(typeof(UserViewModel))]
-        public IEnumerable<IOStockViewModel> GetIODetailByIOTypeId(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> GetIODetailByIOTypeId(string filter, string value, string fromDate, string toDate, int page, int size)
         {
-            var results = this._unitOfWork.IOStocks.GetIOStockDetailList(
+            var unit = this._unitOfWork.IOStocks;
+            var results = unit.GetIOStockDetailList(
                             fromDate.BuildDateTimeFromSEFormat(),
                             toDate.BuildLastDateTimeFromSEFormat(),
                             value,
                             0,
-                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId)
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page, size
                         );
             var list = new List<IOStockViewModel>();
             foreach (var item in results)
@@ -134,19 +142,26 @@ namespace Ebrain.Controllers
                     Quantity = item.InputQuantity
                 });
             }
-            return list;
+
+            return Json(new
+            {
+                Total = this._unitOfWork.IOStocks.Total,
+                List = results
+            });
         }
 
         [HttpGet("getwarehousecard")]
         [Produces(typeof(UserViewModel))]
-        public IEnumerable<IOStockViewModel> GetWarehouseCard(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> GetWarehouseCard(string filter, string value, string fromDate, string toDate, int page, int size)
         {
-            var results = this._unitOfWork.IOStocks.GetWarehouseCard(
+            var unit = this._unitOfWork.IOStocks;
+            var results = unit.GetWarehouseCard(
                             fromDate.BuildDateTimeFromSEFormat(),
                             toDate.BuildLastDateTimeFromSEFormat(),
                             value,
                             0,
-                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId)
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page, size
                         );
             var list = new List<IOStockViewModel>();
             foreach (var item in results)
@@ -171,24 +186,29 @@ namespace Ebrain.Controllers
                     QuantityOutput = item.QuantityOutput
                 });
             }
-            return list;
+            return Json(new
+            {
+                Total = this._unitOfWork.IOStocks.Total,
+                List = results
+            });
         }
 
         [HttpGet("getiopayment")]
         [Produces(typeof(UserViewModel))]
-        public Task<IEnumerable<IOStockViewModel>> GetIOPaymentReceipt(string filter, string value, string ioId, string fromDate, string toDate)
+        public Task<IEnumerable<IOStockViewModel>> GetIOPaymentReceipt(string filter, string value, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return GetIOPayment(filter, value, false, ioId, fromDate, toDate);
+            return GetIOPayment(filter, value, false, ioId, fromDate, toDate, page, size);
         }
 
         [HttpGet("getiopaymentvoucher")]
         [Produces(typeof(UserViewModel))]
-        public Task<IEnumerable<IOStockViewModel>> GetIOPaymentVoucher(string filter, string value, string ioId, string fromDate, string toDate)
+        public Task<IEnumerable<IOStockViewModel>> GetIOPaymentVoucher(string filter, string value, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return GetIOPayment(filter, value, true, ioId, fromDate, toDate);
+            return GetIOPayment(filter, value, true, ioId, fromDate, toDate, page, size);
         }
 
-        public async Task<IEnumerable<IOStockViewModel>> GetIOPayment(string filter, string value, bool isInput, string ioId, string fromDate, string toDate)
+        public async Task<IEnumerable<IOStockViewModel>>
+            GetIOPayment(string filter, string value, bool isInput, string ioId, string fromDate, string toDate, int page, int size)
         {
             var frDate = fromDate.BuildDateTimeFromSEFormat();
             var tDate = toDate.BuildLastDateTimeFromSEFormat();
@@ -207,7 +227,7 @@ namespace Ebrain.Controllers
                     value,
                     ioId,
                     0, isInput
-                 , this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
+                 , this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
                  .Where(p => p.TotalPriceExist > 0);
 
             var list = new List<IOStockViewModel>();

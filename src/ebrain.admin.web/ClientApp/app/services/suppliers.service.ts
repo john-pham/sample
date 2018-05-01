@@ -18,7 +18,7 @@ import { SuppliersEndpoint } from './suppliers-endpoint.service';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
 import { Grpsupplier } from "../models/grpsupplier.model";
-
+import { Results } from "../models/results.model";
 @Injectable()
 export class SuppliersService {
 
@@ -28,7 +28,7 @@ export class SuppliersService {
 
     search(filter: string, value: string, option: number, page: number, size: number) {
         return this.endpointFactory.search(filter, value, option, page, size)
-            .map((response: Response) => <Supplier[]>response.json());
+            .map((response: Response) => <Results<Supplier>>response.json());
     }
 
     getAll(page?: number, pageSize?: number, option?: number) {

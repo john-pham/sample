@@ -25,6 +25,7 @@ import { GrpMaterialsEndpoint } from "./grpMaterials-endpoint.service";
 import { GrpMaterial } from "../models/grpMaterial.model";
 import { SuppliersEndpoint } from "./suppliers-endpoint.service";
 import { Supplier } from "../models/supplier.model";
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class MaterialsService {
@@ -37,7 +38,7 @@ export class MaterialsService {
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <Material[]>response.json());
+            .map((response: Response) => <Results<Material>>response.json());
     }
 
     findGrpByTypeId(typeId: string) {
@@ -51,7 +52,7 @@ export class MaterialsService {
     }
 
     getTypeMaterial() {
-        return this.typesEndpoint.search("", "", 0, 0).map((response: Response) => <TypeMaterial[]>response.json());
+        return this.typesEndpoint.search("", "", 0, 0).map((response: Response) => <Results<TypeMaterial>>response.json());
     }
 
     getUnit() {
@@ -59,7 +60,7 @@ export class MaterialsService {
     }
 
     getSupplier() {
-        return this.supEndpoint.search("", "", 2, 0, 0).map((response: Response) => <Supplier[]>response.json());
+        return this.supEndpoint.search("", "", 2, 0, 0).map((response: Response) => <Results<Supplier>>response.json());
     }
 
     save(value: Material) {

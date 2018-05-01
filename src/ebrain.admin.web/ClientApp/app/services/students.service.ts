@@ -29,6 +29,7 @@ import { StudentstatusEndpoint } from "./studentstatus-endpoint.service";
 import { Studentstatus } from "../models/studentstatus.model";
 import { GenderStudent } from "../models/genderstudent.model";
 import { GenderStudentEndpoint } from "./genderstudent-endpoint.service";
+import { Results } from "../models/results.model";
 
 
 @Injectable()
@@ -77,11 +78,11 @@ export class StudentsService {
     }
 
     getBirthdayStudent(fromDate: Date, toDate: Date, page: number, size: number) {
-        return this.endpointFactory.getBirthdayStudent(fromDate, toDate, page, size).map((response: Response) => <Student[]>response.json());
+        return this.endpointFactory.getBirthdayStudent(fromDate, toDate, page, size).map((response: Response) => <Results<Student>>response.json());
     }
 
     getStudentEndClass(classId: string, toDate: Date, page: number, size: number) {
-        return this.endpointFactory.getStudentEndClass(classId, toDate, page, size).map((response: Response) => <Student[]>response.json());
+        return this.endpointFactory.getStudentEndClass(classId, toDate, page, size).map((response: Response) => <Results<Student>>response.json());
     }
 
     delete(id: string) {

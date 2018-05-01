@@ -19,6 +19,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class ExamineRepository : Repository<Examine>, IExamineRepository
     {
+        public int Total { get; private set; }
         public ExamineRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -38,10 +39,18 @@ namespace ebrain.admin.bc.Repositories
             return await this.appContext.Examine.Where(p => p.IsDeleted == false && branchIds.Contains(p.BranchId.ToString())).ToListAsync();
         }
 
-        public async Task<IEnumerable<Examine>> Search(string filter, string value, string branchIds)
+        public async Task<IEnumerable<Examine>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.Examine.Where(p => p.IsDeleted == false
-                            && branchIds.Contains(p.BranchId.ToString())).ToListAsync();
+            var someTypeList = this.appContext.Examine.Where(p => p.IsDeleted == false
+                                                        && branchIds.Contains(p.BranchId.ToString()));
+
+            //paging
+            this.Total = someTypeList.Count();
+            if (size > 0 && page >= 0)
+            {
+                someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size);
+            }
+            return someTypeList;
         }
 
         public async Task<Examine> Save(Examine value, Guid? id)

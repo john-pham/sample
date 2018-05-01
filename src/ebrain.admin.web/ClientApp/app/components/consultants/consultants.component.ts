@@ -18,6 +18,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'consultants',
@@ -135,8 +136,9 @@ export class ConsultantsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(list: Consultant[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Consultant>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

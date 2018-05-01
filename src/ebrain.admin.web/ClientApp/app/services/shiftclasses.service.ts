@@ -16,6 +16,7 @@ import 'rxjs/add/operator/map';
 import { ShiftclassesEndpoint } from './shiftclasses-endpoint.service';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class ShiftclassesService {
@@ -26,7 +27,7 @@ export class ShiftclassesService {
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <Shiftclass[]>response.json());
+            .map((response: Response) => <Results<Shiftclass>>response.json());
     }
 
     save(value: Shiftclass) {

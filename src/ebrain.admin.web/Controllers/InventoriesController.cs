@@ -40,15 +40,15 @@ namespace Ebrain.Controllers
 
         [HttpGet("getinventories")]
         [Produces(typeof(UserViewModel))]
-        public IEnumerable<InventoriesViewModel> GetInventoryList(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> GetInventoryList(string filter, string value, string fromDate, string toDate, int page, int size)
         {
             var userId = Utilities.GetUserId(this.User);
-
-            var results = this._unitOfWork.Inventories.GetInventoryList(
+            var unit = this._unitOfWork.Inventories;
+            var results = unit.GetInventoryList(
                 fromDate.BuildDateTimeFromSEFormat(),
                 toDate.BuildLastDateTimeFromSEFormat(),
                 value,
-                this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size);
             var list = new List<InventoriesViewModel>();
             foreach (var item in results)
             {
@@ -67,7 +67,12 @@ namespace Ebrain.Controllers
                     QuantityEnd = item.QuantityEnd
                 });
             }
-            return list;
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
         }
 
         [HttpGet("updatedinventories")]

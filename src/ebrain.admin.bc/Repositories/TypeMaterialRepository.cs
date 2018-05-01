@@ -19,6 +19,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class TypeMaterialRepository : Repository<TypeMaterial>, ITypeMaterialRepository
     {
+        public int Total { get; private set; }
         public TypeMaterialRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -42,9 +43,16 @@ namespace ebrain.admin.bc.Repositories
             }
             return item != null && item.Result != null ? item.Result.TypeMaterialName : string.Empty;
         }
-        public async Task<IEnumerable<TypeMaterial>> Search(string filter, string value, string branchIds)
+        public async Task<IEnumerable<TypeMaterial>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.TypeMaterial.Where(p => p.IsDeleted == false).ToListAsync();
+            var results = this.appContext.TypeMaterial.Where(p => p.IsDeleted == false);
+            //paging
+            this.Total = results.Count();
+            if (size > 0 && page >= 0)
+            {
+                results = (from c in results select c).Skip(page * size).Take(size);
+            }
+            return results;
         }
 
         public async Task<IEnumerable<TypeMaterial>> GetAllTypeLearn(string branchIds)
@@ -52,9 +60,17 @@ namespace ebrain.admin.bc.Repositories
             return await this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true).ToListAsync();
         }
 
-        public async Task<IEnumerable<TypeMaterial>> SearchLearn(string filter, string value, string branchIds)
+        public async Task<IEnumerable<TypeMaterial>> SearchLearn(string filter, string value, string branchIds, int page, int size)
         {
-            return await this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true).ToListAsync();
+            var results = this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true);
+
+            //paging
+            this.Total = results.Count();
+            if (size > 0 && page >= 0)
+            {
+                results = (from c in results select c).Skip(page * size).Take(size);
+            }
+            return results;
         }
 
         public async Task<IEnumerable<Guid>> TypeIdsLearn(string branchIds)

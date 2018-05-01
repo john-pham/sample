@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class SupplierRepository : Repository<Supplier>, ISupplierRepository
     {
+        public int Total { get; private set; }
         public SupplierRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -28,33 +29,39 @@ namespace ebrain.admin.bc.Repositories
         {
             throw new NotImplementedException();
         }
-        
-        public async Task<IEnumerable<Supplier>> Search(string filter, string value, string branchIds, int isOption)
+
+        public async Task<IEnumerable<Supplier>> Search(string filter, string value, string branchIds, int isOption, int page, int size)
         {
-            IEnumerable<Supplier> results = await this.appContext.Supplier.Where
+            var results = this.appContext.Supplier.Where
                 (
                     p => p.IsDeleted == false &&
                     branchIds.Contains(p.BranchId.ToString())
-                ).ToListAsync();
+                );
             var grps = this.appContext.GrpSupplier.Where(p => p.IsDeleted == false).ToList();
             switch (isOption)
             {
                 case 1://Khách hàng
                     var grpIds = grps.Where(p => p.IsCustomer == true).Select(p => p.GrpSupplierId).ToList();
-                    results = results.Where(p => grpIds.Contains(p.GrpSupplierId.HasValue ? p.GrpSupplierId.Value : Guid.Empty)).ToList();
+                    results = results.Where(p => grpIds.Contains(p.GrpSupplierId.HasValue ? p.GrpSupplierId.Value : Guid.Empty));
                     break;
                 case 2://NCC
                     grpIds = grps.Where(p => p.IsSupplier == true).Select(p => p.GrpSupplierId).ToList();
-                    results = results.Where(p => grpIds.Contains(p.GrpSupplierId.HasValue ? p.GrpSupplierId.Value : Guid.Empty)).ToList();
+                    results = results.Where(p => grpIds.Contains(p.GrpSupplierId.HasValue ? p.GrpSupplierId.Value : Guid.Empty));
                     break;
                 case 3://Nhân viên
                     grpIds = grps.Where(p => p.IsEmployee == true).Select(p => p.GrpSupplierId).ToList();
-                    results = results.Where(p => grpIds.Contains(p.GrpSupplierId.HasValue ? p.GrpSupplierId.Value : Guid.Empty)).ToList();
+                    results = results.Where(p => grpIds.Contains(p.GrpSupplierId.HasValue ? p.GrpSupplierId.Value : Guid.Empty));
                     break;
                 case 4://Teacher
                     grpIds = grps.Where(p => p.IsTeacher == true).Select(p => p.GrpSupplierId).ToList();
-                    results = results.Where(p => grpIds.Contains(p.GrpSupplierId.HasValue ? p.GrpSupplierId.Value : Guid.Empty)).ToList();
+                    results = results.Where(p => grpIds.Contains(p.GrpSupplierId.HasValue ? p.GrpSupplierId.Value : Guid.Empty));
                     break;
+            }
+            //paging
+            this.Total = results.Count();
+            if (size > 0 && page >= 0)
+            {
+                results = (from c in results select c).Skip(page * size).Take(size);
             }
             return results;
         }

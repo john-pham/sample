@@ -40,15 +40,15 @@ namespace Ebrain.Controllers
 
         [HttpGet("getdepts")]
         [Produces(typeof(UserViewModel))]
-        public IEnumerable<DeptViewModel> GetDeptList(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> GetDeptList(string filter, string value, string fromDate, string toDate, int page, int size)
         {
             var userId = Utilities.GetUserId(this.User);
-
-            var results = this._unitOfWork.Depts.GetDeptList(
+            var unit = this._unitOfWork.Depts;
+            var results = unit.GetDeptList(
                 fromDate.BuildDateTimeFromSEFormat(),
                 toDate.BuildLastDateTimeFromSEFormat(),
                 value,
-                this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size);
             var list = new List<DeptViewModel>();
             foreach (var item in results)
             {
@@ -69,7 +69,13 @@ namespace Ebrain.Controllers
 
                 });
             }
-            return list;
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+
         }
 
         [HttpGet("updateddepts")]

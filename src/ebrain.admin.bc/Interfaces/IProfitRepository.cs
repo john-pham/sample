@@ -17,6 +17,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IProfitRepository : IRepository<Profit>
     {
+        int Total { get; }
         IEnumerable<Profit> GetTopActive(int count);
         Task<Profit> FindById(Guid? id);
         Task<IEnumerable<Profit>> Search(string filter, string value);
@@ -26,7 +27,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<IEnumerable<ProfitDetail>> GetDetailByIOId(Guid? id);
         Task<Boolean> DeleteMaster(Guid? id);
         Task<Boolean> CancelMaster(Guid? id);
-        IEnumerable<ProfitlList> GetProfitList(DateTime fromDate, DateTime toDate, string filter, string branchIds);
+        IEnumerable<ProfitlList> GetProfitList(DateTime fromDate, DateTime toDate, string filter, string branchIds, int page, int size);
         Task<bool> UpdateProfit(DateTime fromDate, DateTime toDate, string filter, string branchIds, Guid userId);
 
     }

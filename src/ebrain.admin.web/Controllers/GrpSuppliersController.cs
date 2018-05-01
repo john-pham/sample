@@ -39,10 +39,11 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<GrpSupplierViewModel>> Search(string filter, string value)
+        public async Task<JsonResult> Search(string filter, string value, int page, int size)
         {
             var userId = Utilities.GetUserId(this.User);
-            var ret = from c in await this._unitOfWork.GrpSuppliers.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
+            var unit = this._unitOfWork.GrpSuppliers;
+            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
                       select new GrpSupplierViewModel
                       {
                           ID = c.GrpSupplierId,
@@ -55,15 +56,20 @@ namespace Ebrain.Controllers
                           IsTeacher = c.IsTeacher
                       };
 
-            return ret;
+            return Json(new
+            {
+                Total = unit.Total,
+                List = ret
+            });
         }
 
         [HttpGet("getall")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<GrpSupplierViewModel>> GetAll(int option)
+        public async Task<JsonResult> GetAll(int option, int page, int size)
         {
             var userId = Utilities.GetUserId(this.User);
-            var ret = from c in await this._unitOfWork.GrpSuppliers.GetAll(this._unitOfWork.Branches.GetAllBranchOfUserString(userId), option)
+            var unit = this._unitOfWork.GrpSuppliers;
+            var ret = from c in await unit.GetAll(this._unitOfWork.Branches.GetAllBranchOfUserString(userId), option, page, size)
                       select new GrpSupplierViewModel
                       {
                           ID = c.GrpSupplierId,
@@ -76,7 +82,11 @@ namespace Ebrain.Controllers
                           IsTeacher = c.IsTeacher
                       };
 
-            return ret;
+            return Json(new
+            {
+                Total = unit.Total,
+                List = ret
+            });
         }
 
         [HttpGet("get")]

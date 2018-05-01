@@ -309,19 +309,22 @@ namespace Ebrain.Controllers
 
         [HttpGet("getsummaries")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IActionResult> GetSummaries(string filter, string value, Guid? statusId, Guid? supplierId, Guid? classId)
+        public async Task<JsonResult> GetSummaries(string filter, string value, Guid? statusId, Guid? supplierId, Guid? classId, int page, int size)
         {
-            var list = this._unitOfWork.Classes.GetClassSummary(
+            var unit = this._unitOfWork.Classes;
+
+            var ret = unit.GetClassSummary(
                     this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                    value,
                     statusId,
                     supplierId,
-                    classId);
-            if (list != null && list.Count > 0)
+                    classId, page, size);
+
+            return Json(new
             {
-                return Ok(MappingClassViewModel(list));
-            }
-            return Ok(null);
+                Total = unit.Total,
+                List = ret
+            });
         }
 
         [HttpGet("getclassbystudentid")]

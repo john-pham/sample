@@ -39,10 +39,11 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<ExamineViewModel>> Search(string filter, string value)
+        public async Task<JsonResult> Search(string filter, string value, int page, int size)
         {
             var userId = Utilities.GetUserId(this.User);
-            var ret = from c in await this._unitOfWork.Examines.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId))
+            var unit = this._unitOfWork.Examines;
+            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
                       select new ExamineViewModel
                       {
                           ID = c.ExamineId,
@@ -51,7 +52,11 @@ namespace Ebrain.Controllers
                           Note = c.Note
                       };
 
-            return ret;
+            return Json(new
+            {
+                Total = unit.Total,
+                List = ret
+            });
         }
 
         [HttpGet("getall")]

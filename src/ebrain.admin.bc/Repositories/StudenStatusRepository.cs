@@ -19,6 +19,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class StudentStatusRepository : Repository<StudentStatus>, IStudentStatusRepository
     {
+        public int Total { get; private set; }
         public StudentStatusRepository(ApplicationDbContext context) : base(context)
         { }
 

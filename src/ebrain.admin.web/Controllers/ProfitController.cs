@@ -40,15 +40,17 @@ namespace Ebrain.Controllers
 
         [HttpGet("getprofits")]
         [Produces(typeof(UserViewModel))]
-        public IEnumerable<ProfitViewModel> GetProfitList(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> GetProfitList(string filter, string value, string fromDate, string toDate, int page, int size)
         {
             var userId = Utilities.GetUserId(this.User);
-
-            var results = this._unitOfWork.Profits.GetProfitList(
+            var unit = this._unitOfWork.Profits;
+            var results = unit.GetProfitList(
                 fromDate.BuildDateTimeFromSEFormat(),
                 toDate.BuildLastDateTimeFromSEFormat(),
                 value,
-                this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+                this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                page, size);
+
             var list = new List<ProfitViewModel>();
             foreach (var item in results)
             {
@@ -63,7 +65,12 @@ namespace Ebrain.Controllers
                     TotalPriceEnd = item.TotalPriceEnd,
                 });
             }
-            return list;
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
         }
 
         [HttpGet("updatedprofits")]

@@ -16,9 +16,10 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface IUnitRepository : IRepository<Unit>
     {
+        int Total { get; }
         IEnumerable<Unit> GetTopActive(int count);
         Task<Unit> FindById(Guid? id);
-        Task<IEnumerable<Unit>> Search(string filter, string value, string branchIds);
+        Task<IEnumerable<Unit>> Search(string filter, string value, string branchIds, int page, int size);
         Task<IEnumerable<Unit>> GetAllUnits(string branchIds);
         Task<Unit> Save(Unit value, Guid? id);
         Task<Boolean> Delete(string id);

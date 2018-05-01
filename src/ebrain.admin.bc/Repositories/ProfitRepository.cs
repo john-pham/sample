@@ -21,6 +21,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class ProfitRepository : Repository<Profit>, IProfitRepository
     {
+        public int Total { get; private set; }
         public ProfitRepository(ApplicationDbContext context) : base(context)
         { }
 
@@ -61,7 +62,7 @@ namespace ebrain.admin.bc.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ProfitlList> GetProfitList(DateTime fromDate, DateTime toDate, string filter, string branchIds)
+        public IEnumerable<ProfitlList> GetProfitList(DateTime fromDate, DateTime toDate, string filter, string branchIds, int page, int size)
         {
             try
             {
@@ -76,6 +77,13 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<ProfitlList>().ToList();
                                });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
 
                 return someTypeList;
             }
@@ -120,7 +128,7 @@ namespace ebrain.admin.bc.Repositories
                         }
 
                         toDate = toDate.AddMonths(1).AddSeconds(-1);//ve cuoi thang nay
-                        var results = this.GetProfitList(fromDate, toDate, filter, branchIds);
+                        var results = this.GetProfitList(fromDate, toDate, filter, branchIds, 0, 0);
                         if (results != null && results.Count() > 0)
                         {
                             var endDate = fromDate.AddMonths(1);

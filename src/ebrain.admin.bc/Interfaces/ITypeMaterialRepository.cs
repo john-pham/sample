@@ -16,12 +16,13 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 {
     public interface ITypeMaterialRepository : IRepository<TypeMaterial>
     {
+        int Total { get; }
         IEnumerable<TypeMaterial> GetTopActive(int count);
         Task<TypeMaterial> FindById(Guid? id);
         string FindNameById(Guid? id);
         Task<IEnumerable<TypeMaterial>> GetAllTypeLearn(string branchIds);
-        Task<IEnumerable<TypeMaterial>> Search(string filter, string value, string branchIds);
-        Task<IEnumerable<TypeMaterial>> SearchLearn(string filter, string value, string branchIds);
+        Task<IEnumerable<TypeMaterial>> Search(string filter, string value, string branchIds, int page, int size);
+        Task<IEnumerable<TypeMaterial>> SearchLearn(string filter, string value, string branchIds, int page, int size);
         Task<IEnumerable<Guid>> TypeIdsLearn(string branchIds);
         Task<TypeMaterial> Save(TypeMaterial value, Guid? index);
         Task<Boolean> Delete(string id);

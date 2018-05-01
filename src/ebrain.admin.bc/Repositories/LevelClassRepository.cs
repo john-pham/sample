@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Repositories
 {
     public class LevelClassRepository : Repository<LevelClass>, ILevelClassRepository
     {
+        public int Total { get; private set; }
         public LevelClassRepository(ApplicationDbContext context) : base(context)
         { }
 

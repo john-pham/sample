@@ -20,6 +20,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
+import { Results } from "../../models/results.model";
+import { Page } from "../../models/page.model";
 
 @Component({
     selector: 'warehousecards',
@@ -45,6 +47,7 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
+    private page: Page;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: IOStudentListService, private modalService: BsModalService, private router: Router, private route: ActivatedRoute) {
@@ -53,6 +56,13 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
         this.filterValue = '';
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getFromServer();
     }
 
     ngOnInit() {
@@ -96,14 +106,16 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
             .switchMap((params: ParamMap) => {
                 var id = params.get('id');
                 this.filterValue = id;
-                
-                return this.localService.getWarehouseCard(this.filterName, this.filterValue, this.fromDate, this.toDate);
+
+                return this.localService.getWarehouseCard(this.filterName, this.filterValue, this.fromDate, this.toDate, 0, 0);
             })
             .subscribe(results => this.onDataLoadSuccessful(results), error => this.onDataLoadFailed(error));
     }
 
-    private onDataLoadSuccessful(list: IOStockReport[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<IOStockReport>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
+
         this.alertService.stopLoadingMessage();
         this.loadingIndicator = false;
         this.filterValue = "";
@@ -120,7 +132,7 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
     close() {
         this.modalRef.hide();
     }
-    
+
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
 
