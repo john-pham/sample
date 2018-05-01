@@ -268,13 +268,14 @@ header {
                         overflow-y: auto;
                     }
 
-                #app_container aside.main-sidebar {
-                    top: 50px;
-                    height: calc(100% - 50px);
-                    min-height: initial;
-                    overflow-y: auto;
-                    padding-top: 0;
-                }
+    #app_container aside.control-sidebar,
+    #app_container aside.main-sidebar {
+        top: 50px;
+        height: calc(100% - 50px);
+        min-height: initial;
+        overflow-y: auto;
+        padding-top: 0;
+    }
 
 /* messengerlists table */
 messengerlists .ngx-datatable .datatable-row-center,
@@ -291,6 +292,7 @@ messengerlists .ngx-datatable .datatable-body {
         height: calc(100vh - 151px) !important; /* 102px = header(100px) + footer(51px) */
     }
 
+    #app_container aside.control-sidebar,
     #app_container aside.main-sidebar {
         top: 100px;
         height: calc(100% - 100px);
