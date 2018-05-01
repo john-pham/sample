@@ -22,6 +22,7 @@ import { IOStockReport } from "../../models/iostockreport.model";
 import { InventoriesService } from "../../services/inventories.service";
 import { Inventories } from "../../models/inventories.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
 @Component({
     selector: 'inventorieslist',
     templateUrl: './inventorieslists.component.html',
@@ -44,12 +45,20 @@ export class InventoriesListsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-
+    private page: Page;
     constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: InventoriesService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
-        this.filterValue = '';
+        this.filterValue = "";
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.search();
     }
 
     ngOnInit() {
@@ -87,13 +96,14 @@ export class InventoriesListsComponent implements OnInit, OnDestroy {
     }
 
     onSearchChanged(value: string) {
-        //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
+        this.filterValue = value;
+        this.search();
     }
 
     private search() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.getInventories(this.filterName, this.filterValue, this.fromDate, this.toDate).subscribe(
+        var disp = this.localService.getInventories(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

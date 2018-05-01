@@ -27,15 +27,15 @@ export class GrpMaterialsService {
         this.initializeStatus();
     }
 
-    search(filter: string, value: string) {
-        return this.endpointFactory.search(filter, value)
+    search(filter: string, value: string, page: number, size: number) {
+        return this.endpointFactory.search(filter, value, page, size)
             .map((response: Response) => <GrpMaterial[]>response.json());
     }
 
-    getAll(page?: number, pageSize?: number) {
+    getAll(filter: string, value: string, page: number, size: number) {
         return Observable.forkJoin(
-            this.search("", ""),
-            this.typeMaterialEndpoint.search("", "").map((response: Response) => <TypeMaterial[]>response.json()));
+            this.search(filter, value, page, size),
+            this.typeMaterialEndpoint.search("", "", 0, 0).map((response: Response) => <TypeMaterial[]>response.json()));
     }
 
     save(value: GrpMaterial) {

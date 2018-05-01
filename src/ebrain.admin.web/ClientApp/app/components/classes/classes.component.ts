@@ -57,7 +57,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     suppliers: Supplier[] = [];
     todays: Today[] = [];
     rooms: Room[] = [];
-    shifts: Shiftclass[] = [];    
+    shifts: Shiftclass[] = [];
 
     loadingIndicator: boolean = true;
 
@@ -199,7 +199,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
-        this.supplierService.search("", "", 4).subscribe(
+        this.supplierService.search("", "", 4, 0, 0).subscribe(
             list => this.onDataLoadSupplierSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
@@ -215,7 +215,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
 
-        this.roomService.search("", "").subscribe(
+        this.roomService.search("", "", 0, 0).subscribe(
             list => this.onDataLoadRoomSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
@@ -234,7 +234,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
-        this.shiftService.search("", "").subscribe(
+        this.shiftService.search("", "", 0, 0).subscribe(
             list => this.onDataLoadShiftSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

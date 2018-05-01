@@ -30,6 +30,7 @@ import { Studentstatus } from "../../models/studentstatus.model";
 import { GenderStudent } from "../../models/genderstudent.model";
 import { Class } from "../../models/class.model";
 import { ClassesService } from "../../services/classes.service";
+import { Page } from "../../models/page.model";
 
 @Component({
     selector: 'studentendclass',
@@ -47,11 +48,19 @@ export class StudentEndClassComponent implements OnInit, OnDestroy {
     columns = [];
     classes = [];
     loadingIndicator: boolean = true;
-
+    private page: Page;
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: StudentsService, private modalService: BsModalService, private classService: ClassesService) {
         this.classId = "";
         this.toDate = new Date();
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.search();
     }
 
     ngOnInit() {
@@ -80,7 +89,7 @@ export class StudentEndClassComponent implements OnInit, OnDestroy {
     private search() {
         this.loadingIndicator = true;
 
-        var disp = this.localService.getStudentEndClass(this.classId, this.toDate).subscribe(
+        var disp = this.localService.getStudentEndClass(this.classId, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

@@ -37,8 +37,8 @@ export class ProfitsService {
         this.initializeStatus();
     }
 
-    getProfits(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.getProfits(filter, value, fromDate, toDate)
+    getProfits(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getProfits(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Profit[]>response.json());
     }
     updateProfits(filter: string, value: string, fromDate: Date, toDate: Date) {

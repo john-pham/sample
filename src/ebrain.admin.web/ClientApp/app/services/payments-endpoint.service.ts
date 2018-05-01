@@ -65,29 +65,31 @@ export class PaymentsEndpoint extends EndpointFactory {
             });
     }
 
-    searchSummarize(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    searchSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('searchpaymentsummarize?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrl('searchpaymentsummarize?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page='+ page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.searchSummarize(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.searchSummarize(filter, value, fromDate, toDate, page, size));
             });
     }
 
-    searchDetail(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    searchDetail(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('searchpaymentdetail?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrl('searchpaymentdetail?filter=' + filter + '&value='
+            + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.searchDetail(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.searchDetail(filter, value, fromDate, toDate, page, size));
             });
     }
 

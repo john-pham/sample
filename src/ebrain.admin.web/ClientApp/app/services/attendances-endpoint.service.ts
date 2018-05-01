@@ -31,25 +31,26 @@ export class AttendancesEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    search(classId: string, studentId: string, createDate: Date): Observable<Response> {
+    search(classId: string, studentId: string, createDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('search?classId=' + classId + '&studentId=' + studentId + '&createDate=' + createDate + '&hash_id=' + Math.random());
+        let url = this.getUrl('search?classId=' + classId + '&studentId=' + studentId + '&createDate=' + createDate + '&page=' + page + '&size=' + size
+            + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(classId, studentId, createDate));
+                return this.handleError(error, () => this.search(classId, studentId, createDate, page, size));
             });
     }
-    
+
 
     save(value: any): Observable<Response> {
         let url = this.getUrl('update');
         let header = this.getAuthHeader(true);
         let params = JSON.stringify(value);
-        
+
         return this.http.post(url, params, header)
             .map((response: Response) => {
                 return response;
@@ -58,12 +59,12 @@ export class AttendancesEndpoint extends EndpointFactory {
                 return this.handleError(error, () => this.save(value));
             });
     }
-    
+
 
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {
-            
+
         }
 
         if (error.url && error.url.toLowerCase().includes(this.serviceUrl.toLowerCase())) {

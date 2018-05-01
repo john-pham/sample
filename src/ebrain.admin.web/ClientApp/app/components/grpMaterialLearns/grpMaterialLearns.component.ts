@@ -18,6 +18,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TypeMaterialLearn } from "../../models/TypeMaterialLearn.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
+import { TypeMaterialLearnsService } from "../../services/typeMaterialLearns.service";
 
 @Component({
     selector: 'grpmateriallearns',
@@ -41,12 +43,22 @@ export class GrpMaterialLearnsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
+    private page: Page;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
-        private localService: GrpMaterialLearnsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
+        private localService: GrpMaterialLearnsService, public accessRightService: AccessRightsService,
+        private typeService: TypeMaterialLearnsService, private modalService: BsModalService) {
         this.pointer = new GrpMaterialLearn();
+        this.filterValue = "";
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
     }
 
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getFromServer();
+    }
     ngOnInit() {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
@@ -69,6 +81,7 @@ export class GrpMaterialLearnsComponent implements OnInit, OnDestroy {
     }
 
     addGrpMaterialLearn(template: TemplateRef<any>) {
+        this.getType();
         this.pointer.id = "";
         this.modalRef = this.modalService.show(template);
     }
@@ -86,7 +99,8 @@ export class GrpMaterialLearnsComponent implements OnInit, OnDestroy {
     }
 
     onSearchChanged(value: string) {
-        //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
+        this.filterValue = value;
+        this.getFromServer();
     }
 
     delete(row) {
@@ -117,18 +131,25 @@ export class GrpMaterialLearnsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.getAll().subscribe(
-            results => this.onDataLoadSuccessful(results[0], results[1]),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+        var disp = this.localService.search(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(
+            results => this.onDataLoadSuccessful(results),
+            error => this.onDataLoadFailed(error));
     }
 
-    private onDataLoadSuccessful(list: GrpMaterialLearn[], typeMaterials: TypeMaterialLearn[]) {
-        this.rows = list;
+    private getType() {
+        var disp = this.typeService.search("", "", 0, 0).subscribe(
+            results => this.onDataLoadTypeSuccessful(results),
+            error => this.onDataLoadFailed(error));
+    }
+
+    private onDataLoadTypeSuccessful(typeMaterials: TypeMaterialLearn[]) {
         this.allTypeMaterials = typeMaterials;
+        this.alertService.stopLoadingMessage();
+
+    }
+
+    private onDataLoadSuccessful(list: GrpMaterialLearn[]) {
+        this.rows = list;
         this.alertService.stopLoadingMessage();
 
     }
@@ -147,7 +168,7 @@ export class GrpMaterialLearnsComponent implements OnInit, OnDestroy {
     }
 
     edit(template: TemplateRef<any>, index: string) {
-
+        this.getType();
         var disp = this.localService.get(index).subscribe(
             item => {
                 //

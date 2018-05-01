@@ -22,6 +22,7 @@ import { IOStockReport } from "../../models/iostockreport.model";
 import { PaymentsService } from "../../services/payments.service";
 import { Payment } from "../../models/payment.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
 @Component({
     selector: 'paymentdetaillist',
     templateUrl: './paymentdetaillists.component.html',
@@ -46,12 +47,20 @@ export class PaymentDetailListsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-
+    private page: Page;
     constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: PaymentsService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
         this.filterValue = '';
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getFromServer();
     }
 
     ngOnInit() {
@@ -99,13 +108,9 @@ export class PaymentDetailListsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.searchDetail(this.filterName, this.filterValue, this.fromDate, this.toDate).subscribe(
+        var disp = this.localService.searchDetail(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
     }
 
     private onDataLoadSuccessful(list: Payment[]) {

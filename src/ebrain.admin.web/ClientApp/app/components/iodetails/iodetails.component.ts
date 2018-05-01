@@ -19,6 +19,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
 @Component({
     selector: 'iodetails',
     templateUrl: './iodetails.component.html',
@@ -43,13 +44,26 @@ export class IODetailsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-
+    private page: Page;
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: IOStudentListService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Grpsupplier();
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
-        this.filterValue = '';
+        this.filterValue = "";
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.search();
+    }
+
+    onSearchChanged(value: string) {
+        this.filterValue = value;
+        this.search();
     }
 
     ngOnInit() {
@@ -77,25 +91,13 @@ export class IODetailsComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         //this.saveToDisk();
     }
-
-    addGrpsupplier(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
-    }
-
-    imageFinishedUploading(file: any) {
-        console.log(JSON.stringify(file.serverResponse));
-    }
-
+    
     onRemoved(file: any) {
         // do some stuff with the removed file.
     }
 
     onUploadStateChanged(state: boolean) {
         console.log(JSON.stringify(state));
-    }
-
-    onSearchChanged(value: string) {
-        this.filterValue = value;
     }
 
     search() {
@@ -105,7 +107,7 @@ export class IODetailsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.getiodetailbyiotypeid(this.filterName, this.filterValue, this.fromDate, this.toDate).subscribe(
+        var disp = this.localService.getiodetailbyiotypeid(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

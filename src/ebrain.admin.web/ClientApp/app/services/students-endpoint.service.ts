@@ -98,25 +98,27 @@ export class StudentsEndpoint extends EndpointFactory {
             });
     }
 
-    getBirthdayStudent(fromDate: Date, toDate: Date): Observable<Response> {
-        let url = this.getUrl('getbirthdaytudents?fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+    getBirthdayStudent(fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+        let url = this.getUrl('getbirthdaytudents?fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getBirthdayStudent(fromDate, toDate));
+                return this.handleError(error, () => this.getBirthdayStudent(fromDate, toDate, page, size));
             });
     }
 
-    getStudentEndClass(classId: string, toDate: Date): Observable<Response> {
-        let url = this.getUrl('getstudentendclass?classId=' + classId + '&toDate=' + toDate + '&hash_id=' + Math.random());
+    getStudentEndClass(classId: string, toDate: Date, page: number, size: number): Observable<Response> {
+        let url = this.getUrl('getstudentendclass?classId=' + classId + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getStudentEndClass(classId, toDate));
+                return this.handleError(error, () => this.getStudentEndClass(classId, toDate, page, size));
             });
     }
 

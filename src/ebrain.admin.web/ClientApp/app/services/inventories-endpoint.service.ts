@@ -29,16 +29,17 @@ export class InventoriesEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    getInventories(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    getInventories(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('getinventories?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrl('getinventories?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getInventories(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.getInventories(filter, value, fromDate, toDate, page, size));
             });
     }
 
@@ -51,7 +52,7 @@ export class InventoriesEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getInventories(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.updateInventories(filter, value, fromDate, toDate));
             });
     }
 

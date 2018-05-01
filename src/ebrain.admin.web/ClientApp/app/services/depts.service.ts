@@ -37,8 +37,8 @@ export class DeptService {
         this.initializeStatus();
     }
 
-    getDepts(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.getDepts(filter, value, fromDate, toDate)
+    getDepts(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getDepts(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Depts[]>response.json());
     }
     updateDepts(filter: string, value: string, fromDate: Date, toDate: Date) {

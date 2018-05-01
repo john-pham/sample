@@ -28,6 +28,7 @@ import { ClassStatusService } from "../../services/classstatus.service";
 import { Supplier } from "../../models/supplier.model";
 import { ClassStatus } from "../../models/classstatus.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
 
 @Component({
     selector: 'classlists',
@@ -56,12 +57,20 @@ export class ClassListsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-
+    private page: Page;
     constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService,
         private localService: ClassesService, private supplierService: SuppliersService,
         private classStatusService: ClassStatusService, public accessRightService: AccessRightsService,
         private modalService: BsModalService) {
         this.filterValue = '';
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getFromServer();
     }
 
     ngOnInit() {
@@ -91,7 +100,7 @@ export class ClassListsComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
 
-        this.supplierService.search("", "", 4).subscribe(
+        this.supplierService.search("", "", 4, 0, 0).subscribe(
             list => this.onDataLoadSupplierSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
@@ -126,7 +135,8 @@ export class ClassListsComponent implements OnInit, OnDestroy {
 
     private getFromServer() {
         this.loadingIndicator = true;
-        var disp = this.localService.getsummaries(this.filterName, this.filterValue, this.statusId, this.supplierId,"").subscribe(
+        var disp = this.localService.getsummaries(
+            this.filterName, this.filterValue, this.statusId, this.supplierId, "", this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

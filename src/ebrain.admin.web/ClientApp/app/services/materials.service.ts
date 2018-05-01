@@ -35,8 +35,8 @@ export class MaterialsService {
         this.initializeStatus();
     }
 
-    search(filter: string, value: string) {
-        return this.endpointFactory.search(filter, value)
+    search(filter: string, value: string, page: number, size: number) {
+        return this.endpointFactory.search(filter, value, page, size)
             .map((response: Response) => <Material[]>response.json());
     }
 
@@ -51,7 +51,7 @@ export class MaterialsService {
     }
 
     getTypeMaterial() {
-        return this.typesEndpoint.search("", "").map((response: Response) => <TypeMaterial[]>response.json());
+        return this.typesEndpoint.search("", "", 0, 0).map((response: Response) => <TypeMaterial[]>response.json());
     }
 
     getUnit() {
@@ -59,7 +59,7 @@ export class MaterialsService {
     }
 
     getSupplier() {
-        return this.supEndpoint.search("", "", 2).map((response: Response) => <Supplier[]>response.json());
+        return this.supEndpoint.search("", "", 2, 0, 0).map((response: Response) => <Supplier[]>response.json());
     }
 
     save(value: Material) {

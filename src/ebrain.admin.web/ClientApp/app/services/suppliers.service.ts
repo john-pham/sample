@@ -26,13 +26,13 @@ export class SuppliersService {
         this.initializeStatus();
     }
 
-    search(filter: string, value: string, option: number) {
-        return this.endpointFactory.search(filter, value, option)
+    search(filter: string, value: string, option: number, page: number, size: number) {
+        return this.endpointFactory.search(filter, value, option, page, size)
             .map((response: Response) => <Supplier[]>response.json());
     }
 
     getAll(page?: number, pageSize?: number, option?: number) {
-        return this.search("", "", option);
+        return this.search("", "", option, 0, 0);
     }
 
     getGrpSupplier(option: number) {

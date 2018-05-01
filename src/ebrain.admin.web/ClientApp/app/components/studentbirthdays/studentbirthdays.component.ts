@@ -29,6 +29,7 @@ import { Supplier } from "../../models/supplier.model";
 import { Studentstatus } from "../../models/studentstatus.model";
 import { GenderStudent } from "../../models/genderstudent.model";
 import { Class } from "../../models/class.model";
+import { Page } from "../../models/page.model";
 
 @Component({
     selector: 'studentbirthdays',
@@ -45,10 +46,17 @@ export class StudentBirthdaysComponent implements OnInit, OnDestroy {
     rows = [];
     columns = [];
     loadingIndicator: boolean = true;
-
+    private page: Page;
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: StudentsService, private modalService: BsModalService) {
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
 
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.search();
     }
 
     ngOnInit() {
@@ -78,7 +86,7 @@ export class StudentBirthdaysComponent implements OnInit, OnDestroy {
 
     private search() {
         this.loadingIndicator = true;
-        var disp = this.localService.getBirthdayStudent(this.fromDate, this.toDate).subscribe(
+        var disp = this.localService.getBirthdayStudent(this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

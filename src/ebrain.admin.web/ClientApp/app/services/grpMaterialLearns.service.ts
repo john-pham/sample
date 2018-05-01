@@ -26,14 +26,11 @@ export class GrpMaterialLearnsService {
         this.initializeStatus();
     }
 
-    search(filter: string, value: string) {
-        return this.endpointFactory.search(filter, value)
+    search(filter: string, value: string, page: number, size: number) {
+        return this.endpointFactory.search(filter, value, page, size)
             .map((response: Response) => <GrpMaterialLearn[]>response.json());
     }
-    search1(filter: string, value: string) {
-        return this.endpointFactory.search(filter, value)
-            .map((response: Response) => <GrpMaterialLearn[]>response.json());
-    }
+
     findFromTypeId(typeid: string) {
         return this.endpointFactory.findFromTypeId(typeid)
             .map((response: Response) => <GrpMaterialLearn[]>response.json());
@@ -41,8 +38,8 @@ export class GrpMaterialLearnsService {
 
     getAll(page?: number, pageSize?: number) {
         return Observable.forkJoin(
-            this.search("", ""),
-            this.typeMaterialEndpoint.search("", "").map((response: Response) => <TypeMaterialLearn[]>response.json()));
+            this.search("", "", 0, 0),
+            this.typeMaterialEndpoint.search("", "", 0, 0).map((response: Response) => <TypeMaterialLearn[]>response.json()));
     }
 
     save(value: GrpMaterialLearn) {

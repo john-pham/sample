@@ -67,7 +67,7 @@ export class IOStudentsService {
     }
 
     getMaterial(filter: string, value: string) {
-        return this.materialendpoint.search(filter, value)
+        return this.materialendpoint.search(filter, value, 0, 0)
             .map((response: Response) => <Material[]>response.json());
     }
 

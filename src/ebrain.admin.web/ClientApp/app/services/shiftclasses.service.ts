@@ -24,8 +24,8 @@ export class ShiftclassesService {
         this.initializeStatus();
     }
 
-    search(filter: string, value: string) {
-        return this.endpointFactory.search(filter, value)
+    search(filter: string, value: string, page: number, size: number) {
+        return this.endpointFactory.search(filter, value, page, size)
             .map((response: Response) => <Shiftclass[]>response.json());
     }
 

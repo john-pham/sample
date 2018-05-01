@@ -51,13 +51,13 @@ export class PaymentsService {
             .map((response: Response) => <Student[]>response.json());
     }
 
-    searchSummarize(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.searchSummarize(filter, value, fromDate, toDate)
+    searchSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.searchSummarize(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Payment[]>response.json());
     }
 
-    searchDetail(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.searchDetail(filter, value, fromDate, toDate)
+    searchDetail(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.searchDetail(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Payment[]>response.json());
     }
 
@@ -78,7 +78,7 @@ export class PaymentsService {
     }
 
     getMaterial(filter: string, value: string) {
-        return this.materialendpoint.search(filter, value)
+        return this.materialendpoint.search(filter, value, 0, 0)
             .map((response: Response) => <Material[]>response.json());
     }
 

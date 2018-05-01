@@ -22,23 +22,24 @@ import { ConfigurationService } from './configuration.service';
 export class ProfitsEndpoint extends EndpointFactory {
 
     private readonly _serviceUrl: string = "/api/profit";
-   
+
     private get serviceUrl() { return this.configurations.baseUrl + this._serviceUrl; }
-   
+
     constructor(http: Http, configurations: ConfigurationService, injector: Injector) {
         super(http, configurations, injector);
     }
 
-    getProfits(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    getProfits(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('getprofits?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrl('getprofits?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getProfits(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.getProfits(filter, value, fromDate, toDate, page, size));
             });
     }
 
@@ -51,7 +52,7 @@ export class ProfitsEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getProfits(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.updateProfits(filter, value, fromDate, toDate));
             });
     }
 

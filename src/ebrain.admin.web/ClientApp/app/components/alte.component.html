@@ -231,7 +231,7 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">*ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')"
+                    <ul class="treeview-menu" *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')">
                         <li *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd230')"><a routerLink="/actionanalyst"><i class="fa fa-bold"></i> {{'menu.function.ActionAnalyst' | translate}}</a></li>
                         <li *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9b39-e5b0c22bd231')"><a routerLink="/investors"><i class="fa fa-university"></i> {{'menu.function.PlanInvestor' | translate}}</a></li>
                     </ul>

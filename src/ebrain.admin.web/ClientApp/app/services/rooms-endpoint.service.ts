@@ -31,16 +31,16 @@ export class RoomsEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    search(filter: string, value: string): Observable<Response> {
+    search(filter: string, value: string, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('search?filter=' + filter + '&value=' + value);
+        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(filter, value));
+                return this.handleError(error, () => this.search(filter, value, page, size));
             });
     }
 

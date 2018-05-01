@@ -31,15 +31,15 @@ export class GrpMaterialLearnsEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    search(filter: string, value: string): Observable<Response> {
+    search(filter: string, value: string, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('search?filter=' + filter + '&value=' + value);
+        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(filter, value));
+                return this.handleError(error, () => this.search(filter, value, page, size));
             });
     }
 
@@ -58,7 +58,7 @@ export class GrpMaterialLearnsEndpoint extends EndpointFactory {
         let url = this.getUrl('update');
         let header = this.getAuthHeader(true);
         let params = JSON.stringify(value);
-        
+
         return this.http.post(url, params, header)
             .map((response: Response) => {
                 return response;
@@ -98,7 +98,7 @@ export class GrpMaterialLearnsEndpoint extends EndpointFactory {
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {
-            
+
         }
 
         if (error.url && error.url.toLowerCase().includes(this.serviceUrl.toLowerCase())) {

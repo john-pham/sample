@@ -17,6 +17,7 @@ import { Shiftclass } from '../../models/shiftclass.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
 @Component({
     selector: 'shiftclasses',
     templateUrl: './shiftclasses.component.html',
@@ -39,9 +40,18 @@ export class ShiftclassesComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
+    private page: Page;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: ShiftclassesService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Shiftclass();
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getFromServer();
     }
 
     ngOnInit() {
@@ -82,7 +92,8 @@ export class ShiftclassesComponent implements OnInit, OnDestroy {
     }
 
     onSearchChanged(value: string) {
-        //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
+        this.filterValue = value;
+        this.getFromServer();
     }
 
     delete(row) {
@@ -113,7 +124,7 @@ export class ShiftclassesComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.search(this.filterName, this.filterValue).subscribe(
+        var disp = this.localService.search(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

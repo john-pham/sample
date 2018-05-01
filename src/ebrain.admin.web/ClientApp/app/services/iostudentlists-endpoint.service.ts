@@ -32,39 +32,42 @@ export class IOStudentListEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    search(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    search(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.search(filter, value, fromDate, toDate, page, size));
             });
     }
 
-    getiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    getiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrlIO('getiobyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrlIO('getiobyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getiobyiotypeid(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.getiobyiotypeid(filter, value, fromDate, toDate, page, size));
             });
     }
 
-    getiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    getiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrlIO('getiodetailbyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrlIO('getiodetailbyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getiodetailbyiotypeid(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.getiodetailbyiotypeid(filter, value, fromDate, toDate, page, size));
             });
     }
 

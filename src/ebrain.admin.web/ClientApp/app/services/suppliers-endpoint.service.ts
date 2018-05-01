@@ -31,16 +31,16 @@ export class SuppliersEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    search(filter: string, value: string, option: number): Observable<Response> {
+    search(filter: string, value: string, option: number, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&isOption=' + option);
+        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&isOption=' + option + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(filter, value, option));
+                return this.handleError(error, () => this.search(filter, value, option, page, size));
             });
     }
 

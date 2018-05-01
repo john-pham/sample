@@ -18,6 +18,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TypeMaterial } from "../../models/typeMaterial.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
+import { TypeMaterialsService } from "../../services/typeMaterials.service";
 
 @Component({
     selector: 'grpmaterials',
@@ -43,9 +45,21 @@ export class GrpMaterialsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: GrpMaterialsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
+    private page: Page;
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: GrpMaterialsService,
+        public accessRightService: AccessRightsService,
+        private typeMaterialService: TypeMaterialsService,
+        private modalService: BsModalService) {
         this.pointer = new GrpMaterial();
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getFromServer();
     }
 
     ngOnInit() {
@@ -70,6 +84,7 @@ export class GrpMaterialsComponent implements OnInit, OnDestroy {
     }
 
     addGrpMaterial(template: TemplateRef<any>) {
+        this.getTypeMaterial();
         this.pointer.id = "";
         this.modalRef = this.modalService.show(template);
     }
@@ -87,7 +102,8 @@ export class GrpMaterialsComponent implements OnInit, OnDestroy {
     }
 
     onSearchChanged(value: string) {
-        //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
+        this.filterValue = value;
+        this.getFromServer();
     }
 
     delete(row) {
@@ -118,19 +134,27 @@ export class GrpMaterialsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.getAll().subscribe(
-            results => this.onDataLoadSuccessful(results[0], results[1]),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+        var disp = this.localService.search(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(
+            results => this.onDataLoadGrpSuccessful(results),
+            error => this.onDataLoadFailed(error));
     }
 
-    private onDataLoadSuccessful(list: GrpMaterial[], typeMaterials: TypeMaterial[]) {
+    private getTypeMaterial() {
+        var disp = this.typeMaterialService.search("", "", 0, 0).subscribe(
+            results => this.onDataLoadTypeSuccessful(results),
+            error => this.onDataLoadFailed(error));
+    }
+
+    private onDataLoadGrpSuccessful(list: GrpMaterial[]) {
         this.rows = list;
+        this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
+    }
+
+    private onDataLoadTypeSuccessful(typeMaterials: TypeMaterial[]) {
         this.allTypeMaterials = typeMaterials;
         this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
     }
 
     private onDataLoadFailed(error: any) {
@@ -146,7 +170,7 @@ export class GrpMaterialsComponent implements OnInit, OnDestroy {
     }
 
     edit(template: TemplateRef<any>, index: string) {
-
+        this.getTypeMaterial();
         var disp = this.localService.get(index).subscribe(
             item => {
                 //

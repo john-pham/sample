@@ -18,6 +18,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Grpsupplier } from "../../models/grpsupplier.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
 @Component({
     selector: 'supplieremps',
     templateUrl: './supplieremps.component.html',
@@ -42,9 +43,17 @@ export class SupplierEmpsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-
+    private page: Page;
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: SuppliersService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Supplier();
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getFromServer();
     }
 
     ngOnInit() {
@@ -88,7 +97,8 @@ export class SupplierEmpsComponent implements OnInit, OnDestroy {
     }
 
     onSearchChanged(value: string) {
-        //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
+        this.filterValue = value;
+        this.getFromServer();
     }
 
     delete(row) {
@@ -119,7 +129,7 @@ export class SupplierEmpsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.search(this.filterName, this.filterValue, 3).subscribe(
+        var disp = this.localService.search(this.filterName, this.filterValue, 3, this.page.pageNumber, this.page.size).subscribe(
             results => this.onDataLoadSuccessful(results),
             error => this.onDataLoadFailed(error),
             () => {

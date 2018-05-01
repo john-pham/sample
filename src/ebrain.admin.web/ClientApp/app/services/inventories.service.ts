@@ -37,8 +37,8 @@ export class InventoriesService {
         this.initializeStatus();
     }
 
-    getInventories(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.getInventories(filter, value, fromDate, toDate)
+    getInventories(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getInventories(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Inventories[]>response.json());
     }
     updateInventories(filter: string, value: string, fromDate: Date, toDate: Date) {

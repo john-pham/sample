@@ -19,6 +19,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ClassesService } from "../../services/classes.service";
 import { Class } from '../../models/Class.model';
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
 
 @Component({
     selector: 'attendances',
@@ -43,12 +44,20 @@ export class AttendancesComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-
+    private page: Page;
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: AttendancesService, public accessRightService: AccessRightsService,
         private modalService: BsModalService,
         private classService: ClassesService) {
-     
+        this.filterValue = "";
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.search();
     }
 
     ngOnInit() {
@@ -68,21 +77,13 @@ export class AttendancesComponent implements OnInit, OnDestroy {
         this.loadingIndicator = true;
         var disp = this.classService.search("", "").subscribe(
             list => this.onDataLoadClassesSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
     }
 
     private search() {
-        var disp = this.localService.search(this.classId, "", this.createDate).subscribe(
+        var disp = this.localService.search(this.classId, "", this.createDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
     }
 
     private onDataLoadClassesSuccessful(list: Class[]) {

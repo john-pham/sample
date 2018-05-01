@@ -22,6 +22,7 @@ import { IOStockReport } from "../../models/iostockreport.model";
 import { ProfitsService } from "../../services/profits.service";
 import { Profit } from "../../models/profits.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Page } from "../../models/page.model";
 @Component({
     selector: 'profitslist',
     templateUrl: './profitslist.component.html',
@@ -44,12 +45,21 @@ export class ProfitsListsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
-
-    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: ProfitsService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
+    private page: Page;
+    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService,
+        private localService: ProfitsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
         this.filterValue = '';
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.search();
     }
 
     ngOnInit() {
@@ -95,7 +105,7 @@ export class ProfitsListsComponent implements OnInit, OnDestroy {
     private search() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.getProfits(this.filterName, this.filterValue, this.fromDate, this.toDate).subscribe(
+        var disp = this.localService.getProfits(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

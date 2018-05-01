@@ -49,11 +49,15 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
-        this.filterValue = '';
-
+        this.filterValue = "";
         this.page = new Page();
         this.page.pageNumber = 0;
         this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.search();
     }
 
     ngOnInit() {
@@ -95,12 +99,13 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
 
     onSearchChanged(value: string) {
         this.filterValue = value;
+        this.getFromServer();
     }
 
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.getiobyiotypeid(this.filterName, this.filterValue, this.fromDate, this.toDate).subscribe(
+        var disp = this.localService.getiobyiotypeid(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

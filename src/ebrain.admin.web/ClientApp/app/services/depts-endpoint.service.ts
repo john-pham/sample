@@ -29,16 +29,17 @@ export class DeptsEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    getDepts(filter: string, value: string, fromDate: Date, toDate: Date): Observable<Response> {
+    getDepts(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('getdepts?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&hash_id=' + Math.random());
+        let url = this.getUrl('getdepts?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size+ '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getDepts(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.getDepts(filter, value, fromDate, toDate, page, size));
             });
     }
 
@@ -51,7 +52,7 @@ export class DeptsEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getDepts(filter, value, fromDate, toDate));
+                return this.handleError(error, () => this.updateDepts(filter, value, fromDate, toDate));
             });
     }
 

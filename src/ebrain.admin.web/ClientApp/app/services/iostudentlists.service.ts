@@ -28,8 +28,8 @@ export class IOStudentListService {
         this.initializeStatus();
     }
 
-    search(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.search(filter, value, fromDate, toDate)
+    search(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.search(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <IOStockReport[]>response.json());
     }
 
@@ -38,13 +38,13 @@ export class IOStudentListService {
             .map((response: Response) => <IOStockReport[]>response.json());
     }
 
-    getiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.getiobyiotypeid(filter, value, fromDate, toDate)
+    getiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getiobyiotypeid(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <IOStockReport[]>response.json());
     }
 
-    getiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date) {
-        return this.endpointFactory.getiodetailbyiotypeid(filter, value, fromDate, toDate)
+    getiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getiodetailbyiotypeid(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <IOStockReport[]>response.json());
     }
 

@@ -49,14 +49,21 @@
 <div class="table-wrapper">
     <div [@fadeInOut]>
         <!--DATA TABLE-->
-        <ngx-datatable class="material colored-header sm table-hover"
+        <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
                        [loadingIndicator]="loadingIndicator"
                        [rows]="rows"
-                       [rowHeight]="auto"
                        [columns]="columns"
+                       [columnMode]="'force'"
                        [scrollbarV]="verticalScrollbar"
                        [scrollbarH]="true"
-                       [columnMode]="'force'">
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="'auto'"
+                       [externalPaging]="true"
+                       [count]="page.totalElements"
+                       [offset]="page.pageNumber"
+                       [limit]="page.size"
+                       (page)='setPage($event)'>
         </ngx-datatable>
 
         <!-- TEMPLATEs -->
