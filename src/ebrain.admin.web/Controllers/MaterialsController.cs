@@ -86,7 +86,7 @@ namespace Ebrain.Controllers
         {
             var unit = this._unitOfWork.Materials;
             var materials = await unit.Search(filter, value, page, size, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
-            var results = MappingMaterial(materials);
+            var results = await MappingMaterial(materials);
             return Json(new
             {
                 Total = unit.Total,
