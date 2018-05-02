@@ -195,20 +195,19 @@ namespace Ebrain.Controllers
 
         [HttpGet("getiopayment")]
         [Produces(typeof(UserViewModel))]
-        public Task<IEnumerable<IOStockViewModel>> GetIOPaymentReceipt(string filter, string value, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPaymentReceipt(string filter, string value, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return GetIOPayment(filter, value, false, ioId, fromDate, toDate, page, size);
+            return await GetIOPayment(filter, value, false, ioId, fromDate, toDate, page, size);
         }
 
         [HttpGet("getiopaymentvoucher")]
         [Produces(typeof(UserViewModel))]
-        public Task<IEnumerable<IOStockViewModel>> GetIOPaymentVoucher(string filter, string value, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPaymentVoucher(string filter, string value, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return GetIOPayment(filter, value, true, ioId, fromDate, toDate, page, size);
+            return await GetIOPayment(filter, value, true, ioId, fromDate, toDate, page, size);
         }
 
-        public async Task<IEnumerable<IOStockViewModel>>
-            GetIOPayment(string filter, string value, bool isInput, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPayment(string filter, string value, bool isInput, string ioId, string fromDate, string toDate, int page, int size)
         {
             var frDate = fromDate.BuildDateTimeFromSEFormat();
             var tDate = toDate.BuildLastDateTimeFromSEFormat();
@@ -220,6 +219,8 @@ namespace Ebrain.Controllers
                     frDate = new DateTime(io.CreatedDate.Year, io.CreatedDate.Month, io.CreatedDate.Day);
                 }
             }
+
+            var unit = this._unitOfWork.IOStocks;
             var results = this._unitOfWork.IOStocks
                  .GetIOStockPaymentList(
                     frDate,
@@ -248,7 +249,12 @@ namespace Ebrain.Controllers
                     TotalPricePayment = item.TotalPricePayment
                 });
             }
-            return list;
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
         }
 
 

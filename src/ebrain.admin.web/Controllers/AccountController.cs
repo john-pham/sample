@@ -21,6 +21,8 @@ using Ebrain.Policies;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using ebrain.admin.bc.Core;
+using ebrain.admin.bc.Utilities;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Ebrain.Controllers
 {
@@ -32,11 +34,12 @@ namespace Ebrain.Controllers
         private readonly IAuthorizationService _authorizationService;
         private const string GetUserByIdActionName = "GetUserById";
         private const string GetRoleByIdActionName = "GetRoleById";
-
-        public AccountController(IAccountManager accountManager, IAuthorizationService authorizationService)
+        readonly IHostingEnvironment _env;
+        public AccountController(IAccountManager accountManager, IAuthorizationService authorizationService, IHostingEnvironment env)
         {
             _accountManager = accountManager;
             _authorizationService = authorizationService;
+            this._env = env;
         }
 
         [HttpGet("users/accessrights")]
@@ -180,6 +183,27 @@ namespace Ebrain.Controllers
                                 result = await _accountManager.UpdatePasswordAsync(appUser, user.CurrentPassword, user.NewPassword);
                             else
                                 result = await _accountManager.ResetPasswordAsync(appUser, user.NewPassword);
+                        }
+
+                      
+                        var value = user;
+                        //update profierimage
+                        //save logo to physical file
+                        if (value.ProfierImage != null && !string.IsNullOrEmpty(value.ProfierImage.Name) && !string.IsNullOrEmpty(value.ProfierImage.Value))
+                        {
+                            //Convert Base64 Encoded string to Byte Array.
+                            var base64String = value.ProfierImage.Value;
+                            var fileName = value.ProfierImage.Name;
+                            byte[] imageBytes = Convert.FromBase64String(base64String);
+
+                            //Save the Byte Array as Image File.
+                            string filePath = fileName.WebRootPathProfier(Guid.NewGuid().ToString(), _env);
+                            imageBytes.WriteAllBytes(filePath);
+
+                            //store filename to DB
+                            appUser.ProfilerImage = fileName.GetFileName();
+
+                            result = await _accountManager.UpdateUserAsync(appUser, user.Roles);
                         }
 
                         if (result.Item1)

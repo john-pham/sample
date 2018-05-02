@@ -40,6 +40,7 @@ namespace ebrain.admin.bc.Models
         public bool IsLockedOut => this.LockoutEnabled && this.LockoutEnd >= DateTimeOffset.UtcNow;
 
         public Guid? BranchId { get; set; }
+        public string ProfilerImage { get; set; }
         [NotMapped]
         public string BranchName { get; set; }
 

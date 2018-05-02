@@ -33,6 +33,7 @@ import { MaterialsEndpoint } from "./materials-endpoint.service";
 import { Material } from "../models/material.model";
 import { IOStockDetail } from "../models/iostockdetail.model";
 import { StudentsEndpoint } from "./students-endpoint.service";
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class IOStudentsService {
@@ -68,7 +69,7 @@ export class IOStudentsService {
 
     getMaterial(filter: string, value: string) {
         return this.materialendpoint.search(filter, value, 0, 0)
-            .map((response: Response) => <Material[]>response.json());
+            .map((response: Response) => <Results<Material>>response.json());
     }
 
     getStudent() {

@@ -33,6 +33,7 @@ import { User } from "../../models/user.model";
 import { Material } from "../../models/material.model";
 import { IOStockDetail } from "../../models/iostockdetail.model";
 import { AccessRightsService } from "../../services/access-rights.service";
+import { Results } from "../../models/results.model";
 @Component({
     selector: 'ioinputs',
     templateUrl: './ioinputs.component.html',
@@ -234,8 +235,8 @@ export class IOInputsComponent implements OnInit, OnDestroy {
         this.allstudents = stu;
     }
 
-    private onDataLoadSuccessfulMaterial(ios: Material[]) {
-        this.rowmaterials = ios;
+    private onDataLoadSuccessfulMaterial(resulted: Results<Material>) {
+        this.rowmaterials = resulted.list;
 
     }
 

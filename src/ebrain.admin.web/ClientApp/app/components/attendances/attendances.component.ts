@@ -20,6 +20,7 @@ import { ClassesService } from "../../services/classes.service";
 import { Class } from '../../models/Class.model';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
+import { Results } from "../../models/results.model";
 
 @Component({
     selector: 'attendances',
@@ -97,8 +98,9 @@ export class AttendancesComponent implements OnInit, OnDestroy {
     }
 
 
-    private onDataLoadSuccessful(list: Attendance[]) {
-        this.rows = list;
+    private onDataLoadSuccessful(resulted: Results<Attendance>) {
+        this.page.totalElements = resulted.total;
+        this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
 
     }

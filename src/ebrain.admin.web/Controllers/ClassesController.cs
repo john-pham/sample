@@ -323,7 +323,7 @@ namespace Ebrain.Controllers
             return Json(new
             {
                 Total = unit.Total,
-                List = ret
+                List = MappingClassViewModel(ret)
             });
         }
 

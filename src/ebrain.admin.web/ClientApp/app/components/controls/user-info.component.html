@@ -18,6 +18,14 @@
 
           (canAssignRoles && !roles.valid && showErrorAlert('Roles is required', 'Please select a minimum of 1 role'));">
 
+        <div class="select-file">
+            <img class="image" [src]="src" [hidden]="!src">
+            <p>{{file_name}}</p>
+            <input type="file" id="avatar" style="display: none" (change)="onFileChange($event)" #fileInput name="avatar">
+            <button type="button" class="btn btn-info" (click)="fileInputClick()">Select Avatar</button>
+            <button type="button" class="btn btn-default" (click)="clearFile()" [hidden]="!src">Clear Avatar</button>
+        </div>
+
         <div class="form-group has-feedback">
             <label [class.col-md-3]="isViewOnly" [class.col-md-2]="!isViewOnly"  class="control-label"
                    for="branch-{{uniqueId}}">{{'users.editor.Branch' | translate}}</label>

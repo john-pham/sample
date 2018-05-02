@@ -53,7 +53,8 @@ namespace Ebrain.Controllers
                           IsRead = c.IsRead,
                           BranchId = c.BranchId,
                           BranchName = c.BranchName,
-                          CreateDate = c.CreateDate
+                          CreateDate = c.CreateDate,
+                          ProfilerImage = c.ProfilerImage
                       };
 
             return Json(new

@@ -26,5 +26,7 @@ namespace Ebrain.ViewModels
         public string BranchName { get; set; }
         public bool IsRead { get; set; }
         public DateTime CreateDate { get; set; }
+        public string ProfilerImage { get; set; }
+        public FileViewModel Profile { get; set; }
     }
 }

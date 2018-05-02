@@ -17,7 +17,7 @@ import { Role } from '../../models/role.model';
 import { Permission } from '../../models/permission.model';
 import { Branch } from "../../models/branch.model";
 import { BranchesService } from "../../services/branches.service";
-
+import { File } from '../../models/file.model';
 
 @Component({
     selector: 'user-info',
@@ -38,6 +38,9 @@ export class UserInfoComponent implements OnInit {
     private userEdit: UserEdit;
     private allRoles: Role[] = [];
     private branches = [];
+
+    private src: string = "";
+    private file_name: string = "";
 
     public formResetToggle = true;
 
@@ -79,6 +82,7 @@ export class UserInfoComponent implements OnInit {
 
 
     constructor(private alertService: AlertService, private accountService: AccountService, private branchService: BranchesService) {
+
     }
 
     ngOnInit() {
@@ -148,7 +152,7 @@ export class UserInfoComponent implements OnInit {
                 this.userEdit = new UserEdit();
             this.isEditingSelf = this.accountService.currentUser ? this.userEdit.id == this.accountService.currentUser.id : false;
         }
-        
+
         this.isEditMode = true;
         this.showValidationErrors = true;
         this.isChangePassword = false;
@@ -392,5 +396,44 @@ export class UserInfoComponent implements OnInit {
 
     get canAssignRoles() {
         return this.accountService.userHasPermission(Permission.assignRolesPermission);
+    }
+
+    fileInputClick() {
+        document.getElementById('avatar').click();
+    }
+
+    clearFile() {
+        if (this.userEdit.profierImage == null) {
+            this.userEdit.profierImage = new File();
+        }
+        this.userEdit.profierImage.name = null;
+        this.userEdit.profierImage.type = null;
+        this.userEdit.profierImage.value = null;
+        this.src = "";
+        this.file_name = "";
+    }
+
+    onFileChange(event) {
+        let reader = new FileReader();
+        if (event.target.files && event.target.files.length > 0) {
+            let file = event.target.files[0];
+            if (this.userEdit.profierImage == null) {
+                this.userEdit.profierImage = new File();
+            }
+            //
+            reader.onload = () => {
+                this.file_name = file.name;
+                this.src = reader.result;
+                this.userEdit.profierImage.name = file.name;
+                this.userEdit.profierImage.type = file.type;
+                this.userEdit.profierImage.value = reader.result.split(',')[1];
+            };
+            //
+            reader.onloadend = (loadEvent: any) => {
+                this.src = loadEvent.target.result;
+            };
+            //
+            reader.readAsDataURL(file);
+        }
     }
 }

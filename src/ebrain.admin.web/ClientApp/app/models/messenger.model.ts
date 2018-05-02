@@ -15,4 +15,5 @@ export class Messenger {
     public branchName: string;
     public isRead: Boolean;
     public createDate: Date;
+    public profilerImage:string;
 }

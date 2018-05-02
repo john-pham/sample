@@ -14,5 +14,6 @@ namespace ebrain.admin.bc.Report
         public string BranchName { get; set; }
         public bool IsRead { get; set; }
         public DateTime CreateDate { get; set; }
+        public string ProfilerImage { get; set; }
     }
 }

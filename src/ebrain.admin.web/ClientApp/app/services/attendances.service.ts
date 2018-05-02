@@ -16,6 +16,7 @@ import 'rxjs/add/operator/map';
 import { AttendancesEndpoint } from './attendances-endpoint.service';
 import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
+import { Results } from "../models/results.model";
 
 @Injectable()
 export class AttendancesService {
@@ -26,7 +27,7 @@ export class AttendancesService {
 
     search(classId: string, studentId: string, createDate: Date, page: number, size: number) {
         return this.endpointFactory.search(classId, studentId, createDate, page, size)
-            .map((response: Response) => <Attendance[]>response.json());
+            .map((response: Response) => <Results<Attendance>>response.json());
     }
 
     save(values: Attendance[]) {
