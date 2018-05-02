@@ -175,16 +175,16 @@ namespace Ebrain.Controllers
 
         [HttpGet("getbirthdaytudents")]
         [Produces(typeof(UserViewModel))]
-        public IActionResult GetBirthdayStudent(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> GetBirthdayStudent(string filter, string value, string fromDate, string toDate)
         {
-            // var results = await this._unitOfWork.IOStocks.Search(filter, value);
-            var results = this._unitOfWork.Students.GetStudentBirthday
+            var unit = this._unitOfWork.Students;
+            var results = unit.GetStudentBirthday
                         (
                             this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                             fromDate.BuildDateTimeFromSEFormat(),
                             toDate.BuildLastDateTimeFromSEFormat()
                         );
-            return Ok(results.Select(p => new StudentViewModel
+            var list = results.Select(p => new StudentViewModel
             {
                 ID = p.StudentId,
                 Code = p.StudentCode,
@@ -194,22 +194,28 @@ namespace Ebrain.Controllers
                 Email = p.Email,
                 GenderName = p.GenderName,
                 TotalDay = p.TotalDay
-            }));
+            });
 
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
         }
 
         [HttpGet("getstudentendclass")]
         [Produces(typeof(UserViewModel))]
-        public IActionResult GetStudentEndClass(string filter, string value, string classId, string toDate)
+        public async Task<JsonResult> GetStudentEndClass(string filter, string value, string classId, string toDate)
         {
-            // var results = await this._unitOfWork.IOStocks.Search(filter, value);
-            var results = this._unitOfWork.Students.GetStudentEndClass
+            var unit = this._unitOfWork.Students;
+            var results = unit.GetStudentEndClass
                         (
                             this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                             classId,
                             toDate.BuildLastDateTimeFromSEFormat()
                         );
-            return Ok(results.Select(p => new StudentViewModel
+            var list = results.Select(p => new StudentViewModel
             {
                 ID = p.StudentId,
                 Code = p.StudentCode,
@@ -223,8 +229,13 @@ namespace Ebrain.Controllers
                 Email = p.Email,
                 GenderName = p.GenderName,
                 TotalDay = p.TotalDay
-            }));
+            });
 
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
         }
 
         [HttpPost("remove")]
