@@ -103,6 +103,12 @@ namespace ebrain.admin.bc.Core
             {
                 var itemBr = branches.FirstOrDefault(p => p.BranchId == item.BranchId);
                 item.BranchName = itemBr != null ? itemBr.BranchName : string.Empty;
+
+                //profiler images
+                if (!string.IsNullOrEmpty(item.ProfilerImage))
+                {
+                    item.ProfilerImage = item.ProfilerImage.WebRootPathProfiler();
+                }
             }
 
             var userRoleIds = users.SelectMany(u => u.Roles.Select(r => r.RoleId)).ToList();

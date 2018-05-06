@@ -189,11 +189,11 @@ namespace Ebrain.Controllers
                         var value = user;
                         //update profierimage
                         //save logo to physical file
-                        if (value.ProfierImage != null && !string.IsNullOrEmpty(value.ProfierImage.Name) && !string.IsNullOrEmpty(value.ProfierImage.Value))
+                        if (value.profier != null && !string.IsNullOrEmpty(value.profier.Name) && !string.IsNullOrEmpty(value.profier.Value))
                         {
                             //Convert Base64 Encoded string to Byte Array.
-                            var base64String = value.ProfierImage.Value;
-                            var fileName = value.ProfierImage.Name;
+                            var base64String = value.profier.Value;
+                            var fileName = value.profier.Name;
                             byte[] imageBytes = Convert.FromBase64String(base64String);
 
                             //Save the Byte Array as Image File.
@@ -201,7 +201,7 @@ namespace Ebrain.Controllers
                             imageBytes.WriteAllBytes(filePath);
 
                             //store filename to DB
-                            appUser.ProfilerImage = fileName.GetFileName();
+                            appUser.ProfilerImage = filePath.GetFileName();
 
                             result = await _accountManager.UpdateUserAsync(appUser, user.Roles);
                         }

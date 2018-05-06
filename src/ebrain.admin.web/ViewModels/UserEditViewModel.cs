@@ -24,6 +24,6 @@ namespace Ebrain.ViewModels
         public string NewPassword { get; set; }
         new private bool IsLockedOut { get; } //Hide base member
 
-        public FileViewModel ProfierImage { get; set; }
+        public FileViewModel profier { get; set; }
     }
 }

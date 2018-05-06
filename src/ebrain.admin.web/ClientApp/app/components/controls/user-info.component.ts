@@ -355,7 +355,8 @@ export class UserInfoComponent implements OnInit {
             Object.assign(this.user, user);
             Object.assign(this.userEdit, user);
             this.edit();
-
+            this.src = user.profier != null ? user.profier.src : user.profilerImage;
+            this.file_name = ""
             return this.userEdit;
         }
         else {
@@ -403,12 +404,12 @@ export class UserInfoComponent implements OnInit {
     }
 
     clearFile() {
-        if (this.userEdit.profierImage == null) {
-            this.userEdit.profierImage = new File();
+        if (this.userEdit.profier == null) {
+            this.userEdit.profier = new File();
         }
-        this.userEdit.profierImage.name = null;
-        this.userEdit.profierImage.type = null;
-        this.userEdit.profierImage.value = null;
+        this.userEdit.profier.name = null;
+        this.userEdit.profier.type = null;
+        this.userEdit.profier.value = null;
         this.src = "";
         this.file_name = "";
     }
@@ -417,20 +418,21 @@ export class UserInfoComponent implements OnInit {
         let reader = new FileReader();
         if (event.target.files && event.target.files.length > 0) {
             let file = event.target.files[0];
-            if (this.userEdit.profierImage == null) {
-                this.userEdit.profierImage = new File();
+            if (this.userEdit.profier == null) {
+                this.userEdit.profier = new File();
             }
             //
             reader.onload = () => {
                 this.file_name = file.name;
                 this.src = reader.result;
-                this.userEdit.profierImage.name = file.name;
-                this.userEdit.profierImage.type = file.type;
-                this.userEdit.profierImage.value = reader.result.split(',')[1];
+                this.userEdit.profier.name = file.name;
+                this.userEdit.profier.type = file.type;
+                this.userEdit.profier.value = reader.result.split(',')[1];
             };
             //
             reader.onloadend = (loadEvent: any) => {
                 this.src = loadEvent.target.result;
+                this.userEdit.profier.src = this.src;
             };
             //
             reader.readAsDataURL(file);

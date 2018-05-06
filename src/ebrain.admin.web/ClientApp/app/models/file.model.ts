@@ -10,4 +10,5 @@ export class File {
     public name: string;
     public value: string;
     public type: string;
+    public src: string;
 }

@@ -18,6 +18,7 @@ namespace ebrain.admin.bc.Utilities
         public const string PAYMENTDETAIL = "376F3FFE-408A-49A8-B0EA-B69654E11B34";
         public const int PAGING_DEFAULT = 1;
         public const int SIZE_DEFAULT = 20;
+        public const string IMAGE_DEFAULT = "/uploads/logos/logo_superbrain.png";
     }
 
     public enum EnumIOType

@@ -54,7 +54,7 @@ namespace Ebrain.Controllers
                           BranchId = c.BranchId,
                           BranchName = c.BranchName,
                           CreateDate = c.CreateDate,
-                          ProfilerImage = c.ProfilerImage
+                          ProfilerImage = string.IsNullOrEmpty(c.ProfilerImage) ? Constants.IMAGE_DEFAULT : c.ProfilerImage.WebRootPathProfiler()
                       };
 
             return Json(new

@@ -5,7 +5,7 @@
 // 
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
-
+import { File } from './file.model';
 export class User {
     // Note: Using only optional constructor properties without backing store disables typescript's type checking for the type
     constructor(id?: string, userName?: string, fullName?: string, email?: string, jobTitle?: string, phoneNumber?: string, branchId?: string, roles?: string[]) {
@@ -42,7 +42,7 @@ export class User {
     public roles: string[];
     public branchId: string;
     public _branchTempId: string;
-
+   
     get branchTempId(): string {
         return this._branchTempId;
     }
@@ -51,4 +51,6 @@ export class User {
     }
 
     public branchName: string;
+    public profilerImage: string;
+    public profier: File;
 }

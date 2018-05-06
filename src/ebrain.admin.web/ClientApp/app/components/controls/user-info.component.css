@@ -1,4 +1,13 @@
-﻿.row:not(:last-child) {
+﻿.notify {
+    display: inline-flex;
+}
+
+.notify-img {
+    width: 64px;
+    height: 64px;
+    margin: auto;
+}
+.row:not(:last-child) {
     /*border-bottom: 1px solid #ccc;*/
 }
 
