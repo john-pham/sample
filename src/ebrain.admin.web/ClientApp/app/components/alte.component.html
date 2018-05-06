@@ -5,7 +5,7 @@
 <div id="app_container" *ngIf="isUserLoggedIn" class="wrapper">
     <header class="main-header">
         <!-- Logo -->
-        <a href="#" class="logo">
+        <a routerLink="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>S</b>B</span>
             <!-- logo for regular state and mobile devices -->
@@ -220,13 +220,20 @@
             </form>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
+           
+
             <ul class="sidebar-menu" data-widget="tree">
 
-                <li class="header">TỔNG QUAN</li>
+                <li class="treeview" >
+                    <a routerLink="/" style.font-weight="'bold'" class="notify-info-title info-box-text">
+                        <i class="fa fa-dashboard"></i> <span>{{'menu.main.Overview' | translate}}</span>
+                    </a>
+                </li>
+
                 <li class="treeview" 
                     *ngIf="accessRightService.isViewFeatureGroup('A46B7B7A-0169-4C1E-A659-0068948BE767')">
                     <a routerLink="/mn_main_function">
-                        <i class="fa fa-dashboard"></i> <span>{{'menu.main.Function' | translate}}</span>
+                        <i class="fa fa-certificate"></i> <span>{{'menu.main.Function' | translate}}</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -240,7 +247,7 @@
                 <li class="treeview"
                     *ngIf="accessRightService.isViewFeatureGroup('d7239078-e67a-42fa-86d7-4a8c3f73d524')">
                     <a routerLink="/mn_main_categories">
-                        <i class="fa fa-dashboard"></i> <span>{{'menu.main.Categories' | translate}}</span>
+                        <i class="fa fa-address-book"></i> <span>{{'menu.main.Categories' | translate}}</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -304,14 +311,14 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')"><a routerLink="/mn_stock_inputs_stock"><i class="fa fa-shopping-cart"></i> {{'menu.stock.PurchaseOrder' | translate}}</a></li>
-                        <li *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad182a1')"><a routerLink="/ioinputs"><i class="fa fa-hand-holding-box"></i> {{'menu.stock.InputStock' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')"><a routerLink="/purchases"><i class="fa fa-shopping-cart"></i> {{'menu.stock.PurchaseOrder' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad182a1')"><a routerLink="/ioinputs"><i class="fa fa-cart-plus"></i> {{'menu.stock.InputStock' | translate}}</a></li>
                         <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A2')"><a routerLink="/iostudentlist"><i class="fa fa-tasks"></i> {{'menu.stock.OutputStockList' | translate}}</a></li>
-                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A3')"><a routerLink="/iostudents"><i class="fa fa-shipping-fast"></i> {{'menu.stock.OutputStock' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A3')"><a routerLink="/iostudents"><i class="fa fa-delicious"></i> {{'menu.stock.OutputStock' | translate}}</a></li>
 
-                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A4')"><a routerLink="/iosummarizes"><i class="fa fa-warehouse-alt"></i> {{'menu.stock.SumaryInput' | translate}}</a></li>
-                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A5')"><a routerLink="/iodetails"><i class="fa fa-warehouse"></i> {{'menu.stock.DetailInput' | translate}}</a></li>
-                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A6')"><a routerLink="/warehousecards"><i class="fa fa-shipping-fast"></i> {{'menu.stock.StockCard' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A4')"><a routerLink="/iosummarizes"><i class="fa fa-dribbble"></i> {{'menu.stock.SumaryInput' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A5')"><a routerLink="/iodetails"><i class="fa fa-dropbox"></i> {{'menu.stock.DetailInput' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A6')"><a routerLink="/warehousecards"><i class="fa fa-balance-scale"></i> {{'menu.stock.StockCard' | translate}}</a></li>
                         <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A8')"><a routerLink="/inventorieslist"><i class="fa fa-suitcase"></i> {{'menu.stock.StockInventoryDes' | translate}}</a></li>
                         <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A9')"><a routerLink="/inventories"><i class="fa fa-cogs"></i> {{'menu.stock.UpdateInventory' | translate}}</a></li>
                     </ul>

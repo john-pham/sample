@@ -111,7 +111,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
-                    <button type="submit" class="btn btn-primary" *ngIf="pointer.messengerId?.length > 0">{{'button.Save' | translate}}</button>
+                    <button type="submit" class="btn btn-primary" *ngIf="pointer.messengerId?.length == 0">{{'button.Save' | translate}}</button>
                 </div>
             </div>
         </form>

@@ -1,10 +1,12 @@
-﻿<div >
+﻿<div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">{{'label.home.AllStudent' | translate}}</span>
+                <a style.font-weight="'bold'"
+                   class="notify-info-title info-box-text" href="javascript:;"
+                   (click)="showStudents(templateStudents, true)">{{'label.home.AllStudent' | translate}}</a>
                 <span class="info-box-number">{{allStudent}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -17,7 +19,9 @@
             <span class="info-box-icon bg-red"><i class="ion ion-ios-personadd-outline"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">{{'label.home.NewStudent' | translate}}</span>
+                <a style.font-weight="'bold'"
+                   class="notify-info-title info-box-text" href="javascript:;"
+                   (click)="showStudents(templateStudents, false)">{{'label.home.NewStudent' | translate}}</a>
                 <span class="info-box-number">{{newStudent}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -33,7 +37,9 @@
             <span class="info-box-icon bg-green"><i class="ion ion-social-buffer-outline"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">{{'label.home.AllIO' | translate}}</span>
+                <a style.font-weight="'bold'"
+                   class="notify-info-title info-box-text" href="javascript:;"
+                   (click)="showIOs(templateIOs, false)">{{'label.home.AllIO' | translate}}</a>
                 <span class="info-box-number">{{ioAll}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -46,7 +52,9 @@
             <span class="info-box-icon bg-yellow"><i class="ion ion-social-dropbox-outline"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">{{'label.home.NewIO' | translate}}</span>
+                <a style.font-weight="'bold'"
+                   class="notify-info-title info-box-text" href="javascript:;"
+                   (click)="showIOs(templateIOs, false)">{{'label.home.NewIO' | translate}}</a>
                 <span class="info-box-number">{{ioNew}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -55,3 +63,24 @@
     </div>
     <!-- /.col -->
 </div>
+
+<ng-template #templateStudents>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.home.AllStudent' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <studentdates [IsAllStudent]="isAllStudent"></studentdates>
+    </div>
+</ng-template>
+
+<ng-template #templateIOs>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closeIO()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.home.AllIO' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <iosummarizes [IsAllIO]="isAllIO"></iosummarizes>
+    </div>
+</ng-template>
+

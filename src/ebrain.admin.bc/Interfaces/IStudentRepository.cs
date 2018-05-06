@@ -26,6 +26,6 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<Boolean> Delete(string id);
         List<StudentList> GetStudentBirthday(string branchIds, DateTime? fromDate, DateTime? toDate);
         List<StudentList> GetStudentEndClass(string branchIds, string classId, DateTime? today);
-        List<StudentList> GetStudentByCreateDate(string branchIds, DateTime? fromDate, DateTime? toDate);
+        List<StudentList> GetStudentByCreateDate(string branchIds, DateTime? fromDate, DateTime? toDate, int page, int size);
     }
 }

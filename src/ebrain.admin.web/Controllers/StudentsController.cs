@@ -251,20 +251,27 @@ namespace Ebrain.Controllers
 
         [HttpGet("getstudentbycreatedate")]
         [Produces(typeof(UserViewModel))]
-        public IActionResult GetStudentByCreateDate(string filter, string value, string fromDate, string toDate)
+        public async Task<JsonResult> GetStudentByCreateDate(string filter, string value, string fromDate, string toDate, int page, int size)
         {
-            return Ok(GetStudentByCreateDateMain(filter, value, fromDate.BuildDateTimeFromSEFormat(), toDate.BuildLastDateTimeFromSEFormat()));
+            var list = GetStudentByCreateDateMain(filter, value, fromDate.BuildDateTimeFromSEFormat(), toDate.BuildLastDateTimeFromSEFormat(), page, size);
+            return Json(new
+            {
+                Total = this._unitOfWork.Students.Total,
+                List = list
+            });
 
         }
 
-        private IEnumerable<StudentViewModel> GetStudentByCreateDateMain(string filter, string value, DateTime? fromDate, DateTime? toDate)
+        private IEnumerable<StudentViewModel> GetStudentByCreateDateMain(string filter, string value, DateTime? fromDate, DateTime? toDate, int page, int size)
         {
             // var results = await this._unitOfWork.IOStocks.Search(filter, value);
-            var results = this._unitOfWork.Students.GetStudentBirthday
+            var results = this._unitOfWork.Students.GetStudentByCreateDate
                         (
                             this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                             fromDate,
-                            toDate
+                            toDate,
+                            page,
+                            size
                         );
             return results.Select(p => new StudentViewModel
             {
@@ -284,7 +291,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public IActionResult GetNewStudent()
         {
-            var list = GetStudentByCreateDateMain(string.Empty, string.Empty, DateTime.Now, DateTime.Now);
+            var list = GetStudentByCreateDateMain(string.Empty, string.Empty, DateTime.Now, DateTime.Now, 0, 0);
             return Ok(list.Count());
         }
 
@@ -292,7 +299,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public IActionResult GetAllStudent()
         {
-            var list = GetStudentByCreateDateMain(string.Empty, string.Empty, new DateTime(1900, 01, 01), DateTime.Now);
+            var list = GetStudentByCreateDateMain(string.Empty, string.Empty, new DateTime(1900, 01, 01), DateTime.Now, 0, 0);
             return Ok(list.Count());
         }
     }

@@ -43,7 +43,7 @@ export class MessengerListComponent implements OnInit, OnDestroy {
         this.isSendMessenger = (isMes) || null;
     }
 
-    get ClassId() {
+    get IsSendMessenger() {
         return this.isSendMessenger;
     }
 

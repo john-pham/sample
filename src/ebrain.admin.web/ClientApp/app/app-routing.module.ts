@@ -36,6 +36,7 @@ import { DocumentsComponent } from "./components/documents/documents.component";
 import { StudentstatusComponent } from "./components/studentstatus/studentstatus.component";
 
 import { StudentsComponent } from "./components/students/students.component";
+import { StudentDatesComponent } from "./components/studentdates/studentdates.component";
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
 import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
@@ -196,6 +197,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
             { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },
+            { path: "studentdates", component: StudentDatesComponent, canActivate: [AuthGuard], data: { title: "studentdates" } },
             { path: "studentendclass", component: StudentEndClassComponent, canActivate: [AuthGuard], data: { title: "students end classes" } },
 
 

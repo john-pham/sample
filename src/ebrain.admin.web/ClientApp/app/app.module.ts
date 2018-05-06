@@ -207,6 +207,7 @@ import { ExamineComponent } from "./components/examines/examines.component";
 
 import { StudentstatusComponent } from "./components/studentstatus/studentstatus.component";
 
+import { StudentDatesComponent } from "./components/studentdates/studentdates.component";
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
 import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
 
@@ -362,6 +363,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         ExamineComponent,
         StudentstatusComponent,
         StudentsComponent,
+        StudentDatesComponent,
         StudentBirthdaysComponent,
         StudentEndClassComponent,
         IOStudentsComponent,

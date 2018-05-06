@@ -35,14 +35,18 @@ export class BannerTopsComponent implements OnInit, OnDestroy {
     allStudent: number = 0;
     ioNew: number = 0;
     ioAll: number = 0;
-
+    isAllStudent: boolean = true;
+    isAllIO: boolean = true;
 
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
 
+    modalRef: BsModalRef;
+    modalIORef: BsModalRef;
+
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
-        private studentService: StudentsService, private ioService: IOStudentListService) {
+        private studentService: StudentsService, private ioService: IOStudentListService, private modalService: BsModalService) {
         this.newStudent = 0;
         this.allStudent = 0;
         this.ioNew = 0;
@@ -87,6 +91,25 @@ export class BannerTopsComponent implements OnInit, OnDestroy {
         this.alertService.stopLoadingMessage();
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);
+    }
+
+
+    showStudents(template: TemplateRef<any>, allStudent: boolean) {
+        this.isAllStudent = allStudent;
+        this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+    }
+
+    showIOs(template: TemplateRef<any>, isAllIO: boolean) {
+        this.isAllIO = isAllIO;
+        this.modalIORef = this.modalService.show(template, { class: 'modal-lg' });
+    }
+
+    close() {
+        this.modalRef.hide();
+    }
+
+    closeIO() {
+        this.modalIORef.hide();
     }
 
 }

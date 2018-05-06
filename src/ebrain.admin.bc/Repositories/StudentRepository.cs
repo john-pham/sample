@@ -43,7 +43,7 @@ namespace ebrain.admin.bc.Repositories
                     branchIds.Contains(p.BranchId.ToString())
                 ).ToListAsync();
         }
-       
+
         public async Task<Student> Get(Guid? index)
         {
             return await this.appContext.Student.FirstOrDefaultAsync(p => p.StudentId == index);
@@ -62,7 +62,7 @@ namespace ebrain.admin.bc.Repositories
             else
             {
                 itemExist.StudentCode = value.StudentCode;
-                
+
                 itemExist.StudentName = value.StudentName;
                 itemExist.AccountBank = value.AccountBank;
                 itemExist.Address = value.Address;
@@ -166,7 +166,7 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
-        public List<StudentList> GetStudentByCreateDate(string branchIds, DateTime? fromDate, DateTime? toDate)
+        public List<StudentList> GetStudentByCreateDate(string branchIds, DateTime? fromDate, DateTime? toDate, int page, int size)
         {
             try
             {
@@ -191,7 +191,14 @@ namespace ebrain.admin.bc.Repositories
                                    someTypeList = handler.ReadToList<StudentList>().ToList();
                                });
 
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
                 return someTypeList;
+
             }
             catch (Exception ex)
             {

@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { fadeInOut } from '../../services/animations';
@@ -45,6 +45,16 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
+
+    isAllIO: boolean = false;
+    @Input()
+    set IsAllIO(isMes: boolean) {
+        this.isAllIO = (isMes) || null;
+    }
+
+    get IsAllIO() {
+        return this.isAllIO;
+    }
 
     constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: IOStudentListService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
