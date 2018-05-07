@@ -108,6 +108,9 @@ import { StudentsEndpoint } from './services/students-endpoint.service';
 import { IOStudentsService } from './services/iostudents.service';
 import { IOStudentsEndpoint } from './services/iostudents-endpoint.service';
 
+import { PurchaseOrderService } from './services/purchaseorders.service';
+import { PurchaseOrdersEndpoint } from './services/purchaseorders-endpoint.service';
+
 import { PaymentsService } from './services/payments.service';
 import { PaymentsEndpoint } from './services/payments-endpoint.service';
 
@@ -214,6 +217,9 @@ import { StudentEndClassComponent } from "./components/studentendclass/studenten
 import { StudentsComponent } from "./components/students/students.component";
 
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
+import { PurchaseOrdersComponent } from "./components/purchaseorders/purchaseorders.component";
+import { PurSummarizesComponent } from "./components/pursummarizes/pursummarizes.component";
+
 import { IOStudenListComponent } from "./components/iostudentlists/iostudentlists.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
 import { IOSummarizesComponent } from "./components/iosummarizes/iosummarizes.component";
@@ -367,6 +373,9 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         StudentBirthdaysComponent,
         StudentEndClassComponent,
         IOStudentsComponent,
+        PurchaseOrdersComponent,
+        PurSummarizesComponent,
+
         IOInputsComponent,
 
         PaymentsComponent,
@@ -536,6 +545,9 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         IOStudentsService,
         IOStudentsEndpoint,
+
+        PurchaseOrderService,
+        PurchaseOrdersEndpoint,
 
         PaymentsService,
         PaymentsEndpoint,

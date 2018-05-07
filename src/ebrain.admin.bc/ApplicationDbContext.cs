@@ -76,8 +76,8 @@ namespace ebrain.admin.bc
         public DbSet<PaymentTypeHead> PaymentTypeHeads { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionDetail> PromotionDetails { get; set; }
-        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
-        public DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrder { get; set; }
+        public DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public DbSet<Relationship> Relationships { get; set; }
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomHead> RoomHeads { get; set; }
@@ -185,8 +185,8 @@ namespace ebrain.admin.bc
             builder.Entity<Promotion>().ToTable(nameof(this.Promotions));
             builder.Entity<PromotionDetail>().ToTable(nameof(this.PromotionDetails));
 
-            builder.Entity<PurchaseOrder>().ToTable(nameof(this.PurchaseOrders));
-            builder.Entity<PurchaseOrderDetail>().ToTable(nameof(this.PurchaseOrderDetails));
+            builder.Entity<PurchaseOrder>().ToTable(nameof(this.PurchaseOrder));
+            builder.Entity<PurchaseOrderDetail>().ToTable(nameof(this.PurchaseOrderDetail));
             builder.Entity<Relationship>().ToTable(nameof(this.Relationships));
             builder.Entity<Room>().ToTable(nameof(this.Room));
             builder.Entity<RoomHead>().ToTable(nameof(this.RoomHeads));

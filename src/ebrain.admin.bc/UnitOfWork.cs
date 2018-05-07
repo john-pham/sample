@@ -61,6 +61,7 @@ namespace ebrain.admin.bc
         IIOStockRepository _IOStocks;
         IConfigNumberOfCodeRepository _ConfigNumberOfCodes;
         IPaymentRepository _Payments;
+        IPurchaseOrderRepository _PurchaseOrders;
         IInventoriesRepository _Inventories;
         IProfitRepository _Profits;
         IDeptRepository _Depts;
@@ -235,6 +236,17 @@ namespace ebrain.admin.bc
                     _IOStocks = new IOStockRepository(_context);
 
                 return _IOStocks;
+            }
+        }
+
+        public IPurchaseOrderRepository PurchaseOrders
+        {
+            get
+            {
+                if (_PurchaseOrders == null)
+                    _PurchaseOrders = new PurchaseOrderRepository(_context);
+
+                return _PurchaseOrders;
             }
         }
 

@@ -28,6 +28,7 @@ namespace ebrain.admin.bc.Models
         public decimal? PriceAfterVAT { get; set; }
 
         public Guid? PurchaseOrderDetailId { get; set; }
+        public Guid? PurchaseOrderId { get; set; }
 
         public decimal? TotalPrice { get; set; }
 

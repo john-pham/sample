@@ -24,7 +24,6 @@ namespace ebrain.admin.bc.Models
         public string AutoLogOnCode_LastUpdate_ComputerName { get; set; }
         public string AutoLogOnCode_LastUpdate_MACAddress { get; set; }
         public bool IsDeleted { get; set; }
-        //public byte[] TimeStamp { get; set; }
         public string Note { get; set; }
     }
 }

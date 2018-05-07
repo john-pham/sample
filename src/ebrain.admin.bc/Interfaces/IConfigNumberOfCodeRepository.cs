@@ -25,5 +25,6 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         string GenerateCode(int iotypeId, string empployId);
         string GenerateCodePayment(int paymentTypeId, string empployId);
         string GenerateCodeMain(string key, string code, string empId, int numberTable);
+        string GenerateCodePurchaseOrder(string empployId);
     }
 }

@@ -30,6 +30,7 @@ namespace ebrain.admin.bc
         IGroupDocumentRepository GroupDocuments { get; }
         IDocumentRepository Documents { get; }
         IIOStockRepository IOStocks { get; }
+        IPurchaseOrderRepository PurchaseOrders { get; }
         IPaymentRepository Payments { get; }
         IInventoriesRepository Inventories { get; }
         IProfitRepository Profits { get; }

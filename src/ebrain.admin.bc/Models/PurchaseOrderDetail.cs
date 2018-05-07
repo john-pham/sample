@@ -13,7 +13,7 @@ namespace ebrain.admin.bc.Models
 
         public Guid PurchaseOrderId { get; set; }
 
-        public string MaterialId { get; set; }
+        public Guid? MaterialId { get; set; }
 
         public string MaterialCode { get; set; }
 

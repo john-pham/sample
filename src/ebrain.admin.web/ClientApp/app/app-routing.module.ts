@@ -40,6 +40,7 @@ import { StudentDatesComponent } from "./components/studentdates/studentdates.co
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
 import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
+import { PurchaseOrdersComponent } from "./components/purchaseorders/purchaseorders.component";
 import { PaymentsComponent } from "./components/payments/payments.component";
 import { PaymentVouchersComponent } from "./components/paymentvouchers/paymentvouchers.component";
 import { PaymentListsComponent } from "./components/paymentlists/paymentlists.component";
@@ -58,6 +59,7 @@ import { WarehouseCardsComponent } from "./components/warehousecards/warehouseca
 import { IOStudenListComponent } from "./components/iostudentlists/iostudentlists.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
 import { IOSummarizesComponent } from "./components/iosummarizes/iosummarizes.component";
+import { PurSummarizesComponent } from "./components/pursummarizes/pursummarizes.component";
 
 import { GrpsuppliersComponent } from "./components/grpsuppliers/grpsuppliers.component";
 import { SuppliersComponent } from "./components/suppliers/suppliers.component";
@@ -220,6 +222,10 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "depts", component: DeptsComponent, canActivate: [AuthGuard], data: { title: "Update Inventory" } },
 
             { path: "iostudents", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "iostudents" } },
+            { path: "purchaseorders", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
+            { path: "pursummarizes", component: PurSummarizesComponent, canActivate: [AuthGuard], data: { title: "PurSummarizes" } },
+            { path: "purchaseorders/:id", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
+
             { path: "iostudentlist", component: IOStudenListComponent, canActivate: [AuthGuard], data: { title: "iostudentlist" } },
             { path: "ioinputs", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "ioinputs" } },
             { path: "iosummarizes", component: IOSummarizesComponent, canActivate: [AuthGuard], data: { title: "iosummarizes" } },

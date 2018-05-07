@@ -47,7 +47,12 @@ namespace ebrain.admin.bc.Repositories
             }
             return string.Empty;
         }
-        
+
+        public string GenerateCodePurchaseOrder(string empployId)
+        {
+            return GenerateCodeMain("PurchaseOrder", string.Empty, empployId, 4);
+        }
+
         public string GenerateCodeMain(string key, string code, string empId, int numberTable)
         {
             var itemConfig = this.appContext.ConfigNumberOfCode.FirstOrDefault(p => p.Key == key);
@@ -78,6 +83,12 @@ namespace ebrain.admin.bc.Repositories
                         .Where(p => p.ClassCode.StartsWith(sPattern)
                         && p.ClassCode.Length == len)
                         .Max(p => p.ClassCode);
+                    break;
+                case 4://Purchase
+                    maxSNumber = this.appContext.PurchaseOrder
+                        .Where(p => p.PurchaseOrderCode.StartsWith(sPattern)
+                        && p.PurchaseOrderCode.Length == len)
+                        .Max(p => p.PurchaseOrderCode);
                     break;
             }
 

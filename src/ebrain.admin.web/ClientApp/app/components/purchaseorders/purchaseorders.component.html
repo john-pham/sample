@@ -1,0 +1,252 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a></li>
+                <li>{{'pageMain.iostudent.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+
+    <div class="col-sm-12">
+        <div class="text-right">
+            <button type="button" class="btn btn-success" (click)="addnew()"
+                    *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3')">
+                <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
+            </button>
+            <button type="button" class="btn btn-info" (click)="showmaterial(template)">
+                <span class="glyphicon glyphicon-search"></span> {{'button.SearchMaterial' | translate}}
+            </button>
+            <button type="button" class="btn btn-primary" (click)="save()"
+                    *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3')">
+                <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
+            </button>
+            <button *ngIf="pointer.id?.length > 0 && (accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') ||accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3'))" type="button" class="btn btn-success"
+                    routerLink="/paymentio/?ioid={{pointer.id}}" (click)="goPayment(pointer.id)">
+                <span class="glyphicon glyphicon-user"></span> {{'button.PaymentReceipt' | translate}}
+            </button>
+
+            <button *ngIf="pointer.id?.length > 0 && (accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isDelete('9ECBD467-7642-467B-AAE2-96484AD182A3'))" type="button" class="btn btn-warning" (click)="deletemaster()">
+                <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
+            </button>
+            <button *ngIf="pointer.id?.length > 0 && (accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isDelete('9ECBD467-7642-467B-AAE2-96484AD182A3'))" type="button" class="btn btn-danger" (click)="cancelmaster()">
+                <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.puchaseorder.Code' | translate}}</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" [(ngModel)]="pointer.code" required disabled>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.puchaseorder.CreateDate' | translate}}</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" bsDatepicker [(ngModel)]="pointer.createDate" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
+
+    <div class="row">
+        <!--<div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.puchaseorder.Student' | translate}}</label>
+                <div class="col-md-10">
+                    <select id="allstudents-info" name="allstudents" [(ngModel)]="pointer.studentId"
+                            class="form-control" required
+                            data-actions-box="false"
+                            data-live-search-placeholder="Search..."
+                            title="{{'label.puchaseorder.SelectStudent' | translate}}">
+                        <option *ngFor="let student of allstudents"
+                                attr.data-content="<span title='{{student.name}}' class='badge'>{{student.name}}</span>"
+                                attr.value="{{student.id}}">
+                            {{student.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.puchaseorder.CreateUser' | translate}}</label>
+                <div class="col-md-10">
+                    <select id="users-info" name="types" [(ngModel)]="pointer.createBy"
+                            class="form-control" required disabled
+                            data-live-search="true" data-actions-box="false"
+                            data-live-search-placeholder="Search..."
+                            title="{{'label.puchaseorder.SelectCreateUser' | translate}}">
+                        <option *ngFor="let user of allUsers"
+                                attr.data-content="<span title='{{user.userName}}' class='badge'>{{user.fullName}}</span>"
+                                attr.value="{{user.id}}">
+                            {{user.fullName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-1">{{'label.puchaseorder.Note' | translate}}</label>
+                <div class="col-md-11">
+                    <textarea class="form-control" [(ngModel)]="pointer.note"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table-hover"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [rowHeight]="auto"
+                       [columns]="columns"
+                       [scrollbarV]="verticalScrollbar"
+                       [columnMode]="'force'"
+                       (activate)="onActivateMaterial($event)">
+        </ngx-datatable>
+
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
+
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #quantityTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
+            <input class="currency-pipe" value="{{value| currencypipe}}"
+                   autofocus
+                   (blur)="updateValue(row,$event,rowIndex)" />
+
+        </ng-template>
+
+        <ng-template #priceTemplate let-row="row" let-value="value">
+            <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                {{value | currencypipe}}
+            </span>
+        </ng-template>
+
+        <ng-template #totalPriceTemplate let-row="row" let-value="value">
+            <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                {{value | currencypipe}}
+            </span>
+        </ng-template>
+
+        <ng-template #actionsTemplate let-row="row">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+        </ng-template>
+    </div>
+
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.puchaseorder.HeaderMaterial' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group search-box">
+                    <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.material.searchBox' | translate}}">></search-box>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-right">
+                    <button class="btn btn-primary" (click)="addMaterialLearn(template)"><i class="fa fa-plus-circle"></i> {{'label.puchaseorder.SearchMaterial' | translate}}</button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                <!--DATA TABLE-->
+                <ngx-datatable class="material colored-header sm table-hover"
+                               [loadingIndicator]="loadingIndicator"
+                               [rows]="rowmaterials"
+                               [rowHeight]="auto"
+                               [columns]="columnmaterials"
+                               [scrollbarV]="verticalScrollbar"
+                               [columnMode]="'force'"
+                               (activate)="onActivateMaterial($event)">
+                </ngx-datatable>
+
+                <!-- TEMPLATEs -->
+                <ng-template #statusHeaderTemplate>
+                    <i class="fa fa-check-square-o"></i>
+                </ng-template>
+
+                <ng-template #nameTemplate let-row="row" let-value="value">
+                    <span attr.title="{{value}}">
+                        {{value}}
+                    </span>
+                </ng-template>
+                <ng-template #descriptionTemplate let-row="row" let-value="value">
+                    <span attr.title="{{value}}">
+                        {{value}}
+                    </span>
+                </ng-template>
+                <ng-template #priceMaterialTemplate let-row="row" let-value="value">
+                    <span class="currency-pipe text-right" attr.title="{{value}}">
+                        {{value | currencypipe }}
+                    </span>
+
+                </ng-template>
+
+            </div>
+        </div>
+
+    </div>
+
+</ng-template>
+
