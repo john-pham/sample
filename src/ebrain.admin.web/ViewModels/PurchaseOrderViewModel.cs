@@ -45,5 +45,7 @@ namespace Ebrain.ViewModels
         public decimal IOQuantity { get; set; }
         public decimal RemainQuantity { get; set; }
         public string BranchName { get; set; }
+
+        public Guid PurchaseOrderDetailId { get; set; }
     }
 }

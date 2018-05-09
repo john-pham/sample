@@ -36,6 +36,7 @@ export class PurchaseOrderReport {
     public materialId: string;
     public materialCode: string;
     public materialName: string;
+    public purchaseOrderDetailId: string;
 
     public purchaseQuantity: number;
     public ioQuantity: number;

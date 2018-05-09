@@ -60,6 +60,7 @@ import { IOStudenListComponent } from "./components/iostudentlists/iostudentlist
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
 import { IOSummarizesComponent } from "./components/iosummarizes/iosummarizes.component";
 import { PurSummarizesComponent } from "./components/pursummarizes/pursummarizes.component";
+import { PurDetailsComponent } from "./components/purdetails/purdetails.component";
 
 import { GrpsuppliersComponent } from "./components/grpsuppliers/grpsuppliers.component";
 import { SuppliersComponent } from "./components/suppliers/suppliers.component";
@@ -225,6 +226,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "purchaseorders", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
             { path: "pursummarizes", component: PurSummarizesComponent, canActivate: [AuthGuard], data: { title: "PurSummarizes" } },
             { path: "purchaseorders/:id", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
+            { path: "purdetails", component: PurDetailsComponent, canActivate: [AuthGuard], data: { title: "PurDetails" } },
 
             { path: "iostudentlist", component: IOStudenListComponent, canActivate: [AuthGuard], data: { title: "iostudentlist" } },
             { path: "ioinputs", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "ioinputs" } },

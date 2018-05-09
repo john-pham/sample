@@ -14,5 +14,10 @@ namespace ebrain.admin.bc.Report
         public string Note { get; set; }
         public decimal PurchaseQuantity { get; set; }
         public decimal IOQuantity { get; set; }
+        public Guid PurchaseOrderDetailId { get; set; }
+        public Guid MaterialId { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialName { get; set; }
+        
     }
 }

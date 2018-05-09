@@ -114,6 +114,11 @@ export class PurchaseOrderService {
             .map((response: Response) => <Results<PurchaseOrderReport>>response.json());
     }
 
+    getpurchaseorderdetails(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getpurchaseorderdetails(filter, value, fromDate, toDate, page, size)
+            .map((response: Response) => <Results<PurchaseOrderReport>>response.json());
+    }
+
     private initializeStatus() {
 
     }

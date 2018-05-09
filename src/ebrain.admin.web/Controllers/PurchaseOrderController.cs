@@ -228,5 +228,45 @@ namespace Ebrain.Controllers
                 List = list
             });
         }
+
+        [HttpGet("getpurchaseorderdetails")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetPurchaseOrderListDetail(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
+            var unit = this._unitOfWork.PurchaseOrders;
+            var results = unit.GetPurchaseOrderListDetail(
+                            fromDate.BuildDateTimeFromSEFormat(),
+                            toDate.BuildLastDateTimeFromSEFormat(),
+                            value,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page, size
+                            );
+            var list = new List<PurchaseOrderViewModel>();
+            foreach (var item in results)
+            {
+                list.Add(new PurchaseOrderViewModel
+                {
+                    ID = item.PurchaseOrderId,
+                    Code = item.PurchaseOrderCode,
+                    FullName = item.FullName,
+                    BranchName = item.BranchName,
+                    CreateDate = item.CreatedDate,
+                    PurchaseOrderDetailId = item.PurchaseOrderDetailId,
+                    MaterialId = item.MaterialId,
+                    MaterialCode = item.MaterialCode,
+                    MaterialName = item.MaterialName,
+                    PurchaseQuantity = item.PurchaseQuantity,
+                    IOQuantity = item.IOQuantity,
+                    RemainQuantity = item.PurchaseQuantity - item.IOQuantity,
+                    Note = item.Note,
+                });
+            }
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+        }
     }
 }

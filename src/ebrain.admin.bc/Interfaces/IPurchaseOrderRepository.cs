@@ -28,5 +28,6 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<Boolean> CancelMaster(Guid? id);
 
         IEnumerable<PurchaseOrderList> GetPurchaseOrderList(DateTime fromDate, DateTime toDate, string ioNumber, string branchIds, int page, int size);
+        IEnumerable<PurchaseOrderList> GetPurchaseOrderListDetail(DateTime fromDate, DateTime toDate, string filterValue, string branchIds, int page, int size);
     }
 }

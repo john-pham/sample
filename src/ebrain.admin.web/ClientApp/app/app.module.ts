@@ -219,6 +219,7 @@ import { StudentsComponent } from "./components/students/students.component";
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
 import { PurchaseOrdersComponent } from "./components/purchaseorders/purchaseorders.component";
 import { PurSummarizesComponent } from "./components/pursummarizes/pursummarizes.component";
+import { PurDetailsComponent } from "./components/purdetails/purdetails.component";
 
 import { IOStudenListComponent } from "./components/iostudentlists/iostudentlists.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
@@ -375,6 +376,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         IOStudentsComponent,
         PurchaseOrdersComponent,
         PurSummarizesComponent,
+        PurDetailsComponent,
 
         IOInputsComponent,
 

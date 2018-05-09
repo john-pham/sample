@@ -165,6 +165,35 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public IEnumerable<PurchaseOrderList> GetPurchaseOrderListDetail(DateTime fromDate, DateTime toDate, string filterValue, string branchIds, int page, int size)
+        {
+            try
+            {
+                List<PurchaseOrderList> someTypeList = new List<PurchaseOrderList>();
+                this.appContext.LoadStoredProc("dbo.sp_PurchaseOrderListDetail")
+                               .WithSqlParam("fromDate", fromDate)
+                               .WithSqlParam("toDate", toDate)
+                               .WithSqlParam("branchIds", branchIds)
+                               .WithSqlParam("filterValue", filterValue).ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<PurchaseOrderList>().ToList();
+                               });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private ApplicationDbContext appContext
         {
             get { return (ApplicationDbContext)_context; }
