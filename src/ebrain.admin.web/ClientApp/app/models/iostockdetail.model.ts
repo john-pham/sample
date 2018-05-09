@@ -12,6 +12,8 @@ export class IOStockDetail {
         this.id = ioid;
     }
     public id: string;
+    public purchaseId: string;
+    public purchaseDetailId: string;
     public materialName: string;
     public materialCode: string;
     public typeMaterial: string;

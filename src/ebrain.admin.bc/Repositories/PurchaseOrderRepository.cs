@@ -69,6 +69,9 @@ namespace ebrain.admin.bc.Repositories
             {
                 item.Note = value.Note;
                 item.CreatedDate = value.CreatedDate;
+                item.TotalPrice = value.TotalPrice;
+                item.TotalPriceBeforeVAT = value.TotalPriceBeforeVAT;
+
                 var iodExists = await GetDetailByIOId(item.PurchaseOrderId);
 
                 //update deleted
@@ -85,6 +88,10 @@ namespace ebrain.admin.bc.Repositories
                     if (itemExistD != null)
                     {
                         itemExistD.InputQuantity = itemDetail.InputQuantity;
+                        itemExistD.PriceBeforeVAT = itemDetail.PriceBeforeVAT;
+                        itemExistD.PriceAfterVAT = itemDetail.PriceAfterVAT;
+                        itemExistD.TotalPrice = itemDetail.TotalPrice;
+                        itemExistD.TotalPriceBeforeVAT = itemDetail.TotalPriceBeforeVAT;
                     }
                     else
                     {

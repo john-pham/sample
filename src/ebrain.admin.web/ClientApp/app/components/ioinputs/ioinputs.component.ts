@@ -34,6 +34,8 @@ import { Material } from "../../models/material.model";
 import { IOStockDetail } from "../../models/iostockdetail.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Results } from "../../models/results.model";
+import { PurchaseOrderService } from "../../services/purchaseorders.service";
+import { PurchaseOrderReport } from "../../models/purchaseorderreport.model";
 @Component({
     selector: 'ioinputs',
     templateUrl: './ioinputs.component.html',
@@ -45,6 +47,12 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     rows = [];
     columns = [];
 
+    columnPurchases = [];
+    rowPurchases = [];
+
+    fromDate: Date;
+    toDate: Date;
+
     rowmaterials = [];
     columnmaterials = [];
 
@@ -53,6 +61,8 @@ export class IOInputsComponent implements OnInit, OnDestroy {
 
     filterName: string;
     filterValue: string;
+
+    filterPurchaseValue: string;
 
     allUsers: User[] = [];
     allstudents: Student[] = [];
@@ -65,12 +75,19 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
+    modalPurchaseRef: BsModalRef;
 
     constructor(private alertService: AlertService, private route: ActivatedRoute, private translationService: AppTranslationService,
         private localService: IOStudentsService, private modalService: BsModalService,
         public accessRightService: AccessRightsService,
+        private purchaseService: PurchaseOrderService,
         private typeservice: TypeMaterialsService, private router: Router) {
         this.pointer = new IOStock();
+
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        this.fromDate = new Date(y, m, 1);
+        this.toDate = new Date(y, m + 1, 0);
+        this.filterPurchaseValue = "";
     }
 
     ngOnInit() {
@@ -99,6 +116,17 @@ export class IOInputsComponent implements OnInit, OnDestroy {
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
+        this.columnPurchases = [
+            { headerClass: "text-center", prop: 'code', name: gT('label.purchaselist.Code'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'createDate', name: gT('label.purchaselist.CreateDate'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'fullName', name: gT('label.purchaselist.CreateUser'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'branchName', name: gT('label.purchaselist.BranchName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'purchaseQuantity', name: gT('label.purchaselist.PurchaseQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'ioQuantity', name: gT('label.purchaselist.IOQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'remainQuantity', name: gT('label.purchaselist.RemainQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+        ];
+
         //
         this.getFromServer(false);
 
@@ -125,6 +153,11 @@ export class IOInputsComponent implements OnInit, OnDestroy {
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
+    showPurchase(template: TemplateRef<any>) {
+        this.getPurchase();
+        this.modalPurchaseRef = this.modalService.show(template, { class: 'modal-lg' });
+    }
+
     onActivateMaterial(event) {
         if (event.type == 'dblclick') {
             var row = event.row;
@@ -142,6 +175,26 @@ export class IOInputsComponent implements OnInit, OnDestroy {
             iod.totalPrice = 1 * row.sellPrice;
             this.rows.push(iod);
             this.rows = [...this.rows]
+        }
+    }
+
+    onActivatePurchase(event) {
+        if (event.type == 'dblclick') {
+            //var row = event.row;
+            //var iod = new IOStockDetail();
+
+            //iod.grpMaterial = row.grpName;
+            //iod.typeMaterial = row.typeName;
+            //iod.materialCode = row.code;
+            //iod.materialName = row.name;
+            //iod.quantity = 1;
+            //iod.sellPrice = row.sellPrice;
+            //iod.materialGrpId = row.grpMaterialId;
+            //iod.materialTypeId = row.typeMaterialId;
+            //iod.materialid = row.id;
+            //iod.totalPrice = 1 * row.sellPrice;
+            //this.rows.push(iod);
+            //this.rows = [...this.rows]
         }
     }
 
@@ -171,7 +224,8 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     }
 
     onSearchChanged(value: string) {
-        //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
+        this.filterValue = value;
+        this.getMaterial();
     }
 
     delete(row) {
@@ -203,6 +257,23 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     private getMaterial() {
         //load user
         this.localService.getMaterial(this.filterName, this.filterValue).subscribe(results => this.onDataLoadSuccessfulMaterial(results), error => this.onDataLoadFailed(error));
+
+    }
+
+    onSearchPurchaseChanged(value: string) {
+        this.filterPurchaseValue = value;
+        this.getPurchase();
+    }
+
+    private getPurchase() {
+        this.purchaseService.getpurchaseorders(this.filterName, this.filterPurchaseValue, this.fromDate, this.toDate, 0, 0).subscribe(
+            list => this.onDataLoadPurchaseSuccessful(list),
+            error => this.onDataLoadFailed(error));
+    }
+
+    private onDataLoadPurchaseSuccessful(resulted: Results<PurchaseOrderReport>) {
+        this.rowPurchases = resulted.list;
+        this.alertService.stopLoadingMessage();
 
     }
 
@@ -381,6 +452,10 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     }
     private close() {
         this.modalRef.hide();
+    }
+
+    private closePurchaseOrder() {
+        this.modalPurchaseRef.hide();
     }
 
     @ViewChild('f')

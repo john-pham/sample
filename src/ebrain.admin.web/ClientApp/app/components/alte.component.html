@@ -311,7 +311,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')"><a routerLink="/purchases"><i class="fa fa-shopping-cart"></i> {{'menu.stock.PurchaseOrder' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')"><a routerLink="/purchaseorders"><i class="fa fa-shopping-cart"></i> {{'menu.stock.PurchaseOrder' | translate}}</a></li>
+                        <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484ad18217')"><a routerLink="/pursummarizes"><i class="fa fa-tasks"></i> {{'menu.stock.PurchaseOrderListDes' | translate}}</a></li>
                         <li *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad182a1')"><a routerLink="/ioinputs"><i class="fa fa-cart-plus"></i> {{'menu.stock.InputStock' | translate}}</a></li>
                         <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A2')"><a routerLink="/iostudentlist"><i class="fa fa-tasks"></i> {{'menu.stock.OutputStockList' | translate}}</a></li>
                         <li *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A3')"><a routerLink="/iostudents"><i class="fa fa-delicious"></i> {{'menu.stock.OutputStock' | translate}}</a></li>

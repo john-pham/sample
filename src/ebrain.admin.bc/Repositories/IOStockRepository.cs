@@ -187,6 +187,9 @@ namespace ebrain.admin.bc.Repositories
                 item.Note = value.Note;
                 item.StudentId = value.StudentId;
                 item.CreatedDate = value.CreatedDate;
+                item.TotalPrice = value.TotalPrice;
+                item.TotalPriceBeforeVAT = value.TotalPriceBeforeVAT;
+
                 var iodExists = await GetDetailByIOId(item.IOStockId);
 
                 //update deleted

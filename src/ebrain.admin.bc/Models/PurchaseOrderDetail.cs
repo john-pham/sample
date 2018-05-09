@@ -20,6 +20,14 @@ namespace ebrain.admin.bc.Models
         public string MaterialName { get; set; }
 
         public decimal InputQuantity { get; set; }
+        public int? VAT { get; set; }
+
+        public decimal? PriceBeforeVAT { get; set; }
+
+        public decimal? PriceAfterVAT { get; set; }
+        public decimal? TotalPrice { get; set; }
+
+        public decimal? TotalPriceBeforeVAT { get; set; }
 
     }
 }

@@ -5,8 +5,8 @@
                 <i class="fa fa-bars"></i>
             </a>
             <ol class="breadcrumb pull-left">
-                <li><a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a></li>
-                <li>{{'pageMain.iostudent.header' | translate}}</li>
+                <li><a routerLink="/mn_main_stock">{{'mainMenu.mn-stocks' | translate}}</a></li>
+                <li>{{'menu.stock.PurchaseOrder' | translate}}</li>
             </ol>
         </div>
     </div>
@@ -27,11 +27,7 @@
                     *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3')">
                 <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
             </button>
-            <button *ngIf="pointer.id?.length > 0 && (accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') ||accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3'))" type="button" class="btn btn-success"
-                    routerLink="/paymentio/?ioid={{pointer.id}}" (click)="goPayment(pointer.id)">
-                <span class="glyphicon glyphicon-user"></span> {{'button.PaymentReceipt' | translate}}
-            </button>
-
+           
             <button *ngIf="pointer.id?.length > 0 && (accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isDelete('9ECBD467-7642-467B-AAE2-96484AD182A3'))" type="button" class="btn btn-warning" (click)="deletemaster()">
                 <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
             </button>

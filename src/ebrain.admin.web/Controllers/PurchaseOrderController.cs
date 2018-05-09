@@ -134,12 +134,20 @@ namespace Ebrain.Controllers
                     MaterialId = p.MaterialId,
                     MaterialCode = p.MaterialCode,
                     InputQuantity = p.Quantity,
+                    PriceBeforeVAT = p.SellPrice,
+                    PriceAfterVAT = p.SellPrice,
+                    TotalPrice = p.SellPrice * p.Quantity,
+                    TotalPriceBeforeVAT = p.SellPrice * p.Quantity,
+                    VAT = 0,
                     CreatedBy = userId,
                     CreatedDate = value.CreateDate,
                     UpdatedBy = userId,
                     UpdatedDate = DateTime.Now
 
                 });
+
+                io.TotalPrice = ioDetails.Sum(p => p.TotalPrice);
+                io.TotalPriceBeforeVAT = ioDetails.Sum(p => p.TotalPriceBeforeVAT);
 
                 var ret = await this._unitOfWork.PurchaseOrders.Save(io, ioDetails.ToArray(), value.ID);
 
@@ -217,7 +225,7 @@ namespace Ebrain.Controllers
             return Json(new
             {
                 Total = unit.Total,
-                List = results
+                List = list
             });
         }
     }

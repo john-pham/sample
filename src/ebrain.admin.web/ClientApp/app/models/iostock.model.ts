@@ -17,6 +17,8 @@ export class IOStock {
     public id: string;
     public name: string;
     public code: string;
+    public purchaseCode: string;
+    public purchaseId: string;
     public note: string;
     public studentId: string;
     public createDate: Date;

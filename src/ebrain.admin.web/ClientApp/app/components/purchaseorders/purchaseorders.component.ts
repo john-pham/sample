@@ -34,6 +34,7 @@ import { Material } from "../../models/material.model";
 import { PurchaseOrderDetail } from "../../models/PurchaseOrderdetail.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Results } from "../../models/results.model";
+import { PurchaseOrderService } from "../../services/purchaseorders.service";
 @Component({
     selector: 'purchaseorders',
     templateUrl: './purchaseorders.component.html',
@@ -71,7 +72,7 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
 
     constructor(private alertService: AlertService, private route: ActivatedRoute, private translationService: AppTranslationService,
-        private localService: IOStudentsService, private modalService: BsModalService,
+        private localService: PurchaseOrderService, private modalService: BsModalService,
         public accessRightService: AccessRightsService,
         private typeservice: TypeMaterialsService, private router: Router) {
         this.pointer = new PurchaseOrder();

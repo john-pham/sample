@@ -15,5 +15,7 @@ namespace ebrain.admin.bc.Models
         public bool IsCancel { get; set; }
         public Guid? SupplierId { get; set; }
         public Guid? BranchPurchaseId { get; set; }
+        public decimal? TotalPrice { get; set; }
+        public decimal? TotalPriceBeforeVAT { get; set; }
     }
 }

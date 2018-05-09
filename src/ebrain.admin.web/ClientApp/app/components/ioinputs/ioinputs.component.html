@@ -12,7 +12,7 @@
     </div>
 </header>
 
-<div class="control-box">    
+<div class="control-box">
     <div class="text-right">
         <button type="button" class="btn btn-success" (click)="addnew()" *ngIf="accessRightService.isCreate('9ecbd467-7642-467b-aae2-96484ad182a1')">
             <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
@@ -27,15 +27,15 @@
                 routerLink="/paymentio/?ioid={{pointer.id}}" (click)="goPayment(pointer.id)">
             <span class="glyphicon glyphicon-user"></span> {{'button.PaymentVoucher' | translate}}
         </button>
-               
-        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('9ecbd467-7642-467b-aae2-96484ad182a1')"  type="button" class="btn btn-warning" (click)="deletemaster()">
+
+        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('9ecbd467-7642-467b-aae2-96484ad182a1')" type="button" class="btn btn-warning" (click)="deletemaster()">
             <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
         </button>
-        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('9ecbd467-7642-467b-aae2-96484ad182a1')"  type="button" class="btn btn-danger" (click)="cancelmaster()">
+        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('9ecbd467-7642-467b-aae2-96484ad182a1')" type="button" class="btn btn-danger" (click)="cancelmaster()">
             <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
         </button>
-    </div>        
-    
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
@@ -71,19 +71,14 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group has-feedback">
-                    <label class="control-label col-md-2">{{'label.iostudent.Student' | translate}}</label>
-                    <div class="col-md-10">
-                        <select id="allstudents-info" name="allstudents" [(ngModel)]="pointer.studentId"
-                                class="form-control" required
-                                data-actions-box="false"
-                                data-live-search-placeholder="Search..."
-                                title="{{'label.iostudent.SelectStudent' | translate}}">
-                            <option *ngFor="let student of allstudents"
-                                    attr.data-content="<span title='{{student.name}}' class='badge'>{{student.name}}</span>"
-                                    attr.value="{{student.id}}">
-                                {{student.name}}
-                            </option>
-                        </select>
+                    <label class="control-label col-md-2">{{'label.iostudent.PurchaseOrder' | translate}}</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" [(ngModel)]="pointer.purchaseCode" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" (click)="showPurchase(templatePurchase)" title="{{'menu.stock.PurchaseOrderListDes' | translate}}">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -134,13 +129,13 @@
         <div class="col-sm-12">
             <!--DATA TABLE-->
             <ngx-datatable class="material colored-header sm table-hover"
-                            [loadingIndicator]="loadingIndicator"
-                            [rows]="rows"
-                            [rowHeight]="auto"
-                            [columns]="columns"
-                            [scrollbarV]="verticalScrollbar"
-                            [columnMode]="'force'"
-                            (activate)="onActivateMaterial($event)">
+                           [loadingIndicator]="loadingIndicator"
+                           [rows]="rows"
+                           [rowHeight]="auto"
+                           [columns]="columns"
+                           [scrollbarV]="verticalScrollbar"
+                           [columnMode]="'force'"
+                           (activate)="onActivateMaterial($event)">
             </ngx-datatable>
 
             <!-- TEMPLATEs -->
@@ -160,8 +155,8 @@
             </ng-template>
             <ng-template #quantityTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
                 <input class="currency-pipe" value="{{value| currencypipe}}"
-                        autofocus
-                        (blur)="updateValue(row,$event,rowIndex)" />
+                       autofocus
+                       (blur)="updateValue(row,$event,rowIndex)" />
 
             </ng-template>
 
@@ -210,8 +205,6 @@
                                [loadingIndicator]="loadingIndicator"
                                [rows]="rowmaterials"
                                [rowHeight]="auto"
-                               
-                               
                                [columns]="columnmaterials"
                                [scrollbarV]="verticalScrollbar"
                                [columnMode]="'force'"
@@ -245,5 +238,90 @@
 
     </div>
 
+</ng-template>
+
+<ng-template #templatePurchase>
+
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closePurchaseOrder()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'menu.stock.PurchaseOrderListDes' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row control-box">
+            <div class="col-sm-10">
+                <div class="form-group search-box">
+                    <search-box (searchChange)="onSearchPurchaseChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-right">
+                    <button class="btn btn-primary" (click)="getPurchase()"><i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="row control-box">
+            <div class="col-sm-6 no-pd-l">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-2">{{'label.deptslist.FromDate' | translate}}</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" bsDatepicker [(ngModel)]="fromDate">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 no-pd-r">
+                <div class="form-group has-feedback">
+                    <label class="control-label col-md-2">{{'label.deptslist.ToDate' | translate}}</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div [@fadeInOut]>
+            <!--DATA TABLE-->
+            <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                           [loadingIndicator]="loadingIndicator"
+                            [rows]="rowmaterials"
+                            [rowHeight]="auto"
+                            [columns]="columnmaterials"
+                            [scrollbarV]="verticalScrollbar"
+                            [columnMode]="'force'"
+                           (activate)="onActivateMaterial($event)">
+            </ngx-datatable>
+            <div [@fadeInOut]>
+                <page-controller></page-controller>
+            </div>
+            <!-- TEMPLATEs -->
+            <ng-template #statusHeaderTemplate>
+                <i class="fa fa-check-square-o"></i>
+            </ng-template>
+
+            <ng-template #statusTemplate let-row="row" let-value="value">
+                <span attr.title="{{value}}">
+                    {{value}}
+                </span>
+            </ng-template>
+
+            <ng-template #nameTemplate let-row="row" let-value="value">
+                <span attr.title="{{value}}">
+                    {{value}}
+                </span>
+            </ng-template>
+
+            <ng-template #descriptionTemplate let-row="row" let-value="value">
+                <span attr.title="{{value}}">
+                    {{value}}
+                </span>
+            </ng-template>
+            <ng-template #totalPriceTemplate let-row="row" let-value="value">
+                <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                    {{value | currencypipe}}
+                </span>
+            </ng-template>
+
+        </div>
+    </div>
 </ng-template>
 
