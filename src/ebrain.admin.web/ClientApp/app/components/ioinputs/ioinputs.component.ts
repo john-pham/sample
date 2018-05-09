@@ -36,6 +36,7 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Results } from "../../models/results.model";
 import { PurchaseOrderService } from "../../services/purchaseorders.service";
 import { PurchaseOrderReport } from "../../models/purchaseorderreport.model";
+import { Page } from "../../models/page.model";
 @Component({
     selector: 'ioinputs',
     templateUrl: './ioinputs.component.html',
@@ -76,6 +77,7 @@ export class IOInputsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
     modalPurchaseRef: BsModalRef;
+    private page: Page;
 
     constructor(private alertService: AlertService, private route: ActivatedRoute, private translationService: AppTranslationService,
         private localService: IOStudentsService, private modalService: BsModalService,
@@ -86,8 +88,16 @@ export class IOInputsComponent implements OnInit, OnDestroy {
 
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
-        this.toDate = new Date(y, m + 1, 0);
+        this.toDate = date;//new Date(y, m + 1, 0);
         this.filterPurchaseValue = "";
+        this.page = new Page();
+        this.page.pageNumber = 0;
+        this.page.size = 20;
+    }
+
+    setPage(pageInfo) {
+        this.page.pageNumber = pageInfo.offset;
+        this.getPurchase();
     }
 
     ngOnInit() {
@@ -121,10 +131,10 @@ export class IOInputsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'createDate', name: gT('label.purchaselist.CreateDate'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'fullName', name: gT('label.purchaselist.CreateUser'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'branchName', name: gT('label.purchaselist.BranchName'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'purchaseQuantity', name: gT('label.purchaselist.PurchaseQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'ioQuantity', name: gT('label.purchaselist.IOQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'remainQuantity', name: gT('label.purchaselist.RemainQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
-            { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
+            { headerClass: "text-center", prop: 'purchaseQuantity', width: 70, name: gT('label.purchaselist.PurchaseQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'ioQuantity', width: 70, name: gT('label.purchaselist.IOQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'remainQuantity', width: 70, name: gT('label.purchaselist.RemainQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' }
+
         ];
 
         //
@@ -266,12 +276,13 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     }
 
     private getPurchase() {
-        this.purchaseService.getpurchaseorders(this.filterName, this.filterPurchaseValue, this.fromDate, this.toDate, 0, 0).subscribe(
+        this.purchaseService.getpurchaseorders(this.filterName, this.filterPurchaseValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadPurchaseSuccessful(list),
             error => this.onDataLoadFailed(error));
     }
 
     private onDataLoadPurchaseSuccessful(resulted: Results<PurchaseOrderReport>) {
+        this.page.totalElements = resulted.total;
         this.rowPurchases = resulted.list;
         this.alertService.stopLoadingMessage();
 
