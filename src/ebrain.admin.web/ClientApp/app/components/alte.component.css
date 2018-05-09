@@ -164,7 +164,8 @@ label.control-label {
     overflow-y: auto;
 }
 
-.modal-content ngx-datatable.paymentvouchers datatable-body .datatable-row-wrapper:hover {
+.modal-content ngx-datatable.row-pointer datatable-body .datatable-row-wrapper:hover,
+ngx-datatable.row-pointer datatable-body .datatable-row-wrapper:hover {
     cursor: pointer;
 }
 
