@@ -165,7 +165,7 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
-        public IEnumerable<PurchaseOrderList> GetPurchaseOrderListDetail(DateTime fromDate, DateTime toDate, string filterValue, string branchIds, int page, int size)
+        public IEnumerable<PurchaseOrderList> GetPurchaseOrderListDetail(DateTime fromDate, DateTime toDate, string filterValue, string branchIds, string ioStockId, int page, int size)
         {
             try
             {
@@ -174,6 +174,7 @@ namespace ebrain.admin.bc.Repositories
                                .WithSqlParam("fromDate", fromDate)
                                .WithSqlParam("toDate", toDate)
                                .WithSqlParam("branchIds", branchIds)
+                                .WithSqlParam("@ioStockId", string.IsNullOrEmpty(ioStockId) ? null : ioStockId)
                                .WithSqlParam("filterValue", filterValue).ExecuteStoredProc((handler) =>
                                {
                                    someTypeList = handler.ReadToList<PurchaseOrderList>().ToList();

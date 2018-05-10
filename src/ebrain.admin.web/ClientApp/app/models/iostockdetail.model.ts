@@ -12,13 +12,13 @@ export class IOStockDetail {
         this.id = ioid;
     }
     public id: string;
-    public purchaseId: string;
-    public purchaseDetailId: string;
+    public purchaseOrderId: string;
+    public purchaseOrderDetailId: string;
     public materialName: string;
     public materialCode: string;
     public typeMaterial: string;
     public grpMaterial: string;
-    public materialid: string;
+    public materialId: string;
     public materialTypeId: string;
     public materialGrpId: string;
     public sellPrice: number;

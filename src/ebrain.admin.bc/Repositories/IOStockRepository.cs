@@ -179,57 +179,64 @@ namespace ebrain.admin.bc.Repositories
 
         public async Task<IOStock> Save(IOStock value, IOStockDetail[] iosd, Guid? index)
         {
-            //get branchId
-            value.BranchId = value.CreatedBy.GetBranchOfCurrentUser(this.appContext);
-            var item = this.appContext.IOStock.FirstOrDefault(p => p.IOStockId == index);
-            if (item != null)
+            try
             {
-                item.Note = value.Note;
-                item.StudentId = value.StudentId;
-                item.CreatedDate = value.CreatedDate;
-                item.TotalPrice = value.TotalPrice;
-                item.TotalPriceBeforeVAT = value.TotalPriceBeforeVAT;
-
-                var iodExists = await GetDetailByIOId(item.IOStockId);
-
-                //update deleted
-                var iodIds = iosd.Select(p => p.IOStockDetailId);
-                var iodNotExists = iodExists.Where(p => !iodIds.Contains(p.IOStockDetailId));
-                foreach (var itemDetail in iodNotExists)
+                //get branchId
+                value.BranchId = value.CreatedBy.GetBranchOfCurrentUser(this.appContext);
+                var item = this.appContext.IOStock.FirstOrDefault(p => p.IOStockId == index);
+                if (item != null)
                 {
-                    itemDetail.IsDeleted = true;
+                    item.Note = value.Note;
+                    item.StudentId = value.StudentId;
+                    item.CreatedDate = value.CreatedDate;
+                    item.TotalPrice = value.TotalPrice;
+                    item.TotalPriceBeforeVAT = value.TotalPriceBeforeVAT;
+
+                    var iodExists = await GetDetailByIOId(item.IOStockId);
+
+                    //update deleted
+                    var iodIds = iosd.Select(p => p.IOStockDetailId);
+                    var iodNotExists = iodExists.Where(p => !iodIds.Contains(p.IOStockDetailId));
+                    foreach (var itemDetail in iodNotExists)
+                    {
+                        itemDetail.IsDeleted = true;
+                    }
+                    //Insert
+                    foreach (var itemDetail in iosd)
+                    {
+                        var itemExistD = this.appContext.IOStockDetail.FirstOrDefault(p => p.IOStockDetailId == itemDetail.IOStockDetailId);
+                        if (itemExistD != null)
+                        {
+                            itemExistD.InputQuantity = itemDetail.InputQuantity;
+                            itemExistD.PriceBeforeVAT = itemDetail.PriceBeforeVAT;
+                            itemExistD.PriceAfterVAT = itemDetail.PriceAfterVAT;
+                            itemExistD.TotalPrice = itemDetail.TotalPrice;
+                            itemExistD.TotalPriceBeforeVAT = itemDetail.TotalPriceBeforeVAT;
+                        }
+                        else
+                        {
+                            itemDetail.IOStockId = item.IOStockId;
+                            await appContext.IOStockDetail.AddAsync(itemDetail);
+                        }
+                    }
                 }
-                //Insert
-                foreach (var itemDetail in iosd)
+                else
                 {
-                    var itemExistD = this.appContext.IOStockDetail.FirstOrDefault(p => p.IOStockDetailId == itemDetail.IOStockDetailId);
-                    if (itemExistD != null)
+                    var result = await appContext.IOStock.AddAsync(value);
+                    foreach (var itemD in iosd)
                     {
-                        itemExistD.InputQuantity = itemDetail.InputQuantity;
-                        itemExistD.PriceBeforeVAT = itemDetail.PriceBeforeVAT;
-                        itemExistD.PriceAfterVAT = itemDetail.PriceAfterVAT;
-                        itemExistD.TotalPrice = itemDetail.TotalPrice;
-                        itemExistD.TotalPriceBeforeVAT = itemDetail.TotalPriceBeforeVAT;
+                        await appContext.IOStockDetail.AddAsync(itemD);
                     }
-                    else
-                    {
-                        itemDetail.IOStockId = item.IOStockId;
-                        await appContext.IOStockDetail.AddAsync(itemDetail);
-                    }
+                    item = result.Entity;
                 }
+                //
+                await appContext.SaveChangesAsync();
+                return item;
             }
-            else
+            catch(Exception ex)
             {
-                var result = await appContext.IOStock.AddAsync(value);
-                foreach (var itemD in iosd)
-                {
-                    await appContext.IOStockDetail.AddAsync(itemD);
-                }
-                item = result.Entity;
+                throw ex;
             }
-            //
-            await appContext.SaveChangesAsync();
-            return item;
         }
 
         public async Task<bool> Delete(string id)

@@ -137,7 +137,7 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
             iod.sellPrice = row.sellPrice;
             iod.materialGrpId = row.grpMaterialId;
             iod.materialTypeId = row.typeMaterialId;
-            iod.materialid = row.id;
+            iod.materialId = row.id;
             iod.totalPrice = 1 * row.sellPrice;
             this.rows.push(iod);
             this.rows = [...this.rows]
@@ -355,7 +355,7 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
             iod.sellPrice = row.sellPrice;
             iod.materialGrpId = row.materialGrpId;
             iod.materialTypeId = row.materialTypeId;
-            iod.materialid = row.id;
+            iod.materialId = row.id;
             iod.totalPrice = row.quantity * row.sellPrice;
             iod.id = row.id;
 

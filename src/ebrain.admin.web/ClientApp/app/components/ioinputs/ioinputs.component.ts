@@ -1,4 +1,4 @@
-// ======================================
+﻿// ======================================
 // Author: Ebrain Team
 // Email:  johnpham@ymail.com
 // Copyright (c) 2017 supperbrain.visualstudio.com
@@ -159,11 +159,31 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     }
 
     showmaterial(template: TemplateRef<any>) {
+        if (this.pointer.purchaseOrderCode.length > 0) {
+            this.alertService.showDialog('Phiếu đã tồn tại đặt hàng, bạn cần khởi tạo mới dữ liệu?', DialogType.confirm, () => {
+                this.showmaterialMain(template);
+            });
+        } else {
+            this.showmaterialMain(template);
+        }
+    }
+
+    showmaterialMain(template: TemplateRef<any>) {
         this.getMaterial();
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
     showPurchase(template: TemplateRef<any>) {
+        if (this.pointer.id.length > 0) {
+            this.alertService.showDialog('Phiếu đã tồn tại, bạn cần khởi tạo mới dữ liệu?', DialogType.confirm, () => {
+                this.showPurchaseMain(template);
+            });
+        } else {
+            this.showPurchaseMain(template);
+        }
+    }
+
+    showPurchaseMain(template: TemplateRef<any>) {
         this.getPurchase();
         this.modalPurchaseRef = this.modalService.show(template, { class: 'modal-lg' });
     }
@@ -181,7 +201,7 @@ export class IOInputsComponent implements OnInit, OnDestroy {
             iod.sellPrice = row.sellPrice;
             iod.materialGrpId = row.grpMaterialId;
             iod.materialTypeId = row.typeMaterialId;
-            iod.materialid = row.id;
+            iod.materialId = row.id;
             iod.totalPrice = 1 * row.sellPrice;
             this.rows.push(iod);
             this.rows = [...this.rows]
@@ -190,21 +210,11 @@ export class IOInputsComponent implements OnInit, OnDestroy {
 
     onActivatePurchase(event) {
         if (event.type == 'dblclick') {
-            //var row = event.row;
-            //var iod = new IOStockDetail();
+            var row = event.row;
+            this.pointer.purchaseOrderCode = row.code;
+            this.pointer.purchaseOrderId = row.id;
+            this.getPurchasedetails(row.id);
 
-            //iod.grpMaterial = row.grpName;
-            //iod.typeMaterial = row.typeName;
-            //iod.materialCode = row.code;
-            //iod.materialName = row.name;
-            //iod.quantity = 1;
-            //iod.sellPrice = row.sellPrice;
-            //iod.materialGrpId = row.grpMaterialId;
-            //iod.materialTypeId = row.typeMaterialId;
-            //iod.materialid = row.id;
-            //iod.totalPrice = 1 * row.sellPrice;
-            //this.rows.push(iod);
-            //this.rows = [...this.rows]
         }
     }
 
@@ -221,17 +231,6 @@ export class IOInputsComponent implements OnInit, OnDestroy {
         this.rows = [...this.rows]
     }
 
-    imageFinishedUploading(file: any) {
-        console.log(JSON.stringify(file.serverResponse));
-    }
-
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
-    }
 
     onSearchChanged(value: string) {
         this.filterValue = value;
@@ -276,9 +275,20 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     }
 
     private getPurchase() {
-        this.purchaseService.getpurchaseorders(this.filterName, this.filterPurchaseValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+        this.purchaseService.getpurchaseorders(this.filterName, this.filterPurchaseValue, this.fromDate, this.toDate, 1, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadPurchaseSuccessful(list),
             error => this.onDataLoadFailed(error));
+    }
+
+    private getPurchasedetails(index) {
+        this.purchaseService.getpurchasedetailsbyid(index).subscribe(
+            list => this.onDataLoadPurchaseDetailsSuccessful(list),
+            error => this.onDataLoadFailed(error));
+    }
+
+    private onDataLoadPurchaseDetailsSuccessful(resulted: IOStockDetail[]) {
+        this.pointer.ioDetails = resulted;
+        this.mappingHelper(this.pointer);
     }
 
     private onDataLoadPurchaseSuccessful(resulted: Results<PurchaseOrderReport>) {
@@ -426,9 +436,11 @@ export class IOInputsComponent implements OnInit, OnDestroy {
             iod.sellPrice = row.sellPrice;
             iod.materialGrpId = row.materialGrpId;
             iod.materialTypeId = row.materialTypeId;
-            iod.materialid = row.id;
+            iod.materialId = row.materialId;
             iod.totalPrice = row.quantity * row.sellPrice;
             iod.id = row.id;
+            iod.purchaseOrderDetailId = row.purchaseOrderDetailId;
+            iod.purchaseOrderId = row.purchaseOrderId;
 
             this.rows.push(iod);
             this.rows = [...this.rows];

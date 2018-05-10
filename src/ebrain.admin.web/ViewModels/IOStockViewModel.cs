@@ -41,5 +41,7 @@ namespace Ebrain.ViewModels
         public string StudentName { get; set; }
         public decimal TotalPricePayment { get; set; }
         public decimal TotalPriceExist { get; set; }
+        public string PurchaseOrderCode { get; set; }
+        public Guid? PurchaseOrderId { get; set; }
     }
 }

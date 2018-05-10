@@ -87,5 +87,22 @@ namespace ebrain.admin.bc.Utilities
             var date = BuildDateTimeFromSEFormat(dateString);
             return new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
         }
+
+        public static DateTime GetDateNow
+        {
+            get
+            {
+                var date = DateTime.Now;
+                return new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
+            }
+        }
+
+        public static DateTime GetDateMin
+        {
+            get
+            {
+                return new DateTime(1900, 01, 01);
+            }
+        }
     }
 }

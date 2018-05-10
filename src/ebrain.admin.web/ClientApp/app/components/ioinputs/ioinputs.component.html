@@ -73,7 +73,7 @@
                 <div class="form-group has-feedback">
                     <label class="control-label col-md-2">{{'label.iostudent.PurchaseOrder' | translate}}</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="text" [(ngModel)]="pointer.purchaseCode" disabled>
+                        <input class="form-control" type="text" [(ngModel)]="pointer.purchaseOrderCode" disabled>
                     </div>
                     <div class="col-md-1">
                         <button type="button" class="btn btn-info" (click)="showPurchase(templatePurchase)" title="{{'menu.stock.PurchaseOrderListDes' | translate}}">
@@ -200,7 +200,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <!--DATA TABLE-->
-                <ngx-datatable class="material colored-header sm table-hover"
+                <ngx-datatable class="material colored-header sm table-hover row-pointer"
                                [loadingIndicator]="loadingIndicator"
                                [rows]="rowmaterials"
                                [rowHeight]="auto"
@@ -280,7 +280,7 @@
 
         <div [@fadeInOut]>
             <!--DATA TABLE-->
-            <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+            <ngx-datatable class="material colored-header sm table table-bordered table-responsive row-pointer"
                            [loadingIndicator]="loadingIndicator"
                            [rows]="rowPurchases"
                            [rowHeight]="auto"
@@ -295,7 +295,7 @@
                            [offset]="page.pageNumber"
                            [limit]="page.size"
                            (page)='setPage($event)'
-                           (activate)="onActivateMaterial($event)">
+                           (activate)="onActivatePurchase($event)">
             </ngx-datatable>
             <div [@fadeInOut]>
                 <page-controller></page-controller>

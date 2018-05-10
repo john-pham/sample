@@ -39,5 +39,7 @@ namespace Ebrain.ViewModels
         public decimal? SellPrice { get; set; }
       
         public decimal? TotalPrice { get; set; }
+        public Guid? PurchaseOrderDetailId { get; set; }
+        public Guid? PurchaseOrderId { get; set; }
     }
 }

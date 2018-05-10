@@ -99,19 +99,26 @@ namespace Ebrain.Controllers
         {
             if (index.IsNullOrDefault())
             {
-                var ioNumber = this._unitOfWork.ConfigNumberOfCodes.GenerateCode(ioTypeId, userId.ToString());
+                var itemNew = GenerateDefault(ioTypeId);
 
-                var itemNew = new IOStockViewModel
-                {
-                    Code = ioNumber,
-                    CreateDate = DateTime.Now,
-                    CreateBy = userId,
-                    IOTypeId = ioTypeId,
-                    IODetails = new IOStockDetailViewModel[0]
-                };
                 return Ok(itemNew);
             }
             return await GetIOStock(index);
+        }
+
+        private IOStockViewModel GenerateDefault(int ioTypeId)
+        {
+            var ioNumber = this._unitOfWork.ConfigNumberOfCodes.GenerateCode(ioTypeId, userId.ToString());
+
+            var itemNew = new IOStockViewModel
+            {
+                Code = ioNumber,
+                CreateDate = DateTime.Now,
+                CreateBy = userId,
+                IOTypeId = ioTypeId,
+                IODetails = new IOStockDetailViewModel[0]
+            };
+            return itemNew;
         }
 
         private async Task<IActionResult> GetIOStock(Guid? id)
@@ -136,7 +143,9 @@ namespace Ebrain.Controllers
                         TypeMaterial = itemType != null ? itemType.TypeMaterialName : string.Empty,
                         Quantity = item.InputQuantity,
                         SellPrice = item.PriceBeforeVAT,
-                        TotalPrice = item.TotalPrice
+                        TotalPrice = item.TotalPrice,
+                        PurchaseOrderId = item.PurchaseOrderId,
+                        PurchaseOrderDetailId = item.PurchaseOrderDetailId
                     });
 
                 }
@@ -149,6 +158,8 @@ namespace Ebrain.Controllers
                     CreateBy = ret.CreatedBy,
                     CreateDate = ret.CreatedDate,
                     IOTypeId = ret.IOTypeId,
+                    PurchaseOrderId = ret.PurchaseOrderId,
+                    PurchaseOrderCode = ret.PurchaseOrderCode,
                     IODetails = iodNews.ToArray()
                 });
             }
@@ -160,6 +171,33 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!string.IsNullOrEmpty(value.PurchaseOrderCode))
+                {
+                    //check purchaseOrder
+                    var results = this._unitOfWork.PurchaseOrders.GetPurchaseOrderListDetail(
+                                  ObjectHelper.GetDateMin, ObjectHelper.GetDateNow,
+                                   value.PurchaseOrderId.ToString(),
+                                   this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                                   value.ID.HasValue ? value.ID.Value.ToString() : string.Empty,
+                                   0, 0
+                               );
+                    var iods = value.IODetails;
+                    foreach (var item in results)
+                    {
+                        var itemExist = iods.FirstOrDefault(p => p.PurchaseOrderDetailId == item.PurchaseOrderDetailId);
+                        if (itemExist != null)
+                        {
+                            if ((item.PurchaseQuantity - item.IOQuantity) >= itemExist.Quantity) continue;
+                            else throw new Exception("Đã hết đơn đặt hàng");
+                        }
+                        else
+                        {
+                            throw new Exception("Not exist purchase order");
+                        }
+                    }
+
+
+                }
                 var ioId = Guid.NewGuid();
                 var io = new IOStock
                 {
@@ -173,7 +211,9 @@ namespace Ebrain.Controllers
                     IOTypeId = value.IOTypeId,
                     BranchId = ioId,
                     StudentId = value.StudentId,
-                    Note = value.Note
+                    Note = value.Note,
+                    PurchaseOrderCode = value.PurchaseOrderCode,
+                    PurchaseOrderId = value.PurchaseOrderId
                 };
                 var ioDetails = value.IODetails.Select(p => new IOStockDetail
                 {
@@ -190,7 +230,9 @@ namespace Ebrain.Controllers
                     CreatedBy = userId,
                     CreatedDate = value.CreateDate,
                     UpdatedBy = userId,
-                    UpdatedDate = DateTime.Now
+                    UpdatedDate = DateTime.Now,
+                    PurchaseOrderDetailId = p.PurchaseOrderDetailId,
+                    PurchaseOrderId = p.PurchaseOrderId
 
                 });
 

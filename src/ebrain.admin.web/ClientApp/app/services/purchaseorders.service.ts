@@ -109,14 +109,19 @@ export class PurchaseOrderService {
         return this.endpointFactory.delete(id);
     }
 
-    getpurchaseorders(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
-        return this.endpointFactory.getpurchaseorders(filter, value, fromDate, toDate, page, size)
+    getpurchaseorders(filter: string, value: string, fromDate: Date, toDate: Date, allData: number, page: number, size: number) {
+        return this.endpointFactory.getpurchaseorders(filter, value, fromDate, toDate, allData, page, size)
             .map((response: Response) => <Results<PurchaseOrderReport>>response.json());
     }
 
     getpurchaseorderdetails(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.getpurchaseorderdetails(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Results<PurchaseOrderReport>>response.json());
+    }
+
+    getpurchasedetailsbyid(index: string) {
+        return this.endpointFactory.getpurchasedetailsbyid(index)
+            .map((response: Response) => <IOStockDetail[]>response.json());
     }
 
     private initializeStatus() {

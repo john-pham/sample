@@ -138,16 +138,16 @@ export class PurchaseOrdersEndpoint extends EndpointFactory {
             });
     }
 
-    getpurchaseorders(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+    getpurchaseorders(filter: string, value: string, fromDate: Date, toDate: Date, allData: number, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('getpurchaseorders?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+        let url = this.getUrl('getpurchaseorders?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate + '&allData=' + allData
             + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getpurchaseorders(filter, value, fromDate, toDate, page, size));
+                return this.handleError(error, () => this.getpurchaseorders(filter, value, fromDate, toDate, allData, page, size));
             });
     }
 
@@ -160,7 +160,19 @@ export class PurchaseOrdersEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getpurchaseorders(filter, value, fromDate, toDate, page, size));
+                return this.handleError(error, () => this.getpurchaseorderdetails(filter, value, fromDate, toDate, page, size));
+            });
+    }
+
+    getpurchasedetailsbyid(index: string): Observable<Response> {
+
+        let url = this.getUrl('getpurchasedetailsbyid?index=' + index + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getpurchasedetailsbyid(index));
             });
     }
 

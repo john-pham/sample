@@ -195,7 +195,7 @@ namespace Ebrain.Controllers
 
         [HttpGet("getpurchaseorders")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> GetPurchaseOrderList(string filter, string value, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetPurchaseOrderList(string filter, string value, string fromDate, string toDate, int allData, int page, int size)
         {
             var unit = this._unitOfWork.PurchaseOrders;
             var results = unit.GetPurchaseOrderList(
@@ -205,6 +205,12 @@ namespace Ebrain.Controllers
                             this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                             page, size
                             );
+
+            if (allData > 0)
+            {
+                results = results.Where(item => (item.PurchaseQuantity - item.IOQuantity) > 0).ToList();
+            }
+
             var list = new List<PurchaseOrderViewModel>();
             foreach (var item in results)
             {
@@ -234,12 +240,66 @@ namespace Ebrain.Controllers
         public async Task<JsonResult> GetPurchaseOrderListDetail(string filter, string value, string fromDate, string toDate, int page, int size)
         {
             var unit = this._unitOfWork.PurchaseOrders;
-            var results = unit.GetPurchaseOrderListDetail(
+            var results = GetPurchaseOrderListDetailMain(
+                            filter,
+                            value,
                             fromDate.BuildDateTimeFromSEFormat(),
                             toDate.BuildLastDateTimeFromSEFormat(),
-                            value,
-                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                             page, size
+                            );
+            return Json(new
+            {
+                Total = unit.Total,
+                List = results
+            });
+        }
+
+        [HttpGet("getpurchasedetailsbyid")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetPurchaseDetails(Guid? index)
+        {
+            if (index.HasValue)
+            {
+                var list = GetPurchaseOrderListDetailMain(string.Empty, index.ToString(), ObjectHelper.GetDateMin, ObjectHelper.GetDateNow, 0, 0);
+                list = list.Where(item => (item.PurchaseQuantity - item.IOQuantity) > 0).ToList();
+
+                var iodNews = new List<IOStockDetailViewModel>();
+                foreach (var item in list)
+                {
+                    var itemMate = await this._unitOfWork.Materials.Get(item.MaterialId);
+                    var itemGrpMate = await this._unitOfWork.GrpMaterials.FindById(itemMate.GrpMaterialId);
+                    var itemType = await this._unitOfWork.TypeMaterials.FindById(itemGrpMate.TypeMaterialId);
+                    iodNews.Add(new IOStockDetailViewModel
+                    {
+                        ID = null,
+                        PurchaseOrderDetailId = item.PurchaseOrderDetailId,
+                        PurchaseOrderId = item.PurchaseOrderId,
+                        MaterialId = item.MaterialId,
+                        MaterialCode = itemMate.MaterialCode,
+                        MaterialName = itemMate.MaterialName,
+                        GrpMaterial = itemGrpMate != null ? itemGrpMate.GrpMaterialName : string.Empty,
+                        TypeMaterial = itemType != null ? itemType.TypeMaterialName : string.Empty,
+                        Quantity = item.PurchaseQuantity - item.IOQuantity,
+                        SellPrice = item.SellPrice,
+                        TotalPrice = (item.PurchaseQuantity - item.IOQuantity) * item.TotalPrice
+                    });
+
+                }
+                return Ok(iodNews);
+            }
+            return BadRequest(ModelState);
+        }
+
+        public List<PurchaseOrderViewModel> GetPurchaseOrderListDetailMain(string filter, string value, DateTime fromDate, DateTime toDate, int page, int size)
+        {
+            var unit = this._unitOfWork.PurchaseOrders;
+            var results = unit.GetPurchaseOrderListDetail(
+                                fromDate,
+                                toDate,
+                                value,
+                                this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                                string.Empty,
+                                page, size
                             );
             var list = new List<PurchaseOrderViewModel>();
             foreach (var item in results)
@@ -252,21 +312,20 @@ namespace Ebrain.Controllers
                     BranchName = item.BranchName,
                     CreateDate = item.CreatedDate,
                     PurchaseOrderDetailId = item.PurchaseOrderDetailId,
+                    PurchaseOrderId = item.PurchaseOrderId,
                     MaterialId = item.MaterialId,
                     MaterialCode = item.MaterialCode,
                     MaterialName = item.MaterialName,
                     PurchaseQuantity = item.PurchaseQuantity,
                     IOQuantity = item.IOQuantity,
+                    SellPrice = item.SellPrice,
                     RemainQuantity = item.PurchaseQuantity - item.IOQuantity,
                     Note = item.Note,
                 });
             }
 
-            return Json(new
-            {
-                Total = unit.Total,
-                List = list
-            });
+            return list;
         }
     }
 }
+
