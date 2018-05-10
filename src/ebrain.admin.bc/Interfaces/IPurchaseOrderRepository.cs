@@ -29,5 +29,6 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 
         IEnumerable<PurchaseOrderList> GetPurchaseOrderList(DateTime fromDate, DateTime toDate, string ioNumber, string branchIds, int page, int size);
         IEnumerable<PurchaseOrderList> GetPurchaseOrderListDetail(DateTime fromDate, DateTime toDate, string filterValue, string branchIds, string ioStockId, int page, int size);
+        IEnumerable<PurchaseOrderList> GetPurchaseOrderListDetailHistory(DateTime fromDate, DateTime toDate, string filterValue, string branchIds, int page, int size);
     }
 }

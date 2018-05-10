@@ -41,6 +41,7 @@ import { StudentBirthdaysComponent } from "./components/studentbirthdays/student
 import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
 import { PurchaseOrdersComponent } from "./components/purchaseorders/purchaseorders.component";
+import { PurHistoriesComponent } from "./components/purhistories/purhistories.component";
 import { PaymentsComponent } from "./components/payments/payments.component";
 import { PaymentVouchersComponent } from "./components/paymentvouchers/paymentvouchers.component";
 import { PaymentListsComponent } from "./components/paymentlists/paymentlists.component";
@@ -224,6 +225,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "iostudents", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "iostudents" } },
             { path: "purchaseorders", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
+            { path: "purhistories", component: PurHistoriesComponent, canActivate: [AuthGuard], data: { title: "PurHistories" } },
             { path: "pursummarizes", component: PurSummarizesComponent, canActivate: [AuthGuard], data: { title: "PurSummarizes" } },
             { path: "purchaseorders/:id", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
             { path: "purdetails", component: PurDetailsComponent, canActivate: [AuthGuard], data: { title: "PurDetails" } },

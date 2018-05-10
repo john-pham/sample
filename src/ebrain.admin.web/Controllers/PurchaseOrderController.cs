@@ -326,6 +326,40 @@ namespace Ebrain.Controllers
 
             return list;
         }
+
+        [HttpGet("getpurchaseorderdetailhistorys")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetPurchaseOrderDetailListHistory(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
+            var unit = this._unitOfWork.PurchaseOrders;
+            var results = unit.GetPurchaseOrderListDetailHistory(
+                            fromDate.BuildDateTimeFromSEFormat(),
+                            toDate.BuildLastDateTimeFromSEFormat(),
+                            value,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page, size
+                            );
+            
+            var list = new List<PurchaseOrderViewModel>();
+            foreach (var item in results)
+            {
+                list.Add(new PurchaseOrderViewModel
+                {
+                    ID = item.IOStockId,
+                    Code = item.IONumber,
+                    FullName = item.FullName,
+                    CreateDate = item.CreatedDate,
+                    InputQuantity = item.InputQuantity,
+                    Note = item.Note,
+                });
+            }
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+        }
     }
 }
 

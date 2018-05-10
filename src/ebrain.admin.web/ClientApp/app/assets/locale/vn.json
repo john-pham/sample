@@ -985,6 +985,7 @@
       "PurchaseOrder": "Đặt hàng",
       "PurchaseOrderList": "DS đặt hàng",
       "PurchaseOrderListDes": "Danh sách đặt hàng",
+      "PurchaseOrderListHistory": "Tra đơn hàng",
       "PurchaseOrderListDetail": "DS đặt hàng",
       "PurchaseOrderListDetailDes": "Danh sách chi tiết",
       "InputStock": "Nhập kho",

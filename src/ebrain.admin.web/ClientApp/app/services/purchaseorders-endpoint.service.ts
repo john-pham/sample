@@ -164,6 +164,19 @@ export class PurchaseOrdersEndpoint extends EndpointFactory {
             });
     }
 
+    getpurchaseorderdetailhistorys(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrl('getpurchaseorderdetailhistorys?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getpurchaseorderdetailhistorys(filter, value, fromDate, toDate, page, size));
+            });
+    }
+
     getpurchasedetailsbyid(index: string): Observable<Response> {
 
         let url = this.getUrl('getpurchasedetailsbyid?index=' + index + '&hash_id=' + Math.random());

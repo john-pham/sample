@@ -25,7 +25,7 @@ export class PurchaseOrderReport {
     public createBy: string;
     public createByName: string;
     public totalPrice: number;
-    public Quantity: number;
+    public inputQuantity: number;
     public quantityInput: number;
     public quantityOutput: number;
     public SellPrice: number;
