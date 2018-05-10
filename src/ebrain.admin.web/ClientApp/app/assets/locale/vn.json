@@ -612,7 +612,8 @@
       "BranchName": "Giao hàng",
       "PurchaseQuantity": "Đặt hàng",
       "IOQuantity": "Đã giao",
-      "RemainQuantity": "Còn lại"
+      "RemainQuantity": "Còn lại",
+      "IOPurchaseSearch": "Tìm kiếm đơn hàng"
     },
     "iostudentlist": {
       "Unit": "Đơn vị tính",

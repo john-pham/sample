@@ -116,7 +116,7 @@ export class PurHistoriesComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.getpurchaseorders(this.filterName, this.filterValue, this.fromDate, this.toDate, 0, this.page.pageNumber, this.page.size).subscribe(
+        var disp = this.localService.getpurchaseorderdetailhistorys(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
