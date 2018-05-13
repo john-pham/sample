@@ -48,15 +48,8 @@ export class StudentDatesComponent implements OnInit, OnDestroy {
     loadingIndicator: boolean = true;
     private page: Page;
 
-    isAllStudent: boolean = false;
-    @Input()
-    set IsAllStudent(isMes: boolean) {
-        this.isAllStudent = (isMes) || null;
-    }
 
-    get IsAllStudent() {
-        return this.isAllStudent;
-    }
+    @Input() isAllStudent: boolean = false;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: StudentsService, private modalService: BsModalService) {

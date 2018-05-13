@@ -46,20 +46,10 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
 
-    isAllIO: boolean = false;
-    @Input()
-    set IsAllIO(isMes: boolean) {
-        this.isAllIO = (isMes) || null;
-    }
 
-    get IsAllIO() {
-        return this.isAllIO;
-    }
+    @Input() isAllIO: boolean = false;
 
     constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: IOStudentListService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
-        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-        this.fromDate = new Date(y, m, 1);
-        this.toDate = new Date(y, m + 1, 0);
         this.filterValue = "";
         this.page = new Page();
         this.page.pageNumber = 0;
@@ -72,6 +62,15 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        if (this.isAllIO == false) {
+            this.fromDate = date;
+        }
+        else {
+            this.fromDate = new Date(1900, 1, 1);
+        }
+        this.toDate = new Date(y, m + 1, 0);
+
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [

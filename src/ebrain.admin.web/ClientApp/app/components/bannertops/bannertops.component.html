@@ -39,7 +39,7 @@
             <div class="info-box-content">
                 <a style.font-weight="'bold'"
                    class="notify-info-title info-box-text" href="javascript:;"
-                   (click)="showIOs(templateIOs, false)">{{'label.home.AllIO' | translate}}</a>
+                   (click)="showIOs(templateIOs, true)">{{'label.home.AllIO' | translate}}</a>
                 <span class="info-box-number">{{ioAll}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -70,7 +70,7 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'label.home.AllStudent' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <studentdates [IsAllStudent]="isAllStudent"></studentdates>
+        <studentdates [isAllStudent]="isAllStudent"></studentdates>
     </div>
 </ng-template>
 
@@ -80,7 +80,7 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'label.home.AllIO' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <iosummarizes [IsAllIO]="isAllIO"></iosummarizes>
+        <iosummarizes [isAllIO]="isAllIO"></iosummarizes>
     </div>
 </ng-template>
 
