@@ -24,6 +24,7 @@ import { Payment } from "../../models/payment.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
+import { Chart } from "../../models/chart.model";
 
 @Component({
     selector: 'paymentlist',
@@ -43,6 +44,7 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
     toDate: Date;
 
     private pointer: Grpsupplier;
+    private chart: Chart;
 
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
@@ -50,7 +52,7 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
     private page: Page;
-    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: PaymentsService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private router: Router, private translationService: AppTranslationService, private localService: PaymentsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         var date = new Date(), y = date.getFullYear(), m = date.getMonth();
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
@@ -58,6 +60,7 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
         this.page = new Page();
         this.page.pageNumber = 0;
         this.page.size = 20;
+        this.chart = new Chart();
     }
 
     setPage(pageInfo) {
@@ -115,22 +118,39 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
             error => this.onDataLoadFailed(error));
     }
 
+    private getReport(template: TemplateRef<any>) {
+        this.localService.repotSummarize(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+            resulted => {
+                this.chart = resulted;
+                this.alertService.stopLoadingMessage();
+                this.loadingIndicator = false;
+                this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+            },
+            error => this.onDataLoadFailed(error));
+    }
+    
+
     private onDataLoadSuccessful(resulted: Results<Payment>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
-
+        this.loadingIndicator = false;
     }
 
     private onDataLoadFailed(error: any) {
         this.alertService.stopLoadingMessage();
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);
-
+        this.loadingIndicator = false;
     }
 
     search() {
         this.getFromServer();
+    }
+
+    showChart(template: TemplateRef<any>) {
+        this.loadingIndicator = true;
+        this.getReport(template);
     }
 
     close() {

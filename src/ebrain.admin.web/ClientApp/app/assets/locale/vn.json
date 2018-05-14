@@ -730,6 +730,9 @@
     }
   },
   "pageMain": {
+    "chart": {
+      "header": "Thống kê biểu đồ"
+    },
     "messenger": {
       "header": "Danh sách thông báo",
       "searchBox": "Tìm kiếm thông báo",
@@ -929,7 +932,8 @@
     "Manage": "Quản lý",
     "Search": "Tìm kiếm",
     "SendMessenger": "Gửi tin",
-    "AccessRight": "Thấy dữ liệu"
+    "AccessRight": "Thấy dữ liệu",
+    "Chart": "Biểu đồ"
   },
   "menu": {
     "document": {

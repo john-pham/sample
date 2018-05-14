@@ -192,6 +192,7 @@ import { AccessRightsComponent } from "./components/access-rights/access-rights"
 import { UserRolesComponent } from "./components/userroles/userroles.component";
 import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
 import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
+import { StatisticsChartComponent } from "./components/controls/statistics-chart.component";
 
 import { MessengerComponent } from "./components/messengers/messengers.component";
 import { SupportComponent } from "./components/supports/supports.component";
@@ -358,6 +359,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         UserRolesComponent,
         FeatureGroupsComponent,
         UserGroupsComponent,
+        StatisticsChartComponent,
 
         MessengerComponent,
         MessengerListComponent,

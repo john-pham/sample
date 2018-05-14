@@ -1,0 +1,33 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" (click)="closeChart()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="branch-modalLabel">{{'pageMain.chart.header' | translate}}</h4>
+    <div class="chart-type-container" dropdown>
+        <button id="chartType" type="button" dropdownToggle><i class="fa fa-bar-chart dropdown-toggle"></i></button>
+        <ul *dropdownMenu role="menu" aria-labelledby="chartType" class="dropdown-menu">
+            <li [class.active2]="chartType == 'bar'" role="menuitem"><a class="dropdown-item" (click)="changeChartType('bar')" href="javascript:;">Bar Chart</a></li>
+            <li [class.active2]="chartType == 'pie'" role="menuitem"><a class="dropdown-item" (click)="changeChartType('pie')" href="javascript:;">Pie Chart</a></li>
+            <li [class.active2]="chartType == 'doughnut'" role="menuitem"><a class="dropdown-item" (click)="changeChartType('doughnut')" href="javascript:;">Doughnut Chart</a></li>
+            <li [class.active2]="chartType == 'polarArea'" role="menuitem"><a class="dropdown-item" (click)="changeChartType('polarArea')" href="javascript:;">Polar Area Chart</a></li>
+            <li [class.active2]="chartType == 'radar'" role="menuitem"><a class="dropdown-item" (click)="changeChartType('radar')" href="javascript:;">Radar Chart</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li [class.active2]="chartType == 'line'" role="menuitem"><a class="dropdown-item" (click)="changeChartType('line')" href="javascript:;">Line Chart</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="col-md-12">
+    <div class="chart-container">
+        <canvas baseChart
+                [datasets]="chartData"
+                [labels]="chartLabels"
+                [options]="chartOptions"
+                [colors]="chartColors"
+                [legend]="chartLegend"
+                [chartType]="chartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+
+</div>
+

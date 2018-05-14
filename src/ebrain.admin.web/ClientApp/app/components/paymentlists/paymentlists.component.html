@@ -13,14 +13,15 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}</button>
+            <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'button.Search' | translate}}</button>
+            <button type="button" class="btn btn-success" (click)="showChart(template)"><span class="fa fa-bar-chart"></span> {{'button.Chart' | translate}}</button>
         </div>
     </div>
 </div>
@@ -47,20 +48,20 @@
 <div [@fadeInOut]>
     <!--DATA TABLE-->
     <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
-                       [loadingIndicator]="loadingIndicator"
-                       [rows]="rows"
-                       [columns]="columns"
-                       [columnMode]="'force'"
-                       [scrollbarV]="verticalScrollbar"
-                       [scrollbarH]="true"
-                       [headerHeight]="50"
-                       [footerHeight]="50"
-                       [rowHeight]="'auto'"
-                       [externalPaging]="true"
-                       [count]="page.totalElements"
-                       [offset]="page.pageNumber"
-                       [limit]="page.size"
-                       (page)='setPage($event)'>
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [columns]="columns"
+                   [columnMode]="'force'"
+                   [scrollbarV]="verticalScrollbar"
+                   [scrollbarH]="true"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="page.totalElements"
+                   [offset]="page.pageNumber"
+                   [limit]="page.size"
+                   (page)='setPage($event)'>
     </ngx-datatable>
 
     <!-- TEMPLATEs -->
@@ -92,11 +93,13 @@
     </ng-template>
     <ng-template #actionsTemplate let-row="row" let-value="value">
         <a class="btn btn-link btn-xs" routerLink="/payment/?id={{value}}" (click)="goDetails(template, row)"
-           *ngIf="accessRightService.isEdit('376F3FFE-408A-49A8-B0EA-B69654E11B33')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+           *ngIf="accessRightService.isEdit('376F3FFE-408A-49A8-B0EA-B69654E11B33')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.Detail' | translate}}</a>
     </ng-template>
 </div>
 
 <ng-template #template>
-
+    <div class="modal-body">
+        <statistics-chart [modalRef]="modalRef" [chart]="chart"></statistics-chart>
+    </div>
 </ng-template>
 

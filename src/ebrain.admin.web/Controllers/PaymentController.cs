@@ -85,9 +85,42 @@ namespace Ebrain.Controllers
             return list;
         }
 
+        [HttpGet("reportpaymentsummarize")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> ReportPaymentSummarize(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
+            var list = await GetPaymentSummarizeMain(filter, value, fromDate, toDate, 0, 0);
+            var item = new ChartViewModel();
+            if (list != null && list.Count > 0)
+            {
+                //sort
+                list = list.OrderBy(p => p.CreateDate).ToList();
+                item.ChartModels.AddRange(list.GroupBy(p => p.BranchName).Select(p => new ChartModel
+                {
+                    Label = p.Key,
+                    Data = p.Select(c => c.TotalPrice).ToArray()
+                }));
+
+                item.ChartLabels = list.Select(p => p.CreateDate.ToString("dd/MM")).ToArray();
+            }
+
+            return this.Ok(item);
+
+        }
+
         [HttpGet("searchpaymentsummarize")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> SearchPaymentSummarize(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
+            var list = await GetPaymentSummarizeMain(filter, value, fromDate, toDate, page, size);
+            return Json(new
+            {
+                Total = this._unitOfWork.Payments.Total,
+                List = list
+            });
+        }
+
+        private async Task<List<PaymentViewModel>> GetPaymentSummarizeMain(string filter, string value, string fromDate, string toDate, int page, int size)
         {
             //get userId accessRightPerson
             var userAccessRightPerson = await this._unitOfWork.AccessRightPersons.GetUserIdFromAccessRightPerson(Guid.Parse(Constants.PAYMENTLIST), userId);
@@ -114,14 +147,11 @@ namespace Ebrain.Controllers
                     PaymentTypeName = item.PaymentTypeName,
                     FullName = item.FullName,
                     Note = item.Note,
+                    BranchName = item.BranchName
                 });
             }
 
-            return Json(new
-            {
-                Total = unit.Total,
-                List = list
-            });
+            return list;
         }
 
         [HttpGet("searchpaymentdetail")]

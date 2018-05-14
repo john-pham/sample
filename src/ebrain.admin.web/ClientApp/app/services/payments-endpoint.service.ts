@@ -79,6 +79,20 @@ export class PaymentsEndpoint extends EndpointFactory {
             });
     }
 
+    repotSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrl('reportpaymentsummarize?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.repotSummarize(filter, value, fromDate, toDate, page, size));
+            });
+    }
+
     searchDetail(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
         let url = this.getUrl('searchpaymentdetail?filter=' + filter + '&value='

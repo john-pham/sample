@@ -14,5 +14,6 @@ namespace ebrain.admin.bc.Report
         public string PaymentTypeName { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Note { get; set; }
+        public string BranchName { get; set; }
     }
 }

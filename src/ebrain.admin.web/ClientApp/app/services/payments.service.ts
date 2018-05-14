@@ -35,6 +35,7 @@ import { PaymentDetail } from "../models/paymentdetail.model";
 import { StudentsEndpoint } from "./students-endpoint.service";
 import { PaymentType } from "../models/paymenttype.model";
 import { Results } from "../models/results.model";
+import { Chart } from "../models/chart.model";
 
 @Injectable()
 export class PaymentsService {
@@ -55,6 +56,11 @@ export class PaymentsService {
     searchSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.searchSummarize(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Results<Payment>>response.json());
+    }
+
+    repotSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.repotSummarize(filter, value, fromDate, toDate, page, size)
+            .map((response: Response) => <Chart>response.json());
     }
 
     searchDetail(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {

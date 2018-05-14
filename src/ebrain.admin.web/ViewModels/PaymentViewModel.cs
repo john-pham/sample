@@ -22,6 +22,7 @@ namespace Ebrain.ViewModels
         public string Code { get; set; }
         public Guid? SupplierId { get; set; }
         public Guid? BranchId { get; set; }
+        public string BranchName { get; set; }
         public Guid? CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string Note { get; set; }
