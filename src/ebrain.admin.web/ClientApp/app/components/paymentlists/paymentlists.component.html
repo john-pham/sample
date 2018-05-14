@@ -21,7 +21,11 @@
     <div class="col-sm-3">
         <div class="text-right">
             <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'button.Search' | translate}}</button>
-            <button type="button" class="btn btn-success" (click)="showChart(template)"><span class="fa fa-bar-chart"></span> {{'button.Chart' | translate}}</button>
+            <button type="button" class="btn btn-success"
+                    *ngIf="rows?.length > 0"
+                    (click)="showChart(template)">
+                <span class="fa fa-bar-chart"></span> {{'button.Chart' | translate}}
+            </button>
         </div>
     </div>
 </div>
@@ -88,7 +92,7 @@
     </ng-template>
     <ng-template #totalPriceTemplate let-row="row" let-value="value">
         <span class="currency-pipe" attr.title="{{value | currencypipe}}">
-            {{value}}
+            {{value | currencypipe}}
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row" let-value="value">
