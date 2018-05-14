@@ -57,3 +57,13 @@ input.form-control {
         margin-left: 40px;
     }
 }
+
+@media(max-width: 843px) {
+    .wrap-input-search {
+        display: flex;
+    }
+
+        .wrap-input-search .wrap-input {
+            width: 90%;
+        }
+}
