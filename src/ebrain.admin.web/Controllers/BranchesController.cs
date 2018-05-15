@@ -7,7 +7,6 @@
 // ======================================
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
+using DinkToPdf;
 
 namespace Ebrain.Controllers
 {
@@ -27,12 +28,14 @@ namespace Ebrain.Controllers
     public class BranchesController : BaseController
     {
         private IUnitOfWork _unitOfWork;
+        private ITemplateService _templateService;
         readonly ILogger _logger;
         readonly IHostingEnvironment _env;
 
-        public BranchesController(IUnitOfWork unitOfWork, ILogger<BranchesController> logger, IHostingEnvironment env) : base(unitOfWork, logger)
+        public BranchesController(IUnitOfWork unitOfWork, ILogger<BranchesController> logger, IHostingEnvironment env, ITemplateService templateService) : base(unitOfWork, logger)
         {
             this._unitOfWork = unitOfWork;
+            this._templateService = templateService;
             this._logger = logger;
             this._env = env;
         }
@@ -246,6 +249,40 @@ namespace Ebrain.Controllers
                 return GetBranchHead(id.ToString());
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpGet]
+        [Route("print")]
+        public IActionResult Output()
+        {
+            var output = generatePdf();
+            return File(output, "application/pdf");
+        }
+
+        private byte[] generatePdf()
+        {
+            var converter = new SynchronizedConverter(new PdfTools());
+
+            var doc = new HtmlToPdfDocument()
+            {
+                GlobalSettings = {
+        ColorMode = ColorMode.Color,
+        Orientation = Orientation.Landscape,
+        PaperSize = PaperKind.A4Plus,
+    },
+                Objects = {
+        new ObjectSettings() {
+            PagesCount = true,
+            HtmlContent = @"sample data here for Quang",
+            WebSettings = { DefaultEncoding = "utf-8" },
+            HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
+        }
+    }
+            };
+
+            byte[] pdf = converter.Convert(doc);
+
+            return pdf;
         }
     }
 }

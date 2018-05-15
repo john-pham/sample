@@ -31,6 +31,8 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Identity;
 using Swashbuckle.AspNetCore.Swagger;
 using AppPermissions = ebrain.admin.bc.Core.ApplicationPermissions;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 
 namespace Ebrain
 {
@@ -183,6 +185,7 @@ namespace Ebrain
             services.AddSingleton<IAuthorizationHandler, ManageUserByIdHandler>();
             services.AddSingleton<IAuthorizationHandler, ViewRoleByNameHandler>();
             services.AddSingleton<IAuthorizationHandler, AssignRolesHandler>();
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             // DB Creation and Seeding
             services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
