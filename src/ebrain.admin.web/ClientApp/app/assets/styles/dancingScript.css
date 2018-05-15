@@ -1,0 +1,14 @@
+﻿/* Using as default */
+@font-face {
+    font-family: 'DancingScript';
+    src: url('../fonts/dancingScript/DancingScript-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DancingScript-Bold';
+    src: url('../fonts/dancingScript/DancingScript-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}

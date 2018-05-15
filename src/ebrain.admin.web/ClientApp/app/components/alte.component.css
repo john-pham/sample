@@ -6,6 +6,7 @@
 @import '../assets/styles/icon.css';*/
 @import '../assets/styles/ebrain.css';
 @import '../assets/styles/categories-icon.css';
+@import '../assets/styles/dancingScript.css';
 
 /* login page */
 .wrapper.login {
@@ -156,6 +157,7 @@ label.control-label {
 
 /* modal */
 .modal-content {
+    border-radius: 5px !important;
     max-height: calc(100vh - 60px);
     overflow-y: auto;
     overflow-x: hidden;
