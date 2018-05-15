@@ -315,6 +315,7 @@ import { TodoDemoComponent } from "./components/controls/todo-demo.component";
 import { StatisticsDemoComponent } from "./components/controls/statistics-demo.component";
 import { NotificationsViewerComponent } from "./components/controls/notifications-viewer.component";
 import { SearchBoxComponent } from "./components/controls/search-box.component";
+import { SearChartComponent } from "./components/controls/search-chart.component";
 import { UserInfoComponent } from "./components/controls/user-info.component";
 import { UserPreferencesComponent } from "./components/controls/user-preferences.component";
 import { UsersManagementComponent } from "./components/controls/users-management.component";
@@ -475,6 +476,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         NotFoundComponent,
         NotificationsViewerComponent,
         SearchBoxComponent,
+        SearChartComponent,
         StatisticsDemoComponent, TodoDemoComponent, BannerDemoComponent,
         EqualValidator,
         LastElementDirective,

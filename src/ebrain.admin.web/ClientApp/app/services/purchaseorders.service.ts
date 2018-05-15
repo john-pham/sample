@@ -37,6 +37,7 @@ import { Results } from "../models/results.model";
 import { PurchaseOrder } from "../models/purchaseorder.model";
 import { PurchaseOrderReport } from "../models/purchaseorderreport.model";
 import { PurchaseOrdersEndpoint } from "./purchaseorders-endpoint.service";
+import { Chart } from "../models/chart.model";
 
 @Injectable()
 export class PurchaseOrderService {
@@ -112,6 +113,11 @@ export class PurchaseOrderService {
     getpurchaseorders(filter: string, value: string, fromDate: Date, toDate: Date, allData: number, page: number, size: number) {
         return this.endpointFactory.getpurchaseorders(filter, value, fromDate, toDate, allData, page, size)
             .map((response: Response) => <Results<PurchaseOrderReport>>response.json());
+    }
+
+    reportpurchaseorders(filter: string, value: string, fromDate: Date, toDate: Date, allData: number, page: number, size: number) {
+        return this.endpointFactory.reportpurchaseorders(filter, value, fromDate, toDate, allData, page, size)
+            .map((response: Response) => <Chart>response.json());
     }
 
     getpurchaseorderdetails(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {

@@ -1,0 +1,8 @@
+﻿<div class="text-right">
+    <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'button.Search' | translate}}</button>
+    <button type="button" class="btn btn-success"
+            *ngIf="isShowTemplate"
+            (click)="showChart()">
+        <span class="fa fa-bar-chart"></span> {{'button.Chart' | translate}}
+    </button>
+</div>

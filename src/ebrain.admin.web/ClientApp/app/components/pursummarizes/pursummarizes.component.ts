@@ -24,6 +24,7 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Results } from "../../models/results.model";
 import { PurchaseOrderService } from "../../services/purchaseorders.service";
 import { PurchaseOrderReport } from "../../models/purchaseorderreport.model";
+import { Chart } from "../../models/chart.model";
 @Component({
     selector: 'pursummarizes',
     templateUrl: './pursummarizes.component.html',
@@ -45,6 +46,7 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
+    private chart: Chart;
 
     modalRef: BsModalRef;
 
@@ -128,6 +130,17 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
             });
     }
 
+    private getReport(template: TemplateRef<any>) {
+        this.localService.reportpurchaseorders(this.filterName, this.filterValue, this.fromDate, this.toDate, 0, this.page.pageNumber, this.page.size).subscribe(
+            resulted => {
+                this.chart = resulted;
+                this.alertService.stopLoadingMessage();
+                this.loadingIndicator = false;
+                this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+            },
+            error => this.onDataLoadFailed(error));
+    }
+
     private onDataLoadSuccessful(resulted: Results<PurchaseOrderReport>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
@@ -144,6 +157,11 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
 
     search() {
         this.getFromServer();
+    }
+
+    showChart(template: TemplateRef<any>) {
+        this.loadingIndicator = true;
+        this.getReport(template);
     }
 
     close() {

@@ -92,6 +92,9 @@ namespace Ebrain.Controllers
                         GrpMaterial = itemGrpMate != null ? itemGrpMate.GrpMaterialName : string.Empty,
                         TypeMaterial = itemType != null ? itemType.TypeMaterialName : string.Empty,
                         Quantity = item.InputQuantity,
+                        SellPrice = item.PriceBeforeVAT,
+                        TotalPrice = item.TotalPrice,
+                        Note = item.Note
                     });
 
                 }
@@ -197,19 +200,56 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> GetPurchaseOrderList(string filter, string value, string fromDate, string toDate, int allData, int page, int size)
         {
+
+            var list = await GetPurchaseOrderListMain(filter, value, fromDate, toDate, allData, page, size);
+
+            return Json(new
+            {
+                Total = this._unitOfWork.PurchaseOrders.Total,
+                List = list
+            });
+        }
+
+        [HttpGet("reportpurchaseorders")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> ReportPurchaseOrderList(string filter, string value, string fromDate, string toDate, int allData, int page, int size)
+        {
+
+            var list = await GetPurchaseOrderListMain(filter, value, fromDate, toDate, 0, 0, 0);
+            var item = new ChartViewModel();
+            if (list != null && list.Count > 0)
+            {
+                //sort
+                var temps = list.GroupBy(p => new { p.BranchName, p.CreateDate_MMYY }).Select(p => new
+                {
+                    BranchName = p.Key.BranchName,
+                    CreateDate = p.Key.CreateDate_MMYY,
+                    PurchaseQuantity = p.Sum(c => c.PurchaseQuantity)
+
+                }).ToList();
+                item.ChartModels.AddRange(temps.GroupBy(p => p.BranchName).Select(p => new ChartModel
+                {
+                    Label = p.Key,
+                    Data = p.Select(c => (decimal?)c.PurchaseQuantity).ToArray()
+                }));
+
+                item.ChartLabels = temps.Select(p => p.CreateDate).ToArray();
+            }
+
+            return this.Ok(item);
+        }
+
+
+        public async Task<List<PurchaseOrderViewModel>> GetPurchaseOrderListMain(string filter, string value, string fromDate, string toDate, int allData, int page, int size)
+        {
             var unit = this._unitOfWork.PurchaseOrders;
             var results = unit.GetPurchaseOrderList(
                             fromDate.BuildDateTimeFromSEFormat(),
                             toDate.BuildLastDateTimeFromSEFormat(),
                             value,
                             this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
-                            page, size
+                            page, size, allData > 0
                             );
-
-            if (allData > 0)
-            {
-                results = results.Where(item => (item.PurchaseQuantity - item.IOQuantity) > 0).ToList();
-            }
 
             var list = new List<PurchaseOrderViewModel>();
             foreach (var item in results)
@@ -228,11 +268,7 @@ namespace Ebrain.Controllers
                 });
             }
 
-            return Json(new
-            {
-                Total = unit.Total,
-                List = list
-            });
+            return list;
         }
 
         [HttpGet("getpurchaseorderdetails")]
@@ -339,7 +375,7 @@ namespace Ebrain.Controllers
                             this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                             page, size
                             );
-            
+
             var list = new List<PurchaseOrderViewModel>();
             foreach (var item in results)
             {

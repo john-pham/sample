@@ -39,5 +39,14 @@ namespace Ebrain.ViewModels
         public string PaymentTypeName { get; set; }
         public Guid? IOStockId { get; set; }
         public string IONumber { get; set; }
+
+        public string CreateDate_Grp { get; set; }
+        public string CreateDate_MMYY
+        {
+            get
+            {
+                return CreateDate.ToString("dd/MM");
+            }
+        }
     }
 }

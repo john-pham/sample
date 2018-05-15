@@ -1,0 +1,23 @@
+﻿.search-box {
+    position: relative;
+}
+
+.search-box label {
+    position: absolute;
+    height: 34px;
+    padding: 8px;
+}
+
+.search-box input#searchInput {
+    padding: 0 30px;
+}
+
+.search-box a.right-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.search-icon {
+    pointer-events: none;
+}

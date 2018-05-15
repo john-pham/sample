@@ -48,5 +48,13 @@ namespace Ebrain.ViewModels
 
         public Guid PurchaseOrderId { get; set; }
         public Guid PurchaseOrderDetailId { get; set; }
+        public string CreateDate_Grp { get; set; }
+        public string CreateDate_MMYY
+        {
+            get
+            {
+                return CreateDate.ToString("dd/MM");
+            }
+        }
     }
 }

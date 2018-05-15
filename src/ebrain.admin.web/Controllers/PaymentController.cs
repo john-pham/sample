@@ -94,14 +94,20 @@ namespace Ebrain.Controllers
             if (list != null && list.Count > 0)
             {
                 //sort
-                list = list.OrderBy(p => p.CreateDate).ToList();
-                item.ChartModels.AddRange(list.GroupBy(p => p.BranchName).Select(p => new ChartModel
+                var temps = list.GroupBy(p => new { p.BranchName, p.CreateDate_MMYY }).Select(p => new
+                {
+                    BranchName = p.Key.BranchName,
+                    CreateDate = p.Key.CreateDate_MMYY,
+                    TotalPrice = p.Sum(c => c.TotalPrice)
+
+                }).ToList();
+                item.ChartModels.AddRange(temps.GroupBy(p => p.BranchName).Select(p => new ChartModel
                 {
                     Label = p.Key,
                     Data = p.Select(c => c.TotalPrice).ToArray()
                 }));
 
-                item.ChartLabels = list.Select(p => p.CreateDate.ToString("dd/MM")).ToArray();
+                item.ChartLabels = temps.Select(p => p.CreateDate).ToArray();
             }
 
             return this.Ok(item);

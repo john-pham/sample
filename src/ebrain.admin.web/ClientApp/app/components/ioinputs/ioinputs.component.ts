@@ -174,7 +174,9 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     }
 
     showPurchase(template: TemplateRef<any>) {
-        if (this.pointer.id.length > 0) {
+        let id = this.pointer.id;
+
+        if (id!=null && id.length > 0) {
             this.alertService.showDialog('Phiếu đã tồn tại, bạn cần khởi tạo mới dữ liệu?', DialogType.confirm, () => {
                 this.showPurchaseMain(template);
             });

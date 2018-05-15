@@ -20,12 +20,7 @@
     </div>
     <div class="col-sm-3">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'button.Search' | translate}}</button>
-            <button type="button" class="btn btn-success"
-                    *ngIf="rows?.length > 0"
-                    (click)="showChart(template)">
-                <span class="fa fa-bar-chart"></span> {{'button.Chart' | translate}}
-            </button>
+            <search-chart (searchTemplate)="search()" (showTemplate)="showChart(template)" [isShowTemplate]="rows?.length > 0"></search-chart>
         </div>
     </div>
 </div>

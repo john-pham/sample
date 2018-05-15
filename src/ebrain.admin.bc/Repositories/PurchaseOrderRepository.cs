@@ -136,7 +136,8 @@ namespace ebrain.admin.bc.Repositories
 
         }
 
-        public IEnumerable<PurchaseOrderList> GetPurchaseOrderList(DateTime fromDate, DateTime toDate, string filterValue, string branchIds, int page, int size)
+        public IEnumerable<PurchaseOrderList> GetPurchaseOrderList(DateTime fromDate, DateTime toDate, string filterValue, string branchIds, int page, int size, 
+            bool isShowToInput)
         {
             try
             {
@@ -150,6 +151,10 @@ namespace ebrain.admin.bc.Repositories
                                    someTypeList = handler.ReadToList<PurchaseOrderList>().ToList();
                                });
 
+                if(isShowToInput == true)
+                {
+                    someTypeList = someTypeList.Where(item => (item.PurchaseQuantity - item.IOQuantity) > 0).ToList();
+                }
                 //paging
                 this.Total = someTypeList.Count();
                 if (size > 0 && page >= 0)
