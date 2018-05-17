@@ -97,6 +97,12 @@ export class UnitsComponent implements OnInit, OnDestroy {
         this.getFromServer();
     }
 
+    onOutputCSV() {
+        //
+        location.href = 'csv?filter=' + this.filterName + '&value=' + this.filterValue + '&page=' + this.page.pageNumber + '&size=' + this.page.size;
+        
+    }
+
     delete(row) {
         this.alertService.showDialog('Are you sure you want to delete the task?', DialogType.confirm, () => this.deleteHelper(row));
     }

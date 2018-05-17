@@ -29,6 +29,11 @@ export class UnitsService {
             .map((response: Response) => <Results<Unit>>response.json());
     }
 
+    csv(filter: string, value: string, page: number, size: number) {
+        return this.endpointFactory.search(filter, value, page, size)
+            .map((response: Response) => <Results<Unit>>response.json());
+    }
+
     get(index: string) {
         return this.endpointFactory.get(index)
             .map((response: Response) => <Unit>response.json());

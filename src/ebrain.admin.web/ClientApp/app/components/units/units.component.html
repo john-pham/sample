@@ -20,6 +20,7 @@
     </div>
     <div class="col-sm-2" *ngIf="accessRightService.isCreate('D7239078-E67A-32FA-86D6-4A8C3F73D522')">
         <div class="text-right">
+            <button class="btn btn-primary" (click)="onOutputCSV()"><i class="fa fa-print"></i> Export CSV</button>
             <button class="btn btn-primary" (click)="addUnit(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.unit.newUnit' | translate}}</button>
         </div>
     </div>
