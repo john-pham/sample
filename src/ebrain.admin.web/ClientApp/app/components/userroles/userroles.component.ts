@@ -90,6 +90,7 @@ export class UserRolesComponent implements OnInit, OnDestroy {
 
     //
     add(template: TemplateRef<any>) {
+        this.pointer.id = "";
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 

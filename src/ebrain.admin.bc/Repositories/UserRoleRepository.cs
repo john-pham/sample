@@ -96,7 +96,8 @@ namespace ebrain.admin.bc.Repositories
                            f.FullName,
                            f.UserName,
                            f.BranchId,
-                           BranchName = ubranch != null ? gb.BranchName : string.Empty
+                           BranchName = ubranch != null ? gb.BranchName : string.Empty,
+                           f.CreatedDate
                        };
 
 
@@ -110,7 +111,7 @@ namespace ebrain.admin.bc.Repositories
                 if (size > 0 && page >= 0)
                 {
                     data = (from c in data
-                            orderby c.Id
+                            orderby c.CreatedDate descending
                             select c).Skip(page * size).Take(size);
                 }
 

@@ -55,7 +55,8 @@ namespace Ebrain.Controllers
                       {
                           ID = c.ID,
                           Code = c.Code,
-                          Name = c.Name
+                          Name = c.Name,
+                          Note = c.Description
                       };
 
             return Json(new
@@ -92,7 +93,7 @@ namespace Ebrain.Controllers
                     ID = Guid.NewGuid(),
                     Code = Guid.NewGuid().ToString(),
                     Name = value.Name,
-                    Description = value.Description,
+                    Description = value.Note,
                     CreatedBy = userId,
                     UpdatedBy = userId,
                     CreatedDate = DateTime.Now,

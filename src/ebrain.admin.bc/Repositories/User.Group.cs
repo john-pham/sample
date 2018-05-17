@@ -97,7 +97,7 @@ namespace ebrain.admin.bc.Repositories
             if (size > 0 && page >= 0)
             {
                 items = (from c in items
-                         orderby c.CreatedDate
+                         orderby c.CreatedDate descending
                          select c).Skip(page * size).Take(size);
             }
 
