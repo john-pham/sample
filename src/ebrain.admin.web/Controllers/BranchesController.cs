@@ -19,6 +19,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using DinkToPdf;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net;
 
 namespace Ebrain.Controllers
 {
@@ -252,11 +255,47 @@ namespace Ebrain.Controllers
         }
 
         [HttpGet]
-        [Route("print")]
-        public IActionResult Output()
+        [Route("pdf")]
+        //[Produces("application/pdf")]
+        public IActionResult OutputPDF()
         {
             var output = generatePdf();
             return File(output, "application/pdf");
+        }
+
+        //[HttpGet]
+        //[Route("csv")]
+        ////[Produces("text/csv")]
+        //public async Task<HttpResponseMessage> OutputCSV(string filter, string value, int page, int size)
+        //{
+        //    string csv = await reportManager.GetReport(CustomerId, id);
+
+        //    var response = new HttpResponseMessage(HttpStatusCode.OK);
+        //    response.Content = new StringContent(csv);
+        //    response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
+        //    response.Content.Headers.ContentDisposition =
+        //        new ContentDispositionHeaderValue("attachment") { FileName = "report.csv" };
+        //    return response;
+        //}
+
+        [HttpGet("csv")]
+        [Produces("text/csv")]
+        public async Task<IActionResult> OutputCSV(string filter, string value, int page, int size)
+        {
+            var bus = this._unitOfWork.Branches;
+            var ret = from c in await bus.Search(filter, value, page, size)
+                      select new BranchViewModel
+                      {
+                          ID = c.BranchId,
+                          Code = c.BranchCode,
+                          Name = c.BranchName,
+                          Email = c.Email,
+                          Address = c.Address,
+                          PhoneNumber = c.PhoneNumber,
+                          Fax = c.FAX
+                      };
+
+            return Ok(ret);
         }
 
         private byte[] generatePdf()
