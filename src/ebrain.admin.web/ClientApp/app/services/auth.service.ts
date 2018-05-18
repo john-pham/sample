@@ -196,6 +196,7 @@ export class AuthService {
         this.localStorage.deleteData(DBkeys.TOKEN_EXPIRES_IN);
         this.localStorage.deleteData(DBkeys.USER_PERMISSIONS);
         this.localStorage.deleteData(DBkeys.CURRENT_USER);
+        this.localStorage.deleteData(DBkeys.PERMISSIONS_ACCESSRIGHTS);
 
         this.configurations.clearLocalChanges();
 

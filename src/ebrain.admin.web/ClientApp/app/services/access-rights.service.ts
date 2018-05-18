@@ -19,11 +19,14 @@ import { ConfigurationService } from './configuration.service';
 import { JwtHelper } from './jwt-helper';
 import { AccessRight } from "../models/accessright.model";
 import { Utilities } from "./utilities";
+import { LocalStoreManager } from "./local-store-manager.service";
+import { DBkeys } from "./db-Keys";
 
 @Injectable()
 export class AccessRightsService {
 
-    constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: AccessRightsEndpoint) {
+    constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: AccessRightsEndpoint,
+        private localStorage: LocalStoreManager) {
         this.initializeStatus();
     }
 
@@ -77,9 +80,13 @@ export class AccessRightsService {
     }
 
     //permission accessRight
+    get currentAccessRights(): AccessRight[] {
+        let access = this.localStorage.getDataObject<AccessRight[]>(DBkeys.PERMISSIONS_ACCESSRIGHTS);
+        return access;
+    }
 
     private isViewFeatureGroup(featureGroupId: string) {
-        var accessRights = Utilities.accessRights;
+        let accessRights = this.currentAccessRights;
         if (accessRights != null && accessRights.length > 0) {
             var array = accessRights.filter(p => p.featureGroupId == featureGroupId.toLowerCase() && p.view == true);
             return array != null && array.length > 0;
@@ -88,7 +95,7 @@ export class AccessRightsService {
     }
 
     private isViewFeature(featureId: string) {
-        var accessRights = Utilities.accessRights;
+        let accessRights = this.currentAccessRights;
         if (accessRights != null && accessRights.length > 0) {
             var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.view == true);
             return array != null && array.length > 0;
@@ -97,7 +104,7 @@ export class AccessRightsService {
     }
 
     private isEdit(featureId: string) {
-        var accessRights = Utilities.accessRights;
+        let accessRights = this.currentAccessRights;
         if (accessRights != null && accessRights.length > 0) {
             var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.edit == true);
             return array != null && array.length > 0;
@@ -106,7 +113,7 @@ export class AccessRightsService {
     }
 
     private isCreate(featureId: string) {
-        var accessRights = Utilities.accessRights;
+        let accessRights = this.currentAccessRights;
         if (accessRights != null && accessRights.length > 0) {
             var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.create == true);
             return array != null && array.length > 0;
@@ -115,7 +122,7 @@ export class AccessRightsService {
     }
 
     private isDelete(featureId: string) {
-        var accessRights = Utilities.accessRights;
+        let accessRights = this.currentAccessRights;
         if (accessRights != null && accessRights.length > 0) {
             var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.delete == true);
             return array != null && array.length > 0;

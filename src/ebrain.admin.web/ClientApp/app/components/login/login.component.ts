@@ -13,6 +13,10 @@ import { AuthService } from "../../services/auth.service";
 import { ConfigurationService } from '../../services/configuration.service';
 import { Utilities } from '../../services/utilities';
 import { UserLogin } from '../../models/user-login.model';
+import { AccountService } from "../../services/account.service";
+import { LocalStoreManager } from "../../services/local-store-manager.service";
+import { AccessRight } from "../../models/accessright.model";
+import { DBkeys } from "../../services/db-Keys";
 
 @Component({
     selector: "app-login",
@@ -32,7 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     isModal = false;
 
 
-    constructor(private alertService: AlertService, private authService: AuthService, private configurations: ConfigurationService) {
+    constructor(private storageManager: LocalStoreManager, private alertService: AlertService, private authService: AuthService, private configurations: ConfigurationService,
+        private accountService: AccountService) {
 
     }
 
@@ -99,6 +104,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
                         this.closeModal();
                     }
+
+                    //call permission
+                    this.getAccessRight();
+
                 }, 500);
             },
             error => {
@@ -149,5 +158,25 @@ export class LoginComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             this.formResetToggle = true;
         });
+    }
+
+    getAccessRight() {
+        this.accountService.getAccessRights().subscribe(
+            resulted => this.onAccessRightLoadSuccessful(resulted),
+            error => this.onLoadFailed(error));
+    }
+
+    private onAccessRightLoadSuccessful(resulted: AccessRight[]) {
+        debugger;
+        //save permission
+        this.storageManager.saveSyncedSessionData(resulted, DBkeys.PERMISSIONS_ACCESSRIGHTS);
+        this.alertService.stopLoadingMessage();
+    }
+
+    private onLoadFailed(error: any) {
+        this.alertService.stopLoadingMessage();
+        this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
+            MessageSeverity.error, error);
+
     }
 }

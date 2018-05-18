@@ -29,6 +29,7 @@ import { AccessRight } from "../models/accessright.model";
 import { AccessRightsService } from "../services/access-rights.service";
 import { SupportService } from "../services/support.service";
 import { Support } from "../models/support.model";
+import { DBkeys } from "../services/db-Keys";
 
 require('jquery');
 var alertify: any = require('../assets/scripts/alertify.js');
@@ -181,7 +182,6 @@ export class AlteComponent implements OnInit, AfterViewInit {
                 //else
                 //    this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again", MessageSeverity.warn);
                 //
-                this.getAccessRight();
             }
         }, 2000);
 
@@ -250,23 +250,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
         //load messenger
         this.getData();
     }
-
-    getAccessRight() {
-        var disp = this.accountService.getAccessRights().subscribe(
-            resulted => this.onAccessRightLoadSuccessful(resulted),
-            error => this.onLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { }, 1500);
-            });
-    }
-
-    private onAccessRightLoadSuccessful(resulted: AccessRight[]) {
-        this.accessRights = resulted;
-        Utilities.accessRights = resulted;
-        this.alertService.stopLoadingMessage();
-    }
-
+    
     getData() {
         this.messengerService.getnewmessenger().subscribe(
             resulted => this.onMessengerLoadSuccessful(resulted),

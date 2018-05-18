@@ -17,6 +17,7 @@ export class DBkeys {
     public static readonly ID_TOKEN = "id_token";
     public static readonly REFRESH_TOKEN = "refresh_token";
     public static readonly TOKEN_EXPIRES_IN = "expires_in";
+    public static readonly PERMISSIONS_ACCESSRIGHTS = "permissions_accessrights";
 
     public static readonly REMEMBER_ME = "remember_me";
 
