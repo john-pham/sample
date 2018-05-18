@@ -61,7 +61,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
         this.pointer.logo = new File();
         //
         this.page.pageNumber = 0;
-        this.page.size = 100;
+        this.page.size = 20;
         this.filterName = "";
         this.filterValue = "";
     }
