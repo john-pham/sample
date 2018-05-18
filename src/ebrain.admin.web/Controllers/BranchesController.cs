@@ -278,26 +278,6 @@ namespace Ebrain.Controllers
         //    return response;
         //}
 
-        [HttpGet("csv")]
-        [Produces("text/csv")]
-        public async Task<IActionResult> OutputCSV(string filter, string value, int page, int size)
-        {
-            var bus = this._unitOfWork.Branches;
-            var ret = from c in await bus.Search(filter, value, page, size)
-                      select new BranchViewModel
-                      {
-                          ID = c.BranchId,
-                          Code = c.BranchCode,
-                          Name = c.BranchName,
-                          Email = c.Email,
-                          Address = c.Address,
-                          PhoneNumber = c.PhoneNumber,
-                          Fax = c.FAX
-                      };
-
-            return Ok(ret);
-        }
-
         private byte[] generatePdf()
         {
             var converter = new SynchronizedConverter(new PdfTools());

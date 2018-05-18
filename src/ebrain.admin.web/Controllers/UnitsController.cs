@@ -135,24 +135,5 @@ namespace Ebrain.Controllers
 
             return BadRequest(ModelState);
         }
-
-        [HttpGet("csv")]
-        [Route("csv")]
-        [Produces("text/csv")]
-        public async Task<IActionResult> OutputCSV(string filter, string value, int page, int size)
-        {
-            var userId = Utilities.GetUserId(this.User);
-            var unit = this._unitOfWork.Units;
-            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
-                      select new UnitViewModel
-                      {
-                          ID = c.UnitId,
-                          Code = c.UnitCode,
-                          Name = c.UnitName,
-                          Note = c.Note
-                      };
-
-            return Ok(ret);
-        }
     }
 }

@@ -99,7 +99,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
     onOutputCSV() {
         //
-        location.href = 'csv?filter=' + this.filterName + '&value=' + this.filterValue + '&page=' + this.page.pageNumber + '&size=' + this.page.size;
+        location.href = '/download/units?filter=' + this.filterName + '&value=' + this.filterValue + '&page=' + this.page.pageNumber + '&size=' + this.page.size;
         
     }
 
