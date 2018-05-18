@@ -41,9 +41,10 @@ namespace Ebrain.Controllers
                           Fax = c.FAX
                       };
 
-            string csv = "sample data here for Quang";
+            string csv = string.Join('\t', ret);
             byte[] contents = System.Text.Encoding.UTF8.GetBytes(csv);
-            Response.Headers.Add("Content-Disposition", "inline; filename=OutputUnitsCSV.csv");
+            Response.Headers.Add("Content-Disposition", "inline; filename=Branches.csv");
+
             return File(contents, "text/csv");
         }
 
@@ -62,9 +63,10 @@ namespace Ebrain.Controllers
                           Note = c.Note
                       };
 
-            string csv = "sample data here for Quang";
+            string csv = string.Join('\t', ret);
             byte[] contents = System.Text.Encoding.UTF8.GetBytes(csv);
-            Response.Headers.Add("Content-Disposition", "inline; filename=OutputUnitsCSV.csv");
+            Response.Headers.Add("Content-Disposition", "inline; filename=Units.csv");
+
             return File(contents, "text/csv");
         }
     }

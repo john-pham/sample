@@ -154,6 +154,12 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     }
 
+    onOutputCSV() {
+        //
+        location.href = '/download/OutputBranchesCSV?filter=' + this.filterName + '&value=' + this.filterValue + '&page=' + this.page.pageNumber + '&size=' + this.page.size;
+
+    }
+
     //head
     editHead(template: TemplateRef<any>, index: string) {
         var disp = this.localService.getBranchHead(index).subscribe(

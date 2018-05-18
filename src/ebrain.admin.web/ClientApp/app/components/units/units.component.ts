@@ -48,6 +48,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
         this.page = new Page();
         this.page.pageNumber = 0;
         this.page.size = 20;
+        this.filterName = '';
     }
 
     setPage(pageInfo) {
@@ -99,7 +100,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
     onOutputCSV() {
         //
-        location.href = '/download/units?filter=' + this.filterName + '&value=' + this.filterValue + '&page=' + this.page.pageNumber + '&size=' + this.page.size;
+        location.href = '/download/OutputUnitsCSV?filter=' + this.filterName + '&value=' + this.filterValue + '&page=' + this.page.pageNumber + '&size=' + this.page.size;
         
     }
 
