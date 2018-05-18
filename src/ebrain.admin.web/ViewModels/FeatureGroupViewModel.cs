@@ -12,7 +12,7 @@ namespace Ebrain.ViewModels
 {
     public class FeatureGroupViewModel
     {
-        public Guid ID { get; set; }
+        public Guid? ID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

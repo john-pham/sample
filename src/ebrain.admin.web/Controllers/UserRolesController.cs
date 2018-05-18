@@ -71,7 +71,7 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IEnumerable<UserRoleViewModel>> Get(Guid userId)
         {
-            var results = await this._unitOfWork.UserGroups.GetRoleFromUser(userId, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+            var results = await this._unitOfWork.UserGroups.GetRoleFromUser(userId, this._unitOfWork.Branches.GetAllBranchOfUserString(this.userId));
 
             var datas = results.Select(c => new UserRoleViewModel
             {

@@ -35,10 +35,9 @@ namespace Ebrain.Controllers
         readonly ILogger _logger;
         readonly IHostingEnvironment _env;
 
-        public BranchesController(IUnitOfWork unitOfWork, ILogger<BranchesController> logger, IHostingEnvironment env, ITemplateService templateService) : base(unitOfWork, logger)
+        public BranchesController(IUnitOfWork unitOfWork, ILogger<BranchesController> logger, IHostingEnvironment env) : base(unitOfWork, logger)
         {
             this._unitOfWork = unitOfWork;
-            this._templateService = templateService;
             this._logger = logger;
             this._env = env;
         }

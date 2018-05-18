@@ -50,10 +50,10 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
-    
+
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
-        private localService: BranchesService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
+        private localService: BranchesService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Branch();
         this.page = new Page();
 
@@ -61,7 +61,9 @@ export class BranchesComponent implements OnInit, OnDestroy {
         this.pointer.logo = new File();
         //
         this.page.pageNumber = 0;
-        this.page.size = 20;
+        this.page.size = 100;
+        this.filterName = "";
+        this.filterValue = "";
     }
 
     ngOnInit() {
@@ -71,8 +73,8 @@ export class BranchesComponent implements OnInit, OnDestroy {
         this.columns = [
             { headerClass: "text-center", prop: "code", name: gT('label.branch.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
             { headerClass: "text-center", prop: "logo.name", name: '', cellTemplate: this.logoTemplate },
-            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'),cellTemplate: this.nameTemplate },
-            
+            { headerClass: "text-center", prop: 'name', name: gT('label.branch.Name'), cellTemplate: this.nameTemplate },
+
             { headerClass: "text-center", prop: 'address', name: gT('label.branch.Address'), cellTemplate: this.descriptionTemplate },
             { headerClass: "text-center", prop: 'id', name: '', width: 200, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
@@ -208,7 +210,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
         this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
-    
+
     saveHead() {
         this.alertService.startLoadingMessage("Saving changes...");
 
@@ -264,7 +266,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-    
+
     updateValue(row, event, rowIndex) {
         row.isExist = event.target.checked;
     }
@@ -308,6 +310,6 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     @ViewChild('checkboxTemplate')
     checkboxTemplate: TemplateRef<any>;
-    
-    
+
+
 }
