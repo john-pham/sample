@@ -21,6 +21,7 @@ import { TypeMaterialsEndpoint } from "./typeMaterials-endpoint.service";
 import { IOStudentListEndpoint } from "./iostudentlists-endpoint.service";
 import { IOStockReport } from "../models/iostockreport.model";
 import { Results } from "../models/results.model";
+import { Chart } from "../models/chart.model";
 
 @Injectable()
 export class IOStudentListService {
@@ -32,6 +33,11 @@ export class IOStudentListService {
     search(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.search(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Results<IOStockReport>>response.json());
+    }
+
+    reportsearch(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.reportsearch(filter, value, fromDate, toDate, page, size)
+            .map((response: Response) => <Chart>response.json());
     }
 
     getiopayment(filter: string, value: string, isInput: boolean, ioid: string, fromDate: Date, toDate: Date, page: number, size: number) {

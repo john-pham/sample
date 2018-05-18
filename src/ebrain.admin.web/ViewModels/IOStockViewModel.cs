@@ -43,5 +43,13 @@ namespace Ebrain.ViewModels
         public decimal TotalPriceExist { get; set; }
         public string PurchaseOrderCode { get; set; }
         public Guid? PurchaseOrderId { get; set; }
+        public string BranchName { get; set; }
+        public string CreateDate_MMYY
+        {
+            get
+            {
+                return CreateDate.ToString("dd/MM");
+            }
+        }
     }
 }

@@ -51,6 +51,46 @@ namespace Ebrain.Controllers
         public async Task<JsonResult> Search(string filter, string value, string fromDate, string toDate, int page, int size)
         {
             var unit = this._unitOfWork.IOStocks;
+            var list = await SearchMain(filter, value, fromDate, toDate, page, size);
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+        }
+
+        [HttpGet("reportsearch")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> ReportPurchaseOrderList(string filter, string value, string fromDate, string toDate, int allData, int page, int size)
+        {
+
+            var list = await SearchMain(filter, value, fromDate, toDate, 0, 0);
+            var item = new ChartViewModel();
+            if (list != null && list.Count > 0)
+            {
+                //sort
+                var temps = list.GroupBy(p => new { p.BranchName, p.CreateDate_MMYY }).Select(p => new
+                {
+                    BranchName = p.Key.BranchName,
+                    CreateDate = p.Key.CreateDate_MMYY,
+                    TotalPrice = p.Sum(c => c.TotalPrice)
+
+                }).ToList();
+                item.ChartModels.AddRange(temps.GroupBy(p => p.BranchName).Select(p => new ChartModel
+                {
+                    Label = p.Key,
+                    Data = p.Select(c => c.TotalPrice).ToArray()
+                }));
+
+                item.ChartLabels = temps.Select(p => p.CreateDate).ToArray();
+            }
+
+            return this.Ok(item);
+        }
+
+        public async Task<List<IOStockViewModel>> SearchMain(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
+            var unit = this._unitOfWork.IOStocks;
             var results = unit.GetIOStockList(
                             fromDate.BuildDateTimeFromSEFormat(),
                             toDate.BuildLastDateTimeFromSEFormat(),
@@ -70,14 +110,11 @@ namespace Ebrain.Controllers
                     TotalPrice = item.TotalPrice,
                     IOTypeId = (int)item.IOTypeId,
                     Note = item.Note,
-                    StudentId = item.StudentId
+                    StudentId = item.StudentId,
+                    BranchName  = item.BranchName
                 });
             }
-            return Json(new
-            {
-                Total = unit.Total,
-                List = list
-            });
+            return list;
         }
 
 

@@ -22,6 +22,7 @@ import { IOStockReport } from "../../models/iostockreport.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
+import { Chart } from "../../models/chart.model";
 @Component({
     selector: 'iostudentlist',
     templateUrl: './iostudentlists.component.html',
@@ -40,6 +41,7 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
     toDate: Date;
 
     private pointer: Grpsupplier;
+    private chart: Chart;
 
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
@@ -120,6 +122,17 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
             });
     }
 
+    private getReport(template: TemplateRef<any>) {
+        this.localService.reportsearch(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+            resulted => {
+                this.chart = resulted;
+                this.alertService.stopLoadingMessage();
+                this.loadingIndicator = false;
+                this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+            },
+            error => this.onDataLoadFailed(error));
+    }
+
     private onDataLoadSuccessful(resulted: Results<IOStockReport>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
@@ -138,6 +151,11 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
         var url = '';
         if (value != null && value.ioTypeId == 1) { url = '/iooutput'; } else { url = '/ioinput'; }
         this.router.navigate([url, value.id]);
+    }
+
+    showChart(template: TemplateRef<any>) {
+        this.loadingIndicator = true;
+        this.getReport(template);
     }
 
     close() {

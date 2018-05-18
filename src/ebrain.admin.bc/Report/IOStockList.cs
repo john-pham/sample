@@ -6,6 +6,7 @@ namespace ebrain.admin.bc.Report
 {
     public class IOStockList
     {
+        public string BranchName { get; set; }
         public Guid IOStockId { get; set; }
         public string IONumber { get; set; }
         public long IOTypeId { get; set; }

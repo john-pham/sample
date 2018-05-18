@@ -45,6 +45,19 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
+    reportsearch(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrl('reportsearch?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.search(filter, value, fromDate, toDate, page, size));
+            });
+    }
+
     getiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
         let url = this.getUrlIO('getiobyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
