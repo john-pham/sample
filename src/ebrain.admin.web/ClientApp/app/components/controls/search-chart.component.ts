@@ -16,7 +16,7 @@ import { Component, ViewChild, ElementRef, Input, Output, EventEmitter } from '@
 export class SearChartComponent {
 
     @Input() isShowTemplate: any;
-    @Input() isShowSearch: any = true;
+    @Input() isShowSearch: any ;
     @Input() isShowAddNew: any;
     @Input() isShowExport: any = true;
 

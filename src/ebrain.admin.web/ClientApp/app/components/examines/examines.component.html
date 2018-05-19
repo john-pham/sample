@@ -20,7 +20,9 @@
     </div>
     <div class="col-sm-2" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE94')">
         <div class="text-right dd">
-            <button class="btn btn-primary" (click)="addExamine(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.examine.newExamine' | translate}}</button>
+            <search-chart (searchTemplate)="search()"
+                          [isShowAddNew]="true" (addNewTemplate)="addExamine(template)"
+                          [isShowExport]="true" (exportExcelTemplate)="onOutputCSV()"></search-chart>
         </div>
     </div>
 </div>

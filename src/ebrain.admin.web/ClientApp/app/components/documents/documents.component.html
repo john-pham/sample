@@ -39,7 +39,9 @@
     </div>
     <div class="col-sm-2" *ngIf="accessRightService.isCreate('9C100588-C478-47C8-BE15-40523BB6BA1B')">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addDocument(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.document.newDocument' | translate}}</button>
+            <search-chart (searchTemplate)="search()"
+                          [isShowAddNew]="true" (addNewTemplate)="addDocument(template)"
+                          [isShowExport]="true" (exportExcelTemplate)="onOutputCSV()"></search-chart>
         </div>
     </div>
 </div>
