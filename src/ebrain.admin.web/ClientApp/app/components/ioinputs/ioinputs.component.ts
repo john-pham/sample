@@ -159,8 +159,8 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     }
 
     showmaterial(template: TemplateRef<any>) {
-        if (this.pointer.purchaseOrderCode.length > 0) {
-            this.alertService.showDialog('Phiếu đã tồn tại đặt hàng, bạn cần khởi tạo mới dữ liệu?', DialogType.confirm, () => {
+        if (this.pointer.purchaseOrderCode != null && this.pointer.purchaseOrderCode.length > 0) {
+            this.alertService.showDialog('Đã tồn tại phiếu đặt hàng, bạn cần khởi tạo mới dữ liệu?', DialogType.confirm, () => {
                 this.showmaterialMain(template);
             });
         } else {
@@ -176,7 +176,7 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     showPurchase(template: TemplateRef<any>) {
         let id = this.pointer.id;
 
-        if (id!=null && id.length > 0) {
+        if (id != null && id.length > 0) {
             this.alertService.showDialog('Phiếu đã tồn tại, bạn cần khởi tạo mới dữ liệu?', DialogType.confirm, () => {
                 this.showPurchaseMain(template);
             });
@@ -447,6 +447,8 @@ export class IOInputsComponent implements OnInit, OnDestroy {
             this.rows.push(iod);
             this.rows = [...this.rows];
         });
+
+        this.loadingIndicator = false;
     }
 
     private saveSuccessHelper(io?: IOStock) {

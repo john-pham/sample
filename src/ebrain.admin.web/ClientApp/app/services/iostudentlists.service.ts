@@ -50,9 +50,19 @@ export class IOStudentListService {
             .map((response: Response) => <Results<IOStockReport>>response.json());
     }
 
+    reportiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.reportiobyiotypeid(filter, value, fromDate, toDate, page, size)
+            .map((response: Response) => <Chart>response.json());
+    }
+
     getiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.getiodetailbyiotypeid(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Results<IOStockReport>>response.json());
+    }
+
+    reportiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.reportiodetailbyiotypeid(filter, value, fromDate, toDate, page, size)
+            .map((response: Response) => <Chart>response.json());
     }
 
     getWarehouseCard(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {

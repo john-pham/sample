@@ -60,6 +60,35 @@ namespace Ebrain.Controllers
             });
         }
 
+        [HttpGet("reportiobyiotypeid")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> ReportIOByIOTypeId(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
+
+            var list = GetIOByIOTypeIdMain(filter, value, fromDate.BuildDateTimeFromSEFormat(), toDate.BuildLastDateTimeFromSEFormat(), 0, 0, 0);
+            var item = new ChartViewModel();
+            if (list != null && list.Count() > 0)
+            {
+                //sort
+                var temps = list.GroupBy(p => new { p.BranchName, p.CreateDate_MMYY }).Select(p => new
+                {
+                    BranchName = p.Key.BranchName,
+                    CreateDate = p.Key.CreateDate_MMYY,
+                    TotalPrice = p.Sum(c => c.TotalPrice)
+
+                }).ToList();
+                item.ChartModels.AddRange(temps.GroupBy(p => p.BranchName).Select(p => new ChartModel
+                {
+                    Label = p.Key,
+                    Data = p.Select(c => c.TotalPrice).ToArray()
+                }));
+
+                item.ChartLabels = temps.Select(p => p.CreateDate).ToArray();
+            }
+
+            return this.Ok(item);
+        }
+
         public IEnumerable<IOStockViewModel> GetIOByIOTypeIdMain(string filter, string value, DateTime fromDate, DateTime toDate, int ioTypeId, int page, int size)
         {
             // var results = await this._unitOfWork.IOStocks.Search(filter, value);
@@ -82,7 +111,8 @@ namespace Ebrain.Controllers
                     TotalPrice = item.TotalPrice,
                     IOTypeId = (int)item.IOTypeId,
                     Note = item.Note,
-                    StudentId = item.StudentId
+                    StudentId = item.StudentId,
+                    BranchName = item.BranchName
                 });
             }
             return list;
@@ -112,6 +142,46 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> GetIODetailByIOTypeId(string filter, string value, string fromDate, string toDate, int page, int size)
         {
+            var list = await GetIODetailByIOTypeIdMain(filter, value, fromDate, toDate, page, size);
+
+            return Json(new
+            {
+                Total = this._unitOfWork.IOStocks.Total,
+                List = list
+            });
+        }
+
+        [HttpGet("reportiodetailbyiotypeid")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> ReportIODetailByIOTypeId(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
+
+            var list = GetIOByIOTypeIdMain(filter, value, fromDate.BuildDateTimeFromSEFormat(), toDate.BuildLastDateTimeFromSEFormat(), 0, 0, 0);
+            var item = new ChartViewModel();
+            if (list != null && list.Count() > 0)
+            {
+                //sort
+                var temps = list.GroupBy(p => new { p.BranchName, p.CreateDate_MMYY }).Select(p => new
+                {
+                    BranchName = p.Key.BranchName,
+                    CreateDate = p.Key.CreateDate_MMYY,
+                    TotalPrice = p.Sum(c => c.TotalPrice)
+
+                }).ToList();
+                item.ChartModels.AddRange(temps.GroupBy(p => p.BranchName).Select(p => new ChartModel
+                {
+                    Label = p.Key,
+                    Data = p.Select(c => c.TotalPrice).ToArray()
+                }));
+
+                item.ChartLabels = temps.Select(p => p.CreateDate).ToArray();
+            }
+
+            return this.Ok(item);
+        }
+
+        public async Task<List<IOStockViewModel>> GetIODetailByIOTypeIdMain(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
             var unit = this._unitOfWork.IOStocks;
             var results = unit.GetIOStockDetailList(
                             fromDate.BuildDateTimeFromSEFormat(),
@@ -139,15 +209,11 @@ namespace Ebrain.Controllers
                     MaterialId = item.MaterialId,
                     MaterialCode = item.MaterialCode,
                     MaterialName = item.MaterialName,
-                    Quantity = item.InputQuantity
+                    Quantity = item.InputQuantity,
+                    BranchName = item.BranchName
                 });
             }
-
-            return Json(new
-            {
-                Total = this._unitOfWork.IOStocks.Total,
-                List = results
-            });
+            return list;
         }
 
         [HttpGet("getwarehousecard")]

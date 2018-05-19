@@ -71,6 +71,19 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
+    reportiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrlIO('reportiobyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.reportiobyiotypeid(filter, value, fromDate, toDate, page, size));
+            });
+    }
+
     getiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
         let url = this.getUrlIO('getiodetailbyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
@@ -81,6 +94,19 @@ export class IOStudentListEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.getiodetailbyiotypeid(filter, value, fromDate, toDate, page, size));
+            });
+    }
+
+    reportiodetailbyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrlIO('reportiodetailbyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.reportiodetailbyiotypeid(filter, value, fromDate, toDate, page, size));
             });
     }
 

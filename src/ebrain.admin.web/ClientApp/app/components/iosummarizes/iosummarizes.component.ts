@@ -22,6 +22,7 @@ import { IOStockReport } from "../../models/iostockreport.model";
 import { Page } from '../../models/page.model';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Results } from "../../models/results.model";
+import { Chart } from "../../models/chart.model";
 @Component({
     selector: 'iosummarizes',
     templateUrl: './iosummarizes.component.html',
@@ -43,6 +44,7 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
+    private chart: Chart;
 
     modalRef: BsModalRef;
 
@@ -124,6 +126,17 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
             });
     }
 
+    private getReport(template: TemplateRef<any>) {
+        this.localService.reportiobyiotypeid(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+            resulted => {
+                this.chart = resulted;
+                this.alertService.stopLoadingMessage();
+                this.loadingIndicator = false;
+                this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+            },
+            error => this.onDataLoadFailed(error));
+    }
+
     private onDataLoadSuccessful(resulted: Results<IOStockReport>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
@@ -140,6 +153,11 @@ export class IOSummarizesComponent implements OnInit, OnDestroy {
 
     search() {
         this.getFromServer();
+    }
+
+    showChart(template: TemplateRef<any>) {
+        this.loadingIndicator = true;
+        this.getReport(template);
     }
 
     close() {

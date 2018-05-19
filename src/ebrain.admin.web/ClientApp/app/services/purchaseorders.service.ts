@@ -125,6 +125,11 @@ export class PurchaseOrderService {
             .map((response: Response) => <Results<PurchaseOrderReport>>response.json());
     }
 
+    retportpurchaseorderdetails(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.reportpurchaseorderdetails(filter, value, fromDate, toDate, page, size)
+            .map((response: Response) => <Chart>response.json());
+    }
+
     getpurchaseorderdetailhistorys(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.getpurchaseorderdetailhistorys(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Results<PurchaseOrderReport>>response.json());

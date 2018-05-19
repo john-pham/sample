@@ -290,6 +290,41 @@ namespace Ebrain.Controllers
             });
         }
 
+        [HttpGet("reportpurchaseorderdetails")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> ReportPurchaseOrderListDetail(string filter, string value, string fromDate, string toDate, int page, int size)
+        {
+
+            var list = GetPurchaseOrderListDetailMain(
+                            filter,
+                            value,
+                            fromDate.BuildDateTimeFromSEFormat(),
+                            toDate.BuildLastDateTimeFromSEFormat(),
+                            0, 0
+                            );
+            var item = new ChartViewModel();
+            if (list != null && list.Count > 0)
+            {
+                //sort
+                var temps = list.GroupBy(p => new { p.BranchName, p.CreateDate_MMYY }).Select(p => new
+                {
+                    BranchName = p.Key.BranchName,
+                    CreateDate = p.Key.CreateDate_MMYY,
+                    PurchaseQuantity = p.Sum(c => c.PurchaseQuantity)
+
+                }).ToList();
+                item.ChartModels.AddRange(temps.GroupBy(p => p.BranchName).Select(p => new ChartModel
+                {
+                    Label = p.Key,
+                    Data = p.Select(c => (decimal?)c.PurchaseQuantity).ToArray()
+                }));
+
+                item.ChartLabels = temps.Select(p => p.CreateDate).ToArray();
+            }
+
+            return this.Ok(item);
+        }
+
         [HttpGet("getpurchasedetailsbyid")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetPurchaseDetails(Guid? index)

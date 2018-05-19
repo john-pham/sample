@@ -12,6 +12,7 @@ namespace ebrain.admin.bc.Report
         public string MaterialCode { get; set; }
         public string MaterialName { get; set; }
         public decimal InputQuantity { get; set; }
+        public string BranchName { get; set; }
         public decimal QuantityInput { get; set; }
         public decimal QuantityOutput { get; set; }
         public string IONumber { get; set; }
