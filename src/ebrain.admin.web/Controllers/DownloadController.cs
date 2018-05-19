@@ -41,9 +41,8 @@ namespace Ebrain.Controllers
                           Fax = c.FAX
                       };
 
-            string csv = this.Convert< BranchViewModel>(ret);
+            var contents = this.Convert<BranchViewModel>(ret);
 
-            byte[] contents = System.Text.Encoding.UTF8.GetBytes(csv);
             Response.Headers.Add("Content-Disposition", "inline; filename=Branches.csv");
 
             return File(contents, "text/csv");
@@ -65,9 +64,7 @@ namespace Ebrain.Controllers
                           Note = c.Note
                       };
 
-            string csv = this.Convert<UnitViewModel>(ret);
-
-            byte[] contents = System.Text.Encoding.UTF8.GetBytes(csv);
+            var contents = this.Convert<UnitViewModel>(ret);
             Response.Headers.Add("Content-Disposition", "inline; filename=Units.csv");
 
             return File(contents, "text/csv");
@@ -76,9 +73,11 @@ namespace Ebrain.Controllers
 
         #region internal process
 
-        private string Convert<T>(IEnumerable<T> value)
+        private byte[] Convert<T>(IEnumerable<T> value)
         {
-            return string.Join('\t', value);
+            var content = string.Join('\t', value);
+
+            return System.Text.Encoding.UTF8.GetBytes(content);
         }
 
         #endregion
