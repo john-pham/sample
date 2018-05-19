@@ -41,7 +41,8 @@ namespace Ebrain.Controllers
                           Fax = c.FAX
                       };
 
-            string csv = string.Join('\t', ret);
+            string csv = this.Convert< BranchViewModel>(ret);
+
             byte[] contents = System.Text.Encoding.UTF8.GetBytes(csv);
             Response.Headers.Add("Content-Disposition", "inline; filename=Branches.csv");
 
@@ -49,6 +50,7 @@ namespace Ebrain.Controllers
         }
 
         [HttpGet]
+        [Produces("text/csv")]
         public async Task<FileResult> OutputUnitsCSV(string filter, string value, int page, int size)
         {
             var userId = Utilities.GetUserId(this.User);
@@ -63,11 +65,23 @@ namespace Ebrain.Controllers
                           Note = c.Note
                       };
 
-            string csv = string.Join('\t', ret);
+            string csv = this.Convert<UnitViewModel>(ret);
+
             byte[] contents = System.Text.Encoding.UTF8.GetBytes(csv);
             Response.Headers.Add("Content-Disposition", "inline; filename=Units.csv");
 
             return File(contents, "text/csv");
         }
+
+
+        #region internal process
+
+        private string Convert<T>(IEnumerable<T> value)
+        {
+            return string.Join('\t', value);
+        }
+
+        #endregion
     }
+
 }
