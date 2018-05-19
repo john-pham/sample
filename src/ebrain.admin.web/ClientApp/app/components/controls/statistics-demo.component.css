@@ -14,7 +14,21 @@
 .chart-type-container {
     display: inline-block;
 }
+    .chart-type-container .modal-title {
+        font-family: 'DancingScript';
+        margin-right: 10px;
+    }
 
+    .chart-type-container .dropdown-menu {
+        position: absolute;
+        left: 187px;
+        top: 35px;
+    }
+
+    .chart-type-container .btn-chart {
+        height: 30px;
+        margin: auto;
+    }
 
 li.active2 {
     background-color: #e8e8e8;

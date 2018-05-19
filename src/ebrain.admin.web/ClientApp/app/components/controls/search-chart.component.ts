@@ -16,9 +16,15 @@ import { Component, ViewChild, ElementRef, Input, Output, EventEmitter } from '@
 export class SearChartComponent {
 
     @Input() isShowTemplate: any;
+    @Input() isShowSearch: any = true;
+    @Input() isShowAddNew: any;
+    @Input() isShowExport: any = true;
 
     @Output() private searchTemplate = new EventEmitter<any>();
     @Output() private showTemplate = new EventEmitter<any>();
+    @Output() private addNewTemplate = new EventEmitter<any>();
+    @Output() private exportPdfTemplate = new EventEmitter<any>();
+    @Output() private exportExcelTemplate = new EventEmitter<any>();
 
     private search() {
         setTimeout(() => this.searchTemplate.emit(""));
@@ -28,4 +34,15 @@ export class SearChartComponent {
         setTimeout(() => this.showTemplate.emit(""));
     }
 
+    private showNew() {
+        setTimeout(() => this.addNewTemplate.emit(""));
+    }
+
+    private exportPdf() {
+        setTimeout(() => this.exportPdfTemplate.emit(""));
+    }
+
+    private exportExcel() {
+        setTimeout(() => this.exportExcelTemplate.emit(""));
+    }
 }

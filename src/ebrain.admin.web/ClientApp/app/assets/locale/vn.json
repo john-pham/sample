@@ -933,7 +933,10 @@
     "Search": "Tìm kiếm",
     "SendMessenger": "Gửi tin",
     "AccessRight": "Thấy dữ liệu",
-    "Chart": "Biểu đồ"
+    "Chart": "Biểu đồ",
+    "Excel": "Excel",
+    "Pdf": "PDF",
+    "Export": "Xuất"
   },
   "menu": {
     "document": {

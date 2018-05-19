@@ -1,8 +1,30 @@
 ﻿<div class="text-right">
-    <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'button.Search' | translate}}</button>
+    <button class="btn cc" (click)="search()"
+            *ngIf="isShowSearch">
+        <i class="fa fa-plus-circle"></i> {{'button.Search' | translate}}
+    </button>
     <button type="button" class="btn btn-success"
             *ngIf="isShowTemplate"
             (click)="showChart()">
         <span class="fa fa-bar-chart"></span> {{'button.Chart' | translate}}
     </button>
+    <button class="btn btn-success"
+            *ngIf="isShowAddNew"
+            (click)="showNew()">
+        <i class="fa fa-plus-circle"></i> {{'button.AddNew' | translate}}
+    </button>
+
+    <div class="chart-type-container" dropdown>
+        <button id="exportType" type="button" class="btn btn-info btn-chart" width="95"
+                *ngIf="isShowExport"
+                dropdownToggle>
+            <i class="fa fa-download dropdown-toggle"></i>{{'button.Export' | translate}}
+        </button>
+        <ul *dropdownMenu role="menu" aria-labelledby="exportType" class="dropdown-menu">
+            <li [class.active2]="exportType == 'bar'"
+                role="menuitem"><a class="dropdown-item" (click)="exportExcel()" href="javascript:;"> <i class="fa fa-file-excel"></i> {{'button.Excel' | translate}}</a></li>
+            <li [class.active2]="exportType == 'pie'"
+                role="menuitem"><a class="dropdown-item" (click)="exportPdf()" href="javascript:;"><i class="fa fa-file-pdf"></i>{{'button.Pdf' | translate}}</a></li>
+        </ul>
+    </div>
 </div>

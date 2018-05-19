@@ -284,6 +284,9 @@ export class BranchesComponent implements OnInit, OnDestroy {
         this.modalHeadRef.hide();
     }
 
+    search() {
+        this.getFromServer();
+    }
 
     @ViewChild('f')
     private form;
