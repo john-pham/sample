@@ -20,7 +20,10 @@
     </div>
     <div class="col-sm-2" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE9E')">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addTypeMaterialLearns(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.typeMaterialLearn.newGrp' | translate}}</button>
+            <search-chart [isShowSearch]="false" (searchTemplate)="search()"
+                          [isShowAddNew]="true" (addNewTemplate)="addTypeMaterialLearns(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>

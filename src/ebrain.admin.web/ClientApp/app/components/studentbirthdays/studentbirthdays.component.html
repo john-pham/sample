@@ -33,7 +33,10 @@
 
     <div class="col-sm-2">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}</button>
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()"
+                          [isShowAddNew]="false" (addNewTemplate)="addStock(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>

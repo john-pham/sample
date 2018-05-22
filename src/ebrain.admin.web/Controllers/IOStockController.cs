@@ -254,8 +254,8 @@ namespace Ebrain.Controllers
             }
             return Json(new
             {
-                Total = this._unitOfWork.IOStocks.Total,
-                List = results
+                Total = unit.Total,
+                List = list
             });
         }
 

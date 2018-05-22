@@ -7,7 +7,10 @@
     <div class="col-sm-2"
          *ngIf="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A6D30')">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addMessenger(template)"><i class="fa fa-plus-circle"></i> {{'button.SendMessenger' | translate}}</button>
+            <search-chart [isShowSearch]="false" (searchTemplate)="search()"
+                          [isShowAddNew]="true" (addNewTemplate)="addMessenger(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>

@@ -21,7 +21,9 @@
         </div>
         <div class="col-sm-2">
             <div class="text-right">
-                <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'pageMain.deptslist.searchBox' | translate}}</button>
+                <search-chart [isShowSearch]="true" (searchTemplate)="search()"
+                              [isShowAddNew]="false" (addNewTemplate)="addDocument(template)"
+                              [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"></search-chart>
             </div>
         </div>
     </div>
@@ -55,7 +57,6 @@
                        [columns]="columns"
                        [columnMode]="'force'"
                        [scrollbarV]="verticalScrollbar"
-                       
                        [headerHeight]="50"
                        [footerHeight]="50"
                        [rowHeight]="'auto'"

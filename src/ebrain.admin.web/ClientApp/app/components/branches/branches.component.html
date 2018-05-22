@@ -13,16 +13,16 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-8">
+    <div class="col-sm-10">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.branch.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-4" *ngIf="accessRightService.isCreate('D7239078-E67A-42FA-86D7-4A8C3F73D535')">
+    <div class="col-sm-2" *ngIf="accessRightService.isCreate('D7239078-E67A-42FA-86D7-4A8C3F73D535')">
         <div class="text-right">
             <search-chart (searchTemplate)="search()" 
                           [isShowAddNew]="true" (addNewTemplate)="addBranch(template)" 
-                          [isShowExport]="true" (exportExcelTemplate)="onOutputCSV()"></search-chart>
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"></search-chart>
         </div>
     </div>
 </div>

@@ -13,15 +13,17 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.sms.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addSMS(template)"
-                    *ngIf="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A6F18')"><i class="fa fa-plus-circle"></i> {{'button.Add' | translate}}</button>
+            <search-chart [isShowSearch]="false" (searchTemplate)="search()"
+                          [isShowAddNew]="accessRightService.isCreate('ADC69968-D9E7-4C9E-AD15-206ED47A6F18')" (addNewTemplate)="addSMS(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>
@@ -35,7 +37,6 @@
                        [columns]="columns"
                        [columnMode]="'force'"
                        [scrollbarV]="verticalScrollbar"
-                       
                        [headerHeight]="50"
                        [footerHeight]="50"
                        [rowHeight]="'auto'"

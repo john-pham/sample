@@ -20,7 +20,10 @@
     </div>
     <div class="col-sm-2" *ngIf="accessRightService.isCreate('D7239078-E67A-42FA-86D6-4A8C3F73D527')">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addSupplier(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.supplier.newSupplier' | translate}}</button>
+            <search-chart [isShowSearch]="false" (searchTemplate)="search()"
+                          [isShowAddNew]="true" (addNewTemplate)="addSupplier(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>
@@ -34,7 +37,6 @@
                        [columns]="columns"
                        [columnMode]="'force'"
                        [scrollbarV]="verticalScrollbar"
-                       
                        [headerHeight]="50"
                        [footerHeight]="50"
                        [rowHeight]="'auto'"
@@ -110,8 +112,8 @@
                         <label class="control-label col-md-4">{{'label.supplier.Code' | translate}}</label>
                         <div class="col-md-8" [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !code.valid}">
                             <input type="text" class="form-control" [(ngModel)]="pointer.code" name="code" required
-                                    #code="ngModel"
-                                    attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
+                                   #code="ngModel"
+                                   attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
                         </div>
                     </div>
                 </div>
@@ -129,8 +131,8 @@
                         <label class="control-label col-md-4">{{'label.supplier.Name' | translate}}</label>
                         <div class="col-md-8" [ngClass]="{'has-success': f.submitted && name.valid, 'has-error' : f.submitted && !name.valid}">
                             <input type="text" class="form-control" [(ngModel)]="pointer.name" name="name" required
-                                    #name="ngModel"
-                                    attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
+                                   #name="ngModel"
+                                   attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
                         </div>
                     </div>
                 </div>
@@ -140,10 +142,10 @@
                         <label class="control-label col-md-4">{{'label.supplier.Birthday' | translate}}</label>
                         <div class="col-md-8" [ngClass]="{'has-success': f.submitted && birthday.valid, 'has-error' : f.submitted && !birthday.valid}">
                             <input type="text" class="form-control" placeholder="{{'label.supplier.Birthday' | translate}}"
-                                    name="birthday" required
-                                    #birthday="ngModel"
-                                    attr.id="birthday-{{uniqueId}}"
-                                    bsDatepicker [(ngModel)]="pointer.birthday" />
+                                   name="birthday" required
+                                   #birthday="ngModel"
+                                   attr.id="birthday-{{uniqueId}}"
+                                   bsDatepicker [(ngModel)]="pointer.birthday" />
                         </div>
                     </div>
                 </div>
@@ -171,7 +173,7 @@
                         <label class="control-label col-md-4">{{'label.supplier.Email' | translate}}</label>
                         <div class="col-md-8">
                             <input type="text" class="form-control" placeholder="{{'label.supplier.Email' | translate}}"
-                                    [(ngModel)]="pointer.email" name="email" />
+                                   [(ngModel)]="pointer.email" name="email" />
                         </div>
                     </div>
                 </div>
@@ -199,7 +201,7 @@
                         <label class="control-label col-md-4">{{'label.supplier.Fax' | translate}}</label>
                         <div class="col-md-8">
                             <input type="text" class="form-control" placeholder="{{'label.supplier.Fax' | translate}}"
-                                    [(ngModel)]="pointer.fax" name="fax" />
+                                   [(ngModel)]="pointer.fax" name="fax" />
                         </div>
                     </div>
                 </div>

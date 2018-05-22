@@ -13,14 +13,17 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-9">
+    <div class="col-sm-8">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <div class="text-right">
-            <search-chart (searchTemplate)="search()" (showTemplate)="showChart(template)" [isShowTemplate]="rows?.length > 0"></search-chart>
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()"
+                          [isShowAddNew]="false" (addNewTemplate)="addGrpsupplier(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="rows?.length > 0" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>

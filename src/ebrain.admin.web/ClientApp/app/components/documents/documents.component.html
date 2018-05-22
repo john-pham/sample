@@ -41,7 +41,7 @@
         <div class="text-right">
             <search-chart (searchTemplate)="search()"
                           [isShowAddNew]="true" (addNewTemplate)="addDocument(template)"
-                          [isShowExport]="true" (exportExcelTemplate)="onOutputCSV()"></search-chart>
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"></search-chart>
         </div>
     </div>
 </div>

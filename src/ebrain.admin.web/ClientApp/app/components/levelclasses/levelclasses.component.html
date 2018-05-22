@@ -4,14 +4,17 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.levelclass.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addLevelclass(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.levelclass.newLevelclass' | translate}}</button>
+            <search-chart [isShowSearch]="false" (searchTemplate)="search()"
+                          [isShowAddNew]="true" (addNewTemplate)="addLevelclass(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>

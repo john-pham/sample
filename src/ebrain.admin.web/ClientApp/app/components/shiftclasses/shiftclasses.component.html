@@ -13,14 +13,17 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.shiftclass.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE93')">
+    <div class="col-sm-3" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE93')">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addShiftclass(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.shiftclass.newShiftclass' | translate}}</button>
+            <search-chart [isShowSearch]="false" (searchTemplate)="search()"
+                          [isShowAddNew]="true" (addNewTemplate)="addShiftclass(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>
@@ -28,20 +31,19 @@
 <div [@fadeInOut]>
     <!--DATA TABLE-->
     <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
-                       [loadingIndicator]="loadingIndicator"
-                       [rows]="rows"
-                       [columns]="columns"
-                       [columnMode]="'force'"
-                       [scrollbarV]="verticalScrollbar"
-                       
-                       [headerHeight]="50"
-                       [footerHeight]="50"
-                       [rowHeight]="'auto'"
-                       [externalPaging]="true"
-                       [count]="page.totalElements"
-                       [offset]="page.pageNumber"
-                       [limit]="page.size"
-                       (page)='setPage($event)'>
+                   [loadingIndicator]="loadingIndicator"
+                   [rows]="rows"
+                   [columns]="columns"
+                   [columnMode]="'force'"
+                   [scrollbarV]="verticalScrollbar"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [externalPaging]="true"
+                   [count]="page.totalElements"
+                   [offset]="page.pageNumber"
+                   [limit]="page.size"
+                   (page)='setPage($event)'>
     </ngx-datatable>
 
     <!-- TEMPLATEs -->
@@ -68,10 +70,10 @@
     </ng-template>
     <ng-template #actionsTemplate let-row="row">
         <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"
-           *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE93')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+           *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE93')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.Edit' | translate}}</a>
         |
         <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"
-           *ngIf="accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE93')"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+           *ngIf="accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE93')"><i class="fa fa-trash-o" aria-hidden="true"></i>{{'button.Delete' | translate}}</a>
     </ng-template>
 </div>
 

@@ -56,6 +56,7 @@ export class WarehouseCardsComponent implements OnInit, OnDestroy {
         this.fromDate = new Date(y, m, 1);
         this.toDate = new Date(y, m + 1, 0);
         this.filterValue = '';
+        this.page = new Page();
         this.page.pageNumber = 0;
         this.page.size = 20;
     }

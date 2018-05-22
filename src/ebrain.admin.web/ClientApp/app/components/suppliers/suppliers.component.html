@@ -20,7 +20,10 @@
     </div>
     <div class="col-sm-2" *ngIf="accessRightService.isCreate('D7239078-E67A-42FA-86D6-4A8C3F73D524')">
         <div class="text-right">
-            <button class="btn btn-primary" (click)="addSupplier(template)"><i class="fa fa-plus-circle"></i> {{'pageMain.supplier.newSupplier' | translate}}</button>
+            <search-chart [isShowSearch]="false" (searchTemplate)="search()"
+                          [isShowAddNew]="true" (addNewTemplate)="addSupplier(template)"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
 </div>

@@ -59,7 +59,7 @@ namespace Ebrain.Controllers
             var test = Utilities.GetUserId(this.User);
 
             var unit = this._unitOfWork.Units;
-            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
+            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(test), page, size)
                       select new UnitViewModel
                       {
                           ID = c.UnitId,
