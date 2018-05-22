@@ -13,12 +13,12 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.grpMaterialLearn.searchBox' | translate}}">></search-box>
         </div>
     </div>
-    <div class="col-sm-2" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE91')">
+    <div class="col-sm-3" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE91')">
         <div class="text-right">
             <search-chart (searchTemplate)="search()"
                           [isShowAddNew]="true" (addNewTemplate)="addGrpMaterialLearn(template)"
