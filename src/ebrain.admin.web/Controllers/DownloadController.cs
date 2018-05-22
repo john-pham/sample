@@ -57,7 +57,6 @@ namespace Ebrain.Controllers
         public async Task<FileResult> OutputUnitsCSV(string filter, string value, int page, int size)
         {
             var test = Utilities.GetUserId(this.User);
-            var userId = new Guid(HttpContext.Session.GetString("USER_INFO_ID"));
 
             var unit = this._unitOfWork.Units;
             var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
