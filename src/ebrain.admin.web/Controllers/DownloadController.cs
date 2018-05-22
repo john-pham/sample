@@ -10,9 +10,12 @@ using Ebrain.Helpers;
 using Ebrain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ebrain.Controllers
 {
+    [Authorize]
     public class DownloadController : BaseController1
     {
         private IUnitOfWork _unitOfWork;
@@ -48,11 +51,13 @@ namespace Ebrain.Controllers
             return File(contents, "text/csv");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Produces("text/csv")]
         public async Task<FileResult> OutputUnitsCSV(string filter, string value, int page, int size)
         {
-            var userId = Utilities.GetUserId(this.User);
+            var test = Utilities.GetUserId(this.User);
+            var userId = new Guid(HttpContext.Session.GetString("USER_INFO_ID"));
 
             var unit = this._unitOfWork.Units;
             var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)

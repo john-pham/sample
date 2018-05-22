@@ -21,6 +21,7 @@ using ebrain.admin.bc.Models;
 using ebrain.admin.bc.Core;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -114,10 +115,10 @@ namespace Ebrain.Controllers
                     });
                 }
 
-
-
                 // Create a new authentication ticket.
                 var ticket = await CreateTicketAsync(request, user);
+
+                //HttpContext.Session.SetString("USER_INFO_ID", user.Id);
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
 

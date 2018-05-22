@@ -33,6 +33,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using AppPermissions = ebrain.admin.bc.Core.ApplicationPermissions;
 using DinkToPdf.Contracts;
 using DinkToPdf;
+using System;
 
 namespace Ebrain
 {
@@ -118,7 +119,8 @@ namespace Ebrain
             services.AddCors();
 
             // Add framework services.
-            services.AddMvc();
+            //services.AddMvc();
+            services.AddMvc().AddSessionStateTempDataProvider();
 
             //Todo: ***Using DataAnnotations for validation until Swashbuckle supports FluentValidation***
             //services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
@@ -189,6 +191,17 @@ namespace Ebrain
 
             // DB Creation and Seeding
             services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
+
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+            //services.AddMvc().AddSessionStateTempDataProvider();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+            });
         }
 
 
@@ -256,6 +269,20 @@ namespace Ebrain
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
+            });
+
+            //
+            app.UseSession();
+            //app.UseMvcWithDefaultRoute();
+
+            app.Use(async (context, next) =>
+            {
+                if (!context.User.Identity.IsAuthenticated
+                    && context.Request.Path.StartsWithSegments("/download"))
+                {
+                    throw new Exception("Not authenticated");
+                }
+                await next.Invoke();
             });
         }
     }

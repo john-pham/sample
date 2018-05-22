@@ -48,6 +48,10 @@ export class UnitsService {
         return this.endpointFactory.delete(id);
     }
 
+    outputCSV(filter: string, value: string, page: number, size: number) {
+        return this.endpointFactory.outputCSV(filter, value, page, size);
+    }
+
     private initializeStatus() {
 
     }

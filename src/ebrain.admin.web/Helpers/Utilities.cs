@@ -65,6 +65,14 @@ namespace Ebrain.Helpers
                 {
                     m_Ret = new Guid(value);
                 }
+                else
+                {
+                    value = user.Claims.FirstOrDefault()?.Value?.Trim();
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        m_Ret = new Guid(value);
+                    }
+                }
             }
 
             return m_Ret;

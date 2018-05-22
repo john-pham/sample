@@ -82,6 +82,13 @@ export class UnitsEndpoint extends EndpointFactory {
             });
     }
 
+    outputCSV(filter: string, value: string, page: number, size: number) {
+
+        let url = this.getUrlHeader('/download/OutputUnitsCSV?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        location.href = url;
+        
+    }
+
     delete(id: string): Observable<Response> {
         let url = this.getUrl('remove');
         let header = this.getAuthHeader(true);

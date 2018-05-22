@@ -167,7 +167,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     private onAccessRightLoadSuccessful(resulted: AccessRight[]) {
-        debugger;
         //save permission
         this.storageManager.saveSyncedSessionData(resulted, DBkeys.PERMISSIONS_ACCESSRIGHTS);
         this.alertService.stopLoadingMessage();

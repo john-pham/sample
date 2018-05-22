@@ -100,8 +100,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
     onOutputCSV() {
         //
-        location.href = '/download/OutputUnitsCSV?filter=' + this.filterName + '&value=' + this.filterValue + '&page=' + this.page.pageNumber + '&size=' + this.page.size;
-        
+        this.localService.outputCSV(this.filterName, this.filterValue, this.page.pageNumber, this.page.size);
     }
 
     delete(row) {

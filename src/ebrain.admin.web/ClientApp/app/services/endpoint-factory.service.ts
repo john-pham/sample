@@ -90,9 +90,9 @@ export class EndpointFactory {
 
 
 
-
-
-
+    protected getUrlHeader(url: string): string {
+        return url + '&token=' + this.authService.accessToken;
+    }
 
     protected getAuthHeader(includeJsonContentType?: boolean): RequestOptions {
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authService.accessToken });
