@@ -34,9 +34,14 @@
 }
 
 .chart-type-container {
+    position: relative;
     display: inline-block;
 }
 
+    .chart-type-container .dropdown-menu {
+        left: inherit;
+        right: 0;
+    }
 
 li.active2 {
     background-color: #e8e8e8;
