@@ -82,12 +82,38 @@ export class UnitsEndpoint extends EndpointFactory {
             });
     }
 
-    outputCSV(filter: string, value: string, page: number, size: number) {
+    outputCSV(filter: string, value: string, page: number, size: number){
 
-        let url = this.getUrlHeader('/download/OutputUnitsCSV?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
-        //this.http.
-        //location.href = url;
-        
+        //let url = '/download/OutputUnitsCSV?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random();
+        let url = this.getUrl('csv?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        (this.http.get(url, this.getAuthDownloadHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getall());
+            })).subscribe();
+
+        //this.http.get({
+        //    url: url,
+        //    method: "GET",
+        //    headers: {
+        //        "Content-type": "application/json; charset=utf-8",
+        //        "Authorization": "Bearer " + $cookies.get("api_key")
+        //    },
+        //    responseType: "arraybuffer"
+        //})
+        //    .success(function (data, status, headers) {
+        //        var filename = headers()['x-filename'];
+
+        //        var blob = new Blob([data], { type: "application/octet-binary" });
+        //        FileSaver.saveAs(blob, filename);
+        //    })
+        //    .error(function (data, status) {
+        //        console.log("Request failed with status: " + status);
+        //        errorCallback(data, status);
+        //    });
+
     }
 
     delete(id: string): Observable<Response> {

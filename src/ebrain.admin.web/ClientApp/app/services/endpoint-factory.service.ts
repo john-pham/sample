@@ -17,6 +17,7 @@ import 'rxjs/add/operator/catch';
 
 import { AuthService } from './auth.service';
 import { ConfigurationService } from './configuration.service';
+import { ArrayBuffer } from '@angular/http/src/static_request';
 
 
 @Injectable()
@@ -94,7 +95,18 @@ export class EndpointFactory {
         return url + '&token=' + this.authService.accessToken;
     }
 
-    protected getAuthHeader(includeJsonContentType?: boolean): RequestOptions {
+    protected getAuthHeader(): RequestOptions {
+        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authService.accessToken });
+
+        headers.append("Content-Type", "application/json");
+
+        //headers.append("Accept", `application/vnd.iman.v${EndpointFactory.apiVersion}+json, application/json, text/plain, */*`);
+        //headers.append("App-Version", ConfigurationService.appVersion);
+
+        return new RequestOptions({ headers: headers, responseType: 2});
+    }
+
+    protected getAuthDownloadHeader(includeJsonContentType?: boolean): RequestOptions {
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authService.accessToken });
 
         if (includeJsonContentType)
@@ -105,8 +117,6 @@ export class EndpointFactory {
 
         return new RequestOptions({ headers: headers });
     }
-
-
 
     protected handleError(error, continuation: () => Observable<any>) {
 

@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Ebrain.Policies;
+using System.Net.Http;
 
 namespace Ebrain.Controllers
 {
@@ -135,5 +136,38 @@ namespace Ebrain.Controllers
 
             return BadRequest(ModelState);
         }
+
+        [HttpGet("csv")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<FileResult> OutputCSV(string filter, string value, int page, int size)
+        {
+            var test = Utilities.GetUserId(this.User);
+
+            var unit = this._unitOfWork.Units;
+            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(test), page, size)
+                      select new UnitViewModel
+                      {
+                          ID = c.UnitId,
+                          Code = c.UnitCode,
+                          Name = c.UnitName,
+                          Note = c.Note
+                      };
+
+            var contents = this.Convert<UnitViewModel>(ret);
+            Response.Headers.Add("Content-Disposition", "inline; filename=Units.csv");
+
+            return File(contents, "text/csv");
+        }
+
+        #region internal process
+
+        private byte[] Convert<T>(IEnumerable<T> value)
+        {
+            var content = string.Join('\t', value);
+
+            return System.Text.Encoding.UTF8.GetBytes(content);
+        }
+
+        #endregion
     }
 }

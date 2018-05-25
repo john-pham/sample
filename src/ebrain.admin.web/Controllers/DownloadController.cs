@@ -52,7 +52,7 @@ namespace Ebrain.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("OutputUnitsCSV")]
         [Produces("text/csv")]
         public async Task<FileResult> OutputUnitsCSV(string filter, string value, int page, int size)
         {
