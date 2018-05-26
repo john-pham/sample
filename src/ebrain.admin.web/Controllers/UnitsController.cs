@@ -141,10 +141,10 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<FileResult> OutputCSV(string filter, string value, int page, int size)
         {
-            var test = Utilities.GetUserId(this.User);
+            var userID = Utilities.GetUserId(this.User);
 
             var unit = this._unitOfWork.Units;
-            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(test), page, size)
+            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userID), page, size)
                       select new UnitViewModel
                       {
                           ID = c.UnitId,

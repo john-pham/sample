@@ -92,7 +92,17 @@ export class UnitsEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.getall());
-            })).subscribe();
+            })).subscribe(value => {
+                
+            var anchor = document.createElement('<a/>');
+
+            anchor.setAttribute('href', 'data:attachment/csv;charset=utf-8,' + encodeURI(value));
+            anchor.setAttribute('target', '_blank');
+            anchor.setAttribute('download', 'filename.csv');
+            anchor.click();
+            },
+            error => {
+            });
 
         //this.http.get({
         //    url: url,
