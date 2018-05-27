@@ -267,6 +267,8 @@ import { ConsultantsComponent } from "./components/consultants/consultants.compo
 import { SMSComponent } from "./components/sms/sms.component";
 import { SMSSendComponent } from "./components/smssend/smssend.component";
 
+import { StudentMaterialsComponent } from "./components/studentmaterials/studentmaterials.component";
+
 import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 import { mn_main_educateComponent } from "./components/menu/mn-main/mn-main-educate.component";
 import { mn_main_accountantComponent } from "./components/menu/mn-main/mn-main-accountant.component";
@@ -429,6 +431,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         SMSComponent,
         SMSSendComponent,
         AttendancesComponent,
+
+        StudentMaterialsComponent,
 
         mn_main_accountantComponent,
         mn_main_categoriesComponent,

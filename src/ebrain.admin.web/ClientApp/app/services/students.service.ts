@@ -101,6 +101,10 @@ export class StudentsService {
         return this.endpointFactory.getstudentbycreatedate(filter, value, fromDate, toDate, page, size).map((response: Response) => <Results<Student>>response.json());
     }
 
+    getStudentCourse(filterValue: string, page: number, size: number) {
+        return this.endpointFactory.getStudentCourse(filterValue, page, size).map((response: Response) => <Results<Student>>response.json());
+    }
+
     private initializeStatus() {
 
     }

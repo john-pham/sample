@@ -488,6 +488,7 @@
     },
     "student": {
       "EndClass": "Kết thúc khóa",
+      "StartDate": "Ngày kết thúc",
       "EndDate": "Ngày kết thúc",
       "Class": "Lớp học",
       "Unit": "Đơn vị tính",
@@ -524,7 +525,10 @@
       "Status": "Trạng thái học viên",
       "Gender": "Giới tính",
       "ClassCode": "Mã lớp",
-      "ClassName": "Tên lớp"
+      "ClassName": "Tên lớp",
+      "StudentCourse": "Khóa học của học viên",
+      "MaterialName": "Khóa học",
+      "Student": "Học viên"
     },
     "puchaseorder": {
       "Unit": "Đơn vị tính",
@@ -961,6 +965,7 @@
       "SMS": "SMS",
       "Document": "Tài liệu",
       "System": "Hệ thống",
+      "Report": "Thống kê",
       "Overview": "TỔNG QUAN"
     },
     "stock": {

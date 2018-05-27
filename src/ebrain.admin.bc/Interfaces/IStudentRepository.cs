@@ -27,5 +27,6 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         List<StudentList> GetStudentBirthday(string branchIds, DateTime? fromDate, DateTime? toDate);
         List<StudentList> GetStudentEndClass(string branchIds, string classId, DateTime? today);
         List<StudentList> GetStudentByCreateDate(string branchIds, DateTime? fromDate, DateTime? toDate, int page, int size);
+        List<StudentList> GetStudentCourse(string filterValue, string studentId, string branchIds, int page, int size);
     }
 }
