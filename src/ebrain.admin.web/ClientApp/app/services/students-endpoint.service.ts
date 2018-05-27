@@ -145,7 +145,7 @@ export class StudentsEndpoint extends EndpointFactory {
     }
 
     getstudentbycreatedate(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
-        let url = this.getUrl('getstudentbycreatedate?filter=' + filter + '&value=' + value +'&fromDate=' + fromDate + '&toDate=' + toDate
+        let url = this.getUrl('getstudentbycreatedate?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
             + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
@@ -153,6 +153,17 @@ export class StudentsEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.getBirthdayStudent(fromDate, toDate, page, size));
+            });
+    }
+
+    getStudentCourse(filterValue: string, page: number, size: number): Observable<Response> {
+        let url = this.getUrl('getstudentcourse?filterValue=' + filterValue + '&studentId=' + '' + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getStudentCourse(filterValue, page, size));
             });
     }
 

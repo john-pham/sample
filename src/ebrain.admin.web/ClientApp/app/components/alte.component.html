@@ -384,6 +384,22 @@
                 </li>
 
                 <li class="treeview"
+                    *ngIf="accessRightService.isViewFeatureGroup('D17A0D74-4684-48DF-B2BC-D275F5E33916')">
+                    <a routerLink="/mn_main_report">
+                        <i class="fa fa-bar-chart"></i>
+                        <span>{{'menu.main.Report' | translate}}</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li *ngIf="accessRightService.isViewFeature('0E74BC15-9188-4CD9-9B39-D5B0C22BD233')"><a routerLink="/studentmaterials"><i class="fa fa-child"></i> {{'label.student.StudentCourse' | translate}}</a></li>
+                        
+                    </ul>
+                </li>
+
+
+                <li class="treeview"
                     *ngIf="accessRightService.isViewFeatureGroup('D17A0D74-4684-48DF-B2BC-D275F5E33915')">
                     <a routerLink="/mn_main_system">
                         <i class="fa fa-wrench"></i>

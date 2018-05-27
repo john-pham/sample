@@ -206,6 +206,35 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public List<StudentList> GetStudentCourse(string filterValue, string studentId, string branchIds, int page, int size)
+        {
+            try
+            {
+                List<StudentList> someTypeList = new List<StudentList>();
+                this.appContext.LoadStoredProc("dbo.sp_Students_Course")
+                               .WithSqlParam("@filterValue", filterValue)
+                               .WithSqlParam("@studentId", studentId)
+                               .WithSqlParam("@branchIds", branchIds)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<StudentList>().ToList();
+                               });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+                return someTypeList;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private ApplicationDbContext appContext
         {
             get { return (ApplicationDbContext)_context; }

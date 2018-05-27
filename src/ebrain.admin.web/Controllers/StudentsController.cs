@@ -302,5 +302,43 @@ namespace Ebrain.Controllers
             var list = GetStudentByCreateDateMain(string.Empty, string.Empty, new DateTime(1900, 01, 01), DateTime.Now, 0, 0);
             return Ok(list.Count());
         }
+
+        [HttpGet("getstudentcourse")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetStudentCourse(string filterValue, string studentId, int page, int size)
+        {
+            var unit = this._unitOfWork.Students;
+            var results = unit.GetStudentCourse
+                        (
+                            filterValue,
+                            studentId,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page,
+                            size
+                        );
+            var list = results.Select(p => new StudentViewModel
+            {
+                ID = p.StudentId,
+                Code = p.StudentCode,
+                Name = p.StudentName,
+                Birthday = p.Birthday,
+                ClassName = p.ClassName,
+                ClassCode = p.ClassCode,
+                StartDate = p.StartDate,
+                EndDate = p.EndDate,
+                Phone = p.Phone,
+                Email = p.Email,
+                GenderName = p.GenderName,
+                TotalDay = p.TotalDay,
+                MaterialName = p.MaterialName
+            });
+
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+        }
     }
 }

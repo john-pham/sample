@@ -8,6 +8,7 @@
 
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
+import { AccessRightsService } from "../../../services/access-rights.service";
 
 @Component({
     selector: 'mn_main_report',
@@ -17,6 +18,9 @@ import { fadeInOut } from '../../../services/animations';
 })
 
 export class mn_main_reportComponent implements OnInit, OnDestroy {
+    constructor(public accessRightService: AccessRightsService) {
+
+    }
     ngOnDestroy() { }
     ngOnInit() { }
 }
