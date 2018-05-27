@@ -1,4 +1,9 @@
-﻿.select-file {
+﻿.notify-img {
+    width: 64px;
+    height: 64px;
+    margin: auto;
+}
+.select-file {
     text-align: center;
     margin-bottom: 15px;
 }
