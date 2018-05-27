@@ -82,26 +82,16 @@ export class UnitsEndpoint extends EndpointFactory {
             });
     }
 
-    outputCSV(filter: string, value: string, page: number, size: number){
+    outputCSV(filter: string, value: string, page: number, size: number): Observable<Response>{
 
         //let url = '/download/OutputUnitsCSV?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random();
         let url = this.getUrl('csv?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
-        (this.http.get(url, this.getAuthDownloadHeader())
+        return this.http.get(url, this.getAuthDownloadHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getall());
-            })).subscribe(value => {
-                
-            var anchor = document.createElement('<a/>');
-
-            anchor.setAttribute('href', 'data:attachment/csv;charset=utf-8,' + encodeURI(value));
-            anchor.setAttribute('target', '_blank');
-            anchor.setAttribute('download', 'filename.csv');
-            anchor.click();
-            },
-            error => {
+                return this.handleError(error, () => this.outputCSV(filter, value, page, size));
             });
 
         //this.http.get({

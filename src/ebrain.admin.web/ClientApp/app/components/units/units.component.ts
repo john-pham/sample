@@ -100,7 +100,29 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
     onOutputCSV() {
         //
-        this.localService.outputCSV(this.filterName, this.filterValue, this.page.pageNumber, this.page.size);
+        this.localService.outputCSV(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
+
+            //var blob = new Blob(value, { type: "application/octet-binary" });
+            //ngFileSaver.FileSaver.saveAs(blob, 'units.csv');
+
+            var file = new Blob([result], { type: 'application/octet-binary' });
+            var fileURL = window.URL.createObjectURL(file);
+            var seconds = new Date().getTime() / 1000;
+            var fileName = "cert" + Math.random() + ".csv";
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.href = fileURL;
+            a.download = fileName;
+            a.click();
+
+            //var anchor = document.createElement('a');
+
+            //anchor.setAttribute('href', 'data:attachment/csv;charset=utf-8,' + encodeURI(value));
+            //anchor.setAttribute('target', '_blank');
+            //anchor.setAttribute('download', 'filename.csv');
+            //anchor.click();
+        }, error => {
+            });
     }
 
     delete(row) {

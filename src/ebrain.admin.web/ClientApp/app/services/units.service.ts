@@ -49,7 +49,8 @@ export class UnitsService {
     }
 
     outputCSV(filter: string, value: string, page: number, size: number) {
-        return this.endpointFactory.outputCSV(filter, value, page, size);
+        return this.endpointFactory.outputCSV(filter, value, page, size)
+            .map((response: Response) => <[number]>response.json());
     }
 
     private initializeStatus() {
