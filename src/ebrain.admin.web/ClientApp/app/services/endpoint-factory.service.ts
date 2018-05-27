@@ -17,6 +17,7 @@ import 'rxjs/add/operator/catch';
 
 import { AuthService } from './auth.service';
 import { ConfigurationService } from './configuration.service';
+import { ResponseContentType } from '@angular/http/src/enums';
 
 @Injectable()
 export class EndpointFactory {
@@ -113,7 +114,7 @@ export class EndpointFactory {
         //headers.append("Accept", `application/vnd.iman.v${EndpointFactory.apiVersion}+json, application/json, text/plain, */*`);
         //headers.append("App-Version", ConfigurationService.appVersion);
 
-        return new RequestOptions({ headers: headers, responseType: 2 });
+        return new RequestOptions({ headers: headers, responseType: ResponseContentType.ArrayBuffer });
     }
 
     protected handleError(error, continuation: () => Observable<any>) {
