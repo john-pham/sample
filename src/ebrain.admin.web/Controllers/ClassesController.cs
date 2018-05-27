@@ -246,6 +246,7 @@ namespace Ebrain.Controllers
                         StartTime = p.StartTime,
                         SupplierId = p.SupplierId,
                         OnTodayId = p.OnTodayId,
+                        ShiftId = p.ShiftId
 
                     }).ToArray();
                 }

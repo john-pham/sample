@@ -43,5 +43,10 @@ namespace ebrain.admin.bc.Report
 
         public string MaterialCode { get; set; }
         public string MaterialName { get; set; }
+        public string SupplierCode { get; set; }
+        public string SupplierName { get; set; }
+        public string ShiftClassName { get; set; }
+        public string TodayName { get; set; }
+        public string RoomName { get; set; }
     }
 }

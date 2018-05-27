@@ -105,6 +105,10 @@ export class StudentsService {
         return this.endpointFactory.getStudentCourse(filterValue, page, size).map((response: Response) => <Results<Student>>response.json());
     }
 
+    getTeacherCourse(filterValue: string, page: number, size: number) {
+        return this.endpointFactory.getTeacherCourse(filterValue, page, size).map((response: Response) => <Results<Student>>response.json());
+    }
+
     private initializeStatus() {
 
     }

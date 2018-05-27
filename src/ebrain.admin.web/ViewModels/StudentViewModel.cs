@@ -57,5 +57,11 @@ namespace Ebrain.ViewModels
         public string FaRelationship { get; set; }
         public string Fawanted { get; set; }
         public string GenderName { get; set; }
+
+        public string SupplierCode { get; set; }
+        public string SupplierName { get; set; }
+        public string ShiftClassName { get; set; }
+        public string TodayName { get; set; }
+        public string RoomName { get; set; }
     }
 }

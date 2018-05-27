@@ -216,7 +216,7 @@
                             <div class="form-group has-feedback">
                                 <label class="control-label col-md-2">{{'label.class.Today' | translate}}</label>
                                 <div class="col-md-8">
-                                    <select id="grps-user-info" name="today" [(ngModel)]="pointer.todayId" class="form-control" required
+                                    <select id="grps-user-info" name="today" [(ngModel)]="pointer.todayId" class="form-control"
                                             data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                         <option *ngFor="let grp of todays" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                             {{grp.name}}
@@ -229,7 +229,7 @@
                             <div class="form-group has-feedback">
                                 <label class="control-label col-md-2">{{'label.class.Shift' | translate}}</label>
                                 <div class="col-md-8">
-                                    <select id="grps-user-info" name="shift" [(ngModel)]="pointer.shiftId" class="form-control" required
+                                    <select id="grps-user-info" name="shift" [(ngModel)]="pointer.shiftId" class="form-control"
                                             data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                         <option *ngFor="let grp of shifts" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                             {{grp.name}}
@@ -246,7 +246,7 @@
                             <div class="form-group has-feedback">
                                 <label class="control-label col-md-2">{{'label.class.Room' | translate}}</label>
                                 <div class="col-md-8">
-                                    <select id="grps-user-info" name="room" [(ngModel)]="pointer.roomId" class="form-control" required
+                                    <select id="grps-user-info" name="room" [(ngModel)]="pointer.roomId" class="form-control"
                                             data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                         <option *ngFor="let grp of rooms" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                             {{grp.name}}
@@ -259,7 +259,7 @@
                             <div class="form-group has-feedback">
                                 <label class="control-label col-md-2">{{'label.class.Teacher' | translate}}</label>
                                 <div class="col-md-8">
-                                    <select id="grps-user-info" name="teacher" [(ngModel)]="pointer.teacherTodayId" class="form-control" required
+                                    <select id="grps-user-info" name="teacher" [(ngModel)]="pointer.teacherTodayId" class="form-control"
                                             data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                         <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                             {{grp.name}}
@@ -337,7 +337,7 @@
                             <div class="form-group has-feedback">
                                 <label class="control-label col-md-2">{{'label.class.Student' | translate}}</label>
                                 <div class="col-md-10">
-                                    <select id="grps-user-info" name="student" [(ngModel)]="pointer.studentId" class="form-control" required
+                                    <select id="grps-user-info" name="student" [(ngModel)]="pointer.studentId" class="form-control"
                                             data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                         <option *ngFor="let grp of students" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                             {{grp.name}}

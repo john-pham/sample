@@ -56,4 +56,10 @@ export class Student {
     public endDate: Date;
     public materialCode: string;
     public materialName: string;
+
+    public supplierCode: string;
+    public supplierName: string;
+    public shiftClassName: string;
+    public todayName: string;
+    public roomName: string;
 }

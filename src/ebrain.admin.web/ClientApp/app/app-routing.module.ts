@@ -26,6 +26,7 @@ import { StocksComponent } from "./components/stocks/stocks.component";
 import { TypeMaterialLearnsComponent } from "./components/typeMaterialLearns/typeMaterialLearns.component";
 
 import { StudentMaterialsComponent } from "./components/studentmaterials/studentmaterials.component";
+import { TeacherCourseComponent } from "./components/teachercourse/teachercourse.component";
 
 import { TypeMaterialsComponent } from "./components/typeMaterials/typeMaterials.component";
 import { GrpMaterialsComponent } from "./components/grpMaterials/grpMaterials.component";
@@ -188,6 +189,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "users-management", component: UsersManagementComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
 
             { path: "studentmaterials", component: StudentMaterialsComponent, canActivate: [AuthGuard], data: { title: "Course" } },
+            { path: "teachercourse", component: TeacherCourseComponent, canActivate: [AuthGuard], data: { title: "Teachers" } },
 
             { path: "branches", component: BranchesComponent, canActivate: [AuthGuard], data: { title: "Branches" } },
             { path: "stocks", component: StocksComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
