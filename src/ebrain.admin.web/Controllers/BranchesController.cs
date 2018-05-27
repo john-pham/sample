@@ -76,7 +76,7 @@ namespace Ebrain.Controllers
                           Fax = c.FAX,
                           Logo = new FileViewModel
                           {
-                              Name = item.LogoName.WebRootPathLogo()
+                              Name = c.LogoName.WebRootPathLogo()
                           }
                       };
 
