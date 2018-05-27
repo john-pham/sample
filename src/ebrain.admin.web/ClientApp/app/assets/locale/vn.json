@@ -140,7 +140,8 @@
       "RequestID": "RequestID",
       "ServiceId": "ServiceId",
       "CommandCode": "CommandCode",
-      "ContentType": "ContentType"
+      "ContentType": "ContentType",
+      "LinkWebSite": "Link website"
     },
     "grpdocument": {
       "header": "Nhóm tài liệu",
@@ -535,7 +536,9 @@
       "TodayName": "Thứ",
       "RoomName": "Phòng",
       "SupplierCode": "Mã giáo viên",
-      "SupplierName": "Tên giáo viên"
+      "SupplierName": "Tên giáo viên",
+      "CountAbsent": "Vắng mặt",
+      "CountNotAbsent": "Có mặt"
     },
     "puchaseorder": {
       "Unit": "Đơn vị tính",

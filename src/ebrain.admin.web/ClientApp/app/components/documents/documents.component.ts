@@ -76,6 +76,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'grDocumentName', name: gT('label.document.GrpDocument'), cellTemplate: this.statusTemplate },
             { headerClass: "text-center", prop: "code", name: gT('label.document.Code'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
             { headerClass: "text-center", prop: 'name', name: gT('label.document.Name'), cellTemplate: this.hyperlinkTemplate },
+            { headerClass: "text-center", prop: 'linkWebSite', name: gT('label.document.LinkWebSite'), cellTemplate: this.hyperlinkSiteTemplate },
             { headerClass: "text-center", prop: 'note', name: gT('label.document.Note'), cellTemplate: this.descriptionTemplate },
             { headerClass: "text-center", prop: 'id', name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
@@ -91,6 +92,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
     //
     addDocument(template: TemplateRef<any>) {
+        this.pointer.id = '';
         this.grpDocument();
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
@@ -106,6 +108,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
                 this.pointer.note = item.note;
                 this.pointer.path = item.path;
                 this.pointer.grpId = item.grpId;
+                this.pointer.linkWebSite = item.linkWebSite;
                 this.file_name = item.path;
                 this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
             },
@@ -299,4 +302,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     @ViewChild('hyperlinkTemplate')
     hyperlinkTemplate: TemplateRef<any>;
 
+    @ViewChild('hyperlinkSiteTemplate')
+    hyperlinkSiteTemplate: TemplateRef<any>;
+    
 }

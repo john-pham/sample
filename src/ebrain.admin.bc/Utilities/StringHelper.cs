@@ -66,7 +66,7 @@ namespace ebrain.admin.bc.Utilities
 
         public static void WriteAllBytes(this byte[] imageBytes, string filePath)
         {
-            if (!Directory.Exists(filePath)) Directory.CreateDirectory(Path.GetPathRoot(filePath));
+            if (!Directory.Exists(filePath)) Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             System.IO.File.WriteAllBytes(filePath, imageBytes);
         }
 

@@ -82,6 +82,7 @@ namespace ebrain.admin.bc.Repositories
                 itemExist.UpdatedBy = value.UpdatedBy;
                 itemExist.UpdatedDate = DateTime.Now;
                 itemExist.Path = value.Path;
+                itemExist.LinkWebSite = value.LinkWebSite;
             }
             else
             {

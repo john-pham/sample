@@ -48,5 +48,7 @@ namespace ebrain.admin.bc.Report
         public string ShiftClassName { get; set; }
         public string TodayName { get; set; }
         public string RoomName { get; set; }
+        public int? CountAbsent { get; set; }
+        public int? CountNotAbsent { get; set; }
     }
 }

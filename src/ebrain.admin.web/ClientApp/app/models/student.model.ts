@@ -62,4 +62,8 @@ export class Student {
     public shiftClassName: string;
     public todayName: string;
     public roomName: string;
+
+    public countAbsent: number;
+    public countNotAbsent: number;
+
 }

@@ -64,7 +64,8 @@ namespace Ebrain.Controllers
                     Name = c.DocumentName,
                     Path = c.Path.WebRootPathDocumentDownload(c.BranchId.ToString(), _env),
                     Note = c.Note,
-                    GrDocumentName = c.GroupDocumentName
+                    GrDocumentName = c.GroupDocumentName,
+                    LinkWebSite = c.LinkWebSite
                 };
                 list.Add(itemNew);
             }
@@ -89,7 +90,8 @@ namespace Ebrain.Controllers
                 Code = c.DocumentCode,
                 Name = c.DocumentName,
                 Path = c.Path,
-                Note = c.Note
+                Note = c.Note,
+                LinkWebSite = c.LinkWebSite
             };
 
             return branch;
@@ -115,6 +117,7 @@ namespace Ebrain.Controllers
                     UpdatedBy = userId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
+                    LinkWebSite = value.LinkWebSite
 
                 };
 

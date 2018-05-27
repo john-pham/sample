@@ -75,6 +75,9 @@ export class StudentMaterialsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: "classCode", name: gT('label.student.ClassCode'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'className', name: gT('label.student.ClassName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'materialName', name: gT('label.student.MaterialName'), cellTemplate: this.nameTemplate },
+            
+            { headerClass: "text-center", prop: 'countAbsent', name: gT('label.student.CountAbsent'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "countNotAbsent", name: gT('label.student.CountNotAbsent'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: "code", name: gT('label.student.Code'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'name', name: gT('label.student.Name'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'phone', name: gT('label.student.Phone'), cellTemplate: this.typenameTemplate }

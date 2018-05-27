@@ -330,7 +330,9 @@ namespace Ebrain.Controllers
                 Email = p.Email,
                 GenderName = p.GenderName,
                 TotalDay = p.TotalDay,
-                MaterialName = p.MaterialName
+                MaterialName = p.MaterialName,
+                CountAbsent = p.CountAbsent,
+                CountNotAbsent = p.CountNotAbsent
             });
 
 
