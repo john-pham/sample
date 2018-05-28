@@ -114,7 +114,8 @@ export class UnitsComponent implements OnInit, OnDestroy {
             var file = new Blob([result.arrayBuffer()], { type: 'application/octet-binary' });
             var fileURL = window.URL.createObjectURL(file);
             var seconds = new Date().getTime() / 1000;
-            var fileName = "cert" + Math.random() + ".csv";
+            var fileName = "output.units" + Math.random() + ".csv";
+
             var a = document.createElement("a");
             document.body.appendChild(a);
             a.href = fileURL;
@@ -123,7 +124,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
             //var anchor = document.createElement('a');
 
-            //anchor.setAttribute('href', 'data:attachment/csv;charset=utf-8,' + encodeURI(value));
+            //anchor.setAttribute('href', 'data:attachment/csv;charset=utf-8,' + encodeURI(result.text()));
             //anchor.setAttribute('target', '_blank');
             //anchor.setAttribute('download', 'filename.csv');
             //anchor.click();
