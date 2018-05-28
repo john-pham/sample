@@ -392,7 +392,7 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
         this.alertService.showMessage("Success", `User \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
         //else if (!this.isEditingSelf)
         //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.Name}\" was saved successfully`, MessageSeverity.success);
-
+        this.alertService.stopLoadingMessage();
         if (this.changesSavedCallback)
             this.changesSavedCallback();
     }
