@@ -140,7 +140,8 @@
       "RequestID": "RequestID",
       "ServiceId": "ServiceId",
       "CommandCode": "CommandCode",
-      "ContentType": "ContentType"
+      "ContentType": "ContentType",
+      "LinkWebSite": "Link website"
     },
     "grpdocument": {
       "header": "Nhóm tài liệu",
@@ -488,7 +489,7 @@
     },
     "student": {
       "EndClass": "Kết thúc khóa",
-      "StartDate": "Ngày kết thúc",
+      "StartDate": "Ngày bắt đầu",
       "EndDate": "Ngày kết thúc",
       "Class": "Lớp học",
       "Unit": "Đơn vị tính",
@@ -528,7 +529,16 @@
       "ClassName": "Tên lớp",
       "StudentCourse": "Khóa học của học viên",
       "MaterialName": "Khóa học",
-      "Student": "Học viên"
+      "Student": "Học viên",
+      "TeacherCourse": "Lịch dạy",
+      "TeacherCourseDes": "Lịch dạy giáo viên",
+      "ShiftClassName": "Ca học",
+      "TodayName": "Thứ",
+      "RoomName": "Phòng",
+      "SupplierCode": "Mã giáo viên",
+      "SupplierName": "Tên giáo viên",
+      "CountAbsent": "Vắng mặt",
+      "CountNotAbsent": "Có mặt"
     },
     "puchaseorder": {
       "Unit": "Đơn vị tính",

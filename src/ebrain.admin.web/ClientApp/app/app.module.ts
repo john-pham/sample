@@ -268,6 +268,7 @@ import { SMSComponent } from "./components/sms/sms.component";
 import { SMSSendComponent } from "./components/smssend/smssend.component";
 
 import { StudentMaterialsComponent } from "./components/studentmaterials/studentmaterials.component";
+import { TeacherCourseComponent } from "./components/teachercourse/teachercourse.component";
 
 import { mn_main_categoriesComponent } from "./components/menu/mn-main/mn-main-categories.component";
 import { mn_main_educateComponent } from "./components/menu/mn-main/mn-main-educate.component";
@@ -433,6 +434,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         AttendancesComponent,
 
         StudentMaterialsComponent,
+        TeacherCourseComponent,
+
 
         mn_main_accountantComponent,
         mn_main_categoriesComponent,

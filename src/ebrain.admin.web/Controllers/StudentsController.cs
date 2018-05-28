@@ -330,7 +330,52 @@ namespace Ebrain.Controllers
                 Email = p.Email,
                 GenderName = p.GenderName,
                 TotalDay = p.TotalDay,
-                MaterialName = p.MaterialName
+                MaterialName = p.MaterialName,
+                CountAbsent = p.CountAbsent,
+                CountNotAbsent = p.CountNotAbsent
+            });
+
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+        }
+
+        [HttpGet("getteachercourse")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetTeacherCourse(string filterValue, string studentId, int page, int size)
+        {
+            var unit = this._unitOfWork.Students;
+            var results = unit.GetTeacherCourse
+                        (
+                            filterValue,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page,
+                            size
+                        );
+            var list = results.Select(p => new StudentViewModel
+            {
+                ID = p.StudentId,
+                Code = p.StudentCode,
+                Name = p.StudentName,
+                Birthday = p.Birthday,
+                ClassName = p.ClassName,
+                ClassCode = p.ClassCode,
+                StartDate = p.StartDate,
+                EndDate = p.EndDate,
+                Phone = p.Phone,
+                Email = p.Email,
+                GenderName = p.GenderName,
+                TotalDay = p.TotalDay,
+                MaterialName = p.MaterialName,
+                SupplierCode = p.SupplierCode,
+                SupplierName = p.SupplierName,
+                SupplierId = p.SupplierId,
+                RoomName = p.RoomName,
+                ShiftClassName = p.ShiftClassName,
+                TodayName = p.TodayName
             });
 
 

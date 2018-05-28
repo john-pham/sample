@@ -19,6 +19,7 @@ namespace ebrain.admin.bc.Models
         public string DocumentCode { get; set; }
 
         public string DocumentName { get; set; }
+        public string LinkWebSite { get; set; }
 
         public string Path { get; set; }
         [NotMapped]

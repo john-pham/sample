@@ -137,13 +137,13 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
         var disp = this.localService.get(index).subscribe(
             item => {
-                //
+                this.clearFile();
                 this.pointer.id = item.id;
                 this.pointer.code = item.code;
                 this.pointer.name = item.name;
                 this.pointer.email = item.email;
                 this.pointer.address = item.address;
-
+                this.src = item.logo.name; 
                 //
                 this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
             },

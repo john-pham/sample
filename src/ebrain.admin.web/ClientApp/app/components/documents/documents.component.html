@@ -41,7 +41,7 @@
         <div class="text-right">
             <search-chart (searchTemplate)="search()"
                           [isShowAddNew]="true" (addNewTemplate)="addDocument(template)"
-                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"></search-chart>
+                          [isShowExport]="false" (exportExcelTemplate)="onOutputCSV()"></search-chart>
         </div>
     </div>
 </div>
@@ -91,6 +91,10 @@
 
         <ng-template #hyperlinkTemplate let-row="row" let-value="value">
             <a class="btn-link" href="{{row.path}}" target="_blank">{{value}}</a>
+        </ng-template>
+
+        <ng-template #hyperlinkSiteTemplate let-row="row" let-value="value">
+            <a class="btn-link" href="{{row.linkWebSite}}" target="_blank">{{value}}</a>
         </ng-template>
 
         <ng-template #actionsTemplate let-row="row" let-value="value">
@@ -154,6 +158,13 @@
                         <input type="text" class="form-control" [(ngModel)]="pointer.name" name="name" required
                                #name="ngModel"
                                attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="control-label">{{'label.document.LinkWebSite' | translate}}</label>
+                    <div >
+                        <input type="text" class="form-control" [(ngModel)]="pointer.linkWebSite" name="linkWebSite"
+                               >
                     </div>
                 </div>
                 <div class="form-group">

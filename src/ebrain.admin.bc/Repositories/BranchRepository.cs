@@ -79,7 +79,7 @@ namespace ebrain.admin.bc.Repositories
         public async Task<IEnumerable<Branch>> Search(string filter, string value, int page, int size)
         {
             var list = from c in this.appContext.Branch
-                       where !c.IsDeleted
+                       where (string.IsNullOrEmpty(value) || value.Contains(c.BranchName) || value.Contains(c.BranchCode)) && !c.IsDeleted
                        select c;
 
             //
@@ -118,7 +118,7 @@ namespace ebrain.admin.bc.Repositories
                 item.Email = value.Email;
                 item.FAX = value.FAX;
                 item.IsHQ = value.IsHQ;
-                //item.LogoName = value.LogoName;
+                item.LogoName = value.LogoName;
                 item.Note = value.Note;
                 item.PhoneNumber = value.PhoneNumber;
                 item.UpdatedBy = value.UpdatedBy;

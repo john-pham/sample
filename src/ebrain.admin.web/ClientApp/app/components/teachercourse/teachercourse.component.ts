@@ -34,13 +34,13 @@ import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 
 @Component({
-    selector: 'studentmaterials',
-    templateUrl: './studentmaterials.component.html',
-    styleUrls: ['./studentmaterials.component.css'],
+    selector: 'teachercourse',
+    templateUrl: './teachercourse.component.html',
+    styleUrls: ['./teachercourse.component.css'],
     animations: [fadeInOut]
 })
 
-export class StudentMaterialsComponent implements OnInit, OnDestroy {
+export class TeacherCourseComponent implements OnInit, OnDestroy {
 
     classId: any;
     toDate: Date;
@@ -70,16 +70,16 @@ export class StudentMaterialsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
+            { headerClass: "text-center", prop: "shiftClassName", name: gT('label.student.ShiftClassName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "todayName", name: gT('label.student.TodayName'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "roomName", name: gT('label.student.RoomName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: "startDate", name: gT('label.student.StartDate'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'endDate', name: gT('label.student.EndDate'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: "classCode", name: gT('label.student.ClassCode'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'className', name: gT('label.student.ClassName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'materialName', name: gT('label.student.MaterialName'), cellTemplate: this.nameTemplate },
-            
-            { headerClass: "text-center", prop: 'countAbsent', name: gT('label.student.CountAbsent'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: "countNotAbsent", name: gT('label.student.CountNotAbsent'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: "code", name: gT('label.student.Code'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'name', name: gT('label.student.Name'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "supplierCode", name: gT('label.student.SupplierCode'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'supplierName', name: gT('label.student.SupplierName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'phone', name: gT('label.student.Phone'), cellTemplate: this.typenameTemplate }
         ];
         
@@ -93,7 +93,7 @@ export class StudentMaterialsComponent implements OnInit, OnDestroy {
     private search() {
         this.loadingIndicator = true;
 
-        var disp = this.localService.getStudentCourse(this.filterValue, this.page.pageNumber, this.page.size).subscribe(
+        var disp = this.localService.getTeacherCourse(this.filterValue, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

@@ -422,6 +422,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         itemNew.roomId = item.roomId;
         itemNew.supplierId = item.teacherTodayId;
         itemNew.id = id;
+        itemNew.shiftId = item.shiftId;
         itemNew.classId = item.id;
         var room = this.rooms.filter(x => x.id == item.roomId)[0];
         if (room != null) {

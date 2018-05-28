@@ -22,7 +22,7 @@ using DinkToPdf;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net;
-
+using ebrain.admin.bc.Utilities;
 namespace Ebrain.Controllers
 {
     [Authorize]
@@ -76,7 +76,7 @@ namespace Ebrain.Controllers
                           Fax = c.FAX,
                           Logo = new FileViewModel
                           {
-                              Name = string.Format("{0}.{1}", c.BranchId.ToString().Replace("-", string.Empty), c.LogoName)
+                              Name = c.LogoName.WebRootPathLogo()
                           }
                       };
 
@@ -104,7 +104,7 @@ namespace Ebrain.Controllers
                 Fax = item.FAX,
                 Logo = new FileViewModel
                 {
-                    Name = string.Format("{0}.{1}", item.BranchId.ToString().Replace("-", string.Empty), item.LogoName)
+                    Name =  item.LogoName.WebRootPathLogo()
                 }
             };
 
@@ -164,14 +164,14 @@ namespace Ebrain.Controllers
                     byte[] imageBytes = Convert.FromBase64String(base64String);
 
                     //Save the Byte Array as Image File.
-                    string filePath = string.Format("{0}/uploads/logos/{1}.{2}",
+                    string filePath = string.Format("{0}/uploads/logos/{1}{2}",
                         this._env.WebRootPath,
                         branch.BranchId.ToString().Replace("-", string.Empty),
                         System.IO.Path.GetFileName(fileName));
 
                     System.IO.File.WriteAllBytes(filePath, imageBytes);
                     //store filename to DB
-                    branch.LogoName = fileName;
+                    branch.LogoName = filePath.GetFileName();
                 }
 
                 //commit

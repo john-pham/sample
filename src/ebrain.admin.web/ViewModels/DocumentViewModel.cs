@@ -25,6 +25,7 @@ namespace Ebrain.ViewModels
         public string Note { get; set; }
         public string Path { get; set; }
         public string GrDocumentName { get; set; }
+        public string LinkWebSite { get; set; }
         public FileViewModel Logo { get; set; }
     }
 }

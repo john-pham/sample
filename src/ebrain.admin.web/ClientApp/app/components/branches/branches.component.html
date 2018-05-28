@@ -58,7 +58,7 @@
         </ng-template>
 
         <ng-template #logoTemplate let-row="row" let-value="value">
-            <img src="/uploads/logos/{{value}}" />
+            <img src="{{value}}" class="notify-img"/>
         </ng-template>
 
         <ng-template #nameTemplate let-row="row" let-value="value">
@@ -160,7 +160,7 @@
         <div class="modal-body">
 
             <div class="select-file">
-                <img class="image" [src]="src" [hidden]="!src">
+                <img [src]="src" [hidden]="!src" class="notify-img">
                 <p>{{file_name}}</p>
                 <input type="file" id="avatar" style="display: none" (change)="onFileChange($event)" #fileInput name="avatar">
                 <button type="button" class="btn btn-info" (click)="fileInputClick()">Select Avatar</button>

@@ -12,7 +12,7 @@ namespace ebrain.admin.bc.Utilities
     {
         static string PATH_DOCUMENTS = "{0}/uploads/documents/{1}.{2}";
         static string PATH_PROFIERS = "{0}/uploads/profiers/{1}{2}";
-        static string PATH_LOGOS = "{0}/uploads/logos/{1}.{2}";
+        static string PATH_LOGOS = "{0}/uploads/logos/{1}{2}";
 
 
         static IHostingEnvironment _env;
@@ -33,6 +33,12 @@ namespace ebrain.admin.bc.Utilities
             var path = string.Format(PATH_DOCUMENTS, string.Empty,
                        branchId.Replace("-", string.Empty),
                        fileName.GetFileName());
+            return path;
+        }
+
+        public static string WebRootPathLogo(this string fileName)
+        {
+            var path = string.Format(PATH_LOGOS, string.Empty, string.Empty, fileName.GetFileName());
             return path;
         }
 
@@ -66,7 +72,7 @@ namespace ebrain.admin.bc.Utilities
 
         public static void WriteAllBytes(this byte[] imageBytes, string filePath)
         {
-            if (!Directory.Exists(filePath)) Directory.CreateDirectory(Path.GetPathRoot(filePath));
+            if (!Directory.Exists(filePath)) Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             System.IO.File.WriteAllBytes(filePath, imageBytes);
         }
 

@@ -20,5 +20,6 @@ export class Document {
     public code: string;
     public note: string;
     public grDocumentName: string;
+    public linkWebSite: string;
     public logo: File;
 }
