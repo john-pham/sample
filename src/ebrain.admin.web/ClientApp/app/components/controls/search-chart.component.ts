@@ -19,10 +19,12 @@ export class SearChartComponent {
     @Input() isShowSearch: any ;
     @Input() isShowAddNew: any;
     @Input() isShowExport: any = true;
+    @Input() isShowSave: any = false;
 
     @Output() private searchTemplate = new EventEmitter<any>();
     @Output() private showTemplate = new EventEmitter<any>();
     @Output() private addNewTemplate = new EventEmitter<any>();
+    @Output() private saveTemplate = new EventEmitter<any>();
     @Output() private exportPdfTemplate = new EventEmitter<any>();
     @Output() private exportExcelTemplate = new EventEmitter<any>();
 
@@ -38,6 +40,10 @@ export class SearChartComponent {
         setTimeout(() => this.addNewTemplate.emit(""));
     }
 
+    private save() {
+        setTimeout(() => this.saveTemplate.emit(""));
+    }
+    
     private exportPdf() {
         setTimeout(() => this.exportPdfTemplate.emit(""));
     }

@@ -32,12 +32,13 @@ namespace ebrain.admin.bc.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<AttendanceList>> Search(string classId, string studentId, DateTime createDate, string branchIds, int page, int size)
+        public async Task<IEnumerable<AttendanceList>> Search(string filterValue, string classId, string studentId, DateTime createDate, string branchIds, int page, int size)
         {
             try
             {
                 List<AttendanceList> someTypeList = new List<AttendanceList>();
                 this.appContext.LoadStoredProc("dbo.sp_Attendance")
+                               .WithSqlParam("@filterValue", filterValue)
                                .WithSqlParam("@studentId", studentId)
                                .WithSqlParam("@classId", classId)
                                .WithSqlParam("@createDate", createDate)

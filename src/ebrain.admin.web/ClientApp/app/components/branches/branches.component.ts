@@ -174,6 +174,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
     }
 
     onSearchChanged(value: string) {
+        this.filterValue = value;
         this.getFromServer();
     }
 

@@ -48,15 +48,16 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> Search(string classId, string studentId, string createDate, int page, int size)
+        public async Task<JsonResult> Search(string filterValue, string classId, string studentId, string createDate, int page, int size)
         {
-            return await SearchMain(classId, studentId, createDate.BuildDateTimeFromSEFormat(), page, size);
+            return await SearchMain(filterValue, classId, studentId, createDate.BuildDateTimeFromSEFormat(), page, size);
         }
 
-        private async Task<JsonResult> SearchMain(string classId, string studentId, DateTime createDate, int page, int size)
+        private async Task<JsonResult> SearchMain(string filterValue, string classId, string studentId, DateTime createDate, int page, int size)
         {
             var unit = this._unitOfWork.Attendances;
             var ret = from c in await unit.Search(
+                    filterValue,
                     classId,
                     studentId,
                     createDate,
@@ -73,7 +74,8 @@ namespace Ebrain.Controllers
                           Absent = c.Absent,
                           NotAbsent = !c.Absent,
                           BranchId = c.BranchId,
-                          Phone = c.Phone
+                          Phone = c.Phone,
+                          IsAttendance = c.IsAttendance
                       };
 
             return Json(new
@@ -106,7 +108,7 @@ namespace Ebrain.Controllers
                 {
                     var classId = values[0].ClassId.ToString();
                     var createDate = values[0].AttendanceDate;
-                    return Ok(SearchMain(classId, string.Empty, createDate, Constants.PAGING_DEFAULT, Constants.SIZE_DEFAULT));
+                    return Ok(SearchMain(string.Empty, classId, string.Empty, createDate, Constants.PAGING_DEFAULT, Constants.SIZE_DEFAULT));
                 }
                 return Ok(ret);
             }

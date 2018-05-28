@@ -13,7 +13,22 @@
 </header>
 
 <div class="row control-box">
-    <div class="col-sm-4 no-pd-r">
+    <div class="col-sm-8">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="text-right">
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowSave]="rows?.length > 0" (saveTemplate)="save()"></search-chart>
+        </div>
+    </div>
+</div>
+
+<div class="row control-box">
+    <div class="col-sm-6 no-pd-r">
         <div class="form-group has-feedback">
             <label class="control-label col-sm-4 col-md-4">{{'label.attendance.Class' | translate}}</label>
             <div class="col-sm-8 col-md-8">
@@ -32,23 +47,16 @@
         </div>
     </div>
 
-    <div class="col-sm-4 no-pd-r">
+    <div class="col-sm-6 no-pd-r">
         <div class="form-group has-feedback">
             <label class="control-label col-sm-4 col-md-4">{{'label.attendance.AttendanceDate' | translate}}</label>
             <div class="col-sm-8 col-md-8">
-                <input class="form-control" type="text" bsDatepicker [(ngModel)]="createDate">
+                <input class="form-control" type="text" bsDatepicker
+                       (change)="onChangeDate($event)" [(ngModel)]="createDate">
             </div>
         </div>
     </div>
     
-    <div class="col-sm-4" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE13')">
-        <div class="text-right">
-            <button class="btn btn-info" (click)="search()"><i class="fa fa-plus-circle"></i> {{'button.Search' | translate}}</button>
-            <button type="button" class="btn btn-primary" (click)="save()">
-                <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
-            </button>
-        </div>
-    </div>
 </div>
 
 <div class="row">
@@ -71,6 +79,14 @@
                        [limit]="page.size"
                        (page)='setPage($event)'>
 
+                <ngx-datatable-column headerClass="text-center"
+                                      name="{{'label.attendance.Status' | translate}}">
+                    <ng-template ngx-datatable-cell-template let-value="value"
+                                 let-rowIndex="rowIndex" let-row="row">
+                        <span *ngIf="row.isAttendance" class="label label-success">{{'label.attendance.IsAttendance' | translate}}</span>
+                        <span *ngIf="!row.isAttendance" class="label label-warning">{{'label.attendance.NotAttendance' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
 
                 <ngx-datatable-column headerClass="text-center"
                                       name="{{'label.attendance.StudentCode' | translate}}" prop='studentCode'>

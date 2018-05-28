@@ -31,9 +31,10 @@ export class AttendancesEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-    search(classId: string, studentId: string, createDate: Date, page: number, size: number): Observable<Response> {
+    search(filterValue: string, classId: string, studentId: string, createDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('search?classId=' + classId + '&studentId=' + studentId + '&createDate=' + createDate + '&page=' + page + '&size=' + size
+        let url = this.getUrl('search?filterValue=' + filterValue + '&classId=' + classId + '&studentId=' + studentId
+            + '&createDate=' + createDate + '&page=' + page + '&size=' + size
             + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
@@ -41,7 +42,7 @@ export class AttendancesEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(classId, studentId, createDate, page, size));
+                return this.handleError(error, () => this.search(filterValue, classId, studentId, createDate, page, size));
             });
     }
 

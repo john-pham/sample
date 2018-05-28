@@ -28,6 +28,6 @@ namespace Ebrain.ViewModels
         public string StudentName { get; set; }
         public string Phone { get; set; }
         public DateTime AttendanceDate { get; set; }
-
+        public bool? IsAttendance { get; set; }
     }
 }

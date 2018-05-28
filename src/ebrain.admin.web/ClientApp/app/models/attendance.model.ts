@@ -22,6 +22,6 @@ export class Attendance {
     public studentName: string;
     public phone: string;
     public attendanceDate: Date;
-
+    public isAttendance: boolean;
 
 }
