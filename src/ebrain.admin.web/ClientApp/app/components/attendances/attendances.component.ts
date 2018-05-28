@@ -66,7 +66,7 @@ export class AttendancesComponent implements OnInit, OnDestroy {
         this.getFromServer();
 
         var date = new Date(), y = date.getFullYear(), m = date.getMonth(), d = date.getDay();
-        this.createDate = new Date(y, m, d);
+        this.createDate = date;
     }
 
     ngOnDestroy() {
@@ -82,7 +82,7 @@ export class AttendancesComponent implements OnInit, OnDestroy {
     }
 
     private search() {
-        var disp = this.localService.search(this.classId, "", this.createDate, this.page.pageNumber, this.page.size).subscribe(
+        var disp = this.localService.search(this.filterValue, this.classId, "", this.createDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error));
     }
@@ -94,6 +94,7 @@ export class AttendancesComponent implements OnInit, OnDestroy {
         this.search();
         this.classes = list;
         this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
 
     }
 
@@ -102,6 +103,7 @@ export class AttendancesComponent implements OnInit, OnDestroy {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
 
     }
 
@@ -117,6 +119,15 @@ export class AttendancesComponent implements OnInit, OnDestroy {
         this.search();
     }
 
+    onSearchChanged(value: string) {
+        this.filterValue = value;
+        this.search();
+    }
+
+    private onChangeDate(value: any) {
+        this.search();
+    }
+
     private save() {
         this.alertService.startLoadingMessage("Saving changes...");
 
@@ -124,6 +135,7 @@ export class AttendancesComponent implements OnInit, OnDestroy {
             value => {
                 this.alertService.showMessage("Success", `Update was created successfully`, MessageSeverity.success);
                 this.alertService.stopLoadingMessage();
+                this.search();
             },
             error => this.saveFailedHelper(error));
     }

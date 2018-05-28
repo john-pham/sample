@@ -6,6 +6,7 @@ namespace ebrain.admin.bc.Report
 {
     public class AttendanceList
     {
+        public bool? IsAttendance { get; set; }
         public Guid AttendanceId { get; set; }
         public Guid ClassId { get; set; }
         public Guid StudentId { get; set; }

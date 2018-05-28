@@ -175,7 +175,10 @@
       "NotAbsent": "Có",
       "StudentCode": "Mã học viên",
       "StudentName": "Tên học viên",
-      "Phone": "Điện thoại"
+      "Phone": "Điện thoại",
+      "Status": "Tình trạng",
+      "IsAttendance": "Điểm danh",
+      "NotAttendance": "Chưa điểm danh"
     },
     "classstudent": {
       "HeaderAdd": "Học viên",
