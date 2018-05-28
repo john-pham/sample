@@ -19,6 +19,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
+
 @Component({
     selector: 'units',
     templateUrl: './units.component.html',
@@ -43,7 +44,12 @@ export class UnitsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
 
     private page: Page;
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: UnitsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
+    constructor(private alertService: AlertService,
+        private translationService: AppTranslationService,
+        private localService: UnitsService,
+        public accessRightService: AccessRightsService,
+        private modalService: BsModalService
+    ) {
         this.pointer = new Unit();
         this.page = new Page();
         this.page.pageNumber = 0;
@@ -105,7 +111,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
             //var blob = new Blob(value, { type: "application/octet-binary" });
             //ngFileSaver.FileSaver.saveAs(blob, 'units.csv');
 
-            var file = new Blob([result], { type: 'application/octet-binary' });
+            var file = new Blob([result.arrayBuffer()], { type: 'application/octet-binary' });
             var fileURL = window.URL.createObjectURL(file);
             var seconds = new Date().getTime() / 1000;
             var fileName = "cert" + Math.random() + ".csv";
