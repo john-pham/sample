@@ -154,9 +154,9 @@ export class AuthService {
             decodedIdToken.jobtitle,
             decodedIdToken.phone,
             decodedIdToken.branchId,
+            decodedIdToken.profilerimage,
             Array.isArray(decodedIdToken.role) ? decodedIdToken.role : [decodedIdToken.role]);
         user.isEnabled = true;
-
         this.saveUserDetails(user, permissions, accessToken, idToken, refreshToken, accessTokenExpiry, rememberMe);
 
         this.reevaluateLoginStatus(user);

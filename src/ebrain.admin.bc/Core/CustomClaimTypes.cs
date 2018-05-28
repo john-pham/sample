@@ -33,5 +33,8 @@ namespace ebrain.admin.bc.Core
 
         ///<summary>A claim that specifies the configuration/customizations of an entity</summary>
         public const string Configuration = "configuration";
+
+        ///<summary>A claim that specifies the profier images of an entity</summary>
+        public const string ProfilerImage = "profilerimage";
     }
 }

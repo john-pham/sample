@@ -414,6 +414,13 @@ export class AlteComponent implements OnInit, AfterViewInit {
         return this.authService.currentUser ? this.authService.currentUser.fullName : "";
     }
 
+    get profilerImage(): string {
+        return this.authService.currentUser ? this.authService.currentUser.profilerImage : "";
+    }
+
+    get jobTitle(): string {
+        return this.authService.currentUser ? this.authService.currentUser.jobTitle : "";
+    }
 
 
     get canViewCustomers() {

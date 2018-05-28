@@ -8,7 +8,7 @@
 import { File } from './file.model';
 export class User {
     // Note: Using only optional constructor properties without backing store disables typescript's type checking for the type
-    constructor(id?: string, userName?: string, fullName?: string, email?: string, jobTitle?: string, phoneNumber?: string, branchId?: string, roles?: string[]) {
+    constructor(id?: string, userName?: string, fullName?: string, email?: string, jobTitle?: string, phoneNumber?: string, branchId?: string, profilerImage?: string, roles?: string[]) {
 
         this.id = id;
         this.userName = userName;
@@ -18,6 +18,7 @@ export class User {
         this.phoneNumber = phoneNumber;
         this.roles = roles;
         this.branchId = branchId;
+        this.profilerImage = profilerImage;
     }
 
 

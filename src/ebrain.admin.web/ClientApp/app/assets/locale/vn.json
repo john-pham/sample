@@ -2,7 +2,8 @@
   "app": {
     "Welcome": "Xin chào",
     "Notifications": "Thông báo",
-    "New": "Mới"
+    "New": "Mới",
+    "JobTitle": "Chức vụ"
   },
   "mainMenu": {
     "Appointments": "Các cuộc hẹn",

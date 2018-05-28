@@ -22,6 +22,7 @@ using ebrain.admin.bc.Core;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using ebrain.admin.bc.Utilities;
 
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -231,6 +232,10 @@ namespace Ebrain.Controllers
 
                 if (!string.IsNullOrWhiteSpace(user.FullName))
                     identity.AddClaim(CustomClaimTypes.FullName, user.FullName, OpenIdConnectConstants.Destinations.IdentityToken);
+
+                //set profierImages
+                var profierImage = !string.IsNullOrWhiteSpace(user.ProfilerImage) ? user.ProfilerImage.WebRootPathProfiler() : Constants.IMAGE_DEFAULT;
+                identity.AddClaim(CustomClaimTypes.ProfilerImage, profierImage, OpenIdConnectConstants.Destinations.IdentityToken);
 
                 if (!string.IsNullOrWhiteSpace(user.Configuration))
                     identity.AddClaim(CustomClaimTypes.Configuration, user.Configuration, OpenIdConnectConstants.Destinations.IdentityToken);
