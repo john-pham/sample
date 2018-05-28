@@ -45,7 +45,7 @@ namespace ebrain.admin.bc.Repositories
         }
         public async Task<IEnumerable<TypeMaterial>> Search(string filter, string value, string branchIds, int page, int size)
         {
-            var results = this.appContext.TypeMaterial.Where(p => p.IsDeleted == false);
+            var results = this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && branchIds.Contains(p.BranchId.ToString()));
             //paging
             this.Total = results.Count();
             if (size > 0 && page >= 0)
@@ -57,12 +57,12 @@ namespace ebrain.admin.bc.Repositories
 
         public async Task<IEnumerable<TypeMaterial>> GetAllTypeLearn(string branchIds)
         {
-            return await this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true).ToListAsync();
+            return await this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true && branchIds.Contains(p.BranchId.ToString())).ToListAsync();
         }
 
         public async Task<IEnumerable<TypeMaterial>> SearchLearn(string filter, string value, string branchIds, int page, int size)
         {
-            var results = this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true);
+            var results = this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true && branchIds.Contains(p.BranchId.ToString()));
 
             //paging
             this.Total = results.Count();
@@ -75,7 +75,7 @@ namespace ebrain.admin.bc.Repositories
 
         public async Task<IEnumerable<Guid>> TypeIdsLearn(string branchIds)
         {
-            return await this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true).Select(p => p.TypeMaterialId).ToListAsync();
+            return await this.appContext.TypeMaterial.Where(p => p.IsDeleted == false && p.IsLearning == true && branchIds.Contains(p.BranchId.ToString())).Select(p => p.TypeMaterialId).ToListAsync();
         }
 
         public async Task<TypeMaterial> Save(TypeMaterial value, Guid? index)
