@@ -14,3 +14,4 @@
 /src/packages
 src/ebrain.admin.web/node_modules/
 /src/ebrain.admin.web/Properties/PublishProfiles
+/src/node_modules/@types/file-saver
