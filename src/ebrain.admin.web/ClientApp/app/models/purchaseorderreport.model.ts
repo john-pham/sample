@@ -42,6 +42,6 @@ export class PurchaseOrderReport {
     public ioQuantity: number;
     public remainQuantity: number;
     public branchName: string;
-
+    public branchNameIO: string;
     public ioDetails: PurchaseOrderDetail[];
 }

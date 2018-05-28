@@ -260,6 +260,7 @@ namespace Ebrain.Controllers
                     Code = item.PurchaseOrderCode,
                     FullName = item.FullName,
                     BranchName = item.BranchName,
+                    BranchNameIO = item.BranchNameIO,
                     CreateDate = item.CreatedDate,
                     PurchaseQuantity = item.PurchaseQuantity,
                     IOQuantity = item.IOQuantity,

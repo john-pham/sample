@@ -36,6 +36,45 @@
     <!-- /.col -->
 </div>
 <!-- /.row -->
+
+<div class="row" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484ad18217')">
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{'pageMain.purchase.header' | translate}}</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-wrench"></i>
+                        </button>
+
+                    </div>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="table-responsive">
+                    <pursummarizes [isShowSummarized]="true"></pursummarizes>
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+                <a routerLink="/ioinputs" class="btn btn-sm btn-info btn-flat pull-left"
+                   *ngIf="accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A4')">{{'menu.stock.InputStock' | translate}}</a>
+                <a routerLink="/pursummarizes" class="btn btn-sm btn-default btn-flat pull-right">{{'pageMain.purchase.ViewAll' | translate}}</a>
+            </div>
+            <!-- /.box-footer -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
 <!-- Main row -->
 <div class="row">
     <!-- Left col -->

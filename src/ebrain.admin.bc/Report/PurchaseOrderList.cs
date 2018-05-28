@@ -26,6 +26,6 @@ namespace ebrain.admin.bc.Report
         public string StudentName { get; set; }
         public Guid StudentId { get; set; }
         public decimal? InputQuantity { get; set; }
-
+        public string BranchNameIO { get; set; }
     }
 }

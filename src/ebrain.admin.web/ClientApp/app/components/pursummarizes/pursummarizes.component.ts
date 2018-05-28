@@ -47,6 +47,11 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
     private chart: Chart;
+    private pending: any;
+    private processing: any;
+    private done: any;
+
+    @Input() isShowSummarized: any = false;
 
     modalRef: BsModalRef;
 
@@ -83,6 +88,7 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'code', name: gT('label.purchaselist.Code'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'createDate', name: gT('label.purchaselist.CreateDate'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'fullName', name: gT('label.purchaselist.CreateUser'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'branchNameIO', name: gT('label.purchaselist.BranchNameIO'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'branchName', name: gT('label.purchaselist.BranchName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'purchaseQuantity', name: gT('label.purchaselist.PurchaseQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'ioQuantity', name: gT('label.purchaselist.IOQuantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
@@ -144,6 +150,19 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
     private onDataLoadSuccessful(resulted: Results<PurchaseOrderReport>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
+        if (this.rows != null && this.rows.length > 0) {
+            this.done =  this.rows
+                .map(c => c.remainQuantity)
+                .reduce((sum, current) => sum + current);
+
+            this.processing = this.rows
+                .map(c => c.ioQuantity)
+                .reduce((sum, current) => sum + current);
+
+            this.pending = this.rows
+                .map(c => c.purchaseQuantity)
+                .reduce((sum, current) => sum + current);
+        }
         this.alertService.stopLoadingMessage();
 
     }

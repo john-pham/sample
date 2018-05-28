@@ -627,10 +627,16 @@
       "Student": "Học viên",
       "SelectStudent": "Chọn học viên",
       "BranchName": "Giao hàng",
-      "PurchaseQuantity": "Đặt hàng",
+      "PurchaseQuantity": "Số lượng",
       "IOQuantity": "Đã giao",
       "RemainQuantity": "Còn lại",
-      "IOPurchaseSearch": "Tìm kiếm đơn hàng"
+      "IOPurchaseSearch": "Tìm kiếm đơn hàng",
+      "BranchNameIO": "Đặt hàng",
+      "Status": "Tình trạng",
+      "Done": "Đã giao",
+      "Processing": "Đang giao",
+      "Pending": "Chưa giao",
+      "StatusDes": "Tình trạng đặt hàng"
     },
     "iostudentlist": {
       "Unit": "Đơn vị tính",
@@ -747,6 +753,11 @@
     }
   },
   "pageMain": {
+    "purchase": {
+      "header": "Danh sách đặt hàng",
+      "PurchaseOrder": "Đặt hàng",
+      "ViewAll": "Xem tất cả"
+    },
     "chart": {
       "header": "Thống kê biểu đồ"
     },

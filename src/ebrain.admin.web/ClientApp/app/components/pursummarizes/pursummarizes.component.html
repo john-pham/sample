@@ -1,4 +1,4 @@
-﻿<header>
+﻿<header *ngIf="!isShowSummarized">
     <div class="row" style="padding-top: 15px;">
         <div class="col-xs-12" id="breadcrumb">
             <a class="show-sidebar pull-left" routerLink="/">
@@ -12,7 +12,7 @@
     </div>
 </header>
 
-<div class="row control-box">
+<div class="row control-box" *ngIf="!isShowSummarized">
     <div class="col-sm-8">
         <div class="form-group search-box">
             <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<div class="row control-box">
+<div class="row control-box" *ngIf="!isShowSummarized">
     <div class="col-sm-6 no-pd-l">
         <div class="form-group has-feedback">
             <label class="control-label col-md-2">{{'label.deptslist.FromDate' | translate}}</label>
@@ -48,14 +48,90 @@
 </div>
 
 <div [@fadeInOut]>
-    <!--DATA TABLE-->
-    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+    <div class="row" *ngIf="isShowSummarized">
+        <div class="col-md-8">
+            <!--DATA TABLE-->
+            <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                           [loadingIndicator]="loadingIndicator"
+                           [rows]="rows"
+                           [columnMode]="'force'"
+                           [headerHeight]="50"
+                           [footerHeight]="50"
+                           [rowHeight]="'auto'"
+                           [externalPaging]="true"
+                           [count]="page.totalElements"
+                           [offset]="page.pageNumber"
+                           [limit]="page.size"
+                           (page)='setPage($event)'>
+
+                <ngx-datatable-column headerClass="text-center"
+                                      name="{{'label.purchaselist.Code' | translate}}" prop='code'>
+
+                </ngx-datatable-column>
+
+                <ngx-datatable-column headerClass="text-center"
+                                      name="{{'label.purchaselist.BranchNameIO' | translate}}" prop='branchNameIO'>
+
+                </ngx-datatable-column>
+
+                <ngx-datatable-column headerClass="text-center" cellClass="text-right"
+                                      name="{{'label.purchaselist.PurchaseQuantity' | translate}}" prop='purchaseQuantity'>
+
+                </ngx-datatable-column>
+
+                <ngx-datatable-column headerClass="text-center"
+                                      name="{{'label.purchaselist.Status' | translate}}">
+                    <ng-template ngx-datatable-cell-template let-value="value"
+                                 let-rowIndex="rowIndex" let-row="row">
+                        <span *ngIf="row.remainQuantity == 0" class="label label-success">{{'label.purchaselist.Done' | translate}}</span>
+                        <span *ngIf="row.ioQuantity > 0 && row.remainQuantity != 0" class="label label-info">{{'label.purchaselist.Processing' | translate}}</span>
+                        <span *ngIf="row.ioQuantity == 0 && row.remainQuantity != 0" class="label label-warning">{{'label.purchaselist.Pending' | translate}}</span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+            </ngx-datatable>
+        </div>
+
+        <div class="col-md-4">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{'label.purchaselist.StatusDes' | translate}}</h3>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer no-padding">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a>
+                            {{'label.purchaselist.PurchaseQuantity' | translate}}
+                            <span class="pull-right text-red"><i class="fa fa-circle-o text-red"></i> {{pending}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            {{'label.purchaselist.IOQuantity' | translate}}
+                            <span class="pull-right text-green"><i class="fa fa-circle-o text-green"></i> {{processing}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            {{'label.purchaselist.RemainQuantity' | translate}}
+                            <span class="pull-right text-yellow"><i class="fa fa-circle-o text-yellow"></i> {{done}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.footer -->
+        </div>
+
+    </div>
+
+    <div class="table-wrapper" *ngIf="!isShowSummarized">
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
                        [loadingIndicator]="loadingIndicator"
                        [rows]="rows"
                        [columns]="columns"
                        [columnMode]="'force'"
                        [scrollbarV]="verticalScrollbar"
-                       
                        [headerHeight]="50"
                        [footerHeight]="50"
                        [rowHeight]="'auto'"
@@ -63,12 +139,10 @@
                        [count]="page.totalElements"
                        [offset]="page.pageNumber"
                        [limit]="page.size"
-                       (page)='setPage($event)'
-                   >
-    </ngx-datatable>
-    <div [@fadeInOut]>
-        <page-controller></page-controller>
+                       (page)='setPage($event)'>
+        </ngx-datatable>
     </div>
+
     <!-- TEMPLATEs -->
     <ng-template #statusHeaderTemplate>
         <i class="fa fa-check-square-o"></i>
@@ -98,7 +172,7 @@
     </ng-template>
     <ng-template #actionsTemplate let-row="row">
         <a class="btn btn-link btn-xs" routerLink="/iostudent/?id={{value}}" (click)="goDetails(template, row)"
-           *ngIf="accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A4')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+           *ngIf="accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A4')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.Detail' | translate}}</a>
     </ng-template>
 </div>
 
