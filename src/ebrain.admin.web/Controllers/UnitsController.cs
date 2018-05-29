@@ -141,7 +141,8 @@ namespace Ebrain.Controllers
         }
 
         [HttpGet("csv")]
-        public async Task<HttpResponseMessage> OutputCSV(string filter, string value, int page, int size)
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> OutputCSV(string filter, string value, int page, int size)
         {
             var userID = Utilities.GetUserId(this.User);
 
@@ -158,16 +159,16 @@ namespace Ebrain.Controllers
             var contents = this.Convert<UnitViewModel>(ret);
 
 
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            //response.Content = new StreamContent(new FileStream(localFilePath, FileMode.Open, FileAccess.Read));
-            //String file = Convert.ToBase64String(bytes);
-            response.Content = new ByteArrayContent(contents);
-            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-            response.Content.Headers.ContentDisposition.FileName = "output.units.csv";
+            //HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            ////response.Content = new StreamContent(new FileStream(localFilePath, FileMode.Open, FileAccess.Read));
+            ////String file = Convert.ToBase64String(bytes);
+            //response.Content = new ByteArrayContent(contents);
+            //response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+            //response.Content.Headers.ContentDisposition.FileName = "output.units.csv";
 
-            return response;
-            //return Json(contents);
+            //return response;
+            return Json(contents);
         }
 
         #region internal process

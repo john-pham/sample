@@ -86,7 +86,7 @@ export class UnitsEndpoint extends EndpointFactory {
 
         //let url = '/download/OutputUnitsCSV?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random();
         let url = this.getUrl('csv?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
-        return this.http.get(url, this.getAuthDownloadHeader())
+        return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
