@@ -109,7 +109,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
         //
         this.localService.outputCSV(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
 
-            var blob = new Blob([result.arrayBuffer()], { type: "application/octet-binary" });
+            var blob = new Blob([result.arrayBuffer()], { type: "text/plain;charset=utf-8" });
             saveAs(blob, "output.units.csv");
             
         }, error => {
