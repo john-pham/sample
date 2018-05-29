@@ -19,6 +19,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
+import { saveAs } from "file-saver";
 
 @Component({
     selector: 'units',
@@ -108,26 +109,9 @@ export class UnitsComponent implements OnInit, OnDestroy {
         //
         this.localService.outputCSV(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
 
-            //var blob = new Blob(value, { type: "application/octet-binary" });
-            //ngFileSaver.FileSaver.saveAs(blob, 'units.csv');
-
-            var file = new Blob([result.arrayBuffer()], { type: 'application/octet-binary' });
-            var fileURL = window.URL.createObjectURL(file);
-            var seconds = new Date().getTime() / 1000;
-            var fileName = "output.units" + Math.random() + ".csv";
-
-            var a = document.createElement("a");
-            document.body.appendChild(a);
-            a.href = fileURL;
-            a.download = fileName;
-            a.click();
-
-            //var anchor = document.createElement('a');
-
-            //anchor.setAttribute('href', 'data:attachment/csv;charset=utf-8,' + encodeURI(result.text()));
-            //anchor.setAttribute('target', '_blank');
-            //anchor.setAttribute('download', 'filename.csv');
-            //anchor.click();
+            var blob = new Blob([result.arrayBuffer()], { type: "application/octet-binary" });
+            saveAs(blob, "output.units.csv");
+            
         }, error => {
             });
     }
