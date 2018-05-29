@@ -437,7 +437,8 @@
       "Room": "Phòng",
       "Teacher": "Giáo viên",
       "StudentClass": "Học viên",
-      "Student": "Học viên"
+      "Student": "Học viên",
+      "General": "Thông tin chung"
     },
     "room": {
       "Unit": "Đơn vị tính",
