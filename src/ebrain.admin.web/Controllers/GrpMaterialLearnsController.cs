@@ -50,7 +50,9 @@ namespace Ebrain.Controllers
         public async Task<JsonResult> Search(string filter, string value, int page, int size)
         {
             var unit = this._unitOfWork.GrpMaterials;
-            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+            var branchIds = this._unitOfWork.Branches.GetAllBranchOfUserString(userId);
+            var ret = from c in await unit.Search(filter, value, branchIds,
+                    true, this._unitOfWork.TypeMaterials.GetAllTypeLearn(branchIds).Result.Select(p => p.TypeMaterialId),
                     page, size)
                       select new GrpMaterialViewModel
                       {

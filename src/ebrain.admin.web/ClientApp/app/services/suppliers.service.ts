@@ -36,7 +36,7 @@ export class SuppliersService {
     }
 
     getGrpSupplier(option: number) {
-        return this.grpSupplierEndpoint.getAll(option).map((response: Response) => <Grpsupplier[]>response.json());
+        return this.grpSupplierEndpoint.getAll(option).map((response: Response) => <Results<Grpsupplier>>response.json());
     }
 
     save(value: Supplier) {

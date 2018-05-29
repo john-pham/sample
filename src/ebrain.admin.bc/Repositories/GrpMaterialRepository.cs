@@ -68,13 +68,17 @@ namespace ebrain.admin.bc.Repositories
             return itemExists.Select(p => p.GrpMaterialId).ToList();
         }
 
-        public async Task<IEnumerable<GrpMaterial>> Search(string filter, string value, string branchIds, int page, int size)
+        public async Task<IEnumerable<GrpMaterial>> Search(string filter, string value, string branchIds, bool isLearn, IEnumerable<Guid> typeLearnIds, int page, int size)
         {
             var someTypeList = this.appContext.GrpMaterial.Where
                 (
                     p => p.IsDeleted == false &&
                     branchIds.Contains(p.BranchId.ToString())
                 );
+            if (isLearn == true)
+            {
+                someTypeList = someTypeList.Where(p => typeLearnIds.Contains(p.TypeMaterialId.HasValue ? p.TypeMaterialId.Value : Guid.Empty));
+            }
             //paging
             this.Total = someTypeList.Count();
             if (size > 0 && page >= 0)

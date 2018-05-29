@@ -1,10 +1,10 @@
 ﻿<!-- Info boxes -->
-<div class="row">
+<div class="row" *ngIf="accessRightService.isViewFeature('1e74bc15-9188-4cd9-9b39-e5b0c22ed231')">
     <bannertops></bannertops>
 </div>
 <!-- /.row -->
 
-<div class="row">
+<div class="row" *ngIf="accessRightService.isViewFeature('1e74bc15-9188-4cd9-9b39-e5b0c22ed232')">
     <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border">
@@ -37,7 +37,7 @@
 </div>
 <!-- /.row -->
 
-<div class="row" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484ad18217')">
+<div class="row" *ngIf="accessRightService.isViewFeature('1e74bc15-9188-4cd9-9b39-e5b0c22ed233')">
     <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header with-border">

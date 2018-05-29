@@ -156,12 +156,13 @@ export class SupplierEmpsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessfulGrp(grpSuppliers: Grpsupplier[]) {
+    private onDataLoadSuccessfulGrp(resulted: Results<Grpsupplier>) {
+        var grpSuppliers = resulted.list;
         if (grpSuppliers != null && grpSuppliers.length > 0) {
             this.pointer.grpSupplierId = grpSuppliers[0].id;
         }
         this.allGrpSuppliers = grpSuppliers;
-
+        this.loadingIndicator = false
         this.alertService.stopLoadingMessage();
     }
 
