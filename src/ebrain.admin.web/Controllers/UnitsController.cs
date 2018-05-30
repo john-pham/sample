@@ -197,7 +197,7 @@ namespace Ebrain.Controllers
 
             var content = string.Join('\t', value);
 
-            return m_Ret;
+            return m_Ret.ToString();
             //return System.Text.Encoding.UTF8.GetBytes(content);
         }
 
