@@ -26,7 +26,7 @@ namespace Ebrain.Controllers
             var m_Ret = new StringBuilder();
 
             //
-            m_Ret.AppendLine(string.Join('\t', props.Select(x => x.Name)));
+            m_Ret.AppendLine(string.Join(",\t", props.Select(x => x.Name)));
 
             //
             foreach (var item in value)
@@ -40,8 +40,6 @@ namespace Ebrain.Controllers
                         list.Add(obj.ToString());
                     else
                         list.Add(string.Empty);
-
-                    // Do something with propValue
                 }
                 //
                 m_Ret.AppendLine(string.Join(",\t", list));

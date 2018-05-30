@@ -125,6 +125,19 @@ export class BranchesEndpoint extends EndpointFactory {
             });
     }
 
+    outputCSV(filter: string, value: string, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrl('csv?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.outputCSV(filter, value, page, size));
+            });
+
+    }
+
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {

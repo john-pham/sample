@@ -111,9 +111,9 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
             var blob = new Blob([result], { type: "text/plain;charset=utf-8" });
             saveAs(blob, "output.units.csv");
-            
+
         }, error => {
-            });
+        });
     }
 
     delete(row) {
@@ -182,7 +182,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
                 this.pointer.code = item.code;
                 this.pointer.name = item.name;
                 this.pointer.note = item.note;
-                
+
                 //
                 this.modalRef = this.modalService.show(template);
             },

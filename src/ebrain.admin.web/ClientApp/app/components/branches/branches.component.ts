@@ -21,6 +21,7 @@ import { Branch } from '../../models/branch.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
 import { AccessRightsService } from "../../services/access-rights.service";
+import { saveAs } from "file-saver";
 
 @Component({
     selector: 'branches',
@@ -156,7 +157,14 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     onOutputCSV() {
         //
-        location.href = '/download/OutputBranchesCSV?filter=' + this.filterName + '&value=' + this.filterValue + '&page=' + this.page.pageNumber + '&size=' + this.page.size;
+        //
+        this.localService.outputCSV(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
+
+            var blob = new Blob([result], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, "output.branches.csv");
+
+        }, error => {
+        });
 
     }
 
