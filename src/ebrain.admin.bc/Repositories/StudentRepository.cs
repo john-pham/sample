@@ -157,7 +157,7 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<StudentList>().ToList();
                                });
-
+                this.Total = someTypeList.Count;
                 return someTypeList;
             }
             catch (Exception ex)
