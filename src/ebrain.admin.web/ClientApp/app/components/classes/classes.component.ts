@@ -37,6 +37,7 @@ import { ShiftclassesService } from "../../services/shiftclasses.service";
 import { Shiftclass } from "../../models/Shiftclass.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Results } from "../../models/results.model";
+import { DateOnlyPipe } from "../../directives/dateonlypipe.directive";
 
 @Component({
     selector: 'classes',
@@ -85,6 +86,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         private shiftService: ShiftclassesService, private route: ActivatedRoute, private router: Router) {
 
         this.pointer = new Class();
+        this.pointer.startDate = this.pointer.endDate = new Date();
     }
 
     ngOnInit() {
@@ -101,6 +103,9 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.columnStudents = [
             { headerClass: "text-center", prop: "fullName", name: gT('label.class.Student'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'address', name: gT('label.class.Address'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'startDate', name: gT('label.class.StartDate'), cellTemplate: this.nameTemplate, pipe: new DateOnlyPipe('en-US'), cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'endDate', name: gT('label.class.EndDate'), cellTemplate: this.descriptionTemplate, pipe: new DateOnlyPipe('en-US'), cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'materialName', name: gT('label.class.MaterialLearn'), cellTemplate: this.descriptionTemplate },
             { name: '', width: 100, cellTemplate: this.actionStudentsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
@@ -176,16 +181,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
     private getFromServer(isReset: boolean) {
         this.loadingIndicator = true;
-
-        var disp = this.localService.search(this.filterName, this.filterValue).subscribe(
-            list => this.onDataLoadSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
-
-        this.materialService.getMaterialLearn(this.filterName, this.filterValue, 0, 0).subscribe(
+        
+        var disp = this.materialService.getMaterialLearn(this.filterName, this.filterValue, 0, 0).subscribe(
             list => this.onDataLoadMaterialSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
@@ -324,12 +321,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.alertService.stopLoadingMessage();
 
     }
-
-    private onDataLoadSuccessful(list: Class[]) {
-        this.alertService.stopLoadingMessage();
-
-    }
-
+    
     private onDataLoadFailed(error: any) {
         this.alertService.stopLoadingMessage();
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
@@ -392,6 +384,9 @@ export class ClassesComponent implements OnInit, OnDestroy {
             if (studentes != null && studentes.length > 0) {
                 studentes.forEach(row => {
                     itemPointer.studentId = row.studentId;
+                    itemPointer.materialId = row.materialId;
+                    itemPointer.startDate = row.startDate;
+                    itemPointer.endDate = row.endDate;
                     this.addClassStudent(row.id);
                 });
             }
@@ -458,6 +453,16 @@ export class ClassesComponent implements OnInit, OnDestroy {
             itemNew.fullName = student.name;
             itemNew.address = student.address;
         }
+
+        var mate = this.materials.filter(x => x.id == item.materialId)[0];
+        if (mate != null) {
+            itemNew.materialName = mate.name;
+        }
+
+        itemNew.startDate = item.startDate;
+        itemNew.endDate = item.endDate;
+        itemNew.materialId = item.materialId;
+        
         itemNew.classId = item.id;
         itemNew.id = id;
         this.rowStudents.push(itemNew);

@@ -81,13 +81,11 @@ export class ClassListsComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'code', name: gT('label.classlist.Code'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'name', name: gT('label.classlist.Name'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'materialName', name: gT('label.classlist.MaterialName'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'createdDate', name: gT('label.classlist.CreatedDate'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'createdDate', name: gT('label.classlist.CreatsssssssedDate'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'fullName', name: gT('label.classlist.CreatedBy'), cellTemplate: this.nameTemplate },
 
             { headerClass: "text-center", prop: 'supplierName', name: gT('label.classlist.SupplierName'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'startDate', name: gT('label.classlist.StartDate'), cellTemplate: this.totalPriceTemplate },
-            { headerClass: "text-center", prop: 'endDate', name: gT('label.classlist.EndDate'), cellTemplate: this.descriptionTemplate },
-
+            { headerClass: "text-center", prop: 'materialName', name: gT('label.classlist.MaterialName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'maxStudent', name: gT('label.classlist.MaxStudent'), cellTemplate: this.nameTemplate, cellClass: 'text-right', width: 80 },
             { headerClass: "text-center", prop: 'countStudent', name: gT('label.classlist.LearnStudent'), cellTemplate: this.nameTemplate, cellClass: 'text-right', width: 80 },
             { name: '', cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false, width: 80 }

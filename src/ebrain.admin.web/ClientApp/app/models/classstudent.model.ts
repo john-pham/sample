@@ -17,4 +17,8 @@ export class ClassStudent {
     public studentId: string;
     public address: string;
     public fullName: string;
+    public startDate: Date;
+    public endDate: Date;
+    public materialId: string;
+    public materialName: string;
 }

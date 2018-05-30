@@ -156,6 +156,9 @@ namespace Ebrain.Controllers
                     ClassId = p.ClassId,
                     CreatedBy = userId,
                     UpdatedBy = userId,
+                    EndDate = p.EndDate,
+                    StartDate = p.StartDate,
+                    MaterialId = p.MaterialId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                 }).ToArray(), value.ID);
@@ -255,12 +258,23 @@ namespace Ebrain.Controllers
                 var itemClassStudents = await this._unitOfWork.ClassStudents.GetClassStudentFromClassId(index);
                 if (itemClassStudents != null)
                 {
-                    itemExist.Students = itemClassStudents.Select(p => new ClassStudentViewModel
+                    var list = new List<ClassStudentViewModel>();
+                    foreach (var item in itemClassStudents)
                     {
-                        StudentId = p.StudentId,
-                        ID = p.ClassStudentId,
-                        ClassId = p.ClassId
-                    }).ToArray();
+                        var itemMate = await this._unitOfWork.Materials.Get(item.MaterialId);
+                        list.Add(new ClassStudentViewModel
+                        {
+                            StudentId = item.StudentId,
+                            ID = item.ClassStudentId,
+                            ClassId = item.ClassId,
+                            MaterialId = item.MaterialId,
+                            StartDate = item.StartDate,
+                            EndDate = item.EndDate,
+                            MaterialName = itemMate != null ? itemMate.MaterialName : string.Empty
+                        });
+                    }
+
+                    itemExist.Students = list.ToArray();
                 }
             }
             return Ok(itemExist);

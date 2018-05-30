@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <div class="box box-shadow">
+            <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{'label.class.General' | translate}}</h3>
                     <div class="box-tools pull-right">
@@ -149,28 +149,6 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group has-feedback">
-                                    <label class="control-label col-md-2">{{'label.class.StartDate' | translate}}</label>
-                                    <div class="col-md-10" [ngClass]="{'has-success': f.submitted && startDate.valid, 'has-error' : f.submitted && !startDate.valid}">
-                                        <input type="text" class="form-control" placeholder="{{'label.class.StartDate' | translate}}"
-                                               bsDatepicker [(ngModel)]="pointer.startDate"
-                                               name="startDate" required #startDate="ngModel" attr.id="startDate-{{uniqueId}}" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group has-feedback">
-                                    <label class="control-label col-md-2">{{'label.class.EndDate' | translate}}</label>
-                                    <div class="col-md-10" [ngClass]="{'has-success': f.submitted && endDate.valid, 'has-error' : f.submitted && !endDate.valid}">
-                                        <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endDate"
-                                               name="endDate" required #endDate="ngModel" attr.id="endDate-{{uniqueId}}" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-md-12">
                                 <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
                             </div>
@@ -229,125 +207,130 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <div>
 
-                            <div class="col-md-6 no-pd">
-                                <div class="wrap-inp">
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label col-md-2">{{'label.class.Today' | translate}}</label>
-                                        <div class="col-md-8">
-                                            <select id="grps-user-info" name="today" [(ngModel)]="pointer.todayId" class="form-control"
-                                                    data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
-                                                <option *ngFor="let grp of todays" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
-                                                    {{grp.name}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="wrap-inp">
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label col-md-2">{{'label.class.Shift' | translate}}</label>
-                                        <div class="col-md-8">
-                                            <select id="grps-user-info" name="shift" [(ngModel)]="pointer.shiftId" class="form-control"
-                                                    data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
-                                                <option *ngFor="let grp of shifts" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
-                                                    {{grp.name}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6 no-pd">
-                                <div class="wrap-inp">
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label col-md-2">{{'label.class.Room' | translate}}</label>
-                                        <div class="col-md-8">
-                                            <select id="grps-user-info" name="room" [(ngModel)]="pointer.roomId" class="form-control"
-                                                    data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
-                                                <option *ngFor="let grp of rooms" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
-                                                    {{grp.name}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="wrap-inp">
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label col-md-2">{{'label.class.Teacher' | translate}}</label>
-                                        <div class="col-md-8">
-                                            <select id="grps-user-info" name="teacher" [(ngModel)]="pointer.teacherTodayId" class="form-control"
-                                                    data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
-                                                <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
-                                                    {{grp.name}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-                                </div>
-                            </div>
-
-                            <div class="mg-bt-10 text-center">
+                        <!--<div class="col-md-6 no-pd">-->
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <div class="form-group has-feedback">
-                                    <button type="button" class="btn btn-primary" (click)="addClassTime()">
-                                        {{'button.Add' | translate}}
-                                    </button>
+                                    <label class="control-label col-md-2">{{'label.class.Today' | translate}}</label>
+                                    <div class="col-md-10">
+                                        <select id="grps-user-info" name="today" [(ngModel)]="pointer.todayId" class="form-control"
+                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                            <option *ngFor="let grp of todays" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                                {{grp.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                            <div class="col-sm-6">
+                                <div class="form-group has-feedback">
+                                    <label class="control-label col-md-2">{{'label.class.Shift' | translate}}</label>
+                                    <div class="col-md-10">
+                                        <select id="grps-user-info" name="shift" [(ngModel)]="pointer.shiftId" class="form-control"
+                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                            <option *ngFor="let grp of shifts" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                                {{grp.name}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group has-feedback">
+                                    <label class="control-label col-md-2">{{'label.class.Room' | translate}}</label>
+                                    <div class="col-md-10">
+                                        <select id="grps-user-info" name="room" [(ngModel)]="pointer.roomId" class="form-control"
+                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                            <option *ngFor="let grp of rooms" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                                {{grp.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group has-feedback">
+                                    <label class="control-label col-md-2">{{'label.class.Teacher' | translate}}</label>
+                                    <div class="col-md-10">
+                                        <select id="grps-user-info" name="teacher" [(ngModel)]="pointer.teacherTodayId" class="form-control"
+                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                            <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                                {{grp.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                            </div>
+                        </div>
+
+                        <div class="mg-bt-10 text-center">
+                            <div class="form-group has-feedback">
+                                <button type="button" class="btn btn-primary" (click)="addClassTime()">
+                                    {{'button.Add' | translate}}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                            </div>
+                        </div>
 
 
-                            <div class="wrap-table">
-                                <div class="col-sm-12">
-                                    <div class="form-group has-feedback">
-                                        <div [@fadeInOut]>
-                                            <!--DATA TABLE-->
-                                            <ngx-datatable class="material colored-header sm table-hover"
-                                                           [loadingIndicator]="loadingIndicator"
-                                                           [rows]="rowTimes"
-                                                           [rowHeight]="auto"
-                                                           [columns]="columnTimes"
-                                                           [scrollbarV]="verticalScrollbar"
-                                                           [columnMode]="'force'">
-                                            </ngx-datatable>
+                        <div class="wrap-table">
+                            <div class="col-sm-12">
+                                <div class="form-group has-feedback">
+                                    <div [@fadeInOut]>
+                                        <!--DATA TABLE-->
+                                        <ngx-datatable class="material colored-header sm table-hover"
+                                                       [loadingIndicator]="loadingIndicator"
+                                                       [rows]="rowTimes"
+                                                       [rowHeight]="auto"
+                                                       [columns]="columnTimes"
+                                                       [scrollbarV]="verticalScrollbar"
+                                                       [columnMode]="'force'">
+                                        </ngx-datatable>
 
-                                            <!-- TEMPLATEs -->
-                                            <ng-template #statusHeaderTemplate>
-                                                <i class="fa fa-check-square-o"></i>
-                                            </ng-template>
+                                        <!-- TEMPLATEs -->
+                                        <ng-template #statusHeaderTemplate>
+                                            <i class="fa fa-check-square-o"></i>
+                                        </ng-template>
 
-                                            <ng-template #nameTemplate let-row="row" let-value="value">
-                                                <span attr.title="{{value}}">
-                                                    {{value}}
-                                                </span>
-                                            </ng-template>
-                                            <ng-template #actionsTemplate let-row="row">
-                                                <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteTime(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
-                                            </ng-template>
-                                        </div>
+                                        <ng-template #nameTemplate let-row="row" let-value="value">
+                                            <span attr.title="{{value}}">
+                                                {{value}}
+                                            </span>
+                                        </ng-template>
+                                        <ng-template #actionsTemplate let-row="row">
+                                            <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteTime(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+                                        </ng-template>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
+
 
             <div class="box box-warning">
                 <div class="box-header with-border">
@@ -363,7 +346,7 @@
                     <div class="table-responsive">
                         <div>
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label class="control-label col-md-2">{{'label.class.Student' | translate}}</label>
                                         <div class="col-md-10">
@@ -373,6 +356,52 @@
                                                     {{grp.name}}
                                                 </option>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label col-md-2">{{'label.class.MaterialLearn' | translate}}</label>
+                                        <div class="col-md-10" [ngClass]="{'has-success': f.submitted && mate.valid, 'has-error' : f.submitted && !mate.valid}">
+                                            <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control"
+                                                    #mate="ngModel" attr.id="mate-{{uniqueId}}" minlength="2" maxlength="200"
+                                                    data-show-subtext="true"
+                                                    data-live-search="true" data-actions-box="true" data-live-search-placeholder="Search..." title="">
+                                                <option *ngFor="let grp of materials" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                                    {{grp.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label col-md-2">{{'label.class.StartDate' | translate}}</label>
+                                        <div class="col-md-10" [ngClass]="{'has-success': f.submitted && startDate.valid, 'has-error' : f.submitted && !startDate.valid}">
+                                            <input type="text" class="form-control" placeholder="{{'label.class.StartDate' | translate}}"
+                                                   bsDatepicker [(ngModel)]="pointer.startDate"
+                                                   name="startDate" #startDate="ngModel" attr.id="startDate-{{uniqueId}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label col-md-2">{{'label.class.EndDate' | translate}}</label>
+                                        <div class="col-md-10" [ngClass]="{'has-success': f.submitted && endDate.valid, 'has-error' : f.submitted && !endDate.valid}">
+                                            <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endDate"
+                                                   name="endDate" #endDate="ngModel" attr.id="endDate-{{uniqueId}}" />
                                         </div>
                                     </div>
                                 </div>

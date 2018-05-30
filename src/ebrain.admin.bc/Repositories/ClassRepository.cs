@@ -181,6 +181,9 @@ namespace ebrain.admin.bc.Repositories
                         itemClassExist.BranchId = value.BranchId;
                         itemClassExist.StudentId = item.StudentId;
                         itemClassExist.ClassId = itemExist.ClassId;
+                        itemClassExist.StartDate = item.StartDate;
+                        itemClassExist.EndDate = item.EndDate;
+                        itemClassExist.MaterialId = itemExist.MaterialId;
                     }
                     else
                     {
@@ -280,6 +283,24 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<ClassList>().ToList();
                                });
+
+                someTypeList = someTypeList.GroupBy(p => p.ClassId).Select(p => new ClassList
+                {
+                    ClassId = p.Key,
+                    ClassCode = p.First().ClassCode,
+                    ClassName = p.First().ClassName,
+                    LongLearn = p.First().LongLearn,
+                    MaxStudent = p.First().MaxStudent,
+                    CreatedDate = p.First().CreatedDate,
+                    StartDate = p.First().StartDate,
+                    EndDate = p.First().EndDate,
+                    SupplierId = p.First().SupplierId,
+                    SupplierName = p.First().SupplierName,
+                    Address = p.First().Address,
+                    FullName = p.First().FullName,
+                    CountStudent = p.First().CountStudent,
+                    MaterialName = p.Select(c => c.MaterialName).Aggregate((i, j) => $"{i}, {j}")
+                }).ToList();
 
                 //paging
                 this.Total = someTypeList.Count();
