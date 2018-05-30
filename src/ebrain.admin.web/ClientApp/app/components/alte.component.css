@@ -309,3 +309,14 @@ messengerlists .ngx-datatable .datatable-body {
         height: calc(100% - 100px);
     }
 }
+
+/* shadow for box */
+.statistic > .row a.block {
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+
+.statistic > .row a.block:hover {
+    transform: scale(1.05);
+}
