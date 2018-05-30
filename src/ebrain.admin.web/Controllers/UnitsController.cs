@@ -23,6 +23,8 @@ using System.Net.Http;
 using System.Net;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Reflection;
+using System.Text;
 
 namespace Ebrain.Controllers
 {
@@ -173,11 +175,30 @@ namespace Ebrain.Controllers
 
         #region internal process
 
-        private byte[] Convert<T>(IEnumerable<T> value)
+        private string Convert<T>(IEnumerable<T> value)
         {
+            var myType = typeof(T);
+            var props = new List<PropertyInfo>(myType.GetProperties());
+            var m_Ret = new StringBuilder();
+
+            //
+            m_Ret.AppendLine(string.Join('\t', props));
+
+            //
+            foreach (var item in value)
+            {
+                foreach (PropertyInfo prop in props)
+                {
+                    //object propValue = prop.GetValue(myObject, null);
+
+                    // Do something with propValue
+                }
+            }
+
             var content = string.Join('\t', value);
 
-            return System.Text.Encoding.UTF8.GetBytes(content);
+            return m_Ret;
+            //return System.Text.Encoding.UTF8.GetBytes(content);
         }
 
         #endregion
