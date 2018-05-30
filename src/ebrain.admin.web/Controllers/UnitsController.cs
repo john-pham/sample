@@ -187,12 +187,16 @@ namespace Ebrain.Controllers
             //
             foreach (var item in value)
             {
+                var list = new List<string>();
+
                 foreach (PropertyInfo prop in props)
                 {
-                    //object propValue = prop.GetValue(myObject, null);
+                    list.Add(prop.GetValue(item).ToString());
 
                     // Do something with propValue
                 }
+                //
+                m_Ret.AppendLine(string.Join('\t', list));
             }
 
             var content = string.Join('\t', value);
