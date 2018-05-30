@@ -182,7 +182,7 @@ namespace Ebrain.Controllers
             var m_Ret = new StringBuilder();
 
             //
-            m_Ret.AppendLine(string.Join('\t', props));
+            m_Ret.AppendLine(string.Join('\t', props.Select(x=>x.Name)));
 
             //
             foreach (var item in value)
@@ -191,15 +191,17 @@ namespace Ebrain.Controllers
 
                 foreach (PropertyInfo prop in props)
                 {
-                    list.Add(prop.GetValue(item).ToString());
+                    var obj = prop.GetValue(item);
+                    if (obj != null)
+                        list.Add(obj.ToString());
+                    else
+                        list.Add(string.Empty);
 
                     // Do something with propValue
                 }
                 //
-                m_Ret.AppendLine(string.Join('\t', list));
+                m_Ret.AppendLine(string.Join(",\t", list));
             }
-
-            var content = string.Join('\t', value);
 
             return m_Ret.ToString();
             //return System.Text.Encoding.UTF8.GetBytes(content);
