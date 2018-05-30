@@ -85,12 +85,12 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group has-feedback">
-                                    <label class="control-label col-md-2">{{'label.class.MaterialLearn' | translate}}</label>
-                                    <div class="col-md-10" [ngClass]="{'has-success': f.submitted && mate.valid, 'has-error' : f.submitted && !mate.valid}">
-                                        <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control"
-                                                required #mate="ngModel" attr.id="mate-{{uniqueId}}" minlength="2" maxlength="200"
-                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
-                                            <option *ngFor="let grp of materials" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                    <label class="control-label col-md-2">{{'label.class.TeacherMain' | translate}}</label>
+                                    <div class="col-md-10" [ngClass]="{'has-success': f.submitted && supplier.valid, 'has-error' : f.submitted && !supplier.valid}">
+                                        <select id="grps-user-info" name="supplier" [(ngModel)]="pointer.supplierId" class="form-control" required
+                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title=""
+                                                #supplier="ngModel" attr.id="supplier-{{uniqueId}}">
+                                            <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                 {{grp.name}}
                                             </option>
                                         </select>
@@ -155,21 +155,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group has-feedback">
-                                    <label class="control-label col-md-2">{{'label.class.TeacherMain' | translate}}</label>
-                                    <div class="col-md-10" [ngClass]="{'has-success': f.submitted && supplier.valid, 'has-error' : f.submitted && !supplier.valid}">
-                                        <select id="grps-user-info" name="supplier" [(ngModel)]="pointer.supplierId" class="form-control" required
-                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title=""
-                                                #supplier="ngModel" attr.id="supplier-{{uniqueId}}">
-                                            <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
-                                                {{grp.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-
-                                </div>
-                            </div>
+                            
                         </div>
 
                         <div class="row">
