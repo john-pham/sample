@@ -262,20 +262,30 @@ namespace Ebrain.Controllers
             return File(output, "application/pdf");
         }
 
-        //[HttpGet]
-        //[Route("csv")]
-        ////[Produces("text/csv")]
-        //public async Task<HttpResponseMessage> OutputCSV(string filter, string value, int page, int size)
-        //{
-        //    string csv = await reportManager.GetReport(CustomerId, id);
+        [HttpGet("csv")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> OutputCSV(string filter, string value, int page, int size)
+        {
+            var ret = from c in await this._unitOfWork.Branches.Search(filter, value, page, size)
+                      select new BranchViewModel
+                      {
+                          ID = c.BranchId,
+                          Code = c.BranchCode,
+                          Name = c.BranchName,
+                          Email = c.Email,
+                          Address = c.Address,
+                          PhoneNumber = c.PhoneNumber,
+                          Fax = c.FAX,
+                          Logo = new FileViewModel
+                          {
+                              Name = c.LogoName.WebRootPathLogo()
+                          }
+                      };
 
-        //    var response = new HttpResponseMessage(HttpStatusCode.OK);
-        //    response.Content = new StringContent(csv);
-        //    response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
-        //    response.Content.Headers.ContentDisposition =
-        //        new ContentDispositionHeaderValue("attachment") { FileName = "report.csv" };
-        //    return response;
-        //}
+            var contents = base.CSV<BranchViewModel>(ret);
+
+            return Json(contents);
+        }
 
         private byte[] generatePdf()
         {

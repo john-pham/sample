@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using ebrain.admin.bc;
 using Ebrain.Helpers;
@@ -16,6 +18,38 @@ namespace Ebrain.Controllers
         public bool CanEdit { get; private set; }
         public bool CanDelete { get; private set; }
         public bool CanCreate { get; private set; }
+
+        protected string CSV<T>(IEnumerable<T> value)
+        {
+            var myType = typeof(T);
+            var props = new List<PropertyInfo>(myType.GetProperties());
+            var m_Ret = new StringBuilder();
+
+            //
+            m_Ret.AppendLine(string.Join('\t', props.Select(x => x.Name)));
+
+            //
+            foreach (var item in value)
+            {
+                var list = new List<string>();
+
+                foreach (PropertyInfo prop in props)
+                {
+                    var obj = prop.GetValue(item);
+                    if (obj != null)
+                        list.Add(obj.ToString());
+                    else
+                        list.Add(string.Empty);
+
+                    // Do something with propValue
+                }
+                //
+                m_Ret.AppendLine(string.Join(",\t", list));
+            }
+
+            return m_Ret.ToString();
+            //return System.Text.Encoding.UTF8.GetBytes(content);
+        }
 
         readonly ILogger _logger;
         private IList<ebrain.admin.bc.Report.AccessRight> _accessRights;

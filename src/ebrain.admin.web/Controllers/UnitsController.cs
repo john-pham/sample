@@ -13,18 +13,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ebrain.admin.bc;
 using Ebrain.ViewModels;
-using AutoMapper;
 using ebrain.admin.bc.Models;
 using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using Ebrain.Policies;
-using System.Net.Http;
-using System.Net;
-using System.IO;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Text;
 
 namespace Ebrain.Controllers
 {
@@ -109,7 +101,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-               var ret = await this._unitOfWork.Units.Save(new Unit
+                var ret = await this._unitOfWork.Units.Save(new Unit
                 {
                     UnitId = Guid.NewGuid(),
                     UnitCode = value.Code,
@@ -158,55 +150,9 @@ namespace Ebrain.Controllers
                           Note = c.Note
                       };
 
-            var contents = this.Convert<UnitViewModel>(ret);
-
-
-            //HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            ////response.Content = new StreamContent(new FileStream(localFilePath, FileMode.Open, FileAccess.Read));
-            ////String file = Convert.ToBase64String(bytes);
-            //response.Content = new ByteArrayContent(contents);
-            //response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-            //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-            //response.Content.Headers.ContentDisposition.FileName = "output.units.csv";
-
-            //return response;
+            var contents = base.CSV<UnitViewModel>(ret);
+            
             return Json(contents);
         }
-
-        #region internal process
-
-        private string Convert<T>(IEnumerable<T> value)
-        {
-            var myType = typeof(T);
-            var props = new List<PropertyInfo>(myType.GetProperties());
-            var m_Ret = new StringBuilder();
-
-            //
-            m_Ret.AppendLine(string.Join('\t', props.Select(x=>x.Name)));
-
-            //
-            foreach (var item in value)
-            {
-                var list = new List<string>();
-
-                foreach (PropertyInfo prop in props)
-                {
-                    var obj = prop.GetValue(item);
-                    if (obj != null)
-                        list.Add(obj.ToString());
-                    else
-                        list.Add(string.Empty);
-
-                    // Do something with propValue
-                }
-                //
-                m_Ret.AppendLine(string.Join(",\t", list));
-            }
-
-            return m_Ret.ToString();
-            //return System.Text.Encoding.UTF8.GetBytes(content);
-        }
-
-        #endregion
     }
 }
