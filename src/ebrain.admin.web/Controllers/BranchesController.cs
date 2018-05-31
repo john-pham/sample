@@ -253,18 +253,52 @@ namespace Ebrain.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpGet]
-        [Route("pdf")]
+        [HttpGet("pdf")]
         //[Produces("application/pdf")]
-        public IActionResult OutputPDF()
+        public async Task<IActionResult> OutputPDF(string filter, string value, int page, int size)
         {
-            var output = generatePdf();
+            var contents = await this.generateOutputContent(filter, value, page, size);
+            var output = generatePdf(contents);
+
             return File(output, "application/pdf");
         }
 
         [HttpGet("csv")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> OutputCSV(string filter, string value, int page, int size)
+        {
+            var contents = await this.generateOutputContent(filter, value, page, size);
+
+            return Json(contents);
+        }
+
+        private byte[] generatePdf(string contents)
+        {
+            var converter = new SynchronizedConverter(new PdfTools());
+
+            var doc = new HtmlToPdfDocument()
+            {
+                GlobalSettings = {
+        ColorMode = ColorMode.Color,
+        Orientation = Orientation.Landscape,
+        PaperSize = PaperKind.A4Plus,
+    },
+                Objects = {
+        new ObjectSettings() {
+            PagesCount = true,
+            HtmlContent = contents,
+            WebSettings = { DefaultEncoding = "utf-8" },
+            HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
+        }
+    }
+            };
+
+            byte[] pdf = converter.Convert(doc);
+
+            return pdf;
+        }
+
+        private async Task<string> generateOutputContent(string filter, string value, int page, int size)
         {
             var ret = from c in await this._unitOfWork.Branches.Search(filter, value, page, size)
                       select new BranchViewModel
@@ -284,33 +318,7 @@ namespace Ebrain.Controllers
 
             var contents = base.CSV<BranchViewModel>(ret);
 
-            return Json(contents);
-        }
-
-        private byte[] generatePdf()
-        {
-            var converter = new SynchronizedConverter(new PdfTools());
-
-            var doc = new HtmlToPdfDocument()
-            {
-                GlobalSettings = {
-        ColorMode = ColorMode.Color,
-        Orientation = Orientation.Landscape,
-        PaperSize = PaperKind.A4Plus,
-    },
-                Objects = {
-        new ObjectSettings() {
-            PagesCount = true,
-            HtmlContent = @"sample data here for Quang",
-            WebSettings = { DefaultEncoding = "utf-8" },
-            HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
-        }
-    }
-            };
-
-            byte[] pdf = converter.Convert(doc);
-
-            return pdf;
+            return contents;
         }
     }
 }

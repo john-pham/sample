@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Angular4 (ASP.NET Core) startup project template with complete login, user and role management. Plus other useful services for Superbrain System Development",
   "author": {
-    "name": "Ebrain Team",
+    "name": "SuperBrain Team",
     "email": "johnpham@ymail.com",
     "url": "http://superbrain.edu.vn/about"
   },
