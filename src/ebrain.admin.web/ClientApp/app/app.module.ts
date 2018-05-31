@@ -223,6 +223,7 @@ import { PurHistoriesComponent } from "./components/purhistories/purhistories.co
 import { PurSummarizesComponent } from "./components/pursummarizes/pursummarizes.component";
 import { PurDetailsComponent } from "./components/purdetails/purdetails.component";
 
+import { IOStudenListPayComponent } from "./components/iostudentlistspay/iostudentlistspay.component";
 import { IOStudenListComponent } from "./components/iostudentlists/iostudentlists.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
 import { IOSummarizesComponent } from "./components/iosummarizes/iosummarizes.component";
@@ -402,6 +403,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         DeptsListsComponent,
 
         IOStudenListComponent,
+        IOStudenListPayComponent,
         IOSummarizesComponent,
         IODetailsComponent,
         WarehouseCardsComponent,

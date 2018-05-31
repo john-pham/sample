@@ -1,0 +1,9 @@
+﻿:host {
+    flex: 1 1 auto;
+    flex-flow: column;
+    display: flex;
+}
+
+.pd-0 {
+    padding: 0;
+}

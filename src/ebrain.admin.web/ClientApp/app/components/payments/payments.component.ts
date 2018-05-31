@@ -86,18 +86,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         let gT = (key: string) => this.translationService.getTranslation(key);
-
-        this.columnios = [
-            { headerClass: "text-center", prop: "code", name: gT('label.payment.IONumber'), width: 100, headerTemplate: this.statusHeaderTemplate, cellTemplate: this.statusTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false },
-            { headerClass: "text-center", prop: 'createDate', name: gT('label.payment.CreatedDate'), cellTemplate: this.typenameTemplate },
-
-            { headerClass: "text-center", prop: 'studentName', name: gT('label.payment.StudentName'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'fullName', name: gT('label.payment.CreatedBy'), cellTemplate: this.typenameTemplate },
-            { headerClass: "text-center", prop: 'totalPrice', name: gT('label.payment.TotalPriceIO'), cellTemplate: this.grpnameTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'totalPricePayment', name: gT('label.payment.TotalPricePay'), cellTemplate: this.priceMaterialTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'totalPriceExist', name: gT('label.payment.TotalExist'), cellTemplate: this.descriptionTemplate, cellClass: 'text-right' }
-        ];
-
+        
         this.columns = [
             { headerClass: "text-center", prop: 'code', name: gT('label.payment.IONumber'), cellTemplate: this.typenameTemplate },
 
@@ -119,13 +108,12 @@ export class PaymentsComponent implements OnInit, OnDestroy {
     }
 
     showpayment(template: TemplateRef<any>) {
-        this.getIO();
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
     onActivateMaterial(event) {
-        if (event.type == 'dblclick') {
-            var row = event.row;
+        if (event != null) {
+            var row = event;
             this.onMappingIOToPaymentDetail(row);
         }
     }
@@ -157,11 +145,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         rows[rowIndex] = row;
         this.rows = [...this.rows]
     }
-
-    imageFinishedUploading(file: any) {
-        console.log(JSON.stringify(file.serverResponse));
-    }
-
+    
     onRemoved(file: any) {
         // do some stuff with the removed file.
     }
@@ -199,13 +183,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-
-    private getIO() {
-        //load user
-        this.ioservice.getiopayment(this.filterName, this.filterValue, false, this.ioId, this.fromDate, this.toDate, 0, 0).subscribe(results => this.onDataLoadSuccessfulPayment(results), error => this.onDataLoadFailed(error));
-
-    }
-
+    
     private getdefault(isReset: boolean) {
         //
         this.route.paramMap
@@ -255,12 +233,6 @@ export class PaymentsComponent implements OnInit, OnDestroy {
             this.pointer.paymentTypeId = types[0].ID;
         }
         this.allPaymentTypes = types;
-    }
-
-    private onDataLoadSuccessfulPayment(resulted: Results<IOStockReport>) {
-        var ios = resulted.list;
-        this.rowios = ios;
-
     }
 
     addnew() {
@@ -401,11 +373,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-
-    search() {
-        this.getIO();
-    }
-
+    
     close() {
         this.modalRef.hide();
     }

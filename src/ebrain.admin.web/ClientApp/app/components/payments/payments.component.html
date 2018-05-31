@@ -192,75 +192,7 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'label.payment.HeaderPaymentReceipt' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <div class="row control-box">
-            <div class="col-sm-10">
-                <div class="form-group search-box">
-                    <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-right">
-                    <button class="btn btn-primary" (click)="search()"><i class="fa fa-plus-circle"></i> {{'pageMain.iostudentlist.searchBox' | translate}}</button>
-                </div>
-            </div>
-        </div>
-        <div class="row control-box">
-            <div class="col-sm-6">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-2">{{'label.deptslist.FromDate' | translate}}</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" bsDatepicker [(ngModel)]="fromDate">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-2">{{'label.deptslist.ToDate' | translate}}</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <!--DATA TABLE-->
-                <ngx-datatable class="material colored-header sm table-hover"
-                               [loadingIndicator]="loadingIndicator"
-                               [rows]="rowios"
-                               [rowHeight]="auto"
-                               [columns]="columnios"
-                               [scrollbarV]="verticalScrollbar"
-                               [columnMode]="'force'"
-                               (activate)="onActivateMaterial($event)">
-                </ngx-datatable>
-
-                <!-- TEMPLATEs -->
-                <ng-template #statusHeaderTemplate>
-                    <i class="fa fa-check-square-o"></i>
-                </ng-template>
-
-                <ng-template #nameTemplate let-row="row" let-value="value">
-                    <span attr.title="{{value}}">
-                        {{value}}
-                    </span>
-                </ng-template>
-                <ng-template #descriptionTemplate let-row="row" let-value="value">
-                    <span attr.title="{{value}}">
-                        {{value}}
-                    </span>
-                </ng-template>
-                <ng-template #priceMaterialTemplate let-row="row" let-value="value">
-                    <span class="currency-pipe" attr.title="{{value}}">
-                        {{value | currencypipe }}
-                    </span>
-
-                </ng-template>
-
-            </div>
-        </div>
+        <iostudentlistspay [isNotShowPrice]="false" (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspay>
 
     </div>
 
