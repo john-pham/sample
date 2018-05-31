@@ -207,7 +207,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
                     //get io
                     var ioid = params.get('ioid');
                     if (ioid != null && ioid.length > 0) {
-                        this.ioservice.getiopayment(this.filterName, this.filterValue, false, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
+                        this.ioservice.getiopayment(this.filterName, this.filterValue, 0, false, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
                             var results = resulted.list;
                             results.forEach(row => {
                                 this.onMappingIOToPaymentDetail(row);

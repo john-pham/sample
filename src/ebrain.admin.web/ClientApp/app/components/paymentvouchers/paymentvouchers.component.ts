@@ -202,7 +202,7 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
 
     private getIO() {
         //load user
-        this.ioservice.getiopayment(this.filterName, this.filterValue, true, this.ioId, this.fromDate, this.toDate, 0, 0).subscribe(results => this.onDataLoadSuccessfulPayment(results), error => this.onDataLoadFailed(error));
+        this.ioservice.getiopayment(this.filterName, this.filterValue, 0, true, this.ioId, this.fromDate, this.toDate, 0, 0).subscribe(results => this.onDataLoadSuccessfulPayment(results), error => this.onDataLoadFailed(error));
 
     }
 
@@ -229,7 +229,7 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
                     //get io
                     var ioid = params.get('ioid');
                     if (ioid != null && ioid.length > 0) {
-                        this.ioservice.getiopayment(this.filterName, this.filterValue, true, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
+                        this.ioservice.getiopayment(this.filterName, this.filterValue, 0, true, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
                             var results = resulted.list;
                             results.forEach(row => {
                                 this.onMappingIOToPaymentDetail(row);

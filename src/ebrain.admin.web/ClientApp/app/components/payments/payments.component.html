@@ -26,16 +26,16 @@
             <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
         </button>
 
-        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')" 
+        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')"
                 type="button" class="btn btn-warning" (click)="deletemaster()">
             <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
         </button>
-        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')" 
+        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')"
                 type="button" class="btn btn-danger" (click)="cancelmaster()">
             <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
         </button>
     </div>
-    
+
     <div class="row">
         <div class="col-md-12">
             <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
@@ -134,13 +134,13 @@
     <div class="col-sm-12">
         <!--DATA TABLE-->
         <ngx-datatable class="material colored-header sm table-hover row-pointer"
-                        [loadingIndicator]="loadingIndicator"
-                        [rows]="rows"
-                        [rowHeight]="auto"
-                        [columns]="columns"
-                        [scrollbarV]="verticalScrollbar"
-                        [columnMode]="'force'"
-                        (activate)="onActivateMaterial($event)">
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [rowHeight]="auto"
+                       [columns]="columns"
+                       [scrollbarV]="verticalScrollbar"
+                       [columnMode]="'force'"
+                       (activate)="onActivateMaterial($event)">
         </ngx-datatable>
 
         <!-- TEMPLATEs -->
@@ -160,8 +160,8 @@
         </ng-template>
         <ng-template #totalPricePaymentTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
             <input class="currency-pipe" value="{{value| currencypipe}}"
-                    autofocus
-                    (blur)="updateValue(row,$event,rowIndex)" />
+                   autofocus
+                   (blur)="updateValue(row,$event,rowIndex)" />
 
         </ng-template>
 
@@ -192,7 +192,7 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'label.payment.HeaderPaymentReceipt' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <iostudentlistspay [isNotShowPrice]="false" (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspay>
+        <iostudentlistspay [isNotShowPrice]="false" [isGetAll]="false" (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspay>
 
     </div>
 

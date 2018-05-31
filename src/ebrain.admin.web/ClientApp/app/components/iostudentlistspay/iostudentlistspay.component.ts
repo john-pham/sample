@@ -34,7 +34,7 @@ import { IOStockDetail } from "../../models/iostockdetail.model";
 export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     @Input() isNotShowPrice: any = true;
-    @Input() isInput: boolean = false;
+    @Input() isGetAll: boolean = true;
     @Output() private activeDoubleClick = new EventEmitter<any>();
 
     rows = [];
@@ -74,7 +74,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         let gT = (key: string) => this.translationService.getTranslation(key);
-        
+
         this.getFromServer();
 
         //
@@ -108,7 +108,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         //
-        var disp = this.localService.getiopayment(this.filterName, this.filterValue, false, "", this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+        var disp = this.localService.getiopayment(this.filterName, this.filterValue, (this.isGetAll ? 1 : 0), false, "", this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {
