@@ -261,19 +261,19 @@ namespace Ebrain.Controllers
 
         [HttpGet("getiopayment")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> GetIOPaymentReceipt(string filter, string value, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPaymentReceipt(string filter, string value, int getAll, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return await GetIOPayment(filter, value, false, ioId, fromDate, toDate, page, size);
+            return await GetIOPayment(filter, value, getAll, false, ioId, fromDate, toDate, page, size);
         }
 
         [HttpGet("getiopaymentvoucher")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> GetIOPaymentVoucher(string filter, string value, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPaymentVoucher(string filter, string value, int getAll, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return await GetIOPayment(filter, value, true, ioId, fromDate, toDate, page, size);
+            return await GetIOPayment(filter, value, getAll, true, ioId, fromDate, toDate, page, size);
         }
 
-        public async Task<JsonResult> GetIOPayment(string filter, string value, bool isInput, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPayment(string filter, string value, int getAll, bool isInput, string ioId, string fromDate, string toDate, int page, int size)
         {
             var frDate = fromDate.BuildDateTimeFromSEFormat();
             var tDate = toDate.BuildLastDateTimeFromSEFormat();
@@ -294,8 +294,12 @@ namespace Ebrain.Controllers
                     value,
                     ioId,
                     0, isInput
-                 , this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size)
-                 .Where(p => p.TotalPriceExist > 0);
+                 , this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size);
+
+            if (getAll == 0)
+            {
+                results = results.Where(p => p.TotalPriceExist > 0);
+            }
 
             var list = new List<IOStockViewModel>();
             foreach (var item in results)
