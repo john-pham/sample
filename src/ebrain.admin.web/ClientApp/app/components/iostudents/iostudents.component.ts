@@ -227,6 +227,7 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
 
     private onDataLoadSuccessfulDefault(io: IOStock) {
         this.pointer = io;
+        this.loadingIndicator = false;
     }
 
     private getStudent() {
@@ -239,11 +240,12 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
             this.pointer.studentId = stu[0].id;
         }
         this.allstudents = stu;
+        this.loadingIndicator = false;
     }
 
     private onDataLoadSuccessfulMaterial(resulted: Results<Material>) {
         this.rowmaterials = resulted.list;
-
+        this.loadingIndicator = false;
     }
 
     private getFromServer(isReset: boolean) {
@@ -362,6 +364,7 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
             this.rows.push(iod);
             this.rows = [...this.rows];
         });
+        this.loadingIndicator = false;
     }
 
     private saveSuccessHelper(io?: IOStock) {

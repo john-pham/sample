@@ -112,7 +112,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
     }
 
     onActivateMaterial(event) {
-        if (event != null) {
+        if (event instanceof IOStockReport) {
             var row = event;
             this.onMappingIOToPaymentDetail(row);
         }

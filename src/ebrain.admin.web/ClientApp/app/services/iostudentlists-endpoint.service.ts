@@ -151,11 +151,11 @@ export class IOStudentListEndpoint extends EndpointFactory {
 
         let url = "";
         if (isInput == false) {
-            url = this.getUrlIO('getiopayment?filter=' + filter + '&value=' + value + '&isGetAll=' + isGetAll + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
+            url = this.getUrlIO('getiopayment?filter=' + filter + '&value=' + value + '&getAll=' + isGetAll + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
                 + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         }
         else {
-            url = this.getUrlIO('getiopaymentvoucher?filter=' + filter + '&value=' + value + '&isGetAll=' + isGetAll + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
+            url = this.getUrlIO('getiopaymentvoucher?filter=' + filter + '&value=' + value + '&getAll=' + isGetAll + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
                 + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         }
 
