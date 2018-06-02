@@ -1,0 +1,17 @@
+﻿<header *ngIf="isShowheader">
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a></li>
+                <li>{{'menu.class.WaitingClass' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="modal-body">
+    <iostudentlistspay [isNotShowPrice]="false" [isWaitingClass]="true"></iostudentlistspay>
+</div>

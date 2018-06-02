@@ -86,7 +86,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         let gT = (key: string) => this.translationService.getTranslation(key);
-        
+
         this.columns = [
             { headerClass: "text-center", prop: 'code', name: gT('label.payment.IONumber'), cellTemplate: this.typenameTemplate },
 
@@ -145,7 +145,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         rows[rowIndex] = row;
         this.rows = [...this.rows]
     }
-    
+
     onRemoved(file: any) {
         // do some stuff with the removed file.
     }
@@ -183,7 +183,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-    
+
     private getdefault(isReset: boolean) {
         //
         this.route.paramMap
@@ -207,7 +207,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
                     //get io
                     var ioid = params.get('ioid');
                     if (ioid != null && ioid.length > 0) {
-                        this.ioservice.getiopayment(this.filterName, this.filterValue, 0, false, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
+                        this.ioservice.getiopayment(this.filterName, this.filterValue, 0, 0, false, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
                             var results = resulted.list;
                             results.forEach(row => {
                                 this.onMappingIOToPaymentDetail(row);
@@ -373,7 +373,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-    
+
     close() {
         this.modalRef.hide();
     }

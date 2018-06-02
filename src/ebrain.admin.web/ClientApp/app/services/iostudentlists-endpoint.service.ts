@@ -147,11 +147,14 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
-    getiopayment(filter: string, value: string, isGetAll: number, ioid: string, isInput: boolean, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+    getiopayment(filter: string, value: string, isGetAll: number, isWaitingClass: number, ioid: string, isInput: boolean,
+        fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
         let url = "";
         if (isInput == false) {
-            url = this.getUrlIO('getiopayment?filter=' + filter + '&value=' + value + '&getAll=' + isGetAll + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
+            url = this.getUrlIO('getiopayment?filter=' + filter + '&value=' + value + '&getAll=' + isGetAll
+                + '&isWaitingClass=' + isWaitingClass
+                + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
                 + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         }
         else {
@@ -164,7 +167,7 @@ export class IOStudentListEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getiopayment(filter, value, isGetAll, ioid, isInput, fromDate, toDate, page, size));
+                return this.handleError(error, () => this.getiopayment(filter, value, isGetAll, isWaitingClass, ioid, isInput, fromDate, toDate, page, size));
             });
     }
 

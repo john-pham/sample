@@ -40,8 +40,8 @@ export class IOStudentListService {
             .map((response: Response) => <Chart>response.json());
     }
 
-    getiopayment(filter: string, value: string, isGetAll: number, isInput: boolean, ioid: string, fromDate: Date, toDate: Date, page: number, size: number) {
-        return this.endpointFactory.getiopayment(filter, value, isGetAll, ioid, isInput, fromDate, toDate, page, size)
+    getiopayment(filter: string, value: string, isGetAll: number, isWaitingClass: number, isInput: boolean, ioid: string, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.getiopayment(filter, value, isGetAll, isWaitingClass, ioid, isInput, fromDate, toDate, page, size)
             .map((response: Response) => <Results<IOStockReport>>response.json());
     }
 

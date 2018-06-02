@@ -259,21 +259,29 @@ namespace Ebrain.Controllers
             });
         }
 
+        [HttpGet("getiopaymentwaitingclass")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetIOPaymentWaitingClass(string filter, string value, int getAll, string ioId, string fromDate, string toDate, int page, int size)
+        {
+            return await GetIOPayment(filter, value, getAll, false, ioId, fromDate, toDate, true, page, size);
+        }
+
         [HttpGet("getiopayment")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> GetIOPaymentReceipt(string filter, string value, int getAll, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPaymentReceipt(string filter, string value, int getAll, int isWaitingClass, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return await GetIOPayment(filter, value, getAll, false, ioId, fromDate, toDate, page, size);
+            return await GetIOPayment(filter, value, getAll, false, ioId, fromDate, toDate, (isWaitingClass > 0 ? true : false), page, size);
         }
 
         [HttpGet("getiopaymentvoucher")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> GetIOPaymentVoucher(string filter, string value, int getAll, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return await GetIOPayment(filter, value, getAll, true, ioId, fromDate, toDate, page, size);
+            return await GetIOPayment(filter, value, getAll, true, ioId, fromDate, toDate, false, page, size);
         }
 
-        public async Task<JsonResult> GetIOPayment(string filter, string value, int getAll, bool isInput, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPayment(string filter, string value, int getAll, bool isInput,
+            string ioId, string fromDate, string toDate, bool isWaitingClass, int page, int size)
         {
             var frDate = fromDate.BuildDateTimeFromSEFormat();
             var tDate = toDate.BuildLastDateTimeFromSEFormat();
@@ -293,7 +301,7 @@ namespace Ebrain.Controllers
                     tDate,
                     value,
                     ioId,
-                    0, isInput
+                    0, isInput, isWaitingClass
                  , this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size);
 
             if (getAll == 0)

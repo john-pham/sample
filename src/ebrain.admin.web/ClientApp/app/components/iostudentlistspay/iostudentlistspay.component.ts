@@ -34,7 +34,8 @@ import { IOStockDetail } from "../../models/iostockdetail.model";
 export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     @Input() isNotShowPrice: any = true;
-    @Input() isGetAll: boolean = true;
+    @Input() isNotShowGetAll: any = false;
+    @Input() isWaitingClass: any = false;
     @Output() private activeDoubleClick = new EventEmitter<any>();
 
     rows = [];
@@ -45,6 +46,8 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     filterValue: string;
     fromDate: Date;
     toDate: Date;
+    ioStockId: string;
+    studentId: string;
 
     private pointer: Grpsupplier;
     private chart: Chart;
@@ -54,6 +57,8 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
 
     modalRef: BsModalRef;
+    orderClassRef: BsModalRef;
+
     private page: Page;
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         public accessRightService: AccessRightsService,
@@ -107,14 +112,16 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     private getFromServer() {
         this.loadingIndicator = true;
-        //
-        var disp = this.localService.getiopayment(this.filterName, this.filterValue, (this.isGetAll ? 1 : 0), false, "", this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
-            list => this.onDataLoadSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+        const isShow = this.isNotShowPrice;
+
+        var disp = this.localService.getiopayment(this.filterName, this.filterValue,
+            (this.isNotShowGetAll ? 1 : 0), (this.isWaitingClass ? 1 : 0), false, "", this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+                list => this.onDataLoadSuccessful(list),
+                error => this.onDataLoadFailed(error),
+                () => {
+                    disp.unsubscribe();
+                    setTimeout(() => { this.loadingIndicator = false; }, 1500);
+                });
     }
 
     private getReport(template: TemplateRef<any>) {
@@ -158,6 +165,16 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     showChart(template: TemplateRef<any>) {
         this.loadingIndicator = true;
         this.getReport(template);
+    }
+
+    private editClass(value: IOStockReport, template: TemplateRef<any>) {
+        this.ioStockId = value.id;
+        this.studentId = value.studentId;
+        this.orderClassRef = this.modalService.show(template, { class: 'modal-lg' });
+    }
+
+    closeClass() {
+        this.orderClassRef.hide();
     }
 
     close() {

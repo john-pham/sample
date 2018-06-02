@@ -159,6 +159,7 @@ namespace Ebrain.Controllers
                     EndDate = p.EndDate,
                     StartDate = p.StartDate,
                     MaterialId = p.MaterialId,
+                    IOStockId = p.IOStockId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                 }).ToArray(), value.ID);
@@ -270,6 +271,7 @@ namespace Ebrain.Controllers
                             MaterialId = item.MaterialId,
                             StartDate = item.StartDate,
                             EndDate = item.EndDate,
+                            IOStockId = item.IOStockId,
                             MaterialName = itemMate != null ? itemMate.MaterialName : string.Empty
                         });
                     }

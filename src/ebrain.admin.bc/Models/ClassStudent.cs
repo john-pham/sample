@@ -12,6 +12,7 @@ namespace ebrain.admin.bc.Models
     {
         public Guid ClassStudentId { get; set; }
         public Guid? ClassId { get; set; }
+        public Guid? IOStockId { get; set; }
         public Guid? StudentId { get; set; }
         public Guid? BranchId { get; set; }
         public Guid? MaterialId { get; set; }

@@ -66,9 +66,12 @@ namespace ebrain.admin.bc.Repositories
                 var itemClassExist = this.appContext.ClassStudent.FirstOrDefault(p => p.ClassId == item.ClassId && p.StudentId == studentId && p.IsDeleted == false);
                 if (itemClassExist != null)
                 {
-                    //itemClassExist.BranchId = branchId;
-                    //itemClassExist.StudentId = studentId;
-                    //itemClassExist.ClassId = item.ClassId;
+                    itemClassExist.UpdatedBy = createById;
+                    itemClassExist.UpdatedDate = DateTime.Now;
+                    itemClassExist.MaterialId = item.MaterialId;
+                    itemClassExist.StartDate = item.StartDate;
+                    itemClassExist.EndDate = item.EndDate;
+                    itemClassExist.IOStockId = item.IOStockId;
                 }
                 else
                 {
@@ -81,7 +84,10 @@ namespace ebrain.admin.bc.Repositories
                         UpdatedBy = createById,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
-
+                        MaterialId = item.MaterialId,
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate,
+                        IOStockId = item.IOStockId
                     };
                     await this.appContext.ClassStudent.AddAsync(itemClassExist);
                 }
@@ -184,6 +190,7 @@ namespace ebrain.admin.bc.Repositories
                         itemClassExist.StartDate = item.StartDate;
                         itemClassExist.EndDate = item.EndDate;
                         itemClassExist.MaterialId = itemExist.MaterialId;
+                        itemClassExist.IOStockId = item.IOStockId;
                     }
                     else
                     {

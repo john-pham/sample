@@ -38,6 +38,7 @@ import { Shiftclass } from "../../models/Shiftclass.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Results } from "../../models/results.model";
 import { DateOnlyPipe } from "../../directives/dateonlypipe.directive";
+import { IOStockReport } from "../../models/iostockreport.model";
 
 @Component({
     selector: 'classes',
@@ -77,6 +78,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
     modalRef: BsModalRef;
     classExamineRef: BsModalRef;
+    waitingClassRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: ClassesService, private modalService: BsModalService,
@@ -181,7 +183,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
     private getFromServer(isReset: boolean) {
         this.loadingIndicator = true;
-        
+
         this.materialService.getMaterialLearn(this.filterName, this.filterValue, 0, 0).subscribe(
             list => this.onDataLoadMaterialSuccessful(list),
             error => this.onDataLoadFailed(error));
@@ -246,9 +248,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     }
 
     private onDataLoadStudentSuccessful(list: Student[]) {
-        if (list.length > 0) {
-            this.pointer.studentId = list[0].id;
-        }
+        this.pointer.studentId = "";
         this.students = list;
         this.loadingIndicator = false;
     }
@@ -298,7 +298,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.alertService.stopLoadingMessage();
         this.loadingIndicator = false;
     }
-    
+
     private onDataLoadFailed(error: any) {
         this.alertService.stopLoadingMessage();
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
@@ -364,6 +364,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
                     itemPointer.materialId = row.materialId;
                     itemPointer.startDate = row.startDate;
                     itemPointer.endDate = row.endDate;
+                    itemPointer.ioStockId = row.ioStockId;
                     this.addClassStudent(row.id);
                 });
             }
@@ -430,14 +431,15 @@ export class ClassesComponent implements OnInit, OnDestroy {
             this.rowTimes = [...this.rowTimes]
             this.pointer.times = this.rowTimes;
         }
+        this.loadingIndicator = false;
     }
 
     private addClassStudent(id: string) {
         let err = "";
 
         var item = this.pointer;
-        
-         if (item.studentId == null || item.studentId.length == 0) err = "Vui lòng chọn học viên";
+
+        if (item.studentId == null || item.studentId.length == 0) err = "Vui lòng chọn học viên";
         else if (item.materialId == null || item.materialId.length == 0) err = "Vui lòng chọn khóa học";
         else if (item.startDate == null) err = "Vui lòng chọn bắt đầu";
         else if (item.endDate == null) err = "Vui lòng chọn kết thúc";
@@ -461,13 +463,14 @@ export class ClassesComponent implements OnInit, OnDestroy {
             itemNew.startDate = item.startDate;
             itemNew.endDate = item.endDate;
             itemNew.materialId = item.materialId;
-
+            itemNew.ioStockId = item.ioStockId;
             itemNew.classId = item.id;
             itemNew.id = id;
             this.rowStudents.push(itemNew);
             this.rowStudents = [...this.rowStudents]
             this.pointer.students = this.rowStudents;
         }
+        this.loadingIndicator = false;
     }
 
     deleteTime(row) {
@@ -501,6 +504,19 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.classExamineRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
+    private showWaitingClass(waitingClasstemplate: TemplateRef<any>) {
+        this.waitingClassRef = this.modalService.show(waitingClasstemplate, { class: 'modal-lg' });
+    }
+
+    onActivateMaterial(event) {
+        if (event != null && event.studentId.length > 0) {
+            this.studentId = event.studentId;
+            this.pointer.studentId = this.studentId;
+            this.pointer.ioStockId = event.id;
+            this.closeWaitingClass();
+        }
+    }
+
     close() {
         this.modalRef.hide();
     }
@@ -508,6 +524,10 @@ export class ClassesComponent implements OnInit, OnDestroy {
     closeExamine() {
         this.classExamineRef.hide();
     }
+    closeWaitingClass() {
+        this.waitingClassRef.hide();
+    }
+
 
     @ViewChild('f')
     private form;

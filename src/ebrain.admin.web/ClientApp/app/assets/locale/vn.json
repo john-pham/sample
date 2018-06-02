@@ -438,7 +438,8 @@
       "Teacher": "Giáo viên",
       "StudentClass": "Học viên",
       "Student": "Học viên",
-      "General": "Thông tin chung"
+      "General": "Thông tin chung",
+      "WaitingClass": "Chờ xếp lớp"
     },
     "room": {
       "Unit": "Đơn vị tính",
@@ -704,7 +705,8 @@
       "TotalPricePayment": "Tiền thu",
       "TotalPriceRest": "Còn lại",
       "HeaderPaymentReceipt": "Danh sách phiếu xuất",
-      "HeaderPaymentVoucher": "Danh sách phiếu nhập"
+      "HeaderPaymentVoucher": "Danh sách phiếu nhập",
+      "OrderClass": "Xếp lớp học viên"
     },
     "paymentlist": {
       "PaymentTypeName": "Loại phiếu",
@@ -966,7 +968,8 @@
     "Chart": "Biểu đồ",
     "Excel": "Excel",
     "Pdf": "PDF",
-    "Export": "Xuất"
+    "Export": "Xuất",
+    "OrderClass": "Xếp lớp"
   },
   "menu": {
     "document": {
@@ -1077,7 +1080,8 @@
       "Student": "Học viên",
       "IOStudent": "Thu học phí",
       "IOStudentList": "Danh sách thu",
-      "Payment": "Phiếu thu"
+      "Payment": "Phiếu thu",
+      "WaitingClass": "Chờ xếp lớp"
     },
     "student": {
       "Categories": {

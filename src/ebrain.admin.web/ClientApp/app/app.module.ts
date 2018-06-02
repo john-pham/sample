@@ -214,6 +214,7 @@ import { StudentstatusComponent } from "./components/studentstatus/studentstatus
 import { StudentDatesComponent } from "./components/studentdates/studentdates.component";
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
 import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
+import { ClassStudentExComponent } from "./components/classstudentsex/classstudentsex.component";
 
 import { StudentsComponent } from "./components/students/students.component";
 
@@ -223,6 +224,7 @@ import { PurHistoriesComponent } from "./components/purhistories/purhistories.co
 import { PurSummarizesComponent } from "./components/pursummarizes/pursummarizes.component";
 import { PurDetailsComponent } from "./components/purdetails/purdetails.component";
 
+import { IOStudenListWaitingClassComponent } from "./components/iostudentlistswaitingclass/iostudentlistswaitingclass.component";
 import { IOStudenListPayComponent } from "./components/iostudentlistspay/iostudentlistspay.component";
 import { IOStudenListComponent } from "./components/iostudentlists/iostudentlists.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
@@ -381,6 +383,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         StudentDatesComponent,
         StudentBirthdaysComponent,
         StudentEndClassComponent,
+        ClassStudentExComponent,
         IOStudentsComponent,
         PurchaseOrdersComponent,
         PurSummarizesComponent,
@@ -404,6 +407,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         IOStudenListComponent,
         IOStudenListPayComponent,
+        IOStudenListWaitingClassComponent,
+
         IOSummarizesComponent,
         IODetailsComponent,
         WarehouseCardsComponent,

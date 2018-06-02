@@ -55,7 +55,6 @@
                        [rows]="rows"
                        [columnMode]="'force'"
                        [scrollbarV]="verticalScrollbar"
-                       
                        [headerHeight]="50"
                        [footerHeight]="50"
                        [rowHeight]="'auto'"
@@ -68,7 +67,7 @@
             <ngx-datatable-column headerClass="text-center"
                                   name="{{'label.payment.IONumber' | translate}}" prop='code'>
             </ngx-datatable-column>
-            <ngx-datatable-column headerClass="text-center" cellClass= "text-right"
+            <ngx-datatable-column headerClass="text-center" cellClass="text-right"
                                   name="{{'label.payment.CreatedDate' | translate}}" prop='createDate'>
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span class="currency-pipe" attr.title="{{value | currencypipe}}">
@@ -82,7 +81,7 @@
             <ngx-datatable-column headerClass="text-center"
                                   name="{{'label.payment.CreatedBy' | translate}}" prop='fullName'>
             </ngx-datatable-column>
-            <ngx-datatable-column headerClass="text-center" cellClass= "text-right" *ngIf="!isNotShowPrice"
+            <ngx-datatable-column headerClass="text-center" cellClass="text-right" *ngIf="!isNotShowPrice"
                                   name="{{'label.payment.TotalPriceIO' | translate}}" prop='totalPrice'>
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span class="currency-pipe" attr.title="{{value | currencypipe}}">
@@ -108,6 +107,11 @@
             </ngx-datatable-column>
             <ngx-datatable-column headerClass="text-center" cellClass="text-center" *ngIf="isNotShowPrice">
                 <ng-template let-row="row" ngx-datatable-cell-template>
+                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row, classTemplate)"
+                       *ngIf="isWaitingClass">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.OrderClass' | translate}}
+                    </a>
+
                     <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row)"
                        *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE12') || accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A2')">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}
@@ -124,4 +128,16 @@
     <div class="modal-body">
         <statistics-chart [modalRef]="modalRef" [chart]="chart"></statistics-chart>
     </div>
+</ng-template>
+
+
+<ng-template #classTemplate>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.payment.OrderClass' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <classstudentsex [studentId]="studentId" [ioStockId]="ioStockId"></classstudentsex>
+    </div>
+
 </ng-template>

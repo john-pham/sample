@@ -21,4 +21,5 @@ export class ClassStudent {
     public endDate: Date;
     public materialId: string;
     public materialName: string;
+    public ioStockId: string;
 }

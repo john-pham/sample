@@ -145,7 +145,7 @@ namespace ebrain.admin.bc.Repositories
         }
 
         public IEnumerable<IOStockListPayment> GetIOStockPaymentList
-            (DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput, string branchIds, int page, int size)
+            (DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput, bool isWaitingClass, string branchIds, int page, int size)
         {
             try
             {
@@ -157,6 +157,7 @@ namespace ebrain.admin.bc.Repositories
                                .WithSqlParam("filterValue", filterValue)
                                .WithSqlParam("ioId", ioId)
                                .WithSqlParam("branchIds", branchIds)
+                               .WithSqlParam("isWaitingClass", isWaitingClass)
                                .WithSqlParam("isInput", isInput).ExecuteStoredProc((handler) =>
                                {
                                    someTypeList = handler.ReadToList<IOStockListPayment>().ToList();

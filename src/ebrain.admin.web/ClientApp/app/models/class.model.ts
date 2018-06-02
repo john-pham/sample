@@ -42,6 +42,6 @@ export class Class {
     public studentName: string;
     public studentBirthday: Date;
     public studentAddress: string;
-    
+    public ioStockId: string;
 
 }
