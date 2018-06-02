@@ -15,7 +15,6 @@
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc1-0286" />
     <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="DinkToPdf" Version="1.0.8" />
-    <PackageReference Include="DotNetCorePdf" Version="1.0.3" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="7.2.1" />
     <PackageReference Include="MailKit" Version="1.22.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />

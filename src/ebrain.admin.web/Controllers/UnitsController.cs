@@ -17,6 +17,7 @@ using ebrain.admin.bc.Models;
 using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using DinkToPdf;
 
 namespace Ebrain.Controllers
 {
@@ -27,7 +28,6 @@ namespace Ebrain.Controllers
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
-
 
         public UnitsController(IUnitOfWork unitOfWork, ILogger<UnitsController> logger) : base(unitOfWork, logger)
         {
@@ -101,7 +101,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ret = await this._unitOfWork.Units.Save(new Unit
+                var ret = await this._unitOfWork.Units.Save(new ebrain.admin.bc.Models.Unit
                 {
                     UnitId = Guid.NewGuid(),
                     UnitCode = value.Code,
@@ -138,6 +138,49 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> OutputCSV(string filter, string value, int page, int size)
         {
+            var contents = await this.generateOutputContent(filter, value, page, size);
+
+            return Json(contents);
+        }
+
+        [HttpGet("pdf")]
+        //[Produces("application/pdf")]
+        public async Task<IActionResult> OutputPDF(string filter, string value, int page, int size)
+        {
+            var contents = await this.generateOutputContent(filter, value, page, size);
+            var output = generatePdf(contents);
+
+            return File(output, "application/pdf");
+        }
+
+        private byte[] generatePdf(string contents)
+        {
+            var converter = new SynchronizedConverter(new PdfTools());
+
+            var doc = new HtmlToPdfDocument()
+            {
+                GlobalSettings = {
+        ColorMode = ColorMode.Color,
+        Orientation = Orientation.Landscape,
+        PaperSize = PaperKind.A4Plus,
+    },
+                Objects = {
+        new ObjectSettings() {
+            PagesCount = true,
+            HtmlContent = contents,
+            WebSettings = { DefaultEncoding = "utf-8" },
+            HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
+        }
+    }
+            };
+
+            byte[] pdf = converter.Convert(doc);
+
+            return pdf;
+        }
+
+        private async Task<string> generateOutputContent(string filter, string value, int page, int size)
+        {
             var userID = Utilities.GetUserId(this.User);
 
             var unit = this._unitOfWork.Units;
@@ -151,8 +194,8 @@ namespace Ebrain.Controllers
                       };
 
             var contents = base.CSV<UnitViewModel>(ret);
-            
-            return Json(contents);
+
+            return contents;
         }
     }
 }

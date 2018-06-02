@@ -116,6 +116,17 @@ export class UnitsComponent implements OnInit, OnDestroy {
         });
     }
 
+    onOutputPdf() {
+        //
+        this.localService.outputPdf(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
+
+            var blob = new Blob([result], { type: "application/pdf" });
+            saveAs(blob, "output.units.pdf");
+
+        }, error => {
+        });
+    }
+
     delete(row) {
         this.alertService.showDialog('Are you sure you want to delete the task?', DialogType.confirm, () => this.deleteHelper(row));
     }

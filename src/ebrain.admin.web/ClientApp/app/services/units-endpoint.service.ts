@@ -82,15 +82,15 @@ export class UnitsEndpoint extends EndpointFactory {
             });
     }
 
-    outputCSV(filter: string, value: string, page: number, size: number): Observable<Response> {
+    output(method: string, filter: string, value: string, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('csv?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        let url = this.getUrl(method + '?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.outputCSV(filter, value, page, size));
+                return this.handleError(error, () => this.output(filter, value, page, size));
             });
 
     }

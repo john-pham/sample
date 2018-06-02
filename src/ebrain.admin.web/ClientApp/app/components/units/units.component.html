@@ -22,7 +22,7 @@
         <div class="text-right">
             <search-chart [isShowSearch]="false" (searchTemplate)="search()"
                           [isShowAddNew]="true" (addNewTemplate)="addUnit(template)"
-                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()" (exportPdfTemplate)="onOutputPdf()"
                           [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
         </div>
     </div>
