@@ -44,5 +44,6 @@ namespace Ebrain.ViewModels
         public string MaterialName { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int CountStudent { get; set; }
+        public Guid? IOStockId { get; set; }
     }
 }

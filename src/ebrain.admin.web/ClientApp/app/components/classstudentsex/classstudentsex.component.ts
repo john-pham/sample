@@ -1,4 +1,4 @@
-// ======================================
+﻿// ======================================
 // Author: Ebrain Team
 // Email:  johnpham@ymail.com
 // Copyright (c) 2017 supperbrain.visualstudio.com
@@ -158,26 +158,37 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
     }
 
     private save() {
+        let err = "";
 
-        var cls = [];
+        var item = this.pointer;
+        if (this.studentId == null || this.studentId.length == 0) err = "Vui lòng chọn học viên";
+        else if (item.materialId == null || item.materialId.length == 0) err = "Vui lòng chọn khóa học";
+        else if (item.startDate == null) err = "Vui lòng chọn bắt đầu";
+        else if (item.endDate == null) err = "Vui lòng chọn kết thúc";
 
-        var itemNew = new Class();
-        itemNew.id = "";
-        itemNew.studentId = this.studentId;
-        itemNew.materialId = this.pointer.materialId;
-        itemNew.ioStockId = this.ioStockId;
-        itemNew.startDate = this.pointer.startDate;
-        itemNew.endDate = this.pointer.endDate;
-        cls.push(itemNew);
+        if (err.length > 0) {
+            this.alertService.showStickyMessage("Save Error", err, MessageSeverity.error);
+        } else {
+            var cls = [];
+
+            var itemNew = new Class();
+            itemNew.id = "";
+            itemNew.studentId = this.studentId;
+            itemNew.materialId = item.materialId;
+            itemNew.ioStockId = this.ioStockId;
+            itemNew.startDate = item.startDate;
+            itemNew.endDate = item.endDate;
+            cls.push(itemNew);
 
 
-        var disp = this.localService.saveStudent(cls).subscribe(
-            items => this.onDataSaveSuccessful(items),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+            var disp = this.localService.saveStudent(cls).subscribe(
+                items => this.onDataSaveSuccessful(items),
+                error => this.onDataLoadFailed(error),
+                () => {
+                    disp.unsubscribe();
+                    setTimeout(() => { this.loadingIndicator = false; }, 1500);
+                });
+        }
     }
 
     private onDataSaveSuccessful(item: Class) {
