@@ -172,7 +172,7 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
             var cls = [];
 
             var itemNew = new Class();
-            itemNew.id = "";
+            itemNew.id = this.classId;
             itemNew.studentId = this.studentId;
             itemNew.materialId = item.materialId;
             itemNew.ioStockId = this.ioStockId;

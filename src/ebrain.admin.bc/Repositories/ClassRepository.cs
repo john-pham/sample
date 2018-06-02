@@ -63,7 +63,10 @@ namespace ebrain.admin.bc.Repositories
             //set students 
             foreach (var item in classes)
             {
-                var itemClassExist = this.appContext.ClassStudent.FirstOrDefault(p => p.ClassId == item.ClassId && p.StudentId == studentId && p.IsDeleted == false);
+                var itemClassExist = this.appContext.ClassStudent.FirstOrDefault(
+                    p => p.ClassId == item.ClassId && p.StudentId == studentId 
+                    && p.IOStockId == item.IOStockId
+                    && p.IsDeleted == false);
                 if (itemClassExist != null)
                 {
                     itemClassExist.UpdatedBy = createById;
@@ -73,6 +76,8 @@ namespace ebrain.admin.bc.Repositories
                     itemClassExist.EndDate = item.EndDate;
                     itemClassExist.IOStockId = item.IOStockId;
                     itemClassExist.BranchId = branchId;
+                    itemClassExist.ClassId = item.ClassId;
+
                 }
                 else
                 {
@@ -95,7 +100,7 @@ namespace ebrain.admin.bc.Repositories
                 }
             }
 
-            await appContext.SaveChangesAsync();
+            appContext.SaveChanges();
 
         }
 
