@@ -72,6 +72,7 @@ namespace ebrain.admin.bc.Repositories
                     itemClassExist.StartDate = item.StartDate;
                     itemClassExist.EndDate = item.EndDate;
                     itemClassExist.IOStockId = item.IOStockId;
+                    itemClassExist.BranchId = branchId;
                 }
                 else
                 {
@@ -87,8 +88,9 @@ namespace ebrain.admin.bc.Repositories
                         MaterialId = item.MaterialId,
                         StartDate = item.StartDate,
                         EndDate = item.EndDate,
-                        IOStockId = item.IOStockId
-                    };
+                        IOStockId = item.IOStockId,
+                        BranchId = branchId
+                };
                     await this.appContext.ClassStudent.AddAsync(itemClassExist);
                 }
             }

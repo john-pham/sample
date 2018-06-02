@@ -36,6 +36,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     @Input() isNotShowPrice: any = true;
     @Input() isNotShowGetAll: any = false;
     @Input() isWaitingClass: any = false;
+    @Input() isShowButtonOnGrid: any = false;
     @Output() private activeDoubleClick = new EventEmitter<any>();
 
     rows = [];

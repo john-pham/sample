@@ -118,10 +118,16 @@
     </div>
 
     <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-sm-6">
             <div class="form-group has-feedback">
-                <label class="control-label col-md-2">{{'label.class.StartDate' | translate}}</label>
-                <div class="col-md-10">
+                <label class="control-label col-md-4">{{'label.class.StartDate' | translate}}</label>
+                <div class="col-md-8">
                     <input type="text" class="form-control" placeholder="{{'label.class.StartDate' | translate}}"
                            bsDatepicker [(ngModel)]="pointer.startDate"
                            name="startDate"/>
@@ -130,8 +136,8 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group has-feedback">
-                <label class="control-label col-md-2">{{'label.class.EndDate' | translate}}</label>
-                <div class="col-md-10">
+                <label class="control-label col-md-4">{{'label.class.EndDate' | translate}}</label>
+                <div class="col-md-8">
                     <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endDate"
                            name="endDate"/>
                 </div>

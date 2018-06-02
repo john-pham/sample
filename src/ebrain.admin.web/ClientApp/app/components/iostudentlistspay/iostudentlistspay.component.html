@@ -105,9 +105,9 @@
                     </span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column headerClass="text-center" cellClass="text-center" *ngIf="isNotShowPrice">
+            <ngx-datatable-column headerClass="text-center" cellClass="text-center" *ngIf="isNotShowPrice || isShowButtonOnGrid">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row, classTemplate)"
+                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="editClass(row, classTemplate)"
                        *ngIf="isWaitingClass">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.OrderClass' | translate}}
                     </a>

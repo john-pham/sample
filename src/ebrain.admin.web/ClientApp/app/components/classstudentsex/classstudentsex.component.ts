@@ -99,7 +99,15 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
     }
-    
+
+
+    changedClasses() {
+        this.localService.getsummaries("", "", "", "", this.classId, 0, 0).subscribe(
+            items => this.onDataLoadClassSuccessful(items),
+            error => this.onDataLoadFailed(error));
+    }
+
+
     private onDataLoadMaterialSuccessful(resulted: Results<MaterialLearn>) {
         var list = resulted.list;
         if (list.length > 0) {
@@ -138,6 +146,7 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
             this.classId = list[0].id;
         }
         this.classes = list;
+        this.changedClasses();
         this.alertService.stopLoadingMessage();
     }
 
@@ -151,16 +160,16 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
     private save() {
 
         var cls = [];
-        this.rows.forEach(row => {
-            var itemNew = new Class();
-            itemNew.id = row.id;
-            itemNew.studentId = this.studentId;
-            itemNew.materialId = this.pointer.materialId;
-            itemNew.ioStockId = this.ioStockId;
-            itemNew.startDate = this.pointer.startDate;
-            itemNew.endDate = this.pointer.endDate;
-            cls.push(itemNew);
-        });
+
+        var itemNew = new Class();
+        itemNew.id = "";
+        itemNew.studentId = this.studentId;
+        itemNew.materialId = this.pointer.materialId;
+        itemNew.ioStockId = this.ioStockId;
+        itemNew.startDate = this.pointer.startDate;
+        itemNew.endDate = this.pointer.endDate;
+        cls.push(itemNew);
+
 
         var disp = this.localService.saveStudent(cls).subscribe(
             items => this.onDataSaveSuccessful(items),
