@@ -90,7 +90,7 @@ export class UnitsEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.output(filter, value, page, size));
+                return this.handleError(error, () => this.output(method, filter, value, page, size));
             });
 
     }
