@@ -107,11 +107,15 @@
             </ngx-datatable-column>
             <ngx-datatable-column headerClass="text-center" cellClass="text-center" *ngIf="isNotShowPrice || isShowButtonOnGrid">
                 <ng-template let-row="row" ngx-datatable-cell-template>
+                    <a class="btn btn-link btn-xs" href="javascript:;" routerLink="/paymentio/?ioid={{row.id}}" (click)="goPayment(row.id)"
+                       *ngIf="row.totalPriceExist > 0 && isShowButtonPaymentOnGrid && 
+                       (accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') ||accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3'))">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.PaymentReceipt' | translate}}
+                    </a>
                     <a class="btn btn-link btn-xs" href="javascript:;" (click)="editClass(row, classTemplate)"
                        *ngIf="isWaitingClass">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.OrderClass' | translate}}
                     </a>
-
                     <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row)"
                        *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE12') || accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A2')">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}

@@ -79,6 +79,7 @@ import { MaterialsComponent } from "./components/materials/materials.component";
 import { MaterialLearnsComponent } from "./components/materialLearns/materialLearns.component";
 
 import { ClassListsComponent } from "./components/classlists/classlists.component";
+import { ClassListTeachersComponent } from "./components/classliststeachers/classliststeachers.component";
 import { ClassesComponent } from "./components/classes/classes.component";
 import { RoomsComponent } from "./components/rooms/rooms.component";
 import { LevelclassesComponent } from "./components/levelclasses/levelclasses.component";
@@ -260,6 +261,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "supplieremps", component: SupplierEmpsComponent, canActivate: [AuthGuard], data: { title: "employes" } },
             { path: "supplierteachs", component: SupplierTeacherComponent, canActivate: [AuthGuard], data: { title: "teachers" } },
 
+            { path: "classliststeachers", component: ClassListTeachersComponent, canActivate: [AuthGuard], data: { title: "Classes Teacher" } },
             { path: "classlists", component: ClassListsComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
             { path: "classdetails/:id", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Class" } },
             { path: "classes", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Classes" } },

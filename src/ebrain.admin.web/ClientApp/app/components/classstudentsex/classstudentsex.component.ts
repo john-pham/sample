@@ -102,7 +102,7 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
 
 
     changedClasses() {
-        this.localService.getsummaries("", "", "", "", this.classId, 0, 0).subscribe(
+        this.localService.getsummaries("", "", "", "", this.classId, 0, 0, 0).subscribe(
             items => this.onDataLoadClassSuccessful(items),
             error => this.onDataLoadFailed(error));
     }

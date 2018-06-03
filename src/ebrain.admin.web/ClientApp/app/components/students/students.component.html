@@ -58,9 +58,9 @@
             </span>
         </ng-template>
         <ng-template #actionsTemplate let-row="row">
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="editClass(templateStudent, row.id)"
+            <!--<a class="btn btn-link btn-xs" href="javascript:;" (click)="editClass(templateStudent, row.id)"
                *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Class' | translate}}</a>
-            |
+            |-->
             <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"
                *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
             |

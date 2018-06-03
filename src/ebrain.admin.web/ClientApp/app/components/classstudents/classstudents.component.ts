@@ -128,7 +128,7 @@ export class ClassStudentComponent implements OnInit, OnDestroy {
     }
 
     changedClasses() {
-        var disp = this.localService.getsummaries("", "", "", "", this.classId, 0, 0).subscribe(
+        var disp = this.localService.getsummaries("", "", "", "", this.classId, 0, 0, 0).subscribe(
             items => this.onDataLoadClassSuccessful(items),
             error => this.onDataLoadFailed(error),
             () => {

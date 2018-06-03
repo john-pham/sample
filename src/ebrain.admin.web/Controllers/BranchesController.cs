@@ -104,7 +104,7 @@ namespace Ebrain.Controllers
                 Fax = item.FAX,
                 Logo = new FileViewModel
                 {
-                    Name =  item.LogoName.WebRootPathLogo()
+                    Name = item.LogoName.WebRootPathLogo()
                 }
             };
 
@@ -174,9 +174,25 @@ namespace Ebrain.Controllers
                     branch.LogoName = filePath.GetFileName();
                 }
 
+
                 //commit
                 var ret = await this._unitOfWork.Branches.Save(branch, value.ID);
 
+                // if userlogin is HQ branch, add new branch to HQ branch
+                var branchParent = await this._unitOfWork.Branches.GetBranchOfUser(userId);
+                if (branchParent != null && branchParent.IsHQ)
+                {
+                    var brs = new BranchViewModel[]
+                    {
+                        new BranchViewModel
+                        {
+                            ParentBranchId = branchParent.BranchId,
+                            ID= ret.BranchId,
+                            IsExist = true
+                        }
+                    };
+                    await SaveHead(brs);
+                }
                 //return client side
                 return Ok(ret);
             }

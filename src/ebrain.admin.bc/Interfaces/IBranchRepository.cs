@@ -30,6 +30,8 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 
         string GetAllBranchOfUserString(Guid userId);
 
+        Task<Branch> GetBranchOfUser(Guid userId);
+
         IEnumerable<BranchUser> GetAllBranchOfUser(Guid userId);
         List<BranchList> GetBranchHead(string branchId);
         Task<Branch> SaveHead(Branch[] values, Guid? branchParentId, Guid userId);

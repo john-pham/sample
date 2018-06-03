@@ -27,6 +27,17 @@ namespace ebrain.admin.bc.Repositories
         {
         }
 
+        public async Task<Branch> GetBranchOfUser(Guid userId)
+        {
+            var user = this.appContext.Users.FirstOrDefault(p => p.Id == userId.ToString());
+            if (user != null)
+            {
+                var branchId = user.BranchId.HasValue ? user.BranchId.Value : Guid.Empty;
+                return await this.appContext.Branch.FirstOrDefaultAsync(p => p.BranchId == branchId);
+            }
+            return null;
+        }
+
         public IEnumerable<BranchUser> GetAllBranchOfUser(Guid userId)
         {
             try

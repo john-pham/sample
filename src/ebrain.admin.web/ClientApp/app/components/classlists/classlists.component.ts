@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { fadeInOut } from '../../services/animations';
@@ -39,6 +39,7 @@ import { Results } from "../../models/results.model";
 })
 
 export class ClassListsComponent implements OnInit, OnDestroy {
+    @Input() isUsageTeacher: any = false;
     rows = [];
     columns = [];
     loadingIndicator: boolean = true;
@@ -135,13 +136,14 @@ export class ClassListsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         var disp = this.localService.getsummaries(
-            this.filterName, this.filterValue, this.statusId, this.supplierId, "", this.page.pageNumber, this.page.size).subscribe(
-            list => this.onDataLoadSuccessful(list),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+            this.filterName, this.filterValue, this.statusId, this.supplierId, "", 
+                (this.isUsageTeacher ? 1 : 0), this.page.pageNumber, this.page.size).subscribe(
+                list => this.onDataLoadSuccessful(list),
+                error => this.onDataLoadFailed(error),
+                () => {
+                    disp.unsubscribe();
+                    setTimeout(() => { this.loadingIndicator = false; }, 1500);
+                });
 
 
     }

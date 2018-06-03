@@ -339,6 +339,7 @@
                                             <div class="col-sm-10 col-md-10 wrap-input">
                                                 <select id="grps-user-info" name="student" [(ngModel)]="pointer.studentId" class="form-control" disabled
                                                         data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                                    <option></option>
                                                     <option *ngFor="let grp of students" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                         {{grp.name}}
                                                     </option>

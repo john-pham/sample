@@ -270,7 +270,6 @@
       "HeaderAdd": "Quản lý loại hàng hóa",
       "IsLearning": "Chương trình học",
       "IsDocument": "Tài liệu học tập"
-
     },
     "grpMaterial": {
       "Code": "Mã",
@@ -523,7 +522,6 @@
       "FaBirthday": "Ngày sinh",
       "FaPhone": "SĐT",
       "FaFacebook": "Facebook",
-
       "FaAddress": "Địa chỉ",
       "FaEmail": "Email",
       "FaJob": "Nghề nghiệp",
@@ -744,7 +742,6 @@
       "FromDate": "Từ ngày",
       "ToDate": "Đến ngày"
     },
-
     "profitslist": {
       "Name": "Mã cở sở",
       "Code": "Tên cơ sở",
@@ -929,7 +926,6 @@
       "searchBox": "Tìm kiếm",
       "newPayment": "Tạo mới"
     },
-
     "deptslist": {
       "header": "Công nợ",
       "headerVoucher": "Phiếu chi",
@@ -1093,19 +1089,19 @@
           "Class": "Lớp học",
           "ClassList": "DS lớp học",
           "ClassListDes": "Danh sách lớp học",
+          "ClassListDesTeacher": "Danh sách lớp học - Giáo viên",
+          "Teacher": "Giáo viên",
           "Room": "Phòng học",
           "Levelclass": "Cấp độ học",
           "Shiftclass": "Ca học",
           "Consultant": "Tư vấn",
           "Learning": "Chương trình học",
-
           "MaterialLearn": "Khóa học",
           "Examine": "Kỳ thi",
           "DiaryStudent": "Nhật ký học viên",
           "DiarySMS": "Nhật ký SMS",
           "Consult": "Tư vấn",
           "Status": "Trạng thái"
-
         }
       },
       "manage": {

@@ -1,4 +1,4 @@
-﻿<header>
+﻿<header *ngIf="isUsageTeacher">
     <div class="row" style="padding-top: 15px;">
         <div class="col-xs-12" id="breadcrumb">
             <a class="show-sidebar pull-left" routerLink="/">
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<div class="row control-box">
+<div class="row control-box" *ngIf="isUsageTeacher">
     <div class="col-sm-6">
         <div class="form-group has-feedback">
             <label class="control-label col-md-2">{{'label.classlist.Status' | translate}}</label>

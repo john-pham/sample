@@ -326,16 +326,21 @@ namespace Ebrain.Controllers
 
         [HttpGet("getsummaries")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> GetSummaries(string filter, string value, Guid? statusId, Guid? supplierId, Guid? classId, int page, int size)
+        public async Task<JsonResult> GetSummaries(string filter, string value, Guid? statusId, Guid? supplierId, Guid? classId, int isUsageTeacher, int page, int size)
         {
             var unit = this._unitOfWork.Classes;
+            var userLoginId = string.Empty;
+            if(isUsageTeacher == 1)
+            {
+                userLoginId = userId.ToString();
 
+            }
             var ret = unit.GetClassSummary(
                     this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                    value,
                     statusId,
                     supplierId,
-                    classId, page, size);
+                    classId, userLoginId, page, size);
 
             return Json(new
             {
@@ -415,7 +420,11 @@ namespace Ebrain.Controllers
                 var studentId = values[0].StudentId;
                 this._unitOfWork.Classes.SaveStudent(values.Select(p => new Class
                 {
-                    ClassId = p.ID.HasValue ? p.ID.Value : Guid.Empty
+                    ClassId = p.ID.HasValue ? p.ID.Value : Guid.Empty,
+                    MaterialId = p.MaterialId,
+                    IOStockId = p.IOStockId,
+                    StartDate = p.StartDate,
+                    EndDate = p.EndDate
                 }).ToArray(), studentId, userId,
                 this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
                 return Ok(new Class());

@@ -71,8 +71,10 @@ export class ClassesService {
             .map((response: Response) => <ClassList[]>response.json());
     }
 
-    getsummaries(filter: string, value: string, statusId: string, supplierId: string, classId: string, page: number, size: number) {
-        return this.endpointFactory.getsummaries(filter, value, statusId, supplierId, classId, page, size)
+    getsummaries(filter: string, value: string, statusId: string, supplierId: string, classId: string,
+        isUsageTeacher: number,
+        page: number, size: number) {
+        return this.endpointFactory.getsummaries(filter, value, statusId, supplierId, classId,isUsageTeacher, page, size)
             .map((response: Response) => <Results<ClassList>>response.json());
     }
 

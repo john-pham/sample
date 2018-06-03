@@ -258,6 +258,7 @@ import { GrpsuppliersComponent } from "./components/grpsuppliers/grpsuppliers.co
 import { TypeMaterialLearnsComponent } from "./components/typeMaterialLearns/typeMaterialLearns.component";
 import { TypeMaterialsComponent } from "./components/typeMaterials/typeMaterials.component";
 
+import { ClassListTeachersComponent } from "./components/classliststeachers/classliststeachers.component";
 import { ClassListsComponent } from "./components/classlists/classlists.component";
 import { ClassesComponent } from "./components/classes/classes.component";
 import { AttendancesComponent } from "./components/attendances/attendances.component";
@@ -428,6 +429,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         GrpsuppliersComponent,
 
         ClassListsComponent,
+        ClassListTeachersComponent,
         ClassesComponent,
         ClassStudentComponent,
         ClassExamineComponent,

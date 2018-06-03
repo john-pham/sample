@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="form-horizontal">
     <div class="text-right">
         <button type="button" class="btn btn-primary" (click)="save()">
             <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
@@ -77,16 +77,9 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.class.MaterialLearn' | translate}}</label>
+                <label class="control-label col-md-4">{{'label.classstudent.ClassCode' | translate}}</label>
                 <div class="col-md-8">
-                    <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control"
-                            minlength="2" maxlength="200"
-                            data-show-subtext="true"
-                            data-live-search="true" data-actions-box="true" data-live-search-placeholder="Search..." title="">
-                        <option *ngFor="let grp of materials" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
-                            {{grp.name}}
-                        </option>
-                    </select>
+                    <input class="form-control" type="text" [(ngModel)]="pointer.code" readonly>
                 </div>
             </div>
         </div>
@@ -99,7 +92,22 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-4">{{'label.classstudent.MaterialLearn' | translate}}</label>
+                <div class="col-md-8">
+                    <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control"
+                    minlength="2" maxlength="200"
+                    data-show-subtext="true"
+                    data-live-search="true" data-actions-box="true" data-live-search-placeholder="Search..." title="">
+                <option *ngFor="let grp of materials" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                    {{grp.name}}
+                </option>
+            </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
             <div class="form-group has-feedback">
                 <label class="control-label col-md-4">{{'label.classstudent.MaxStudent' | translate}}</label>
                 <div class="col-md-8">
@@ -107,39 +115,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="form-group has-feedback">
                 <label class="control-label col-md-4">{{'label.classstudent.LearnStudent' | translate}}</label>
                 <div class="col-md-8">
                     <input class="form-control text-right pd-r-12" type="text" [(ngModel)]="pointer.countStudent" readonly>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.class.StartDate' | translate}}</label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="{{'label.class.StartDate' | translate}}"
-                           bsDatepicker [(ngModel)]="pointer.startDate"
-                           name="startDate"/>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group has-feedback">
-                <label class="control-label col-md-4">{{'label.class.EndDate' | translate}}</label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endDate"
-                           name="endDate"/>
                 </div>
             </div>
         </div>

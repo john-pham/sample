@@ -37,6 +37,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     @Input() isNotShowGetAll: any = false;
     @Input() isWaitingClass: any = false;
     @Input() isShowButtonOnGrid: any = false;
+    @Input() isShowButtonPaymentOnGrid: any = true;
     @Output() private activeDoubleClick = new EventEmitter<any>();
 
     rows = [];
@@ -93,19 +94,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     addGrpsupplier(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template);
     }
-
-    imageFinishedUploading(file: any) {
-        console.log(JSON.stringify(file.serverResponse));
-    }
-
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
-    }
-
+    
     onSearchChanged(value: string) {
         this.filterValue = value;
         this.getFromServer();
@@ -116,7 +105,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
         const isShow = this.isNotShowPrice;
 
         var disp = this.localService.getiopayment(this.filterName, this.filterValue,
-            (this.isNotShowGetAll ? 1 : 0), (this.isWaitingClass ? 1 : 0), false, "", this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+            (this.isNotShowGetAll ? 0 : 1), (this.isWaitingClass ? 1 : 0), false, "", this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
                 list => this.onDataLoadSuccessful(list),
                 error => this.onDataLoadFailed(error),
                 () => {
@@ -148,6 +137,10 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);
 
+    }
+
+    goPayment(ioid: string) {
+        this.router.navigate(['/paymentio', ioid]);
     }
 
     goDetails(value: IOStockReport) {

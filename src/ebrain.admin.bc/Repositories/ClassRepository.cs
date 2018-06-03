@@ -282,7 +282,7 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
-        public List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, int page, int size)
+        public List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, string userLogin, int page, int size)
         {
             try
             {
@@ -293,6 +293,7 @@ namespace ebrain.admin.bc.Repositories
                                .WithSqlParam("@filterValue", value)
                                .WithSqlParam("@BranchIds", branchIds)
                                .WithSqlParam("@classId", classId)
+                               .WithSqlParam("@userLogin", userLogin)
                                .ExecuteStoredProc((handler) =>
                                {
                                    someTypeList = handler.ReadToList<ClassList>().ToList();

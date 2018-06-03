@@ -376,6 +376,10 @@ export class ClassesComponent implements OnInit, OnDestroy {
         if (this.changesSavedCallback)
             this.changesSavedCallback();
         this.loadingIndicator = false;
+        //reset value
+        itemPointer.studentId = "";
+        itemPointer.materialId = "";
+        itemPointer.ioStockId = "";
     }
 
     private saveFailedHelper(error: any) {
@@ -443,6 +447,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         else if (item.materialId == null || item.materialId.length == 0) err = "Vui lòng chọn khóa học";
         else if (item.startDate == null) err = "Vui lòng chọn bắt đầu";
         else if (item.endDate == null) err = "Vui lòng chọn kết thúc";
+        else if (item.ioStockId == null || item.ioStockId.length == 0) err = "Vui lòng chọn học viên từ danh sách chờ xét lớp.";
 
         if (err.length > 0) {
             this.alertService.showStickyMessage("Save Error", err, MessageSeverity.error);

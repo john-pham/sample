@@ -25,7 +25,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<Boolean> Delete(string id);
         Task<Class> Get(Guid? index);
         List<ClassList> GetClasses(string branchIds, string value, Guid? statusId, Guid? supplierId);
-        List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, int page, int size);
+        List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, string userLogin, int page, int size);
         List<ClassList> GetClassStudent(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, Guid? studentId);
         List<ClassExamineList> GetClassExamine(string branchIds, Guid? classId, Guid? studentId);
         void SaveClassExamine(ClassExamine[] examines);
