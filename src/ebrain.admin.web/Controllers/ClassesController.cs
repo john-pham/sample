@@ -83,9 +83,14 @@ namespace Ebrain.Controllers
 
         [HttpGet("search")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IEnumerable<ClassViewModel>> Search(string filter, string value)
+        public async Task<IActionResult> Search(string filter, string value, int isUsageTeacher)
         {
-            var ret = await this._unitOfWork.Classes.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+            Guid? userLogin = null;
+            if (isUsageTeacher == 1)
+            {
+                userLogin = userId;
+            }
+            var ret = await this._unitOfWork.Classes.Search(filter, value, userLogin, this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
             List<ClassViewModel> list = new List<ClassViewModel>();
             if (ret != null)
             {
@@ -104,7 +109,7 @@ namespace Ebrain.Controllers
                 }
 
             }
-            return list;
+            return this.Ok(list);
         }
 
         [HttpPost("update")]
@@ -330,7 +335,7 @@ namespace Ebrain.Controllers
         {
             var unit = this._unitOfWork.Classes;
             var userLoginId = string.Empty;
-            if(isUsageTeacher == 1)
+            if (isUsageTeacher == 1)
             {
                 userLoginId = userId.ToString();
 

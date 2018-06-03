@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 
 import { fadeInOut } from '../../services/animations';
 import { AppTranslationService } from "../../services/app-translation.service";
@@ -32,7 +32,7 @@ import { Results } from "../../models/results.model";
 export class AttendancesComponent implements OnInit, OnDestroy {
     rows = [];
     classes = [];
-
+    @Input() isUsageTeacher: any = false;
     loadingIndicator: boolean = true;
 
     filterName: string;
@@ -76,20 +76,22 @@ export class AttendancesComponent implements OnInit, OnDestroy {
 
     private getFromServer() {
         this.loadingIndicator = true;
-        var disp = this.classService.search("", "").subscribe(
-            list => this.onDataLoadClassesSuccessful(list),
-            error => this.onDataLoadFailed(error));
+        this.classService.search("", "", (this.isUsageTeacher ? 1 : 0)).subscribe(
+            list => this.onDataLoadClassesSuccessful(list));
     }
 
     private search() {
-        var disp = this.localService.search(this.filterValue, this.classId, "", this.createDate, this.page.pageNumber, this.page.size).subscribe(
-            list => this.onDataLoadSuccessful(list),
-            error => this.onDataLoadFailed(error));
+        this.localService.search(this.filterValue, this.classId, "", this.createDate,
+            (this.isUsageTeacher ? 1 : 0),
+            this.page.pageNumber, this.page.size).subscribe(
+            list => this.onDataLoadSuccessful(list));
     }
 
     private onDataLoadClassesSuccessful(list: Class[]) {
         if (list.length > 0) {
             this.classId = list[0].id;
+        } else {
+            this.classId = "";
         }
         this.search();
         this.classes = list;

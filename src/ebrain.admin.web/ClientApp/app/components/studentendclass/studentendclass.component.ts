@@ -101,7 +101,7 @@ export class StudentEndClassComponent implements OnInit, OnDestroy {
     }
 
     private getClass() {
-        var disp = this.classService.search("", "").subscribe(
+        var disp = this.classService.search("", "", 0).subscribe(
             list => this.onClassLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

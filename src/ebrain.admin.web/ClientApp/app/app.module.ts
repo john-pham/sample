@@ -262,7 +262,7 @@ import { ClassListTeachersComponent } from "./components/classliststeachers/clas
 import { ClassListsComponent } from "./components/classlists/classlists.component";
 import { ClassesComponent } from "./components/classes/classes.component";
 import { AttendancesComponent } from "./components/attendances/attendances.component";
-
+import { AttendanceTeachersComponent } from "./components/attendanceteaches/attendanceteaches.component";
 import { RoomsComponent } from "./components/rooms/rooms.component";
 import { LevelclassesComponent } from "./components/levelclasses/levelclasses.component";
 import { ShiftclassesComponent } from "./components/shiftclasses/shiftclasses.component";
@@ -441,7 +441,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         SMSComponent,
         SMSSendComponent,
         AttendancesComponent,
-
+        AttendanceTeachersComponent,
+        
         StudentMaterialsComponent,
         TeacherCourseComponent,
 

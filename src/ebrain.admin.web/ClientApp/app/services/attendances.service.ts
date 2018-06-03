@@ -25,8 +25,9 @@ export class AttendancesService {
         this.initializeStatus();
     }
 
-    search(filterValue: string, classId: string, studentId: string, createDate: Date, page: number, size: number) {
-        return this.endpointFactory.search(filterValue, classId, studentId, createDate, page, size)
+    search(filterValue: string, classId: string, studentId: string, createDate: Date,
+        isUsageTeacher: number, page: number, size: number) {
+        return this.endpointFactory.search(filterValue, classId, studentId, createDate, isUsageTeacher, page, size)
             .map((response: Response) => <Results<Attendance>>response.json());
     }
 

@@ -19,7 +19,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     {
         int Total { get; }
         IEnumerable<Class> GetTopActive(int count);
-        Task<IEnumerable<Class>> Search(string filter, string value, string branchIds);
+        Task<IEnumerable<Class>> Search(string filter, string value, Guid? userLogin, string branchIds);
         Task<Class> Save(Class value, ClassTime[] classTimes, ClassStudent[] classStudents, Guid? index);
         void SaveStudent(Class[] classes, Guid? studentId, Guid createById, string branchIds);
         Task<Boolean> Delete(string id);

@@ -27,8 +27,8 @@ export class ClassesService {
         this.initializeStatus();
     }
 
-    search(filter: string, value: string) {
-        return this.endpointFactory.search(filter, value)
+    search(filter: string, value: string, isUsageTeacher: number) {
+        return this.endpointFactory.search(filter, value, isUsageTeacher)
             .map((response: Response) => <Class[]>response.json());
     }
 

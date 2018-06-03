@@ -1,11 +1,13 @@
-﻿<header>
+﻿<header *ngIf="!isUsageTeacher">
     <div class="row" style="padding-top: 15px;">
         <div class="col-xs-12" id="breadcrumb">
             <a class="show-sidebar pull-left" routerLink="/">
                 <i class="fa fa-bars"></i>
             </a>
             <ol class="breadcrumb pull-left">
-                <li><a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a></li>
+                <li>
+                    <a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a>
+                </li>
                 <li>{{'menu.student.manage.CheckClass' | translate}}</li>
             </ol>
         </div>
@@ -20,9 +22,8 @@
     </div>
     <div class="col-sm-4">
         <div class="text-right">
-            <search-chart [isShowSearch]="true" (searchTemplate)="search()"
-                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
-                          [isShowSave]="rows?.length > 0" (saveTemplate)="save()"></search-chart>
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()" [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                [isShowSave]="rows?.length > 0" (saveTemplate)="save()"></search-chart>
         </div>
     </div>
 </div>
@@ -30,16 +31,21 @@
 <div class="row control-box">
     <div class="col-sm-6 no-pd-r">
         <div class="form-group has-feedback">
+            <label class="control-label col-sm-4 col-md-4">{{'label.attendance.AttendanceDate' | translate}}</label>
+            <div class="col-sm-8 col-md-8">
+                <input class="form-control" type="text" bsDatepicker (change)="onChangeDate($event)" [(ngModel)]="createDate">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 no-pd-r">
+        <div class="form-group has-feedback">
             <label class="control-label col-sm-4 col-md-4">{{'label.attendance.Class' | translate}}</label>
             <div class="col-sm-8 col-md-8">
-                <select id="classes-info" name="allstudents" [(ngModel)]="classId"
-                        class="form-control" 
-                        (change)="onChangeClass($event.target.value)"
-                        data-actions-box="false"
-                        data-live-search-placeholder="Search...">
-                    <option *ngFor="let class of classes"
-                            attr.data-content="<span title='{{class.name}}' class='badge'>{{class.name}}</span>"
-                            attr.value="{{class.id}}">
+                <select id="classes-info" name="allstudents" [(ngModel)]="classId" class="form-control" (change)="onChangeClass($event.target.value)"
+                    data-actions-box="false" data-live-search-placeholder="Search...">
+                    <option *ngFor="let class of classes" attr.data-content="<span title='{{class.name}}' class='badge'>{{class.name}}</span>"
+                        attr.value="{{class.id}}">
                         {{class.name}}
                     </option>
                 </select>
@@ -47,94 +53,49 @@
         </div>
     </div>
 
-    <div class="col-sm-6 no-pd-r">
-        <div class="form-group has-feedback">
-            <label class="control-label col-sm-4 col-md-4">{{'label.attendance.AttendanceDate' | translate}}</label>
-            <div class="col-sm-8 col-md-8">
-                <input class="form-control" type="text" bsDatepicker
-                       (change)="onChangeDate($event)" [(ngModel)]="createDate">
-            </div>
-        </div>
-    </div>
-    
+
 </div>
 
 <div class="row">
     <div class="col-sm-12">
         <div class="table-wrapper">
             <!--DATA TABLE-->
-            <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
-                       [loadingIndicator]="loadingIndicator"
-                       [rows]="rows"
-                       [columns]="columns"
-                       [columnMode]="'force'"
-                       [scrollbarV]="verticalScrollbar"
-                       
-                       [headerHeight]="50"
-                       [footerHeight]="50"
-                       [rowHeight]="'auto'"
-                       [externalPaging]="true"
-                       [count]="page.totalElements"
-                       [offset]="page.pageNumber"
-                       [limit]="page.size"
-                       (page)='setPage($event)'>
+            <ngx-datatable class="material colored-header sm table table-bordered table-responsive" [loadingIndicator]="loadingIndicator"
+                [rows]="rows" [columns]="columns" [columnMode]="'force'" [scrollbarV]="verticalScrollbar" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
+                [limit]="page.size" (page)='setPage($event)'>
 
-                <ngx-datatable-column headerClass="text-center"
-                                      name="{{'label.attendance.Status' | translate}}">
-                    <ng-template ngx-datatable-cell-template let-value="value"
-                                 let-rowIndex="rowIndex" let-row="row">
+                <ngx-datatable-column headerClass="text-center" name="{{'label.attendance.Status' | translate}}">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
                         <span *ngIf="row.isAttendance" class="label label-success">{{'label.attendance.IsAttendance' | translate}}</span>
                         <span *ngIf="!row.isAttendance" class="label label-warning">{{'label.attendance.NotAttendance' | translate}}</span>
                     </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column headerClass="text-center"
-                                      name="{{'label.attendance.StudentCode' | translate}}" prop='studentCode'>
+                <ngx-datatable-column headerClass="text-center" name="{{'label.attendance.StudentCode' | translate}}" prop='studentCode'>
 
                 </ngx-datatable-column>
 
-                <ngx-datatable-column headerClass="text-center"
-                                      name="{{'label.attendance.StudentName' | translate}}" prop='studentName'>
+                <ngx-datatable-column headerClass="text-center" name="{{'label.attendance.StudentName' | translate}}" prop='studentName'>
 
                 </ngx-datatable-column>
 
-                <ngx-datatable-column headerClass="text-center"
-                                      name="{{'label.attendance.Phone' | translate}}" prop='phone'>
+                <ngx-datatable-column headerClass="text-center" name="{{'label.attendance.Phone' | translate}}" prop='phone'>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column [width]="100"
-                                      [sortable]="false"
-                                      [canAutoResize]="false"
-                                      [draggable]="false" [resizeable]="false"
-                                      headerClass="text-center"
-                                      cellClass="text-center"
-                                      [prop]='absent'
-                                      name="{{'label.attendance.Absent' | translate}}">
-                    <ng-template ngx-datatable-cell-template let-value="value"
-                                 let-rowIndex="rowIndex" let-row="row">
-                        <input type="checkbox"
-                               (change)="updateAbsent(row,$event,rowIndex)"
-                               [checked]="row.absent"
-                               value="absent"
-                               ng-model="absent" />
+                <ngx-datatable-column [width]="100" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false" headerClass="text-center"
+                    cellClass="text-center" [prop]='absent' name="{{'label.attendance.Absent' | translate}}">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        <input type="checkbox" (change)="updateAbsent(row,$event,rowIndex)" [checked]="row.absent" value="absent" ng-model="absent"
+                        />
                     </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column [width]="100"
-                                      [sortable]="false"
-                                      [canAutoResize]="false"
-                                      [draggable]="false" [resizeable]="false"
-                                      headerClass="text-center"
-                                      cellClass="text-center"
-                                      [prop]='notAbsent'
-                                      name="{{'label.attendance.NotAbsent' | translate}}">
-                    <ng-template ngx-datatable-cell-template let-value="value"
-                                 let-rowIndex="rowIndex" let-row="row">
-                        <input type="checkbox"
-                               (change)="updateNotAbsent(row,$event,rowIndex)"
-                               [checked]="row.notAbsent"
-                               value="notAbsent"
-                               ng-model="notAbsent" />
+                <ngx-datatable-column [width]="100" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false" headerClass="text-center"
+                    cellClass="text-center" [prop]='notAbsent' name="{{'label.attendance.NotAbsent' | translate}}">
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        <input type="checkbox" (change)="updateNotAbsent(row,$event,rowIndex)" [checked]="row.notAbsent" value="notAbsent" ng-model="notAbsent"
+                        />
                     </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>

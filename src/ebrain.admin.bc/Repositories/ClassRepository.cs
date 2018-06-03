@@ -31,13 +31,26 @@ namespace ebrain.admin.bc.Repositories
         {
             throw new NotImplementedException();
         }
-
-
-        public async Task<IEnumerable<Class>> Search(string filter, string value, string branchIds)
+        
+        public async Task<IEnumerable<Class>> Search(string filter, string value, Guid? userLogin, string branchIds)
         {
-            return await this.appContext.Class.Where(p => p.IsDeleted == false &&
-                    branchIds.Contains(p.BranchId.ToString())
+            var cls = await this.appContext.Class.Where(p => p.IsDeleted == false &&
+                   branchIds.Contains(p.BranchId.ToString())
                 ).ToListAsync();
+            if (userLogin.HasValue)
+            {
+                var sup = this.appContext.Supplier.FirstOrDefault(p => p.UserLoginId == userLogin);
+                if (sup != null)
+                {
+                    cls = cls.Where(p => p.SupplierId == sup.SupplierId).ToList();
+                }
+                else
+                {
+                    cls = new List<Class>();
+                }
+
+            }
+            return cls;
         }
 
         public async void SaveStudent(Class[] classes, Guid? studentId, Guid createById, string branchIds)
@@ -64,7 +77,7 @@ namespace ebrain.admin.bc.Repositories
             foreach (var item in classes)
             {
                 var itemClassExist = this.appContext.ClassStudent.FirstOrDefault(
-                    p => p.ClassId == item.ClassId && p.StudentId == studentId 
+                    p => p.ClassId == item.ClassId && p.StudentId == studentId
                     && p.IOStockId == item.IOStockId
                     && p.IsDeleted == false);
                 if (itemClassExist != null)
@@ -95,7 +108,7 @@ namespace ebrain.admin.bc.Repositories
                         EndDate = item.EndDate,
                         IOStockId = item.IOStockId,
                         BranchId = branchId
-                };
+                    };
                     await this.appContext.ClassStudent.AddAsync(itemClassExist);
                 }
             }

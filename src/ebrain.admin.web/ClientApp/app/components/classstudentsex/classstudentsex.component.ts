@@ -91,7 +91,7 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
     }
 
     private getFromServer() {
-        var disp = this.localService.search('', '').subscribe(
+        var disp = this.localService.search('', '', 0).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error),
             () => {

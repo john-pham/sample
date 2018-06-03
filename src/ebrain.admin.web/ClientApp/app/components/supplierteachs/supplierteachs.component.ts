@@ -186,15 +186,9 @@ export class SupplierTeacherComponent implements OnInit, OnDestroy {
 
     private saveSuccessHelper(user?: Supplier) {
         this.alertService.stopLoadingMessage();
-        //this.resetForm();
         this.modalRef.hide();
-        //
         this.getFromServer();
-        //
-        //if (this.isNewUser)
         this.alertService.showMessage("Success", `Supplier \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
-        //else if (!this.isEditingSelf)
-        //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.Name}\" was saved successfully`, MessageSeverity.success);
 
         if (this.changesSavedCallback)
             this.changesSavedCallback();

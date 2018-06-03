@@ -1111,6 +1111,8 @@
         "SaveClass": "Bảo lưu",
         "OrderClassTemp": "Xếp lớp phụ",
         "CheckClass": "Điểm danh",
+        "CheckClassTeacher": "Điểm danh - Giáo viên",
+        "Teacher": "Giáo viên",
         "BirthdayStudent": "Sinh nhật",
         "IOStudent": "Học phí"
       },
