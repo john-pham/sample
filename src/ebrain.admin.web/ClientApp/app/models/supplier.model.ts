@@ -24,4 +24,5 @@ export class Supplier {
     public email: string;
     public accountBank: string;
     public birthday: Date;
+    public userLoginId: string;
 }

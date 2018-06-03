@@ -20,6 +20,8 @@ import { Grpsupplier } from "../../models/grpsupplier.model";
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
+import { AccountService } from "../../services/account.service";
+import { User } from "../../models/user.model";
 @Component({
     selector: 'supplierteachs',
     templateUrl: './supplierteachs.component.html',
@@ -29,8 +31,10 @@ import { Results } from "../../models/results.model";
 
 export class SupplierTeacherComponent implements OnInit, OnDestroy {
     rows = [];
+    users = [];
     columns = [];
     loadingIndicator: boolean = true;
+    isEditMode: boolean = true;
 
     filterName: string;
     filterValue: string;
@@ -46,7 +50,9 @@ export class SupplierTeacherComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     private page: Page;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: SuppliersService, public accessRightService: AccessRightsService,private modalService: BsModalService) {
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: SuppliersService, private accountService: AccountService,
+        public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Supplier();
         this.page = new Page();
         this.page.pageNumber = 0;
@@ -83,19 +89,8 @@ export class SupplierTeacherComponent implements OnInit, OnDestroy {
     addSupplier(template: TemplateRef<any>) {
         this.pointer.id = "";
         this.getGrpSupplier();
+        this.getAllUser();
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
-    }
-
-    imageFinishedUploading(file: any) {
-        console.log(JSON.stringify(file.serverResponse));
-    }
-
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
     }
 
     onSearchChanged(value: string) {
@@ -140,21 +135,31 @@ export class SupplierTeacherComponent implements OnInit, OnDestroy {
             });
     }
 
+    private getAllUser() {
+        this.loadingIndicator = true;
+        this.accountService.getAllUsers().subscribe(
+            results => this.onDataLoadUserSuccessful(results),
+            error => this.onDataLoadFailed(error));
+    }
+
+    private onDataLoadUserSuccessful(resulted: User[]) {
+        this.users = resulted;
+        this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
+    }
+
     private onDataLoadSuccessful(resulted: Results<Supplier>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
     }
 
     private getGrpSupplier() {
         this.loadingIndicator = true;
-        var disp = this.localService.getGrpSupplier(4).subscribe(
+        this.localService.getGrpSupplier(4).subscribe(
             results => this.onDataLoadSuccessfulGrp(results),
-            error => this.onDataLoadFailed(error),
-            () => {
-                disp.unsubscribe();
-                setTimeout(() => { this.loadingIndicator = false; }, 1500);
-            });
+            error => this.onDataLoadFailed(error));
     }
 
     private onDataLoadSuccessfulGrp(resulted: Results<Grpsupplier>) {
@@ -197,6 +202,7 @@ export class SupplierTeacherComponent implements OnInit, OnDestroy {
 
     edit(template: TemplateRef<any>, index: string) {
         this.getGrpSupplier();
+        this.getAllUser();
         var disp = this.localService.get(index).subscribe(
             item => {
                 //

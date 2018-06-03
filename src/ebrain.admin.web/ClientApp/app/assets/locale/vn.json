@@ -387,7 +387,8 @@
       "Birthday": "Ngày sinh",
       "AccountBank": "Ngân hàng",
       "HeaderAdd": "Quản lý nhà cung cấp",
-      "HeaderTeacher": "Quản lý giáo viên"
+      "HeaderTeacher": "Quản lý giáo viên",
+      "UserLogin": "Tên đăng nhập"
     },
     "grpsupplier": {
       "Unit": "Đơn vị tính",

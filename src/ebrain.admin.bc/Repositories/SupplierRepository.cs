@@ -84,6 +84,7 @@ namespace ebrain.admin.bc.Repositories
                     itemExist.UpdatedDate = DateTime.Now;
                     itemExist.UpdatedBy = value.UpdatedBy;
                     itemExist.Birthday = value.Birthday;
+                    itemExist.UserLoginId = value.UserLoginId;
                 }
                 else
                 {

@@ -58,7 +58,8 @@ namespace Ebrain.Controllers
                           Email = c.Email,
                           Fax = c.Fax,
                           Note = c.Note,
-                          GrpSupplierId = c.GrpSupplierId
+                          GrpSupplierId = c.GrpSupplierId,
+                          UserLoginId = c.UserLoginId
                       };
 
             return Json(new
@@ -92,6 +93,7 @@ namespace Ebrain.Controllers
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Birthday = value.Birthday,
+                    UserLoginId = value.UserLoginId,
                     GrpSupplierId = value.GrpSupplierId
                 }, value.ID);
 
@@ -118,7 +120,8 @@ namespace Ebrain.Controllers
                 Fax = c.Fax,
                 Note = c.Note,
                 Birthday = c.Birthday,
-                GrpSupplierId = c.GrpSupplierId
+                GrpSupplierId = c.GrpSupplierId,
+                UserLoginId = c.UserLoginId
             };
         }
 

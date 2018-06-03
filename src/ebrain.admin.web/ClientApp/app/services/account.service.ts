@@ -91,6 +91,11 @@ export class AccountService {
             .map((response: Response) => <AccessRight[]>response.json());
     }
 
+    getAllUsers() {
+        return this.accountEndpoint.getAllUsersEndpoint()
+            .map((response: Response) => <User[]>response.json());
+    }
+
     newUser(user: UserEdit) {
         return this.accountEndpoint.getNewUserEndpoint(user)
             .map((response: Response) => <User>response.json());

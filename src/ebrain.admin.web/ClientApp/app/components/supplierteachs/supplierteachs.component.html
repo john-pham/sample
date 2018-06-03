@@ -128,6 +128,31 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.supplier.UserLogin' | translate}}</label>
+                        <div class="col-md-8" [ngClass]="{'has-success': f.submitted && user.valid, 'has-error' : f.submitted && !user.valid}">
+                            <select id="grps-user-info" name="user" [(ngModel)]="pointer.userLoginId" class="form-control"
+                                    required
+                                    #user="ngModel"
+                                    attr.id="user-{{uniqueId}}"
+                                    data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                <option *ngFor="let grp of users" attr.data-content="<span title='{{user.fullName}}' class='badge'>{{user.userName}}</span>" attr.value="{{grp.id}}">
+                                    {{grp.userName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
                         <label class="control-label col-md-4">{{'label.supplier.Name' | translate}}</label>
                         <div class="col-md-8" [ngClass]="{'has-success': f.submitted && name.valid, 'has-error' : f.submitted && !name.valid}">
                             <input type="text" class="form-control" [(ngModel)]="pointer.name" name="name" required

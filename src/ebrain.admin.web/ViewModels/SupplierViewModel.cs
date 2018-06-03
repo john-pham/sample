@@ -36,5 +36,7 @@ namespace Ebrain.ViewModels
         public string Email { get; set; }
 
         public string AccountBank { get; set; }
+        public Guid? UserLoginId { get; set; }
+         
     }
 }

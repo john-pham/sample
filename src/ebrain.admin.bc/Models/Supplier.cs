@@ -31,5 +31,6 @@ namespace ebrain.admin.bc.Models
 
         public Guid? GrpSupplierId { get; set; }
         public DateTime? Birthday { get; set; }
+        public Guid? UserLoginId { get; set; }
     }
 }

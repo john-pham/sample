@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using ebrain.admin.bc.Core;
 using ebrain.admin.bc.Utilities;
 using Microsoft.AspNetCore.Hosting;
+using ebrain.admin.bc;
 
 namespace Ebrain.Controllers
 {
@@ -30,16 +31,27 @@ namespace Ebrain.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
+        private IUnitOfWork _unitOfWork;
         private readonly IAccountManager _accountManager;
         private readonly IAuthorizationService _authorizationService;
         private const string GetUserByIdActionName = "GetUserById";
         private const string GetRoleByIdActionName = "GetRoleById";
         readonly IHostingEnvironment _env;
-        public AccountController(IAccountManager accountManager, IAuthorizationService authorizationService, IHostingEnvironment env)
+        public AccountController(IUnitOfWork unitOfWork, IAccountManager accountManager, IAuthorizationService authorizationService, IHostingEnvironment env)
         {
             _accountManager = accountManager;
             _authorizationService = authorizationService;
             this._env = env;
+            this._unitOfWork = unitOfWork;
+        }
+
+        [HttpGet("users/getallusers")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var userId = Utilities.GetUserId(this.User);
+            var list = _accountManager.GetAllUsers(this._unitOfWork.Branches.GetAllBranchOfUserString(userId));
+            return this.Ok(list.Result);
         }
 
         [HttpGet("users/accessrights")]

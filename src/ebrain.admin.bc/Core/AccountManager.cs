@@ -36,6 +36,11 @@ namespace ebrain.admin.bc.Core
             _roleManager = roleManager;
         }
 
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsers(string branchIds)
+        {
+            return _context.Users.Where(p => branchIds.Contains(p.BranchId.HasValue ? p.BranchId.Value.ToString() : ""));
+        }
+
         public async Task<Guid?> GetBranchByUserIdAsync(string userId)
         {
             var app =  await _userManager.FindByIdAsync(userId);
