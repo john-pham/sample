@@ -9,11 +9,14 @@
         padding: 10px 10px 15px !important;
         border: #9fc343 1px solid;
         border-radius: 10px;
+        display: flex;
+        text-align: left;
+        width: 230px;
     }
 
 
     .statistic > .row a.block {
-        display: block;
+        /* display: block; */
         -webkit-transition: all 0.3s linear;
         -o-transition: all 0.3s linear;
         -moz-transition: all 0.3s linear;
@@ -26,3 +29,11 @@
             -webkit-box-shadow: 1px 1px 10px 0 #707070;
             box-shadow: 1px 1px 10px 0 #707070;
         }
+
+        .statistic > .row a.block span.text-warning {
+            font-size: 18px;
+        }
+
+.btn-manager {
+    padding-left: 10px;
+}
