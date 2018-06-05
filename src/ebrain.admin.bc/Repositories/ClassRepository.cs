@@ -306,7 +306,7 @@ namespace ebrain.admin.bc.Repositories
                                .WithSqlParam("@filterValue", value)
                                .WithSqlParam("@BranchIds", branchIds)
                                .WithSqlParam("@classId", classId)
-                               .WithSqlParam("@userLogin", userLogin)
+                               .WithSqlParam("@userLogin", (userLogin != string.Empty ? userLogin : null))
                                .ExecuteStoredProc((handler) =>
                                {
                                    someTypeList = handler.ReadToList<ClassList>().ToList();

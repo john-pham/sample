@@ -103,7 +103,7 @@ export class AccessRightsService {
         return false;
     }
 
-    private isEdit(featureId: string) {
+    public isEdit(featureId: string) {
         let accessRights = this.currentAccessRights;
         if (accessRights != null && accessRights.length > 0) {
             var array = accessRights.filter(p => p.featureId == featureId.toLowerCase() && p.edit == true);

@@ -51,7 +51,7 @@ export class ClassListsComponent implements OnInit, OnDestroy {
 
     status = [];
     suppliers = [];
-
+    ioStockId: any = "";
     private pointer: Grpsupplier;
 
     public changesSavedCallback: () => void;
@@ -68,6 +68,7 @@ export class ClassListsComponent implements OnInit, OnDestroy {
         this.page = new Page();
         this.page.pageNumber = 0;
         this.page.size = 20;
+        this.ioStockId = "";
     }
 
     setPage(pageInfo) {
@@ -136,14 +137,14 @@ export class ClassListsComponent implements OnInit, OnDestroy {
     private getFromServer() {
         this.loadingIndicator = true;
         var disp = this.localService.getsummaries(
-            this.filterName, this.filterValue, this.statusId, this.supplierId, "", 
-                (this.isUsageTeacher ? 1 : 0), this.page.pageNumber, this.page.size).subscribe(
-                list => this.onDataLoadSuccessful(list),
-                error => this.onDataLoadFailed(error),
-                () => {
-                    disp.unsubscribe();
-                    setTimeout(() => { this.loadingIndicator = false; }, 1500);
-                });
+            this.filterName, this.filterValue, this.statusId, this.supplierId, "",
+            (this.isUsageTeacher ? 1 : 0), this.page.pageNumber, this.page.size).subscribe(
+            list => this.onDataLoadSuccessful(list),
+            error => this.onDataLoadFailed(error),
+            () => {
+                disp.unsubscribe();
+                setTimeout(() => { this.loadingIndicator = false; }, 1500);
+            });
 
 
     }
@@ -180,8 +181,22 @@ export class ClassListsComponent implements OnInit, OnDestroy {
         this.getFromServer();
     }
 
-    close() {
+    showAddNew(template: TemplateRef<any>) {
+        this.ioStockId = "";
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
+    }
+
+    closeAddNew() {
         this.modalRef.hide();
+    }
+
+    onActivateMaterial(event) {
+        if (event.type == 'dblclick') {
+            if (this.accessRightService.isEdit("8AA6E971-1C3D-4835-B154-D662CE12AE96")) {
+                this.ioStockId = event.row.id;
+                this.modalRef = this.modalService.show(this.template, { class: 'modal-large' });
+            }
+        }
     }
 
     @ViewChild('statusHeaderTemplate')
@@ -201,4 +216,7 @@ export class ClassListsComponent implements OnInit, OnDestroy {
 
     @ViewChild('totalPriceTemplate')
     totalPriceTemplate: TemplateRef<any>;
+
+    @ViewChild('template')
+    template: TemplateRef<any>;
 }
