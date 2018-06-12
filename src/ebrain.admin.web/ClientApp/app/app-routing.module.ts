@@ -81,6 +81,7 @@ import { MaterialLearnsComponent } from "./components/materialLearns/materialLea
 import { ClassListsComponent } from "./components/classlists/classlists.component";
 import { ClassListTeachersComponent } from "./components/classliststeachers/classliststeachers.component";
 import { ClassesComponent } from "./components/classes/classes.component";
+import { ClassOffsetComponent } from "./components/classoffset/classoffset.component";
 import { RoomsComponent } from "./components/rooms/rooms.component";
 import { LevelclassesComponent } from "./components/levelclasses/levelclasses.component";
 import { ShiftclassesComponent } from "./components/shiftclasses/shiftclasses.component";
@@ -267,6 +268,8 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "classlists", component: ClassListsComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
             { path: "classdetails/:id", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Class" } },
             { path: "classes", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
+            { path: "classoffset", component: ClassOffsetComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
+            
             { path: "rooms", component: RoomsComponent, canActivate: [AuthGuard], data: { title: "rooms" } },
             { path: "levelclasses", component: LevelclassesComponent, canActivate: [AuthGuard], data: { title: "LevelClasses" } },
             { path: "shiftclasses", component: ShiftclassesComponent, canActivate: [AuthGuard], data: { title: "ShiftClasses" } },

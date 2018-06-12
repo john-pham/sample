@@ -439,7 +439,8 @@
       "StudentClass": "Học viên",
       "Student": "Học viên",
       "General": "Thông tin chung",
-      "WaitingClass": "Chờ xếp lớp"
+      "WaitingClass": "Chờ xếp lớp",
+      "LearnDate": "Ngày học"
     },
     "room": {
       "Unit": "Đơn vị tính",
