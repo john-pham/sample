@@ -316,38 +316,28 @@ namespace Ebrain.Controllers
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetClassOffset(Guid? studentId, Guid? classId)
         {
-            var list = this._unitOfWork.Classes.GetClassOffset(studentId, classId);
-            if (list != null && list.Count > 0)
+            var list = this._unitOfWork.Classes.GetClassOffset(classId, studentId);
+            return Ok(list.Select(p => new ClassOffsetViewModel
             {
-                return Ok(list.Select(p => new ClassOffsetViewModel
-                {
-                    ClassOffsetId = p.ClassOffsetId,
-                    ClassId = p.ClassId,
-                    StudentId = p.StudentId,
-                    ShiftId = p.ShiftId
-                }));
-
-            }
-            return Ok(null);
+                ClassOffsetId = p.ClassOffsetId,
+                ClassId = p.ClassId,
+                StudentId = p.StudentId,
+                ShiftId = p.ShiftId
+            }));
         }
 
         [HttpGet("getclassex")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetClassEx(Guid? studentId, Guid? classId)
         {
-            var list = this._unitOfWork.Classes.GetClassEx(studentId, classId);
-            if (list != null && list.Count > 0)
+            var list = this._unitOfWork.Classes.GetClassEx(classId, studentId);
+            return Ok(list.Select(p => new ClassExViewModel
             {
-                return Ok(list.Select(p => new ClassExViewModel
-                {
-                    ClassExId = p.ClassExId,
-                    ClassId = p.ClassId,
-                    StudentId = p.StudentId,
-                    ShiftId = p.ShiftId
-                }));
-
-            }
-            return Ok(null);
+                ClassExId = p.ClassExId,
+                ClassId = p.ClassId,
+                StudentId = p.StudentId,
+                ShiftId = p.ShiftId
+            }));
         }
 
         [HttpGet("getclasses")]

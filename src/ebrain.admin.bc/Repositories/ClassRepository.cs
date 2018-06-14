@@ -145,7 +145,7 @@ namespace ebrain.admin.bc.Repositories
             {
                 foreach (var item in classes)
                 {
-                    var itemExist = await this.appContext.ClassOffset.FirstOrDefaultAsync(p => p.ClassOffsetId == item.ClassOffsetId && p.IsDeleted == false);
+                    var itemExist = this.appContext.ClassOffset.FirstOrDefault(p => p.ClassOffsetId == item.ClassOffsetId && p.IsDeleted == false);
                     if (itemExist == null)
                     {
                         item.CreatedDate = DateTime.Now;
@@ -153,9 +153,9 @@ namespace ebrain.admin.bc.Repositories
                         this.appContext.ClassOffset.Add(item);
                     }
                 }
-                return await appContext.SaveChangesAsync() > 0;
+                return appContext.SaveChanges() > 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -165,7 +165,7 @@ namespace ebrain.admin.bc.Repositories
         {
             foreach (var item in classes)
             {
-                var itemExist = await this.appContext.ClassEx.FirstOrDefaultAsync(p => p.ClassExId == item.ClassExId && p.IsDeleted == false);
+                var itemExist = this.appContext.ClassEx.FirstOrDefault(p => p.ClassExId == item.ClassExId && p.IsDeleted == false);
                 if (itemExist == null)
                 {
                     item.CreatedDate = DateTime.Now;
@@ -173,7 +173,7 @@ namespace ebrain.admin.bc.Repositories
                     this.appContext.ClassEx.Add(item);
                 }
             }
-            return await appContext.SaveChangesAsync() > 0;
+            return appContext.SaveChanges() > 0;
         }
 
         public async Task<Class> Save(Class value, ClassTime[] classTimes, ClassStudent[] classStudents, Guid? index)

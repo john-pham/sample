@@ -86,9 +86,19 @@ export class ClassExComponent implements OnInit, OnDestroy {
             list => this.onDataLoadShiftSuccessful(list),
             error => this.onDataLoadFailed(error));
 
+
+    }
+
+    private getClassEx() {
         this.localService.getClassEx(this.studentId, this.classId).subscribe(
             list => {
                 this.rows = list;
+                this.rows.forEach(item => {
+                    var shift = this.shifts.filter(x => x.id == item.shiftId)[0];
+                    if (shift != null) {
+                        item.shiftName = shift.name;
+                    }
+                });
             },
             error => this.onDataLoadFailed(error));
     }
@@ -122,7 +132,7 @@ export class ClassExComponent implements OnInit, OnDestroy {
             if (this.rows === null) {
                 this.rows = [];
             }
-            
+
             this.rows.push(itemNew);
             this.rows = [...this.rows];
         }
@@ -150,6 +160,7 @@ export class ClassExComponent implements OnInit, OnDestroy {
         }
         this.shifts = list;
         this.loadingIndicator = false;
+        this.getClassEx();
     }
 
     private onDataLoadFailed(error: any) {

@@ -55,7 +55,7 @@ export class ClassModuleComponent implements OnInit, OnDestroy {
 
     @Input() classId: any = "";
     @Input() studentId: any = "";
-
+    @Input() classRef: any;
     readonly offsetTab = "offset";
     readonly exTab = "ex";
 
@@ -97,6 +97,11 @@ export class ClassModuleComponent implements OnInit, OnDestroy {
 
     setActiveTab(tab: string) {
         this.activeTab = tab.split("#", 2).pop();
+    }
+
+    
+    closeClass() {
+        this.classRef.hide();
     }
 
 }

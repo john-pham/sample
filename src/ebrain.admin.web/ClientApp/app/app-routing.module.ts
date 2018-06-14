@@ -83,7 +83,7 @@ import { ClassListTeachersComponent } from "./components/classliststeachers/clas
 import { ClassesComponent } from "./components/classes/classes.component";
 import { ClassOffsetComponent } from "./components/classoffset/classoffset.component";
 import { ClassExComponent } from "./components/classex/classex.component";
-import { ClassExComponent } from "./components/classex/classex.component";
+import { ClassModuleComponent } from "./components/classmodules/classmodules.component";
 import { RoomsComponent } from "./components/rooms/rooms.component";
 import { LevelclassesComponent } from "./components/levelclasses/levelclasses.component";
 import { ShiftclassesComponent } from "./components/shiftclasses/shiftclasses.component";

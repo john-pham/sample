@@ -86,13 +86,22 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
             list => this.onDataLoadShiftSuccessful(list),
             error => this.onDataLoadFailed(error));
 
+        
+    }
+
+    private getOffset() {
         this.localService.getClassOffset(this.studentId, this.classId).subscribe(
             list => {
                 this.rows = list;
+                this.rows.forEach(item => {
+                    var shift = this.shifts.filter(x => x.id == item.shiftId)[0];
+                    if (shift != null) {
+                        item.shiftName = shift.name;
+                    }
+                });
             },
             error => this.onDataLoadFailed(error));
     }
-
     private addClassOffset(id: string) {
         let err = "";
         var item = this.pointer;
@@ -144,6 +153,7 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
             this.pointer.shiftId = list[0].id;
         }
         this.shifts = list;
+        this.getOffset();
         this.loadingIndicator = false;
     }
 
