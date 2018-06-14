@@ -15,6 +15,6 @@ namespace ebrain.admin.bc.Models
         public Guid? OnTodayId { get; set; }
         public Guid? StudentId { get; set; }
         public Guid? ShiftId { get; set; }
-        public DateTime LearnDate { get; set; }
+        public DateTime? LearnDate { get; set; }
     }
 }
