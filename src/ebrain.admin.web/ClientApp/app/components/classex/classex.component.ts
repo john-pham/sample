@@ -115,6 +115,14 @@ export class ClassExComponent implements OnInit, OnDestroy {
                 itemNew.shiftName = shift.name;
             }
 
+            if (this.rows === null) {
+                this.rows = [];
+            }
+
+            if (this.rows === null) {
+                this.rows = [];
+            }
+            
             this.rows.push(itemNew);
             this.rows = [...this.rows];
         }

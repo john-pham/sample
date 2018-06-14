@@ -1079,7 +1079,9 @@
       "IOStudent": "Thu học phí",
       "IOStudentList": "Danh sách thu",
       "Payment": "Phiếu thu",
-      "WaitingClass": "Chờ xếp lớp"
+      "WaitingClass": "Chờ xếp lớp",
+      "OffSet": "Học bù",
+      "ClassEx": "Học phụ đạo"
     },
     "student": {
       "Categories": {

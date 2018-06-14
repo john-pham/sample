@@ -39,6 +39,7 @@ import { Results } from "../../models/results.model";
 import { Shiftclass } from '../../models/Shiftclass.model';
 import { ShiftclassesService } from '../../services/shiftclasses.service';
 import { ClassOffset } from "../../models/classoffset.model";
+import { DateOnlyPipe } from "../../directives/dateonlypipe.directive";
 
 @Component({
     selector: 'classoffset',
@@ -76,7 +77,7 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "learnDate", name: gT('label.class.LearnDate'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "learnDate", name: gT('label.class.LearnDate'), cellTemplate: this.nameTemplate, pipe: new DateOnlyPipe('en-US'), cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'shiftName', name: gT('label.class.Shift'), cellTemplate: this.nameTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
@@ -114,6 +115,9 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
                 itemNew.shiftName = shift.name;
             }
 
+            if (this.rows === null) {
+                this.rows = [];
+            }
             this.rows.push(itemNew);
             this.rows = [...this.rows];
         }

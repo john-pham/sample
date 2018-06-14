@@ -80,6 +80,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     classExamineRef: BsModalRef;
     waitingClassRef: BsModalRef;
+    classRef: BsModalRef;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: ClassesService, private modalService: BsModalService,
@@ -518,6 +519,16 @@ export class ClassesComponent implements OnInit, OnDestroy {
         }
     }
 
+    onActivateClass(event, template: any) {
+        if (event != null && event.type == 'dblclick') {
+            if (event.row.studentId.length > 0 && this.pointer.id != null && this.pointer.id.length > 0) {
+                this.studentId = event.row.studentId;
+                this.classId = this.pointer.id;
+                this.classRef = this.modalService.show(template, { class: 'modal-lg' });
+            }
+        }
+    }
+
     close() {
         this.modalRef.hide();
     }
@@ -528,7 +539,9 @@ export class ClassesComponent implements OnInit, OnDestroy {
     closeWaitingClass() {
         this.waitingClassRef.hide();
     }
-
+    closeClass() {
+        this.classRef.hide();
+    }
 
     @ViewChild('f')
     private form;

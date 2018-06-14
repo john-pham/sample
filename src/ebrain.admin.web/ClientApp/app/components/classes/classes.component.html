@@ -430,7 +430,8 @@
                                                    [rowHeight]="auto"
                                                    [columns]="columnStudents"
                                                    [scrollbarV]="verticalScrollbar"
-                                                   [columnMode]="'force'">
+                                                   [columnMode]="'force'"
+                                                   (activate)="onActivateClass($event, classoffsettemplate)">
                                     </ngx-datatable>
 
                                     <!-- TEMPLATEs -->
@@ -476,5 +477,15 @@
     <div class="modal-body">
         <iostudentlistspay [isNotShowPrice]="false" [isWaitingClass]="true" (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspay>
     </div>
-
 </ng-template>
+
+<ng-template #classoffsettemplate>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.class.OffSet' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <classoffset [classId]="classId" [studentId]="studentId"></classoffset>
+    </div>
+</ng-template>
+
