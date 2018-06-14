@@ -119,7 +119,8 @@ export class ClassListsComponent implements OnInit, OnDestroy {
     }
 
     goDetails(template: TemplateRef<any>, value: ClassList) {
-        this.router.navigate(['/classdetails', value.id]);
+        this.ioStockId = value.id;
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
     onRemoved(file: any) {
