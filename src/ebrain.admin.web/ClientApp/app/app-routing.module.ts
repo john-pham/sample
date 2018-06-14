@@ -7,7 +7,7 @@
 // ======================================
 
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
@@ -136,157 +136,162 @@ import { NotFoundComponent } from "./components/not-found/not-found.component";
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 
+// Route config let's you map routes to components
+const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: "Login" },
+    children: [
+      //Anonymous routes
+      { path: "", component: HomeComponent, canActivate: [AuthGuard], data: { title: "Home" } },
+      { path: "mn-stocks", component: mn_stocksComponent, canActivate: [AuthGuard], data: { title: "stocks" } },
+      { path: "mn-students", component: mn_studentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
+      { path: "mn-finances", component: mn_financesComponent, canActivate: [AuthGuard], data: { title: "finances" } },
+      { path: "mn-humans", component: mn_humansComponent, canActivate: [AuthGuard], data: { title: "humans" } },
+      { path: "mn-classes", component: mn_classesComponent, canActivate: [AuthGuard], data: { title: "classes" } },
+      { path: "mn-learning", component: mn_learningComponent, canActivate: [AuthGuard], data: { title: "learning" } },
+
+
+      { path: "mn_main_categories", component: mn_main_categoriesComponent, canActivate: [AuthGuard], data: { title: "Categories" } },
+      { path: "mn_main_educate", component: mn_main_educateComponent, canActivate: [AuthGuard], data: { title: "Educates" } },
+      { path: "mn_main_accountant", component: mn_main_accountantComponent, canActivate: [AuthGuard], data: { title: "Accountants" } },
+
+      { path: "mn_main_stock", component: mn_main_stockComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
+      { path: "mn_main_system", component: mn_main_systemComponent, canActivate: [AuthGuard], data: { title: "Systems" } },
+      { path: "mn_main_sms", component: mn_main_smsComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
+      { path: "mn_main_document", component: mn_main_documentComponent, canActivate: [AuthGuard], data: { title: "Document" } },
+
+      { path: "attendanceteaches", component: AttendanceTeachersComponent, canActivate: [AuthGuard], data: { title: "Attendance Teacher" } },
+      { path: "attendances", component: AttendancesComponent, canActivate: [AuthGuard], data: { title: "Attendances" } },
+      { path: "mn_main_function", component: mn_main_functionComponent, canActivate: [AuthGuard], data: { title: "Functions" } },
+      { path: "mn_main_report", component: mn_main_reportComponent, canActivate: [AuthGuard], data: { title: "Reports" } },
+
+      { path: "mn_student_categories", component: mn_student_categoriesComponent, canActivate: [AuthGuard], data: { title: "learning" } },
+      { path: "mn_student_categories_student", component: mn_student_categories_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
+      { path: "mn_student_categories_classes", component: mn_student_categories_classesComponent, canActivate: [AuthGuard], data: { title: "learning" } },
+      { path: "mn_student_reports_student", component: mn_student_reports_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
+      { path: "mn_student_main_student", component: mn_student_main_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
+      { path: "mn_student_sms_student", component: mn_student_sms_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
+
+      { path: "mn_stock_categories_stock", component: mn_stock_categories_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
+      { path: "mn_stock_main_stock", component: mn_stock_main_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
+      { path: "mn_stock_manages_stock", component: mn_stock_manages_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
+      { path: "mn_stock_reports_stock", component: mn_stock_reports_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
+      { path: "mn_stock_inputs_stock", component: mn_stock_inputs_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
+
+      { path: "mn_accountant_payment_accountant", component: mn_accountant_payment_accountantComponent, canActivate: [AuthGuard], data: { title: "accountant" } },
+      { path: "mn_accountant_promotion_accountant", component: mn_accountant_promotion_accountantComponent, canActivate: [AuthGuard], data: { title: "accountant" } },
+      { path: "mn_accountant_main_accountant", component: mn_accountant_main_accountantComponent, canActivate: [AuthGuard], data: { title: "accountant" } },
+
+      { path: "sms", component: SMSComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
+      { path: "smssend", component: SMSSendComponent, canActivate: [AuthGuard], data: { title: "Send SMS" } },
+      { path: "accessrights", component: AccessRightsComponent, canActivate: [AuthGuard], data: { title: "Access Rights" } },
+      { path: "userroles", component: UserRolesComponent, canActivate: [AuthGuard], data: { title: "User Roles" } },
+      { path: "messengers", component: MessengerComponent, canActivate: [AuthGuard], data: { title: "Messenger" } },
+      { path: "supports", component: SupportComponent, canActivate: [AuthGuard], data: { title: "Supports" } },
+
+      { path: "featuregroups", component: FeatureGroupsComponent, canActivate: [AuthGuard], data: { title: "Feature Groups" } },
+      { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },
+      { path: "user-info", component: UserInfoComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
+      { path: "users-management", component: UsersManagementComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
+
+      { path: "studentmaterials", component: StudentMaterialsComponent, canActivate: [AuthGuard], data: { title: "Course" } },
+      { path: "teachercourse", component: TeacherCourseComponent, canActivate: [AuthGuard], data: { title: "Teachers" } },
+
+      { path: "branches", component: BranchesComponent, canActivate: [AuthGuard], data: { title: "Branches" } },
+      { path: "stocks", component: StocksComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
+      { path: "typemateriallearns", component: TypeMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "typeMaterialLearns" } },
+      { path: "typematerials", component: TypeMaterialsComponent, canActivate: [AuthGuard], data: { title: "typeMaterials" } },
+      { path: "grpmaterials", component: GrpMaterialsComponent, canActivate: [AuthGuard], data: { title: "grpMaterials" } },
+      { path: "grpmateriallearns", component: GrpMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "grpMaterialLearns" } },
+      { path: "units", component: UnitsComponent, canActivate: [AuthGuard], data: { title: "units" } },
+      { path: "examines", component: ExamineComponent, canActivate: [AuthGuard], data: { title: "examines" } },
+
+      { path: "studentstatus", component: StudentstatusComponent, canActivate: [AuthGuard], data: { title: "studentstatus" } },
+
+      { path: "grpdocuments", component: GrpDocumentsComponent, canActivate: [AuthGuard], data: { title: "Group Documents" } },
+      { path: "documents", component: DocumentsComponent, canActivate: [AuthGuard], data: { title: "Documents" } },
+
+      { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
+      { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },
+      { path: "studentdates", component: StudentDatesComponent, canActivate: [AuthGuard], data: { title: "studentdates" } },
+      { path: "studentendclass", component: StudentEndClassComponent, canActivate: [AuthGuard], data: { title: "students end classes" } },
+
+
+      { path: "payments", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
+      { path: "payment/:id", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment Details" } },
+      { path: "paymentio/:ioid", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment" } },
+      { path: "paymentvouchers", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "payments" } },
+      { path: "paymentvouchers/:id", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "Receipt" } },
+      { path: "paymentiovouchers/:ioid", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "Receipt" } },
+      { path: "paymentlist", component: PaymentListsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
+      { path: "paymentdetaillist", component: PaymentDetailListsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
+
+      { path: "inventorieslist", component: InventoriesListsComponent, canActivate: [AuthGuard], data: { title: "Dept" } },
+      { path: "inventories", component: InventoriesComponent, canActivate: [AuthGuard], data: { title: "Update Dept" } },
+
+      { path: "profitslist", component: ProfitsListsComponent, canActivate: [AuthGuard], data: { title: "Profits" } },
+      { path: "profits", component: ProfitsComponent, canActivate: [AuthGuard], data: { title: "Update profits" } },
+
+      { path: "deptslist", component: DeptsListsComponent, canActivate: [AuthGuard], data: { title: "Inventory" } },
+      { path: "depts", component: DeptsComponent, canActivate: [AuthGuard], data: { title: "Update Inventory" } },
+
+      { path: "iostudents", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "iostudents" } },
+      { path: "purchaseorders", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
+      { path: "purhistories", component: PurHistoriesComponent, canActivate: [AuthGuard], data: { title: "PurHistories" } },
+      { path: "pursummarizes", component: PurSummarizesComponent, canActivate: [AuthGuard], data: { title: "PurSummarizes" } },
+      { path: "purchaseorders/:id", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
+      { path: "purdetails", component: PurDetailsComponent, canActivate: [AuthGuard], data: { title: "PurDetails" } },
+
+      { path: "classstudentsex", component: ClassStudentExComponent, canActivate: [AuthGuard], data: { title: "Class" } },
+      { path: "iostudentlistswaitingclass", component: IOStudenListWaitingClassComponent, canActivate: [AuthGuard], data: { title: "Waiting Class" } },
+      { path: "iostudentlist", component: IOStudenListPayComponent, canActivate: [AuthGuard], data: { title: "iostudentlist" } },
+      { path: "ioinputs", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "ioinputs" } },
+      { path: "iosummarizes", component: IOSummarizesComponent, canActivate: [AuthGuard], data: { title: "iosummarizes" } },
+      { path: "iodetails", component: IODetailsComponent, canActivate: [AuthGuard], data: { title: "iodetails" } },
+      { path: "warehousecards", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },
+      { path: "warehousecards/:id", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },
+
+      { path: "iooutput/:id", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "Output" } },
+      { path: "ioinput/:id", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "Input" } },
+
+      { path: "materials", component: MaterialsComponent, canActivate: [AuthGuard], data: { title: "materials" } },
+      { path: "materiallearns", component: MaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "materialLearns" } },
+
+      { path: "grpsuppliers", component: GrpsuppliersComponent, canActivate: [AuthGuard], data: { title: "grpsuppliers" } },
+      { path: "suppliers", component: SuppliersComponent, canActivate: [AuthGuard], data: { title: "supplier" } },
+      { path: "suppliercus", component: SupplierCusComponent, canActivate: [AuthGuard], data: { title: "customers" } },
+      { path: "supplieremps", component: SupplierEmpsComponent, canActivate: [AuthGuard], data: { title: "employes" } },
+      { path: "supplierteachs", component: SupplierTeacherComponent, canActivate: [AuthGuard], data: { title: "teachers" } },
+
+      { path: "classliststeachers", component: ClassListTeachersComponent, canActivate: [AuthGuard], data: { title: "Classes Teacher" } },
+      { path: "classlists", component: ClassListsComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
+      { path: "classdetails/:id", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Class" } },
+      { path: "classes", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
+      { path: "rooms", component: RoomsComponent, canActivate: [AuthGuard], data: { title: "rooms" } },
+      { path: "levelclasses", component: LevelclassesComponent, canActivate: [AuthGuard], data: { title: "LevelClasses" } },
+      { path: "shiftclasses", component: ShiftclassesComponent, canActivate: [AuthGuard], data: { title: "ShiftClasses" } },
+      { path: "consultants", component: ConsultantsComponent, canActivate: [AuthGuard], data: { title: "consultants" } },
+
+      { path: "categories", component: CategoriesComponent, canActivate: [AuthGuard], data: { title: "Categories" } },
+      { path: "customers", component: CustomersComponent, canActivate: [AuthGuard], data: { title: "Customers" } },
+      { path: "products", component: HomeComponent, canActivate: [AuthGuard], data: { title: "Home" } },
+      { path: "orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
+      { path: "settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
+      { path: "about", component: AboutComponent, data: { title: "About Us" } },
+      { path: "home", redirectTo: "/", pathMatch: "full" },
+      { path: "**", component: NotFoundComponent, data: { title: "Page Not Found" } },
+    ]
+  }
+]
 
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot([
-            { path: "", component: HomeComponent, canActivate: [AuthGuard], data: { title: "Home" } },
-            { path: "login", component: LoginComponent, data: { title: "Login" } },
-            { path: "mn-stocks", component: mn_stocksComponent, canActivate: [AuthGuard], data: { title: "stocks" } },
-            { path: "mn-students", component: mn_studentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
-            { path: "mn-finances", component: mn_financesComponent, canActivate: [AuthGuard], data: { title: "finances" } },
-            { path: "mn-humans", component: mn_humansComponent, canActivate: [AuthGuard], data: { title: "humans" } },
-            { path: "mn-classes", component: mn_classesComponent, canActivate: [AuthGuard], data: { title: "classes" } },
-            { path: "mn-learning", component: mn_learningComponent, canActivate: [AuthGuard], data: { title: "learning" } },
-
-
-            { path: "mn_main_categories", component: mn_main_categoriesComponent, canActivate: [AuthGuard], data: { title: "Categories" } },
-            { path: "mn_main_educate", component: mn_main_educateComponent, canActivate: [AuthGuard], data: { title: "Educates" } },
-            { path: "mn_main_accountant", component: mn_main_accountantComponent, canActivate: [AuthGuard], data: { title: "Accountants" } },
-
-            { path: "mn_main_stock", component: mn_main_stockComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
-            { path: "mn_main_system", component: mn_main_systemComponent, canActivate: [AuthGuard], data: { title: "Systems" } },
-            { path: "mn_main_sms", component: mn_main_smsComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
-            { path: "mn_main_document", component: mn_main_documentComponent, canActivate: [AuthGuard], data: { title: "Document" } },
-
-            { path: "attendanceteaches", component: AttendanceTeachersComponent, canActivate: [AuthGuard], data: { title: "Attendance Teacher" } },
-            { path: "attendances", component: AttendancesComponent, canActivate: [AuthGuard], data: { title: "Attendances" } },
-            { path: "mn_main_function", component: mn_main_functionComponent, canActivate: [AuthGuard], data: { title: "Functions" } },
-            { path: "mn_main_report", component: mn_main_reportComponent, canActivate: [AuthGuard], data: { title: "Reports" } },
-
-            { path: "mn_student_categories", component: mn_student_categoriesComponent, canActivate: [AuthGuard], data: { title: "learning" } },
-            { path: "mn_student_categories_student", component: mn_student_categories_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
-            { path: "mn_student_categories_classes", component: mn_student_categories_classesComponent, canActivate: [AuthGuard], data: { title: "learning" } },
-            { path: "mn_student_reports_student", component: mn_student_reports_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
-            { path: "mn_student_main_student", component: mn_student_main_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
-            { path: "mn_student_sms_student", component: mn_student_sms_studentComponent, canActivate: [AuthGuard], data: { title: "learning" } },
-
-            { path: "mn_stock_categories_stock", component: mn_stock_categories_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
-            { path: "mn_stock_main_stock", component: mn_stock_main_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
-            { path: "mn_stock_manages_stock", component: mn_stock_manages_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
-            { path: "mn_stock_reports_stock", component: mn_stock_reports_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
-            { path: "mn_stock_inputs_stock", component: mn_stock_inputs_stockComponent, canActivate: [AuthGuard], data: { title: "stock" } },
-
-            { path: "mn_accountant_payment_accountant", component: mn_accountant_payment_accountantComponent, canActivate: [AuthGuard], data: { title: "accountant" } },
-            { path: "mn_accountant_promotion_accountant", component: mn_accountant_promotion_accountantComponent, canActivate: [AuthGuard], data: { title: "accountant" } },
-            { path: "mn_accountant_main_accountant", component: mn_accountant_main_accountantComponent, canActivate: [AuthGuard], data: { title: "accountant" } },
-
-            { path: "sms", component: SMSComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
-            { path: "smssend", component: SMSSendComponent, canActivate: [AuthGuard], data: { title: "Send SMS" } },
-            { path: "accessrights", component: AccessRightsComponent, canActivate: [AuthGuard], data: { title: "Access Rights" } },
-            { path: "userroles", component: UserRolesComponent, canActivate: [AuthGuard], data: { title: "User Roles" } },
-            { path: "messengers", component: MessengerComponent, canActivate: [AuthGuard], data: { title: "Messenger" } },
-            { path: "supports", component: SupportComponent, canActivate: [AuthGuard], data: { title: "Supports" } },
-
-            { path: "featuregroups", component: FeatureGroupsComponent, canActivate: [AuthGuard], data: { title: "Feature Groups" } },
-            { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },
-            { path: "user-info", component: UserInfoComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
-            { path: "users-management", component: UsersManagementComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
-
-            { path: "studentmaterials", component: StudentMaterialsComponent, canActivate: [AuthGuard], data: { title: "Course" } },
-            { path: "teachercourse", component: TeacherCourseComponent, canActivate: [AuthGuard], data: { title: "Teachers" } },
-
-            { path: "branches", component: BranchesComponent, canActivate: [AuthGuard], data: { title: "Branches" } },
-            { path: "stocks", component: StocksComponent, canActivate: [AuthGuard], data: { title: "Stocks" } },
-            { path: "typemateriallearns", component: TypeMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "typeMaterialLearns" } },
-            { path: "typematerials", component: TypeMaterialsComponent, canActivate: [AuthGuard], data: { title: "typeMaterials" } },
-            { path: "grpmaterials", component: GrpMaterialsComponent, canActivate: [AuthGuard], data: { title: "grpMaterials" } },
-            { path: "grpmateriallearns", component: GrpMaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "grpMaterialLearns" } },
-            { path: "units", component: UnitsComponent, canActivate: [AuthGuard], data: { title: "units" } },
-            { path: "examines", component: ExamineComponent, canActivate: [AuthGuard], data: { title: "examines" } },
-
-            { path: "studentstatus", component: StudentstatusComponent, canActivate: [AuthGuard], data: { title: "studentstatus" } },
-
-            { path: "grpdocuments", component: GrpDocumentsComponent, canActivate: [AuthGuard], data: { title: "Group Documents" } },
-            { path: "documents", component: DocumentsComponent, canActivate: [AuthGuard], data: { title: "Documents" } },
-
-            { path: "students", component: StudentsComponent, canActivate: [AuthGuard], data: { title: "students" } },
-            { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },
-            { path: "studentdates", component: StudentDatesComponent, canActivate: [AuthGuard], data: { title: "studentdates" } },
-            { path: "studentendclass", component: StudentEndClassComponent, canActivate: [AuthGuard], data: { title: "students end classes" } },
-
-
-            { path: "payments", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
-            { path: "payment/:id", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment Details" } },
-            { path: "paymentio/:ioid", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment" } },
-            { path: "paymentvouchers", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "payments" } },
-            { path: "paymentvouchers/:id", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "Receipt" } },
-            { path: "paymentiovouchers/:ioid", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "Receipt" } },
-            { path: "paymentlist", component: PaymentListsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
-            { path: "paymentdetaillist", component: PaymentDetailListsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
-
-            { path: "inventorieslist", component: InventoriesListsComponent, canActivate: [AuthGuard], data: { title: "Dept" } },
-            { path: "inventories", component: InventoriesComponent, canActivate: [AuthGuard], data: { title: "Update Dept" } },
-
-            { path: "profitslist", component: ProfitsListsComponent, canActivate: [AuthGuard], data: { title: "Profits" } },
-            { path: "profits", component: ProfitsComponent, canActivate: [AuthGuard], data: { title: "Update profits" } },
-
-            { path: "deptslist", component: DeptsListsComponent, canActivate: [AuthGuard], data: { title: "Inventory" } },
-            { path: "depts", component: DeptsComponent, canActivate: [AuthGuard], data: { title: "Update Inventory" } },
-
-            { path: "iostudents", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "iostudents" } },
-            { path: "purchaseorders", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
-            { path: "purhistories", component: PurHistoriesComponent, canActivate: [AuthGuard], data: { title: "PurHistories" } },
-            { path: "pursummarizes", component: PurSummarizesComponent, canActivate: [AuthGuard], data: { title: "PurSummarizes" } },
-            { path: "purchaseorders/:id", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
-            { path: "purdetails", component: PurDetailsComponent, canActivate: [AuthGuard], data: { title: "PurDetails" } },
-
-            { path: "classstudentsex", component: ClassStudentExComponent, canActivate: [AuthGuard], data: { title: "Class" } },
-            { path: "iostudentlistswaitingclass", component: IOStudenListWaitingClassComponent, canActivate: [AuthGuard], data: { title: "Waiting Class" } },
-            { path: "iostudentlist", component: IOStudenListPayComponent, canActivate: [AuthGuard], data: { title: "iostudentlist" } },
-            { path: "ioinputs", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "ioinputs" } },
-            { path: "iosummarizes", component: IOSummarizesComponent, canActivate: [AuthGuard], data: { title: "iosummarizes" } },
-            { path: "iodetails", component: IODetailsComponent, canActivate: [AuthGuard], data: { title: "iodetails" } },
-            { path: "warehousecards", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },
-            { path: "warehousecards/:id", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },
-
-            { path: "iooutput/:id", component: IOStudentsComponent, canActivate: [AuthGuard], data: { title: "Output" } },
-            { path: "ioinput/:id", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "Input" } },
-
-            { path: "materials", component: MaterialsComponent, canActivate: [AuthGuard], data: { title: "materials" } },
-            { path: "materiallearns", component: MaterialLearnsComponent, canActivate: [AuthGuard], data: { title: "materialLearns" } },
-
-            { path: "grpsuppliers", component: GrpsuppliersComponent, canActivate: [AuthGuard], data: { title: "grpsuppliers" } },
-            { path: "suppliers", component: SuppliersComponent, canActivate: [AuthGuard], data: { title: "supplier" } },
-            { path: "suppliercus", component: SupplierCusComponent, canActivate: [AuthGuard], data: { title: "customers" } },
-            { path: "supplieremps", component: SupplierEmpsComponent, canActivate: [AuthGuard], data: { title: "employes" } },
-            { path: "supplierteachs", component: SupplierTeacherComponent, canActivate: [AuthGuard], data: { title: "teachers" } },
-
-            { path: "classliststeachers", component: ClassListTeachersComponent, canActivate: [AuthGuard], data: { title: "Classes Teacher" } },
-            { path: "classlists", component: ClassListsComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
-            { path: "classdetails/:id", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Class" } },
-            { path: "classes", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
-            { path: "rooms", component: RoomsComponent, canActivate: [AuthGuard], data: { title: "rooms" } },
-            { path: "levelclasses", component: LevelclassesComponent, canActivate: [AuthGuard], data: { title: "LevelClasses" } },
-            { path: "shiftclasses", component: ShiftclassesComponent, canActivate: [AuthGuard], data: { title: "ShiftClasses" } },
-            { path: "consultants", component: ConsultantsComponent, canActivate: [AuthGuard], data: { title: "consultants" } },
-
-            { path: "categories", component: CategoriesComponent, canActivate: [AuthGuard], data: { title: "Categories" } },
-            { path: "customers", component: CustomersComponent, canActivate: [AuthGuard], data: { title: "Customers" } },
-            { path: "products", component: HomeComponent, canActivate: [AuthGuard], data: { title: "Home" } },
-            { path: "orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
-            { path: "settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
-            { path: "about", component: AboutComponent, data: { title: "About Us" } },
-            { path: "home", redirectTo: "/", pathMatch: "full" },
-            { path: "**", component: NotFoundComponent, data: { title: "Page Not Found" } },
-        ])
-    ],
-    exports: [
-        RouterModule
-    ],
-    providers: [
-        AuthService, AuthGuard
-    ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+  providers: [
+    AuthService, AuthGuard
+  ]
 })
 export class AppRoutingModule { }
