@@ -63,7 +63,7 @@
                        [offset]="page.pageNumber"
                        [limit]="page.size"
                        (page)='setPage($event)'
-                       (activate)="onActivateMaterial($event)">
+                       (activate)="activeDoubleClick($event)">
             <ngx-datatable-column headerClass="text-center"
                                   name="{{'label.payment.IONumber' | translate}}" prop='code'>
             </ngx-datatable-column>

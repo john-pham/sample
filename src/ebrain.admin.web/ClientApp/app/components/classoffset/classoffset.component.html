@@ -1,0 +1,104 @@
+﻿<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">{{'label.class.TimeClass' | translate}}</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="table-responsive">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-right">
+                        <button (click)="save()" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="col-md-6 no-pd">-->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-2">{{'label.class.LearnDate' | translate}}</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" placeholder="{{'label.class.LearnDate' | translate}}"
+                                   bsDatepicker [(ngModel)]="pointer.learnDate"
+                                   name="LearnDate" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-2">{{'label.class.Shift' | translate}}</label>
+                        <div class="col-md-10">
+                            <select id="grps-user-info" name="shift" [(ngModel)]="pointer.shiftId" class="form-control" data-live-search="true" data-actions-box="false"
+                                    data-live-search-placeholder="Search..." title="">
+                                <option *ngFor="let grp of shifts" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                    {{grp.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="mg-bt-10 text-center">
+                <div class="form-group has-feedback">
+                    <button type="button" class="btn btn-primary" (click)="addClassOffset()">
+                        {{'button.Add' | translate}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+
+            <div class="wrap-table">
+                <div class="col-sm-12">
+                    <div class="form-group has-feedback">
+                        <div [@fadeInOut]>
+                            <!--DATA TABLE-->
+                            <ngx-datatable class="material colored-header sm table-hover" [loadingIndicator]="loadingIndicator" [rows]="rows" [rowHeight]="auto"
+                                           [columns]="columns" [scrollbarV]="verticalScrollbar" [columnMode]="'force'">
+                            </ngx-datatable>
+
+                            <!-- TEMPLATEs -->
+                            <ng-template #statusHeaderTemplate>
+                                <i class="fa fa-check-square-o"></i>
+                            </ng-template>
+
+                            <ng-template #nameTemplate let-row="row" let-value="value">
+                                <span attr.title="{{value}}">
+                                    {{value}}
+                                </span>
+                            </ng-template>
+                            <ng-template #actionsTemplate let-row="row">
+                                <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteTime(row)">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}
+                                </a>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

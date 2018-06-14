@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -75,7 +75,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
-
+    @Input() ioStockId: any = false;
+    @Input() isShowHeader: any = true;
     modalRef: BsModalRef;
     classExamineRef: BsModalRef;
     waitingClassRef: BsModalRef;
@@ -223,19 +224,13 @@ export class ClassesComponent implements OnInit, OnDestroy {
             .switchMap((params: ParamMap) => {
                 var id = '';
                 if (isReset == false) {
-                    id = params.get('id');
+                    if (this.ioStockId != null && this.ioStockId.length > 0) id = this.ioStockId
+                    else id = params.get('id');
                 }
                 return this.localService.getDefault(id);
             })
             .subscribe(results => this.mappingDetail(results), error => this.onDataLoadFailed(error));
 
-        //var disp = this.localService.getDefault(index).subscribe(
-        //    list => this.onDataLoadDefaultSuccessful(list),
-        //    error => this.onDataLoadFailed(error),
-        //    () => {
-        //        disp.unsubscribe();
-        //        setTimeout(() => { this.loadingIndicator = false; }, 1500);
-        //    });
     }
 
     private onDataLoadShiftSuccessful(resulted: Results<Shiftclass>) {
@@ -497,6 +492,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     }
 
     private addnew() {
+        this.ioStockId = "";
         this.pointer = new Class();
         this.rowStudents = [];
         this.rowTimes = [];

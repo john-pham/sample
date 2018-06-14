@@ -7,10 +7,13 @@ namespace ebrain.admin.bc.Report
     public class ClassList
     {
         public Guid ClassId { get; set; }
+        public Guid? ClassOffsetId { get; set; }
+        public Guid? ClassExId { get; set; }
+        public Guid? StudentId { get; set; }
         public string ClassCode { get; set; }
         public string ClassName { get; set; }
         public Guid? BranchId { get; set; }
-
+        public Guid? ShiftId { get; set; }
         public Guid? MaterialId { get; set; }
         public decimal? LongLearn { get; set; }
         public Guid? StatusId { get; set; }
@@ -25,5 +28,6 @@ namespace ebrain.admin.bc.Report
         public string MaterialName { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int CountStudent { get; set; }
+        public DateTime? LearnDate { get; set; }
     }
 }

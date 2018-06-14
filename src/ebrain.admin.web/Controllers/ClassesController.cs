@@ -312,6 +312,44 @@ namespace Ebrain.Controllers
             return null;
         }
 
+        [HttpGet("getclassoffset")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetClassOffset(Guid? studentId, Guid? classId)
+        {
+            var list = this._unitOfWork.Classes.GetClassOffset(studentId, classId);
+            if (list != null && list.Count > 0)
+            {
+                return Ok(list.Select(p => new ClassOffsetViewModel
+                {
+                    ClassOffsetId = p.ClassOffsetId,
+                    ClassId = p.ClassId,
+                    StudentId = p.StudentId,
+                    ShiftId = p.ShiftId
+                }));
+
+            }
+            return Ok(null);
+        }
+
+        [HttpGet("getclassex")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetClassEx(Guid? studentId, Guid? classId)
+        {
+            var list = this._unitOfWork.Classes.GetClassEx(studentId, classId);
+            if (list != null && list.Count > 0)
+            {
+                return Ok(list.Select(p => new ClassExViewModel
+                {
+                    ClassExId = p.ClassExId,
+                    ClassId = p.ClassId,
+                    StudentId = p.StudentId,
+                    ShiftId = p.ShiftId
+                }));
+
+            }
+            return Ok(null);
+        }
+
         [HttpGet("getclasses")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetClasses(string filter, string value, Guid? statusId, Guid? supplierId)
@@ -372,6 +410,7 @@ namespace Ebrain.Controllers
             return Ok(null);
         }
 
+
         [HttpGet("getclassexamine")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetClassExamine(Guid? classId, Guid? studentId)
@@ -391,6 +430,60 @@ namespace Ebrain.Controllers
                     StudentId = p.StudentId,
                     ClassId = p.ClassId
                 }));
+            }
+            return Ok(null);
+        }
+
+        [HttpPost("updateclassoffset")]
+        public IActionResult SaveClassOffset([FromBody]ClassOffsetViewModel[] offsets)
+        {
+            if (ModelState.IsValid)
+            {
+                this._unitOfWork.Classes.SaveClassOffset(offsets.Select(p => new ClassOffset
+                {
+                    ClassOffsetId = p.ClassOffsetId.HasValue ? p.ClassOffsetId.Value : Guid.Empty,
+                    ClassId = p.ClassId,
+                    StudentId = p.StudentId,
+                    CreatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    UpdatedBy = userId,
+                    UpdatedDate = DateTime.Now
+                }).ToArray());
+
+                if (offsets.Length > 0)
+                {
+                    var classId = offsets.FirstOrDefault().ClassId;
+                    var studentId = offsets.FirstOrDefault().StudentId;
+                    return Ok(this.GetClassOffset(studentId, classId));
+                }
+
+            }
+            return Ok(null);
+        }
+
+        [HttpPost("updateclassex")]
+        public IActionResult SaveClassEx([FromBody]ClassExViewModel[] offsets)
+        {
+            if (ModelState.IsValid)
+            {
+                this._unitOfWork.Classes.SaveClassEx(offsets.Select(p => new ClassEx
+                {
+                    ClassExId = p.ClassExId.HasValue ? p.ClassExId.Value : Guid.Empty,
+                    ClassId = p.ClassId,
+                    StudentId = p.StudentId,
+                    CreatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    UpdatedBy = userId,
+                    UpdatedDate = DateTime.Now
+                }).ToArray());
+
+                if (offsets.Length > 0)
+                {
+                    var classId = offsets.FirstOrDefault().ClassId;
+                    var studentId = offsets.FirstOrDefault().StudentId;
+                    return Ok(this.GetClassOffset(studentId, classId));
+                }
+
             }
             return Ok(null);
         }

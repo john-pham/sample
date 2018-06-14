@@ -19,6 +19,8 @@ import { JwtHelper } from './jwt-helper';
 import { ClassList } from "../models/classlists.model";
 import { ClassExamine } from "../models/classexamine.model";
 import { Results } from "../models/results.model";
+import { ClassOffset } from "../models/classoffset.model";
+import { ClassEx } from "../models/classex.model";
 
 @Injectable()
 export class ClassesService {
@@ -47,6 +49,16 @@ export class ClassesService {
             .map((response: Response) => <ClassExamine>response.json());
     }
 
+    saveOffset(value: ClassOffset[]) {
+        return this.endpointFactory.saveOffset(value)
+            .map((response: Response) => <ClassOffset[]>response.json());
+    }
+
+    saveEx(value: ClassEx[]) {
+        return this.endpointFactory.saveEx(value)
+            .map((response: Response) => <ClassEx[]>response.json());
+    }
+
     delete(id: string) {
         return this.endpointFactory.delete(id);
     }
@@ -64,6 +76,16 @@ export class ClassesService {
     getFirstClass(index: string) {
         return this.endpointFactory.getFirstClass(index)
             .map((response: Response) => <Class>response.json());
+    }
+
+    getClassEx(studentId: string, classId: string) {
+        return this.endpointFactory.getClassEx(studentId, classId)
+            .map((response: Response) => <ClassEx[]>response.json());
+    }
+
+    getClassOffset(studentId: string, classId: string) {
+        return this.endpointFactory.getClassOffset(studentId, classId)
+            .map((response: Response) => <ClassOffset[]>response.json());
     }
 
     getClasses(filter: string, value: string, statusId: string, supplierId: string) {

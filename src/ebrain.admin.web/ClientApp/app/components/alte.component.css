@@ -156,6 +156,10 @@ label.control-label {
     }
 
 /* modal */
+.modal-dialog.modal-large {
+    width: 90%;
+}
+
 .modal-content {
     border-radius: 5px !important;
     max-height: calc(100vh - 60px);

@@ -31,7 +31,7 @@ namespace ebrain.admin.bc.Repositories
         {
             throw new NotImplementedException();
         }
-        
+
         public async Task<IEnumerable<Class>> Search(string filter, string value, Guid? userLogin, string branchIds)
         {
             var cls = await this.appContext.Class.Where(p => p.IsDeleted == false &&
@@ -137,6 +137,36 @@ namespace ebrain.admin.bc.Repositories
 
             }
             this.appContext.SaveChanges();
+        }
+
+        public async Task<bool> SaveClassOffset(ClassOffset[] classes)
+        {
+            foreach (var item in classes)
+            {
+                var itemExist = this.appContext.ClassOffset.Where(p => p.ClassOffsetId == item.ClassOffsetId && p.IsDeleted == false);
+                if (itemExist == null)
+                {
+                    item.CreatedDate = DateTime.Now;
+                    item.UpdatedDate = DateTime.Now;
+                    this.appContext.ClassOffset.Add(item);
+                }
+            }
+            return await appContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> SaveClassEx(ClassEx[] classes)
+        {
+            foreach (var item in classes)
+            {
+                var itemExist = this.appContext.ClassEx.Where(p => p.ClassExId == item.ClassExId && p.IsDeleted == false);
+                if (itemExist == null)
+                {
+                    item.CreatedDate = DateTime.Now;
+                    item.UpdatedDate = DateTime.Now;
+                    this.appContext.ClassEx.Add(item);
+                }
+            }
+            return await appContext.SaveChangesAsync() > 0;
         }
 
         public async Task<Class> Save(Class value, ClassTime[] classTimes, ClassStudent[] classStudents, Guid? index)
@@ -295,6 +325,30 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public List<ClassList> GetClassOffset(Guid? classId, Guid? studentId)
+        {
+            var cls = appContext.ClassOffset.Where(p => p.ClassId == classId && p.StudentId == studentId && p.IsDeleted);
+            return cls.Select(p => new ClassList
+            {
+                ClassOffsetId = p.ClassOffsetId,
+                ClassId = p.ClassId.HasValue ? p.ClassId.Value : Guid.Empty,
+                StudentId = p.StudentId,
+                ShiftId = p.ShiftId
+            }).ToList();
+        }
+
+        public List<ClassList> GetClassEx(Guid? classId, Guid? studentId)
+        {
+            var cls = appContext.ClassEx.Where(p => p.ClassId == classId && p.StudentId == studentId && p.IsDeleted);
+            return cls.Select(p => new ClassList
+            {
+                ClassExId = p.ClassExId,
+                ClassId = p.ClassId.HasValue ? p.ClassId.Value : Guid.Empty,
+                StudentId = p.StudentId,
+                ShiftId = p.ShiftId
+            }).ToList();
+        }
+
         public List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, string userLogin, int page, int size)
         {
             try
@@ -306,7 +360,7 @@ namespace ebrain.admin.bc.Repositories
                                .WithSqlParam("@filterValue", value)
                                .WithSqlParam("@BranchIds", branchIds)
                                .WithSqlParam("@classId", classId)
-                               .WithSqlParam("@userLogin", userLogin)
+                               .WithSqlParam("@userLogin", (userLogin != string.Empty ? userLogin : null))
                                .ExecuteStoredProc((handler) =>
                                {
                                    someTypeList = handler.ReadToList<ClassList>().ToList();

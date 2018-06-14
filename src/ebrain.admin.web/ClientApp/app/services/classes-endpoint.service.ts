@@ -86,6 +86,34 @@ export class ClassesEndpoint extends EndpointFactory {
             });
     }
 
+    saveOffset(value: any): Observable<Response> {
+        let url = this.getUrl('updateclassoffset');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
+    saveEx(value: any): Observable<Response> {
+        let url = this.getUrl('updateclassex');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
     delete(id: string): Observable<Response> {
         let url = this.getUrl('remove');
         let header = this.getAuthHeader(true);
@@ -133,6 +161,30 @@ export class ClassesEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.get(index));
+            });
+    }
+
+    getClassOffset(studentId: string, classId: string): Observable<Response> {
+
+        let url = this.getUrl('getclassoffset?studentId=' + studentId + '&classId=' + classId  + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getClassOffset(studentId, classId));
+            });
+    }
+
+    getClassEx(studentId: string, classId: string): Observable<Response> {
+
+        let url = this.getUrl('getclassex?studentId=' + studentId + '&classId=' + classId + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getClassEx(studentId, classId));
             });
     }
 
