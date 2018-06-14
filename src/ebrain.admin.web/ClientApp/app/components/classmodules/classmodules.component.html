@@ -1,0 +1,41 @@
+﻿<div class="col-xs-12 col-sm-12 col-md-2 side-menu">
+    <ul bootstrapTab #tab="bootstrap-tab" class="nav nav-tabs tabs-left" (showBSTab)="onShowTab($event)">
+        <li class="active">
+            <a id="offsetTab" [routerLink]="[]" fragment="offset" href="#offset" data-toggle="tab">
+                <i class="fa fa-user-circle-o fa-fw" aria-hidden="true"></i> {{'menu.class.OffSet' | translate}}</a>
+        </li>
+        <li>
+            <a id="exTab" [routerLink]="[]" fragment="ex" href="#ex" data-toggle="tab">
+                <i class="fa fa-sliders fa-fw" aria-hidden="true"></i>{{'menu.class.ClassEx' | translate}}</a>
+        </li>
+    </ul>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-10">
+    <div class="tab-content">
+        <div class="tab-pane active" id="offset">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="branch-modalLabel">{{'menu.class.OffSet' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isOffsetActive" class="content-container">
+                <classoffset [classId]="classId" [studentId]="studentId"></classoffset>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="ex">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="branch-modalLabel">{{'menu.class.ClassEx' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isExActive" class="content-container">
+                <classex [classId]="classId" [studentId]="studentId"></classex>
+            </div>
+        </div>
+    </div>
+</div>

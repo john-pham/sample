@@ -166,7 +166,7 @@ export class ClassesEndpoint extends EndpointFactory {
 
     getClassOffset(studentId: string, classId: string): Observable<Response> {
 
-        let url = this.getUrl('getclassoffset?studentId=' + studentId + '&classId=' + classId  + Math.random());
+        let url = this.getUrl('getclassoffset?studentId=' + studentId + '&classId=' + classId + '&hash_id='  + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
@@ -178,7 +178,7 @@ export class ClassesEndpoint extends EndpointFactory {
 
     getClassEx(studentId: string, classId: string): Observable<Response> {
 
-        let url = this.getUrl('getclassex?studentId=' + studentId + '&classId=' + classId + Math.random());
+        let url = this.getUrl('getclassex?studentId=' + studentId + '&classId=' + classId + '&hash_id='+ Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;

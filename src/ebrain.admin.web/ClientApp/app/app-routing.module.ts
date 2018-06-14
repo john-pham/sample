@@ -83,6 +83,7 @@ import { ClassListTeachersComponent } from "./components/classliststeachers/clas
 import { ClassesComponent } from "./components/classes/classes.component";
 import { ClassOffsetComponent } from "./components/classoffset/classoffset.component";
 import { ClassExComponent } from "./components/classex/classex.component";
+import { ClassExComponent } from "./components/classex/classex.component";
 import { RoomsComponent } from "./components/rooms/rooms.component";
 import { LevelclassesComponent } from "./components/levelclasses/levelclasses.component";
 import { ShiftclassesComponent } from "./components/shiftclasses/shiftclasses.component";
@@ -271,6 +272,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "classes", component: ClassesComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
             { path: "classoffset", component: ClassOffsetComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
             { path: "classex", component: ClassExComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
+            { path: "classmodules", component: ClassModuleComponent, canActivate: [AuthGuard], data: { title: "Classes" } },
 
             { path: "rooms", component: RoomsComponent, canActivate: [AuthGuard], data: { title: "rooms" } },
             { path: "levelclasses", component: LevelclassesComponent, canActivate: [AuthGuard], data: { title: "LevelClasses" } },

@@ -262,6 +262,7 @@ import { ClassListTeachersComponent } from "./components/classliststeachers/clas
 import { ClassListsComponent } from "./components/classlists/classlists.component";
 import { ClassOffsetComponent } from "./components/classoffset/classoffset.component";
 import { ClassExComponent } from "./components/classex/classex.component";
+import { ClassModuleComponent } from "./components/classmodules/classmodules.component";
 import { ClassesComponent } from "./components/classes/classes.component";
 import { AttendancesComponent } from "./components/attendances/attendances.component";
 import { AttendanceTeachersComponent } from "./components/attendanceteaches/attendanceteaches.component";
@@ -435,7 +436,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         ClassesComponent,
         ClassOffsetComponent,
         ClassExComponent,
-
+        ClassModuleComponent,
+        
         ClassStudentComponent,
         ClassExamineComponent,
 

@@ -5,7 +5,9 @@
                 <i class="fa fa-bars"></i>
             </a>
             <ol class="breadcrumb pull-left">
-                <li><a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a></li>
+                <li>
+                    <a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a>
+                </li>
                 <li>{{'pageMain.class.header' | translate}}</li>
             </ol>
         </div>
@@ -13,25 +15,22 @@
 </header>
 
 <div class="control-box classes">
-    <form class="form-horizontal" name="branchForm" #f="ngForm"
-          novalidate
-          (ngSubmit)="f.form.valid ? save() :
+    <form class="form-horizontal" name="branchForm" #f="ngForm" novalidate (ngSubmit)="f.form.valid ? save() :
           (showErrorAlert('Input is required', 'Please enter at controls'));">
 
         <div class="control-box classes">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="text-right">
-                        <button type="button" class="btn btn-success" (click)="addnew()"
-                                *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
+                        <button type="button" class="btn btn-success" (click)="addnew()" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
                             <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
                         </button>
 
                         <button type="submit" class="btn btn-primary" *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
                             <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
                         </button>
-                        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE95')"
-                                type="button" class="btn btn-warning" (click)="deletemaster()">
+                        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE95')" type="button"
+                                class="btn btn-warning" (click)="deletemaster()">
                             <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
                         </button>
                     </div>
@@ -60,8 +59,8 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.Code' | translate}}</label>
                                     <div class="col-md-10" [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !code.valid}">
-                                        <input class="form-control" type="text" [(ngModel)]="pointer.code"
-                                               name="code" required #code="ngModel" attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
+                                        <input class="form-control" type="text" [(ngModel)]="pointer.code" name="code" required #code="ngModel" attr.id="code-{{uniqueId}}"
+                                               minlength="2" maxlength="200">
                                     </div>
                                 </div>
                             </div>
@@ -69,8 +68,8 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.Name' | translate}}</label>
                                     <div class="col-md-10" [ngClass]="{'has-success': f.submitted && name.valid, 'has-error' : f.submitted && !name.valid}">
-                                        <input class="form-control" type="text" [(ngModel)]="pointer.name"
-                                               name="name" required #name="ngModel" attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
+                                        <input class="form-control" type="text" [(ngModel)]="pointer.name" name="name" required #name="ngModel" attr.id="name-{{uniqueId}}"
+                                               minlength="2" maxlength="200">
                                     </div>
                                 </div>
                             </div>
@@ -87,9 +86,9 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.TeacherMain' | translate}}</label>
                                     <div class="col-md-10" [ngClass]="{'has-success': f.submitted && supplier.valid, 'has-error' : f.submitted && !supplier.valid}">
-                                        <select id="grps-user-info" name="supplier" [(ngModel)]="pointer.supplierId" class="form-control" required
-                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title=""
-                                                #supplier="ngModel" attr.id="supplier-{{uniqueId}}">
+                                        <select id="grps-user-info" name="supplier" [(ngModel)]="pointer.supplierId" class="form-control" required data-live-search="true"
+                                                data-actions-box="false" data-live-search-placeholder="Search..." title="" #supplier="ngModel"
+                                                attr.id="supplier-{{uniqueId}}">
                                             <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                 {{grp.name}}
                                             </option>
@@ -102,8 +101,7 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.CountLearn' | translate}}</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" [(ngModel)]="pointer.longLearn"
-                                               name="longLearn">
+                                        <input class="form-control" type="text" [(ngModel)]="pointer.longLearn" name="longLearn">
                                     </div>
 
                                 </div>
@@ -121,8 +119,8 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.Status' | translate}}</label>
                                     <div class="col-md-10">
-                                        <select id="grps-user-info" name="status" [(ngModel)]="pointer.statusId" class="form-control" required
-                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                        <select id="grps-user-info" name="status" [(ngModel)]="pointer.statusId" class="form-control" required data-live-search="true"
+                                                data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                             <option *ngFor="let grp of status" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                 {{grp.name}}
                                             </option>
@@ -200,8 +198,8 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.Today' | translate}}</label>
                                     <div class="col-md-10">
-                                        <select id="grps-user-info" name="today" [(ngModel)]="pointer.todayId" class="form-control"
-                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                        <select id="grps-user-info" name="today" [(ngModel)]="pointer.todayId" class="form-control" data-live-search="true" data-actions-box="false"
+                                                data-live-search-placeholder="Search..." title="">
                                             <option *ngFor="let grp of todays" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                 {{grp.name}}
                                             </option>
@@ -214,8 +212,8 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.Shift' | translate}}</label>
                                     <div class="col-md-10">
-                                        <select id="grps-user-info" name="shift" [(ngModel)]="pointer.shiftId" class="form-control"
-                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                        <select id="grps-user-info" name="shift" [(ngModel)]="pointer.shiftId" class="form-control" data-live-search="true" data-actions-box="false"
+                                                data-live-search-placeholder="Search..." title="">
                                             <option *ngFor="let grp of shifts" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                 {{grp.name}}
                                             </option>
@@ -236,8 +234,8 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.Room' | translate}}</label>
                                     <div class="col-md-10">
-                                        <select id="grps-user-info" name="room" [(ngModel)]="pointer.roomId" class="form-control"
-                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                        <select id="grps-user-info" name="room" [(ngModel)]="pointer.roomId" class="form-control" data-live-search="true" data-actions-box="false"
+                                                data-live-search-placeholder="Search..." title="">
                                             <option *ngFor="let grp of rooms" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                 {{grp.name}}
                                             </option>
@@ -249,8 +247,8 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label col-md-2">{{'label.class.Teacher' | translate}}</label>
                                     <div class="col-md-10">
-                                        <select id="grps-user-info" name="teacher" [(ngModel)]="pointer.teacherTodayId" class="form-control"
-                                                data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                        <select id="grps-user-info" name="teacher" [(ngModel)]="pointer.teacherTodayId" class="form-control" data-live-search="true"
+                                                data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                             <option *ngFor="let grp of suppliers" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                 {{grp.name}}
                                             </option>
@@ -286,13 +284,8 @@
                                 <div class="form-group has-feedback">
                                     <div [@fadeInOut]>
                                         <!--DATA TABLE-->
-                                        <ngx-datatable class="material colored-header sm table-hover"
-                                                       [loadingIndicator]="loadingIndicator"
-                                                       [rows]="rowTimes"
-                                                       [rowHeight]="auto"
-                                                       [columns]="columnTimes"
-                                                       [scrollbarV]="verticalScrollbar"
-                                                       [columnMode]="'force'">
+                                        <ngx-datatable class="material colored-header sm table-hover" [loadingIndicator]="loadingIndicator" [rows]="rowTimes" [rowHeight]="auto"
+                                                       [columns]="columnTimes" [scrollbarV]="verticalScrollbar" [columnMode]="'force'">
                                         </ngx-datatable>
 
                                         <!-- TEMPLATEs -->
@@ -306,7 +299,9 @@
                                             </span>
                                         </ng-template>
                                         <ng-template #actionsTemplate let-row="row">
-                                            <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteTime(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+                                            <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteTime(row)">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}
+                                            </a>
                                         </ng-template>
                                     </div>
                                 </div>
@@ -337,8 +332,8 @@
                                         <label class="control-label col-md-2">{{'label.class.Student' | translate}}</label>
                                         <div class="col-md-10 no-pd wrap-input-search">
                                             <div class="col-sm-10 col-md-10 wrap-input">
-                                                <select id="grps-user-info" name="student" [(ngModel)]="pointer.studentId" class="form-control" disabled
-                                                        data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="">
+                                                <select id="grps-user-info" name="student" [(ngModel)]="pointer.studentId" class="form-control" disabled data-live-search="true"
+                                                        data-actions-box="false" data-live-search-placeholder="Search..." title="">
                                                     <option></option>
                                                     <option *ngFor="let grp of students" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                         {{grp.name}}
@@ -358,10 +353,9 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label col-md-2">{{'label.class.MaterialLearn' | translate}}</label>
                                         <div class="col-md-10" [ngClass]="{'has-success': f.submitted && mate.valid, 'has-error' : f.submitted && !mate.valid}">
-                                            <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control"
-                                                    #mate="ngModel" attr.id="mate-{{uniqueId}}" minlength="2" maxlength="200"
-                                                    data-show-subtext="true"
-                                                    data-live-search="true" data-actions-box="true" data-live-search-placeholder="Search..." title="">
+                                            <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control" #mate="ngModel" attr.id="mate-{{uniqueId}}"
+                                                    minlength="2" maxlength="200" data-show-subtext="true" data-live-search="true"
+                                                    data-actions-box="true" data-live-search-placeholder="Search..." title="">
                                                 <option *ngFor="let grp of materials" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
                                                     {{grp.name}}
                                                 </option>
@@ -384,8 +378,7 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label col-md-2">{{'label.class.StartDate' | translate}}</label>
                                         <div class="col-md-10" [ngClass]="{'has-success': f.submitted && startDate.valid, 'has-error' : f.submitted && !startDate.valid}">
-                                            <input type="text" class="form-control" placeholder="{{'label.class.StartDate' | translate}}"
-                                                   bsDatepicker [(ngModel)]="pointer.startDate"
+                                            <input type="text" class="form-control" placeholder="{{'label.class.StartDate' | translate}}" bsDatepicker [(ngModel)]="pointer.startDate"
                                                    name="startDate" #startDate="ngModel" attr.id="startDate-{{uniqueId}}" />
                                         </div>
                                     </div>
@@ -424,13 +417,8 @@
                             <div class="wrap-table">
                                 <div [@fadeInOut]>
                                     <!--DATA TABLE-->
-                                    <ngx-datatable class="material colored-header sm table-hover"
-                                                   [loadingIndicator]="loadingIndicator"
-                                                   [rows]="rowStudents"
-                                                   [rowHeight]="auto"
-                                                   [columns]="columnStudents"
-                                                   [scrollbarV]="verticalScrollbar"
-                                                   [columnMode]="'force'"
+                                    <ngx-datatable class="material colored-header sm table-hover" [loadingIndicator]="loadingIndicator" [rows]="rowStudents"
+                                                   [rowHeight]="auto" [columns]="columnStudents" [scrollbarV]="verticalScrollbar" [columnMode]="'force'"
                                                    (activate)="onActivateClass($event, classoffsettemplate)">
                                     </ngx-datatable>
 
@@ -445,8 +433,12 @@
                                         </span>
                                     </ng-template>
                                     <ng-template #actionStudentsTemplate let-row="row">
-                                        <a class="btn btn-link btn-xs" href="javascript:;" (click)="markExamine(row, templateExamine)" *ngIf="pointer.id?.length > 0"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Mark' | translate}}</a>
-                                        <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteStudent(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+                                        <a class="btn btn-link btn-xs" href="javascript:;" (click)="markExamine(row, templateExamine)" *ngIf="pointer.id?.length > 0">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Mark' | translate}}
+                                        </a>
+                                        <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteStudent(row)">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}
+                                        </a>
                                     </ng-template>
                                 </div>
                             </div>
@@ -462,7 +454,9 @@
 
 <ng-template #templateExamine>
     <div class="modal-header">
-        <button type="button" class="close" (click)="closeExamine()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" (click)="closeExamine()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <classexamines [StudentId]="studentId" [ClassId]="classId"></classexamines>
@@ -471,7 +465,9 @@
 
 <ng-template #waitingClasstemplate>
     <div class="modal-header">
-        <button type="button" class="close" (click)="closeWaitingClass()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" (click)="closeWaitingClass()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="branch-modalLabel">{{'menu.class.WaitingClass' | translate}}</h4>
     </div>
     <div class="modal-body">
@@ -480,12 +476,5 @@
 </ng-template>
 
 <ng-template #classoffsettemplate>
-    <div class="modal-header">
-        <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="branch-modalLabel">{{'label.class.OffSet' | translate}}</h4>
-    </div>
-    <div class="modal-body">
-        <classoffset [classId]="classId" [studentId]="studentId"></classoffset>
-    </div>
+    <classmodules [classId]="classId" [studentId]="studentId"></classmodules>
 </ng-template>
-
