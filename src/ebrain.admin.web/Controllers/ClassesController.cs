@@ -425,7 +425,7 @@ namespace Ebrain.Controllers
         }
 
         [HttpPost("updateclassoffset")]
-        public IActionResult SaveClassOffset([FromBody]ClassOffsetViewModel[] offsets)
+        public Task<IActionResult> SaveClassOffset([FromBody]ClassOffsetViewModel[] offsets)
         {
             if (ModelState.IsValid)
             {
@@ -446,11 +446,11 @@ namespace Ebrain.Controllers
                 {
                     var classId = offsets.FirstOrDefault().ClassId;
                     var studentId = offsets.FirstOrDefault().StudentId;
-                    return Ok(this.GetClassOffset(studentId, classId));
+                    return this.GetClassOffset(studentId, classId);
                 }
 
             }
-            return Ok(null);
+            return null;
         }
 
         [HttpPost("updateclassex")]
