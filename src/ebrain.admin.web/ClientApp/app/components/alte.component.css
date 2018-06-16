@@ -353,6 +353,7 @@ messengerlists .ngx-datatable .datatable-body {
         text-decoration: none;
         display: flex;
         border-bottom: 1px solid;
+        background-color: white;
     }
 
         .dropdown-content a:last-child {
