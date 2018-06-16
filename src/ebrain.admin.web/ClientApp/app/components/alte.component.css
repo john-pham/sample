@@ -343,16 +343,25 @@ messengerlists .ngx-datatable .datatable-body {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 2px;
-    max-height: 180px;
+    max-height: 302px;
     overflow-y: auto;
 }
 
     .dropdown-content a {
-        color: black;
+        color: #a1a8ac;
         padding: 12px 16px;
         text-decoration: none;
-        display: block;
+        display: flex;
+        border-bottom: 1px solid;
     }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a span.link {
+            margin-left: 10px;
+        }
 
         .dropdown-content a:hover {
             background-color: #ddd;
