@@ -23,8 +23,8 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group has-feedback">
-                        <label class="control-label col-md-2">{{'label.class.LearnDate' | translate}}</label>
-                        <div class="col-md-10">
+                        <label class="control-label col-md-3">{{'label.class.LearnDate' | translate}}</label>
+                        <div class="col-md-9">
                             <input type="text" class="form-control" placeholder="{{'label.class.LearnDate' | translate}}"
                                    bsDatepicker [(ngModel)]="pointer.learnDate"
                                    name="LearnDate" />
@@ -34,8 +34,8 @@
 
                 <div class="col-sm-6">
                     <div class="form-group has-feedback">
-                        <label class="control-label col-md-2">{{'label.class.Shift' | translate}}</label>
-                        <div class="col-md-10">
+                        <label class="control-label col-md-3">{{'label.class.Shift' | translate}}</label>
+                        <div class="col-md-9">
                             <select id="grps-user-info" name="shift" [(ngModel)]="pointer.shiftId" class="form-control" data-live-search="true" data-actions-box="false"
                                     data-live-search-placeholder="Search..." title="">
                                 <option *ngFor="let grp of shifts" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -88,7 +88,7 @@
                                 </span>
                             </ng-template>
                             <ng-template #actionsTemplate let-row="row">
-                                <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteTime(row)">
+                                <a class="btn btn-link btn-xs" href="javascript:;" (click)="deleteClasses(row)">
                                     <i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}
                                 </a>
                             </ng-template>

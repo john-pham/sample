@@ -322,7 +322,8 @@ namespace Ebrain.Controllers
                 ClassOffsetId = p.ClassOffsetId,
                 ClassId = p.ClassId,
                 StudentId = p.StudentId,
-                ShiftId = p.ShiftId
+                ShiftId = p.ShiftId,
+                LearnDate = p.LearnDate
             }));
         }
 
@@ -336,7 +337,8 @@ namespace Ebrain.Controllers
                 ClassExId = p.ClassExId,
                 ClassId = p.ClassId,
                 StudentId = p.StudentId,
-                ShiftId = p.ShiftId
+                ShiftId = p.ShiftId,
+                LearnDate = p.LearnDate
             }));
         }
 
@@ -454,7 +456,7 @@ namespace Ebrain.Controllers
         }
 
         [HttpPost("updateclassex")]
-        public IActionResult SaveClassEx([FromBody]ClassExViewModel[] offsets)
+        public Task<IActionResult> SaveClassEx([FromBody]ClassExViewModel[] offsets)
         {
             if (ModelState.IsValid)
             {
@@ -475,11 +477,11 @@ namespace Ebrain.Controllers
                 {
                     var classId = offsets.FirstOrDefault().ClassId;
                     var studentId = offsets.FirstOrDefault().StudentId;
-                    return Ok(this.GetClassOffset(studentId, classId));
+                    return this.GetClassEx(studentId, classId);
                 }
 
             }
-            return Ok(null);
+            return null;
         }
 
         [HttpPost("updateclassexamine")]

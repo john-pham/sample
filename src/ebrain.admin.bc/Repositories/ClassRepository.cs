@@ -340,7 +340,8 @@ namespace ebrain.admin.bc.Repositories
                 ClassOffsetId = p.ClassOffsetId,
                 ClassId = p.ClassId.HasValue ? p.ClassId.Value : Guid.Empty,
                 StudentId = p.StudentId,
-                ShiftId = p.ShiftId
+                ShiftId = p.ShiftId,
+                LearnDate = p.LearnDate
             }).ToList();
         }
 
@@ -352,7 +353,8 @@ namespace ebrain.admin.bc.Repositories
                 ClassExId = p.ClassExId,
                 ClassId = p.ClassId.HasValue ? p.ClassId.Value : Guid.Empty,
                 StudentId = p.StudentId,
-                ShiftId = p.ShiftId
+                ShiftId = p.ShiftId,
+                LearnDate = p.LearnDate
             }).ToList();
         }
 

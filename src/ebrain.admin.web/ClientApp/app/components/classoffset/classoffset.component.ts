@@ -93,12 +93,7 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
         this.localService.getClassOffset(this.studentId, this.classId).subscribe(
             list => {
                 this.rows = list;
-                this.rows.forEach(item => {
-                    var shift = this.shifts.filter(x => x.id == item.shiftId)[0];
-                    if (shift != null) {
-                        item.shiftName = shift.name;
-                    }
-                });
+                this.mappingData();
             },
             error => this.onDataLoadFailed(error));
     }
@@ -138,13 +133,27 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
         this.loadingIndicator = false;
         this.localService.saveOffset(this.rows).subscribe(value => {
             this.rows = [...value];
+            this.mappingData();
+            this.alertService.showMessage("Success", `Lưu dữ liệu thành công.`, MessageSeverity.success);
         }, error => this.saveFailedHelper(error));
+    }
+
+    private mappingData(){
+        this.rows.forEach(item => {
+            var shift = this.shifts.filter(x => x.id == item.shiftId)[0];
+            if (shift != null) {
+                item.shiftName = shift.name;
+            }
+        });
+        this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
     }
 
     private saveFailedHelper(error: any) {
         this.alertService.stopLoadingMessage();
         this.alertService.showStickyMessage("Save Error", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
         this.alertService.showStickyMessage(error, null, MessageSeverity.error);
+        this.loadingIndicator = false;
     }
 
     private onDataLoadShiftSuccessful(resulted: Results<Shiftclass>) {
@@ -162,6 +171,15 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);
         this.loadingIndicator = false;
+    }
+
+    private deleteClasses(row) {
+        this.alertService.showDialog('Bạn muốn xóa dữ liệu của dòng này?', DialogType.confirm, () => this.deleteTimeHelper(row));
+    }
+
+    private deleteTimeHelper(row) {
+        this.rows = this.rows.filter(obj => obj !== row);
+        this.rows = [...this.rows];
     }
 
     ngOnDestroy() {

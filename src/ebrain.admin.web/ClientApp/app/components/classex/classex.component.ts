@@ -40,7 +40,7 @@ import { Shiftclass } from '../../models/Shiftclass.model';
 import { ShiftclassesService } from '../../services/shiftclasses.service';
 import { ClassOffset } from "../../models/classoffset.model";
 import { ClassEx } from "../../models/classex.model";
-
+import { DateOnlyPipe } from "../../directives/dateonlypipe.directive";
 @Component({
     selector: 'classex',
     templateUrl: './classex.component.html',
@@ -77,7 +77,7 @@ export class ClassExComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-            { headerClass: "text-center", prop: "learnDate", name: gT('label.class.LearnDate'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: "learnDate", name: gT('label.class.LearnDate'), cellTemplate: this.nameTemplate, pipe: new DateOnlyPipe('en-US'), cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'shiftName', name: gT('label.class.Shift'), cellTemplate: this.nameTemplate },
             { name: '', width: 150, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
@@ -93,14 +93,20 @@ export class ClassExComponent implements OnInit, OnDestroy {
         this.localService.getClassEx(this.studentId, this.classId).subscribe(
             list => {
                 this.rows = list;
-                this.rows.forEach(item => {
-                    var shift = this.shifts.filter(x => x.id == item.shiftId)[0];
-                    if (shift != null) {
-                        item.shiftName = shift.name;
-                    }
-                });
+                this.mappingData();
             },
             error => this.onDataLoadFailed(error));
+    }
+
+    private mappingData(){
+        this.rows.forEach(item => {
+            var shift = this.shifts.filter(x => x.id == item.shiftId)[0];
+            if (shift != null) {
+                item.shiftName = shift.name;
+            }
+        });
+        this.alertService.stopLoadingMessage();
+        this.loadingIndicator = false;
     }
 
     private addClassOffset(id: string) {
@@ -144,6 +150,8 @@ export class ClassExComponent implements OnInit, OnDestroy {
         this.loadingIndicator = false;
         this.localService.saveEx(this.rows).subscribe(value => {
             this.rows = [...value];
+            this.mappingData();
+            this.alertService.showMessage("Success", `Lưu dữ liệu thành công.`, MessageSeverity.success);
         }, error => this.saveFailedHelper(error));
     }
 
@@ -151,6 +159,7 @@ export class ClassExComponent implements OnInit, OnDestroy {
         this.alertService.stopLoadingMessage();
         this.alertService.showStickyMessage("Save Error", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
         this.alertService.showStickyMessage(error, null, MessageSeverity.error);
+        this.loadingIndicator = false;
     }
 
     private onDataLoadShiftSuccessful(resulted: Results<Shiftclass>) {
@@ -168,6 +177,15 @@ export class ClassExComponent implements OnInit, OnDestroy {
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);
         this.loadingIndicator = false;
+    }
+
+    private deleteClasses(row) {
+        this.alertService.showDialog('Bạn muốn xóa dữ liệu của dòng này?', DialogType.confirm, () => this.deleteTimeHelper(row));
+    }
+
+    private deleteTimeHelper(row) {
+        this.rows = this.rows.filter(obj => obj !== row);
+        this.rows = [...this.rows];
     }
 
     ngOnDestroy() {

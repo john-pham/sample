@@ -215,9 +215,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.shiftService.search("", "", 0, 0).subscribe(
             list => this.onDataLoadShiftSuccessful(list),
             error => this.onDataLoadFailed(error));
-        //get default
-        this.getDefault("", isReset);
-
     }
 
     private getDefault(index: string, isReset: boolean) {
