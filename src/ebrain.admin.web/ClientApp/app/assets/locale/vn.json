@@ -717,7 +717,8 @@
       "TotalPriceRest": "Còn lại",
       "HeaderPaymentReceipt": "Danh sách phiếu xuất",
       "HeaderPaymentVoucher": "Danh sách phiếu nhập",
-      "OrderClass": "Xếp lớp học viên"
+      "OrderClass": "Xếp lớp học viên",
+      "MaterialNameLearn": "Khóa học"
     },
     "paymentlist": {
       "PaymentTypeName": "Loại phiếu",

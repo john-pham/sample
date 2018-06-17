@@ -25,6 +25,7 @@ namespace Ebrain.ViewModels
         public string Address { get; set; }
         public Guid? MaterialId { get; set; }
         public Guid? IOStockId { get; set; }
+        public Guid? IOStockDetailId { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string MaterialName { get; set; }

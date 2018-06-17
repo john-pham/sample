@@ -353,7 +353,7 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label col-md-2">{{'label.class.MaterialLearn' | translate}}</label>
                                         <div class="col-md-10" [ngClass]="{'has-success': f.submitted && mate.valid, 'has-error' : f.submitted && !mate.valid}">
-                                            <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control" #mate="ngModel" attr.id="mate-{{uniqueId}}"
+                                            <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control" #mate="ngModel" attr.id="mate-{{uniqueId}}" disabled
                                                     minlength="2" maxlength="200" data-show-subtext="true" data-live-search="true"
                                                     data-actions-box="true" data-live-search-placeholder="Search..." title="">
                                                 <option *ngFor="let grp of materials" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
@@ -471,7 +471,7 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'menu.class.WaitingClass' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <iostudentlistspay [isNotShowPrice]="false" [isWaitingClass]="true" (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspay>
+        <iostudentlistspaydetail [isNotShowPrice]="false" [isWaitingClass]="true" (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspaydetail>
     </div>
 </ng-template>
 

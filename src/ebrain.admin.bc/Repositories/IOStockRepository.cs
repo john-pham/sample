@@ -178,6 +178,42 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public IEnumerable<IOStockListPayment> GetIOStockPaymentListDetail
+            (DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput, 
+            bool isWaitingClass, bool isLearning, string branchIds, int page, int size)
+        {
+            try
+            {
+                List<IOStockListPayment> someTypeList = new List<IOStockListPayment>();
+                this.appContext.LoadStoredProc("dbo.sp_IOStockList_PaymentDetail")
+                               .WithSqlParam("fromDate", fromDate)
+                               .WithSqlParam("toDate", toDate)
+                               .WithSqlParam("ioTypeId", ioTypeId)
+                               .WithSqlParam("filterValue", filterValue)
+                               .WithSqlParam("ioId", ioId)
+                               .WithSqlParam("branchIds", branchIds)
+                               .WithSqlParam("isWaitingClass", isWaitingClass)
+                               .WithSqlParam("isLearning", isLearning)
+                               .WithSqlParam("isInput", isInput).ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<IOStockListPayment>().ToList();
+                               });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<IOStock> Save(IOStock value, IOStockDetail[] iosd, Guid? index)
         {
             try

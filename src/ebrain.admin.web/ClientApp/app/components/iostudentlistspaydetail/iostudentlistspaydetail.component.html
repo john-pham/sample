@@ -1,0 +1,150 @@
+﻿<header *ngIf="isNotShowPrice">
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_stock">{{'menu.main.Stock' | translate}}</a></li>
+                <li>{{'pageMain.iostudentlist.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-8">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="text-right">
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()"
+                          [isShowAddNew]="false" (addNewTemplate)="addGrpsupplier(template)"
+                          [isShowExport]="rows?.length > 0 && isNotShowPrice" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="rows?.length > 0 && isNotShowPrice" (showTemplate)="showChart(template)"></search-chart>
+        </div>
+    </div>
+</div>
+<div class="row control-box">
+    <div class="col-sm-6 pd-0">
+        <div class="form-group has-feedback">
+            <label class="control-label col-md-2">{{'label.deptslist.FromDate' | translate}}</label>
+            <div class="col-md-10">
+                <input class="form-control" type="text" bsDatepicker [(ngModel)]="fromDate">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 pd-0">
+        <div class="form-group has-feedback">
+            <label class="control-label col-md-2">{{'label.deptslist.ToDate' | translate}}</label>
+            <div class="col-md-10">
+                <input class="form-control" type="text" bsDatepicker [(ngModel)]="toDate">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table table-hover"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [columnMode]="'force'"
+                       [scrollbarV]="verticalScrollbar"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="'auto'"
+                       [externalPaging]="true"
+                       [count]="page.totalElements"
+                       [offset]="page.pageNumber"
+                       [limit]="page.size"
+                       (page)='setPage($event)'
+                       (activate)="onActivateMaterial($event)">
+            <ngx-datatable-column headerClass="text-center"
+                                  name="{{'label.payment.IONumber' | translate}}" prop='code'>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="text-center" cellClass="text-right"
+                                  name="{{'label.payment.CreatedDate' | translate}}" prop='createDate'>
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                        {{value | date: 'MM/dd/yyyy HH:mm'}}
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="text-center"
+                                  name="{{'label.payment.StudentName' | translate}}" prop='studentName'>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="text-center"
+                                  name="{{'label.payment.MaterialNameLearn' | translate}}" prop='materialName'>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="text-center"
+                                  name="{{'label.payment.CreatedBy' | translate}}" prop='fullName'>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="text-center" cellClass="text-right" *ngIf="!isNotShowPrice"
+                                  name="{{'label.payment.TotalPriceIO' | translate}}" prop='totalPrice'>
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                        {{value | currencypipe}}
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="text-center" cellClass="text-right" *ngIf="!isNotShowPrice"
+                                  name="{{'label.payment.TotalPricePay' | translate}}" prop='totalPricePayment'>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                        {{value | currencypipe}}
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="text-center" cellClass="text-right"
+                                  name="{{'label.payment.TotalExist' | translate}}" prop='totalPriceExist'>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                        {{value | currencypipe}}
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="text-center" cellClass="text-center" *ngIf="isNotShowPrice || isShowButtonOnGrid">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <a class="btn btn-link btn-xs" href="javascript:;" routerLink="/paymentio/?ioid={{row.id}}" (click)="goPayment(row.id)"
+                       *ngIf="row.totalPriceExist > 0 && isShowButtonPaymentOnGrid && 
+                       (accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') ||accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3'))">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.PaymentReceipt' | translate}}
+                    </a>
+                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="editClass(row, classTemplate)"
+                       *ngIf="isWaitingClass">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.OrderClass' | translate}}
+                    </a>
+                    <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row)"
+                       *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE12') || accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A2')">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}
+                    </a>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+
+    </div>
+</div>
+
+
+<ng-template #template>
+    <div class="modal-body">
+        <statistics-chart [modalRef]="modalRef" [chart]="chart"></statistics-chart>
+    </div>
+</ng-template>
+
+
+<ng-template #classTemplate>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.payment.OrderClass' | translate}}</h4>
+    </div>
+    <div class="modal-body">
+        <classstudentsex [studentId]="studentId" [ioStockId]="ioStockId" [materialId]="materialId" [ioStockDetailId]="ioStockDetailId"></classstudentsex>
+    </div>
+
+</ng-template>

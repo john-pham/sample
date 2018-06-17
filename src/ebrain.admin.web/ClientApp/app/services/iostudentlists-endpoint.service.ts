@@ -171,6 +171,25 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
+    getiopaymentDetail(filter: string, value: string, isGetAll: number, isWaitingClass: number, ioid: string, isInput: boolean,
+        isLearning: number, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+
+        let url = "";
+        url = this.getUrlIO('getiopaymentdetail?filter=' + filter + '&value=' + value + '&getAll=' + isGetAll
+            + '&isWaitingClass=' + isWaitingClass
+            + '&isLearning=' + isLearning
+            + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getiopaymentDetail(filter, value, isGetAll, isWaitingClass, ioid, isInput, isLearning, fromDate, toDate, page, size));
+            });
+    }
+
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {

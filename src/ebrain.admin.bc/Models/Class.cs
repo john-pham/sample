@@ -27,6 +27,8 @@ namespace ebrain.admin.bc.Models
         public Guid? SupplierId { get; set; }
         [NotMapped]
         public Guid? IOStockId { get; set; }
-        
+        [NotMapped]
+        public Guid? IOStockDetailId { get; set; }
+
     }
 }

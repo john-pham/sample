@@ -32,6 +32,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         IEnumerable<IOStockDetailList> GetWarehouseCard(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds, int page, int size);
         IEnumerable<IOStockListPayment> GetIOStockPaymentList(DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId,
             bool isInput, bool isWaitingClass, string branchIds, int page, int size);
-       
+        IEnumerable<IOStockListPayment> GetIOStockPaymentListDetail(DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput,
+            bool isWaitingClass, bool isLearning, string branchIds, int page, int size);
     }
 }

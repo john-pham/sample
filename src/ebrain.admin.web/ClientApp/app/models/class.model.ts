@@ -43,5 +43,6 @@ export class Class {
     public studentBirthday: Date;
     public studentAddress: string;
     public ioStockId: string;
+    public ioStockDetailId: string;
     public learnDate: Date;
 }

@@ -36,6 +36,6 @@ export class IOStockReport {
     public materialId: string;
     public materialCode: string;
     public materialName: string;
-
+    public ioStockDetailId: string;
     public ioDetails: IOStockDetail[];
 }

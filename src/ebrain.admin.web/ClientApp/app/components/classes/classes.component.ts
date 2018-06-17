@@ -358,6 +358,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
                     itemPointer.startDate = row.startDate;
                     itemPointer.endDate = row.endDate;
                     itemPointer.ioStockId = row.ioStockId;
+                    itemPointer.ioStockDetailId = row.ioStockDetailId;
                     this.addClassStudent(row.id);
                 });
             }
@@ -373,6 +374,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         itemPointer.studentId = "";
         itemPointer.materialId = "";
         itemPointer.ioStockId = "";
+        itemPointer.ioStockDetailId = "";
     }
 
     private saveFailedHelper(error: any) {
@@ -462,6 +464,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
             itemNew.endDate = item.endDate;
             itemNew.materialId = item.materialId;
             itemNew.ioStockId = item.ioStockId;
+            itemNew.ioStockDetailId = item.ioStockDetailId;
             itemNew.classId = item.id;
             itemNew.id = id;
             this.rowStudents.push(itemNew);
@@ -512,6 +515,8 @@ export class ClassesComponent implements OnInit, OnDestroy {
             this.studentId = event.studentId;
             this.pointer.studentId = this.studentId;
             this.pointer.ioStockId = event.id;
+            this.pointer.materialId = event.materialId;
+            this.pointer.ioStockDetailId = event.ioStockDetailId;
             this.closeWaitingClass();
         }
     }

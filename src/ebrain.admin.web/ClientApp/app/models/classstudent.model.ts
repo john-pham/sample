@@ -22,4 +22,5 @@ export class ClassStudent {
     public materialId: string;
     public materialName: string;
     public ioStockId: string;
+    public ioStockDetailId: string;
 }

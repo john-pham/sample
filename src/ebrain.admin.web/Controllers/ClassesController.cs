@@ -167,6 +167,7 @@ namespace Ebrain.Controllers
                     IOStockId = p.IOStockId,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
+                    IOStockDetailId = p.IOStockDetailId
                 }).ToArray(), value.ID);
 
                 return await Get(ret.ClassId);
@@ -277,6 +278,7 @@ namespace Ebrain.Controllers
                             StartDate = item.StartDate,
                             EndDate = item.EndDate,
                             IOStockId = item.IOStockId,
+                            IOStockDetailId = item.IOStockDetailId,
                             MaterialName = itemMate != null ? itemMate.MaterialName : string.Empty
                         });
                     }
@@ -517,6 +519,7 @@ namespace Ebrain.Controllers
                     ClassId = p.ID.HasValue ? p.ID.Value : Guid.Empty,
                     MaterialId = p.MaterialId,
                     IOStockId = p.IOStockId,
+                    IOStockDetailId = p.IOStockDetailId,
                     StartDate = p.StartDate,
                     EndDate = p.EndDate
                 }).ToArray(), studentId, userId,

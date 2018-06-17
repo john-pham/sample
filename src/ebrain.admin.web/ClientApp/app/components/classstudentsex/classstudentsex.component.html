@@ -96,7 +96,7 @@
             <div class="form-group has-feedback">
                 <label class="control-label col-md-4">{{'label.classstudent.MaterialLearn' | translate}}</label>
                 <div class="col-md-8">
-                    <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control"
+                    <select id="grps-user-info" name="mate" [(ngModel)]="pointer.materialId" class="form-control" disabled
                     minlength="2" maxlength="200"
                     data-show-subtext="true"
                     data-live-search="true" data-actions-box="true" data-live-search-placeholder="Search..." title="">
@@ -120,6 +120,33 @@
                 <label class="control-label col-md-4">{{'label.classstudent.LearnStudent' | translate}}</label>
                 <div class="col-md-8">
                     <input class="form-control text-right pd-r-12" type="text" [(ngModel)]="pointer.countStudent" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.class.StartDate' | translate}}</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" placeholder="{{'label.class.StartDate' | translate}}" bsDatepicker [(ngModel)]="pointer.startDate"
+                           name="startDate" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.class.EndDate' | translate}}</label>
+                <div class="col-md-10" >
+                    <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endDate"
+                           name="endDate" />
                 </div>
             </div>
         </div>

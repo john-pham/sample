@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 using Ebrain.Policies;
 using ebrain.admin.bc.Core.Interfaces;
 using ebrain.admin.bc.Utilities;
+using ebrain.admin.bc.Report;
 
 namespace Ebrain.Controllers
 {
@@ -273,6 +274,34 @@ namespace Ebrain.Controllers
             return await GetIOPayment(filter, value, getAll, false, ioId, fromDate, toDate, (isWaitingClass > 0 ? true : false), page, size);
         }
 
+        [HttpGet("getiopaymentdetail")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetIOPaymentDetail(string filter, string value, int getAll, int isWaitingClass, int isLearning, string ioId, string fromDate, string toDate, int page, int size)
+        {
+            var frDate = fromDate.BuildDateTimeFromSEFormat();
+            var tDate = toDate.BuildLastDateTimeFromSEFormat();
+            if (!string.IsNullOrEmpty(ioId))
+            {
+                var io = await this._unitOfWork.IOStocks.FindById(Guid.Parse(ioId));
+                if (io != null)
+                {
+                    frDate = new DateTime(io.CreatedDate.Year, io.CreatedDate.Month, io.CreatedDate.Day);
+                }
+            }
+
+            var unit = this._unitOfWork.IOStocks;
+            var results = this._unitOfWork.IOStocks
+                 .GetIOStockPaymentListDetail(
+                    frDate,
+                    tDate,
+                    value,
+                    ioId,
+                    0, false, (isWaitingClass > 0 ? true : false), (isLearning > 0 ? true : false)
+                 , this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size);
+
+            return await MappingIOStockList(results, getAll);
+        }
+
         [HttpGet("getiopaymentvoucher")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> GetIOPaymentVoucher(string filter, string value, int getAll, string ioId, string fromDate, string toDate, int page, int size)
@@ -304,6 +333,11 @@ namespace Ebrain.Controllers
                     0, isInput, isWaitingClass
                  , this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size);
 
+            return await MappingIOStockList(results, getAll);
+        }
+
+        public async Task<JsonResult> MappingIOStockList(IEnumerable<IOStockListPayment> results, int getAll)
+        {
             if (getAll == 0)
             {
                 results = results.Where(p => p.TotalPriceExist > 0);
@@ -324,17 +358,19 @@ namespace Ebrain.Controllers
                     Note = item.Note,
                     StudentId = item.StudentId,
                     TotalPriceExist = item.TotalPriceExist,
-                    TotalPricePayment = item.TotalPricePayment
+                    TotalPricePayment = item.TotalPricePayment,
+                    IOStockDetailId = item.IOStockDetailId.HasValue ? item.IOStockDetailId.Value : Guid.Empty,
+                    MaterialId = item.MaterialId.HasValue ? item.MaterialId.Value : Guid.Empty,
+                    MaterialCode = item.MaterialCode,
+                    MaterialName = item.MaterialName
                 });
             }
 
             return Json(new
             {
-                Total = unit.Total,
+                Total = this._unitOfWork.IOStocks.Total,
                 List = list
             });
         }
-
-
     }
 }

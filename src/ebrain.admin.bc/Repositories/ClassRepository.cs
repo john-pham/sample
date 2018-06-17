@@ -79,6 +79,7 @@ namespace ebrain.admin.bc.Repositories
                 var itemClassExist = this.appContext.ClassStudent.FirstOrDefault(
                     p => p.ClassId == item.ClassId && p.StudentId == studentId
                     && p.IOStockId == item.IOStockId
+                    && p.IOStockDetailId == item.IOStockDetailId
                     && p.IsDeleted == false);
                 if (itemClassExist != null)
                 {
@@ -90,7 +91,7 @@ namespace ebrain.admin.bc.Repositories
                     itemClassExist.IOStockId = item.IOStockId;
                     itemClassExist.BranchId = branchId;
                     itemClassExist.ClassId = item.ClassId;
-
+                    itemClassExist.IOStockDetailId = item.IOStockDetailId;
                 }
                 else
                 {
@@ -107,6 +108,7 @@ namespace ebrain.admin.bc.Repositories
                         StartDate = item.StartDate,
                         EndDate = item.EndDate,
                         IOStockId = item.IOStockId,
+                        IOStockDetailId = item.IOStockDetailId,
                         BranchId = branchId
                     };
                     await this.appContext.ClassStudent.AddAsync(itemClassExist);
@@ -243,11 +245,12 @@ namespace ebrain.admin.bc.Repositories
                     {
                         itemClassExist.BranchId = value.BranchId;
                         itemClassExist.StudentId = item.StudentId;
-                        itemClassExist.ClassId = itemExist.ClassId;
+                        itemClassExist.ClassId = itemClassExist.ClassId;
                         itemClassExist.StartDate = item.StartDate;
                         itemClassExist.EndDate = item.EndDate;
-                        itemClassExist.MaterialId = itemExist.MaterialId;
+                        itemClassExist.MaterialId = item.MaterialId;
                         itemClassExist.IOStockId = item.IOStockId;
+                        itemClassExist.IOStockDetailId = item.IOStockDetailId;
                     }
                     else
                     {

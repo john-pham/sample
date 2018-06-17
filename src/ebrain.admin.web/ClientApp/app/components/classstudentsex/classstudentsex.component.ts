@@ -57,6 +57,8 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
 
     @Input() studentId: any;
     @Input() ioStockId: any;
+    @Input() materialId: any;
+    @Input() ioStockDetailId: any;
 
     modalRef: BsModalRef;
     classExamineRef: BsModalRef;
@@ -110,10 +112,8 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
 
     private onDataLoadMaterialSuccessful(resulted: Results<MaterialLearn>) {
         var list = resulted.list;
-        if (list.length > 0) {
-            this.pointer.materialId = list[0].id;
-        }
         this.materials = list;
+        this.pointer.materialId = this.materialId;
         this.alertService.stopLoadingMessage();
         this.loadingIndicator = false;
     }
@@ -176,6 +176,7 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
             itemNew.studentId = this.studentId;
             itemNew.materialId = item.materialId;
             itemNew.ioStockId = this.ioStockId;
+            itemNew.ioStockDetailId = this.ioStockDetailId;
             itemNew.startDate = item.startDate;
             itemNew.endDate = item.endDate;
             cls.push(itemNew);

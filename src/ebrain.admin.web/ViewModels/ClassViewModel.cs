@@ -45,5 +45,6 @@ namespace Ebrain.ViewModels
         public DateTime? CreatedDate { get; set; }
         public int CountStudent { get; set; }
         public Guid? IOStockId { get; set; }
+        public Guid? IOStockDetailId { get; set; }
     }
 }

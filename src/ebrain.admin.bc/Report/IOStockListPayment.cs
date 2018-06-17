@@ -17,5 +17,9 @@ namespace ebrain.admin.bc.Report
         public Guid StudentId { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Note { get; set; }
+        public Guid? IOStockDetailId { get; set; }
+        public Guid? MaterialId { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialName { get; set; }
     }
 }
