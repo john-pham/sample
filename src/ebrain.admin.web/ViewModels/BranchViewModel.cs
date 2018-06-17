@@ -45,5 +45,7 @@ namespace Ebrain.ViewModels
         public string CommandCode { get; set; }
         public string ContentType { get; set; }
         #endregion 
+
+        public BranchZaloViewModel BranchZalo { get; set; } = new BranchZaloViewModel();
     }
 }

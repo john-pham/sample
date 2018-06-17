@@ -116,6 +116,16 @@ namespace ebrain.admin.bc.Repositories
             return await this.appContext.BranchHead.FirstOrDefaultAsync(p => p.BranchId == index);
         }
 
+        public async Task<BranchSMS> GetBranchSMS(Guid? index)
+        {
+            return await this.appContext.BranchSMS.FirstOrDefaultAsync(p => p.BranchId == index);
+        }
+
+        public async Task<BranchZalo> GetBranchZalo(Guid? index)
+        {
+            return await this.appContext.BranchZalo.FirstOrDefaultAsync(p => p.BranchId == index);
+        }
+
         public async Task<Branch> Save(Branch value, Guid? oldId)
         {
             var item = await appContext.Branch.FirstOrDefaultAsync(x => x.BranchId == oldId);
@@ -174,6 +184,43 @@ namespace ebrain.admin.bc.Repositories
                     CreatedDate = value.UpdatedDate
                 };
                 await appContext.BranchSMS.AddAsync(sms);
+            }
+
+            //config zalo
+            var zalo = await appContext.BranchZalo.FirstOrDefaultAsync(p => p.BranchId == oldId);
+            var itemZalo = value.BranchZalo;
+            if (zalo != null)
+            {
+
+                zalo.BranchId = item.BranchId;
+                zalo.UserName = itemZalo.UserName;
+                zalo.Password = itemZalo.Password;
+                zalo.Code = itemZalo.Code;
+                zalo.Secret = itemZalo.Secret;
+                zalo.AppId = itemZalo.AppId;
+                zalo.CallBackUrl = itemZalo.CallBackUrl;
+                zalo.HomeUrl = itemZalo.HomeUrl;
+                zalo.UpdatedBy = itemZalo.UpdatedBy;
+                zalo.UpdatedDate = itemZalo.UpdatedDate;
+            }
+            else
+            {
+                zalo = new BranchZalo
+                {
+                    BranchId = item.BranchId,
+                    UserName = itemZalo.UserName,
+                    Password = itemZalo.Password,
+                    Code = itemZalo.Code,
+                    Secret = itemZalo.Secret,
+                    AppId = itemZalo.AppId,
+                    CallBackUrl = itemZalo.CallBackUrl,
+                    HomeUrl = itemZalo.HomeUrl,
+                    UpdatedBy = itemZalo.UpdatedBy,
+                    UpdatedDate = itemZalo.UpdatedDate,
+                    CreatedBy = itemZalo.UpdatedBy,
+                    CreatedDate = itemZalo.UpdatedDate
+                };
+                await appContext.BranchZalo.AddAsync(zalo);
             }
             //
             await appContext.SaveChangesAsync();

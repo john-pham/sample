@@ -21,6 +21,8 @@ namespace ebrain.admin.bc.Repositories.Interfaces
 
         Task<Branch> Get(Guid? index);
         Task<BranchHead> GetBranchHead(Guid? index);
+        Task<BranchSMS> GetBranchSMS(Guid? index);
+        Task<BranchZalo> GetBranchZalo(Guid? index);
         Task<IEnumerable<Branch>> GetAll();
         Task<IEnumerable<Branch>> Search(string filter, string value, int page, int size);
 

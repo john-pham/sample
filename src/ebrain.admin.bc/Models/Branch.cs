@@ -46,6 +46,8 @@ namespace ebrain.admin.bc.Models
         public string CommandCode { get; set; }
         [NotMapped]
         public string ContentType { get; set; }
+        [NotMapped]
+        public BranchZalo BranchZalo { get; set; }
         #endregion 
     }
 }

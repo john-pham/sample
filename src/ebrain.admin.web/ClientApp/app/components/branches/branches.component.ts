@@ -22,6 +22,7 @@ import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { saveAs } from "file-saver";
+import { BranchZalo } from '../../models/branchzalo.model';
 
 @Component({
     selector: 'branches',
@@ -45,6 +46,13 @@ export class BranchesComponent implements OnInit, OnDestroy {
     private pointer: Branch;
     private page: Page;
 
+    readonly smsTab = "sms";
+    readonly zaloTab = "zalo";
+
+    activeTab: string = this.smsTab;
+    isSMSActive = true;
+    isZaloActive = false;
+
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
@@ -56,6 +64,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: BranchesService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
         this.pointer = new Branch();
+        this.pointer.branchZalo = new BranchZalo();
         this.page = new Page();
 
         //
@@ -296,6 +305,26 @@ export class BranchesComponent implements OnInit, OnDestroy {
     search() {
         this.getFromServer();
     }
+
+    onShowTab(event) {
+        this.setActiveTab(event.target.hash);
+
+        switch (this.activeTab) {
+            case this.smsTab:
+                this.isSMSActive = true;
+                break;
+            case this.zaloTab:
+                this.isZaloActive = true;
+                break;
+            default:
+                throw new Error("Selected bootstrap tab is unknown. Selected Tab: " + this.activeTab);
+        }
+    }
+
+    setActiveTab(tab: string) {
+        this.activeTab = tab.split("#", 2).pop();
+    }
+
 
     @ViewChild('f')
     private form;

@@ -6,6 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 import { File } from './file.model';
+import { BranchZalo } from './branchzalo.model';
 
 export class Branch {
     public id: string;
@@ -26,4 +27,6 @@ export class Branch {
     public serviceId: string = "SUPERBRAIN";
     public commandCode: string = "bulksms";
     public contentType: string = "0";
+
+    public branchZalo: BranchZalo = new BranchZalo();
 }

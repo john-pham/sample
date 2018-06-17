@@ -231,13 +231,24 @@
       "HeaderAdd": "Quản lý cơ sở",
       "Manage": "Quản lý",
       "Config": "Cấu hình SMS",
+      "ConfigZalo": "Cấu hình Zalo",
       "UserName": "User Name",
       "Password": "Password",
       "CPCode": "CPCode",
       "RequestID": "RequestID",
       "ServiceId": "ServiceId",
       "CommandCode": "CommandCode",
-      "ContentType": "ContentType"
+      "ContentType": "ContentType",
+      "SMS": "SMS",
+      "Zalo": "Zalo",
+
+      "UserNameZalo": "User Name",
+      "PasswordZalo": "Password",
+      "CodeZalo": "CPCode",
+      "AppIdZalo": "AppId",
+      "SecretZalo": "Secret",
+      "CallBackUrlZalo": "CallBackUrl",
+      "HomeUrlZalo": "HomeUrl"
     },
     "stock": {
       "Code": "Mã",

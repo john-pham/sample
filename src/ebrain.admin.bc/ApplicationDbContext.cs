@@ -33,6 +33,7 @@ namespace ebrain.admin.bc
         public DbSet<Branch> Branch { get; set; }
         public DbSet<Attendance> Attendance { get; set; }
         public DbSet<BranchSMS> BranchSMS { get; set; }
+        public DbSet<BranchZalo> BranchZalo { get; set; }
 
         public DbSet<ConfigNumberOfCode> ConfigNumberOfCode { get; set; }
 
@@ -138,6 +139,7 @@ namespace ebrain.admin.bc
 
             builder.Entity<Branch>().ToTable(nameof(this.Branch));
             builder.Entity<BranchSMS>().ToTable(nameof(this.BranchSMS));
+            builder.Entity<BranchZalo>().ToTable(nameof(this.BranchZalo));
             builder.Entity<Attendance>().ToTable(nameof(this.Attendance));
 
             builder.Entity<ClassExamine>().ToTable(nameof(this.ClassExamine));

@@ -108,16 +108,39 @@ namespace Ebrain.Controllers
                 }
             };
 
-            var branchHead = await this._unitOfWork.Branches.GetBranchHead(index);
-            if (branchHead != null)
+            //get config SMS
+            var branchSMS = await this._unitOfWork.Branches.GetBranchSMS(index);
+            if (branchSMS != null)
             {
-                branch.UserName = item.UserName;
-                branch.Password = item.Password;
-                branch.CPCode = item.CPCode;
-                branch.RequestID = item.RequestID;
-                branch.ServiceId = item.ServiceId;
-                branch.CommandCode = item.CommandCode;
-                branch.ContentType = item.ContentType;
+                branch.UserName = branchSMS.UserName;
+                branch.Password = branchSMS.Password;
+                branch.CPCode = branchSMS.CPCode;
+                branch.RequestID = branchSMS.RequestID;
+                branch.ServiceId = branchSMS.ServiceId;
+                branch.CommandCode = branchSMS.CommandCode;
+                branch.ContentType = branchSMS.ContentType;
+            }
+
+            //get config zalo
+            var branchZalo = await this._unitOfWork.Branches.GetBranchZalo(index);
+            if (branchZalo != null)
+            {
+                branch.BranchZalo = new BranchZaloViewModel
+                {
+                    BranchId = branchZalo.BranchId,
+                    UserName = branchZalo.UserName,
+                    Password = branchZalo.Password,
+                    Code = branchZalo.Code,
+                    AppId = branchZalo.AppId,
+                    Secret = branchZalo.Secret,
+                    CallBackUrl = branchZalo.CallBackUrl,
+                    HomeUrl = branchZalo.HomeUrl,
+                };
+
+            }
+            else
+            {
+                branch.BranchZalo = new BranchZaloViewModel();
             }
 
             return branch;
@@ -150,7 +173,22 @@ namespace Ebrain.Controllers
                     RequestID = value.RequestID,
                     ServiceId = value.ServiceId,
                     CommandCode = value.CommandCode,
-                    ContentType = value.ContentType
+                    ContentType = value.ContentType,
+                    BranchZalo = new BranchZalo
+                    {
+                        BranchId = value.BranchZalo.BranchId,
+                        UserName = value.BranchZalo.UserName,
+                        Password = value.BranchZalo.Password,
+                        Code = value.BranchZalo.Code,
+                        AppId = value.BranchZalo.AppId,
+                        Secret = value.BranchZalo.Secret,
+                        CallBackUrl = value.BranchZalo.CallBackUrl,
+                        HomeUrl = value.BranchZalo.HomeUrl,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now,
+                        CreatedBy = userId,
+                        UpdatedBy = userId,
+                    }
                 };
 
                 //save logo to physical file
