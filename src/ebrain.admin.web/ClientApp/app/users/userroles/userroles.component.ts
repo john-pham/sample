@@ -20,10 +20,10 @@ import { File } from '../../models/file.model';
 import { SMS } from '../../models/sms.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-import { UserRolesService } from "../../services/userroles.service";
-import { UserGroupsService } from "../../services/usergroup.service";
+import { UserRolesService } from "../services/userroles.service";
+import { UserGroupsService } from "../services/usergroup.service";
 import { UserRoles } from "../../models/userroles.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 
 @Component({
     selector: 'userroles',

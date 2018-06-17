@@ -34,7 +34,7 @@ import { PaymentDetail } from "../../models/paymentdetail.model";
 import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
 import { PaymentType } from "../../models/paymenttype.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Results } from "../../models/results.model";
 @Component({
     selector: 'payments',

@@ -17,7 +17,7 @@ import { TypeMaterialLearn } from '../../models/TypeMaterialLearn.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TypeMaterialsService } from "../../services/typeMaterials.service";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 @Component({

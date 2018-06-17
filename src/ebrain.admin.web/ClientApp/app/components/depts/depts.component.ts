@@ -21,7 +21,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStockReport } from "../../models/iostockreport.model";
 import { DeptService } from "../../services/depts.service";
 import { Depts } from "../../models/depts.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 
 @Component({
     selector: 'depts',

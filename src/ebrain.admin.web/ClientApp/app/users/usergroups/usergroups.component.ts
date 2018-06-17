@@ -20,18 +20,17 @@ import { File } from '../../models/file.model';
 import { SMS } from '../../models/sms.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-import { Support } from "../../models/support.model";
-import { SupportService } from "../../services/support.service";
-import { AccessRightsService } from "../../services/access-rights.service";
-
+import { UserGroups } from "../../models/usergroups.model";
+import { UserGroupsService } from "../services/usergroup.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 @Component({
-    selector: 'supports',
-    templateUrl: './supports.component.html',
-    styleUrls: ['./supports.component.css'],
+    selector: 'usergroups',
+    templateUrl: './usergroups.component.html',
+    styleUrls: ['./usergroups.component.css'],
     animations: [fadeInOut]
 })
 
-export class SupportComponent implements OnInit, OnDestroy {
+export class UserGroupsComponent implements OnInit, OnDestroy {
     rows = [];
     columns = [];
 
@@ -44,7 +43,7 @@ export class SupportComponent implements OnInit, OnDestroy {
     filterValue: string;
     phone: string;
 
-    private pointer: Support;
+    private pointer: UserGroups;
     private page: Page;
 
     public changesSavedCallback: () => void;
@@ -54,11 +53,10 @@ export class SupportComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService,
-        private localService: SupportService, public accessRightService: AccessRightsService,
-        private modalService: BsModalService) {
-        this.pointer = new Support();
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: UserGroupsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
+        this.pointer = new UserGroups();
         this.page = new Page();
+
         this.filterName = "";
         this.filterValue = "";
         //
@@ -71,12 +69,9 @@ export class SupportComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-
-            { headerClass: "text-center", prop: 'supportName', name: gT('label.support.SupportName'), width: 100, cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'title', name: gT('label.support.Title'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'phone', name: gT('label.support.Phone'), width: 100, cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'email', name: gT('label.support.Email'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'note', name: gT('label.support.Note'), width: 100, cellTemplate: this.nameTemplate },
+         
+            { headerClass: "text-center", prop: 'name', name: gT('label.usergroup.Name'), width: 100, cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'description', name: gT('label.usergroup.Note'), cellTemplate: this.nameTemplate },
             { name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
@@ -89,7 +84,14 @@ export class SupportComponent implements OnInit, OnDestroy {
 
     //
     add(template: TemplateRef<any>) {
+        this.pointer.id = "";
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+    }
+
+    private save() {
+        this.alertService.startLoadingMessage("Saving changes...");
+
+        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
 
     edit(template: TemplateRef<any>, index: string) {
@@ -97,7 +99,12 @@ export class SupportComponent implements OnInit, OnDestroy {
         var disp = this.localService.get(index).subscribe(
             item => {
                 //
-                this.pointer = item;
+                this.pointer.id = item.id;
+                this.pointer.code = item.code;
+                this.pointer.name = item.name;
+                this.pointer.description = item.description;
+
+                //
                 this.modalRef = this.modalService.show(template);
             },
             error => {
@@ -115,9 +122,9 @@ export class SupportComponent implements OnInit, OnDestroy {
         this.localService.delete(row.id).subscribe(value => this.deleteSuccessHelper(row), error => this.deleteFailedHelper(error));
     }
 
-    private deleteSuccessHelper(row: Support) {
+    private deleteSuccessHelper(row: UserGroups) {
         this.getFromServer();
-        this.alertService.showMessage("Success", `Class \"${row.supportName}\" was deleted successfully`, MessageSeverity.success);
+        this.alertService.showMessage("Success", `Class \"${row.name}\" was deleted successfully`, MessageSeverity.success);
         if (this.changesSavedCallback)
             this.changesSavedCallback();
     }
@@ -131,9 +138,8 @@ export class SupportComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-
+   
     onSearchChanged(value: string) {
-        this.filterValue = value;
         this.getFromServer();
     }
 
@@ -154,14 +160,7 @@ export class SupportComponent implements OnInit, OnDestroy {
             });
     }
 
-    private save() {
-        this.alertService.startLoadingMessage("Saving changes...");
-
-        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
-    }
-
-
-    private onDataLoadSuccessful(resulted: Results<Support>) {
+    private onDataLoadSuccessful(resulted: Results<UserGroups>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
@@ -174,7 +173,7 @@ export class SupportComponent implements OnInit, OnDestroy {
 
     }
 
-    private saveSuccessHelper(user?: Support) {
+    private saveSuccessHelper(user?: UserGroups) {
         this.alertService.stopLoadingMessage();
         //this.resetForm();
         this.modalRef.hide();
@@ -182,7 +181,7 @@ export class SupportComponent implements OnInit, OnDestroy {
         this.getFromServer();
         //
         //if (this.isNewUser)
-        this.alertService.showMessage("Success", `User \"${this.pointer.supportName}\" was created successfully`, MessageSeverity.success);
+        this.alertService.showMessage("Success", `User \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
         //else if (!this.isEditingSelf)
         //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.name}\" was saved successfully`, MessageSeverity.success);
 
@@ -199,7 +198,7 @@ export class SupportComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-
+    
     close() {
         this.modalRef.hide();
     }

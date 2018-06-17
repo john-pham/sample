@@ -15,8 +15,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 
-import { EndpointFactory } from './endpoint-factory.service';
-import { ConfigurationService } from './configuration.service';
+import { EndpointFactory } from '../../services/endpoint-factory.service';
+import { ConfigurationService } from '../../services/configuration.service';
 
 
 @Injectable()

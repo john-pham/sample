@@ -12,33 +12,38 @@ import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { ConfigurationService } from './configuration.service';
-import { JwtHelper } from './jwt-helper';
-import { Support } from "../models/support.model";
-import { SupportEndpoint } from "./support-endpoint.service";
-import { Results } from "../models/results.model";
+import { ConfigurationService } from '../../services/configuration.service';
+import { JwtHelper } from '../../services/jwt-helper';
+
+import { Results } from "../../models/results.model";
+import { UserRolesEndpoint } from "./userroles-endpoint.service";
+import { UserRoles } from "../../models/userroles.model";
 
 @Injectable()
-export class SupportService {
+export class UserRolesService {
 
-    constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: SupportEndpoint) {
+    constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: UserRolesEndpoint) {
         this.initializeStatus();
     }
-    
+
+    getAll() {
+        return this.endpointFactory.getall()
+            .map((response: Response) => <UserRoles[]>response.json());
+    }
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <Results<Support>>response.json());
+            .map((response: Response) => <Results<UserRoles>>response.json());
     }
 
     get(index: string) {
         return this.endpointFactory.get(index)
-            .map((response: Response) => <Support>response.json());
+            .map((response: Response) => <UserRoles[]>response.json());
     }
 
-    save(value: Support) {
-        return this.endpointFactory.save(value)
-            .map((response: Response) => <Support>response.json());
+    save(values: UserRoles[]) {
+        return this.endpointFactory.save(values)
+            .map((response: Response) => <Boolean>response.json());
     }
 
 

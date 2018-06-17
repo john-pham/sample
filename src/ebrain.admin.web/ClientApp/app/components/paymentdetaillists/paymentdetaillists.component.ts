@@ -21,7 +21,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStockReport } from "../../models/iostockreport.model";
 import { PaymentsService } from "../../services/payments.service";
 import { Payment } from "../../models/payment.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 @Component({

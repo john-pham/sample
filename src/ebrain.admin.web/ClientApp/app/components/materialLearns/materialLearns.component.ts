@@ -20,7 +20,7 @@ import { Unit } from "../../models/unit.model";
 import { GrpMaterialLearn } from "../../models/grpMaterialLearn.model";
 import { TypeMaterialLearn } from "../../models/typeMaterialLearn.model";
 import { TypeMaterialLearnsService } from "../../services/typeMaterialLearns.service";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 @Component({

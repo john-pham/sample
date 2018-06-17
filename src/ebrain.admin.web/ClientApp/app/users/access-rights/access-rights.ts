@@ -13,7 +13,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { fadeInOut } from '../../services/animations';
 import { AppTranslationService } from "../../services/app-translation.service";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { AlertService, MessageSeverity, DialogType } from '../../services/alert.service';
 import { Utilities } from '../../services/utilities';
 import { File } from '../../models/file.model';
@@ -21,8 +21,8 @@ import { Branch } from '../../models/branch.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
 import { AccessRight } from "../../models/accessright.model";
-import { FeatureGroupsService } from "../../services/featuregroup.service";
-import { UserGroupsService } from "../../services/usergroup.service";
+import { FeatureGroupsService } from "../services/featuregroup.service";
+import { UserGroupsService } from "../services/usergroup.service";
 import { UserGroups } from "../../models/usergroups.model";
 import { FeatureGroups } from "../../models/featuregroups.model";
 

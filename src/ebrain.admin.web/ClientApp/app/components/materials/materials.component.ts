@@ -25,7 +25,7 @@ import { TypeMaterial } from "../../models/typeMaterial.model";
 import { Material } from "../../models/material.model";
 import { GrpMaterial } from "../../models/grpMaterial.model";
 import { Supplier } from "../../models/supplier.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 @Component({

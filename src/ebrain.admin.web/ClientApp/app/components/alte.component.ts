@@ -26,8 +26,8 @@ import { Results } from "../models/results.model";
 import { Messenger } from "../models/messenger.model";
 import { Utilities } from "../services/utilities";
 import { AccessRight } from "../models/accessright.model";
-import { AccessRightsService } from "../services/access-rights.service";
-import { SupportService } from "../services/support.service";
+import { AccessRightsService } from "../share/services/access-rights.service";
+import { SupportService } from "../users/services/support.service";
 import { Support } from "../models/support.model";
 import { DBkeys } from "../services/db-Keys";
 

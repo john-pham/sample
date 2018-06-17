@@ -10,17 +10,17 @@ import { Injectable } from '@angular/core';
 import { Router, NavigationExtras } from "@angular/router";
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Branch } from '../models/branch.model';
-import { Results } from '../models/results.model';
+import { Branch } from '../../models/branch.model';
+import { Results } from '../../models/results.model';
 import 'rxjs/add/operator/map';
 
-import { AccessRightsEndpoint } from './access-rights.endpoint';
-import { ConfigurationService } from './configuration.service';
-import { JwtHelper } from './jwt-helper';
-import { AccessRight } from "../models/accessright.model";
-import { Utilities } from "./utilities";
-import { LocalStoreManager } from "./local-store-manager.service";
-import { DBkeys } from "./db-Keys";
+import { AccessRightsEndpoint } from '../services/access-rights.endpoint.service';
+import { ConfigurationService } from '../../services/configuration.service';
+import { JwtHelper } from '../../services/jwt-helper';
+import { AccessRight } from "../../models/accessright.model";
+import { Utilities } from "../../services/utilities";
+import { LocalStoreManager } from "../../services/local-store-manager.service";
+import { DBkeys } from "../../services/db-Keys";
 
 @Injectable()
 export class AccessRightsService {

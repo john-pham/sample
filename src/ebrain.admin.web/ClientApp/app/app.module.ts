@@ -25,6 +25,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ChartsModule } from 'ng2-charts';
 
+import{ UsersModule }from './users/users.module';
+import{ SharedModule }from './share/share.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppErrorHandler } from './app-error.handler';
 import { AppTitleService } from './services/app-title.service';
@@ -51,20 +53,20 @@ import { CurrencyPipe } from "./pipes/currency.pipe";
 import { MessengerService } from './services/messengers.service';
 import { MessengerEndpoint } from './services/messengers-endpoint.service';
 
-import { SupportService } from './services/support.service';
-import { SupportEndpoint } from './services/support-endpoint.service';
+// import { SupportService } from './services/support.service';
+// import { SupportEndpoint } from './services/support-endpoint.service';
 
-import { AccessRightsService } from './services/access-rights.service';
-import { AccessRightsEndpoint } from './services/access-rights.endpoint';
+// import { AccessRightsService } from './services/access-rights.service';
+// import { AccessRightsEndpoint } from './services/access-rights.endpoint';
 
-import { UserRolesService } from './services/userroles.service';
-import { UserRolesEndpoint } from './services/userroles-endpoint.service';
+// import { UserRolesService } from './services/userroles.service';
+// import { UserRolesEndpoint } from './services/userroles-endpoint.service';
 
-import { FeatureGroupsService } from './services/featuregroup.service';
-import { FeatureGroupsEndpoint } from './services/featuregroup-endpoint.service';
+// import { FeatureGroupsService } from './services/featuregroup.service';
+// import { FeatureGroupsEndpoint } from './services/featuregroup-endpoint.service';
 
-import { UserGroupsService } from './services/usergroup.service';
-import { UserGroupsEndpoint } from './services/usergroup-endpoint.service';
+// import { UserGroupsService } from './services/usergroup.service';
+// import { UserGroupsEndpoint } from './services/usergroup-endpoint.service';
 
 import { BranchesService } from './services/branches.service';
 import { BranchesEndpoint } from './services/branches-endpoint.service';
@@ -188,14 +190,14 @@ import { AlteComponent } from "./components/alte.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
 import { BannerTopsComponent } from "./components/bannertops/bannertops.component";
-import { AccessRightsComponent } from "./components/access-rights/access-rights";
-import { UserRolesComponent } from "./components/userroles/userroles.component";
-import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
-import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
+// import { AccessRightsComponent } from "./components/access-rights/access-rights";
+// import { UserRolesComponent } from "./components/userroles/userroles.component";
+// import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
+// import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
 import { StatisticsChartComponent } from "./components/controls/statistics-chart.component";
 
 import { MessengerComponent } from "./components/messengers/messengers.component";
-import { SupportComponent } from "./components/supports/supports.component";
+// import { SupportComponent } from "./components/supports/supports.component";
 import { MessengerListComponent } from "./components/messengerlists/messengerlists.component";
 
 import { BranchesComponent } from "./components/branches/branches.component";
@@ -358,22 +360,24 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
         ChartsModule,
-        CurrencyMaskModule
+        CurrencyMaskModule,
+        SharedModule,
+        UsersModule,
     ],
     declarations: [
         AlteComponent,
         LoginComponent,
         HomeComponent,
         BannerTopsComponent,
-        AccessRightsComponent,
-        UserRolesComponent,
-        FeatureGroupsComponent,
-        UserGroupsComponent,
+        // AccessRightsComponent,
+        // UserRolesComponent,
+        // FeatureGroupsComponent,
+        // UserGroupsComponent,
         StatisticsChartComponent,
 
         MessengerComponent,
         MessengerListComponent,
-        SupportComponent,
+        // SupportComponent,
 
         BranchesComponent,
         StocksComponent,
@@ -524,18 +528,18 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         AccountEndpoint,
         LocalStoreManager,
         EndpointFactory,
-        AccessRightsService,
-        AccessRightsEndpoint,
+        // AccessRightsService,
+        // AccessRightsEndpoint,
         MessengerService,
         MessengerEndpoint,
-        SupportService,
-        SupportEndpoint,
-        UserRolesService,
-        UserRolesEndpoint,
-        UserGroupsEndpoint,
-        UserGroupsService,
-        FeatureGroupsEndpoint,
-        FeatureGroupsService,
+        // SupportService,
+        // SupportEndpoint,
+        // UserRolesService,
+        // UserRolesEndpoint,
+        // UserGroupsEndpoint,
+        // UserGroupsService,
+        // FeatureGroupsEndpoint,
+        // FeatureGroupsService,
 
         BranchesService,
         BranchesEndpoint,

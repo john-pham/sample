@@ -15,21 +15,34 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 
-import { EndpointFactory } from './endpoint-factory.service';
-import { ConfigurationService } from './configuration.service';
+import { EndpointFactory } from '../../services/endpoint-factory.service';
+import { ConfigurationService } from '../../services/configuration.service';
+import { Unit } from '../../models/unit.model';
 
 
 @Injectable()
-export class SupportEndpoint extends EndpointFactory {
+export class UserGroupsEndpoint extends EndpointFactory {
 
-    private readonly _serviceUrl: string = "/api/support";
+    private readonly _serviceUrl: string = "/api/usergroups";
     private get serviceUrl() { return this.configurations.baseUrl + this._serviceUrl; }
 
 
     constructor(http: Http, configurations: ConfigurationService, injector: Injector) {
         super(http, configurations, injector);
     }
-    
+
+  
+    getall(): Observable<Response> {
+        let url = this.getUrl('getall');
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getall());
+            });
+    }
+
     search(filter: string, value: string, page: number, size: number): Observable<Response> {
 
         let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());

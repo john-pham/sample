@@ -20,7 +20,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStudentListService } from "../../services/iostudentlists.service";
 import { IOStockReport } from "../../models/iostockreport.model";
 import { Page } from '../../models/page.model';
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Results } from "../../models/results.model";
 import { PurchaseOrderService } from "../../services/purchaseorders.service";
 import { PurchaseOrderReport } from "../../models/purchaseorderreport.model";

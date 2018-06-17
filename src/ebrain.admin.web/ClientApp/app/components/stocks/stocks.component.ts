@@ -16,7 +16,7 @@ import { Utilities } from '../../services/utilities';
 import { Stock } from '../../models/Stock.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 @Component({
     selector: 'stocks',
     templateUrl: './stocks.component.html',

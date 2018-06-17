@@ -35,7 +35,7 @@ import { ClassTime } from "../../models/classtime.model";
 import { ClassStudent } from "../../models/classstudent.model";
 import { ShiftclassesService } from "../../services/shiftclasses.service";
 import { Shiftclass } from "../../models/Shiftclass.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Results } from "../../models/results.model";
 import { DateOnlyPipe } from "../../directives/dateonlypipe.directive";
 import { IOStockReport } from "../../models/iostockreport.model";

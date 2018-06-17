@@ -20,18 +20,18 @@ import { File } from '../../models/file.model';
 import { SMS } from '../../models/sms.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-import { FeatureGroups } from "../../models/featuregroups.model";
-import { FeatureGroupsService } from "../../services/featuregroup.service";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { Support } from "../../models/support.model";
+import { SupportService } from "../services/support.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 
 @Component({
-    selector: 'featuregroups',
-    templateUrl: './featuregroups.component.html',
-    styleUrls: ['./featuregroups.component.css'],
+    selector: 'supports',
+    templateUrl: './supports.component.html',
+    styleUrls: ['./supports.component.css'],
     animations: [fadeInOut]
 })
 
-export class FeatureGroupsComponent implements OnInit, OnDestroy {
+export class SupportComponent implements OnInit, OnDestroy {
     rows = [];
     columns = [];
 
@@ -44,7 +44,7 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
     filterValue: string;
     phone: string;
 
-    private pointer: FeatureGroups;
+    private pointer: Support;
     private page: Page;
 
     public changesSavedCallback: () => void;
@@ -54,10 +54,10 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, 
-        private localService: FeatureGroupsService, public accessRightService: AccessRightsService,
+    constructor(private alertService: AlertService, private translationService: AppTranslationService,
+        private localService: SupportService, public accessRightService: AccessRightsService,
         private modalService: BsModalService) {
-        this.pointer = new FeatureGroups();
+        this.pointer = new Support();
         this.page = new Page();
         this.filterName = "";
         this.filterValue = "";
@@ -71,9 +71,12 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
-         
-            { headerClass: "text-center", prop: 'name', name: gT('label.featuregroup.Name'), width: 100, cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'description', name: gT('label.featuregroup.Note'), cellTemplate: this.nameTemplate },
+
+            { headerClass: "text-center", prop: 'supportName', name: gT('label.support.SupportName'), width: 100, cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'title', name: gT('label.support.Title'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'phone', name: gT('label.support.Phone'), width: 100, cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'email', name: gT('label.support.Email'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'note', name: gT('label.support.Note'), width: 100, cellTemplate: this.nameTemplate },
             { name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
@@ -86,7 +89,6 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
 
     //
     add(template: TemplateRef<any>) {
-        this.pointer.id = "";
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     }
 
@@ -95,12 +97,7 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
         var disp = this.localService.get(index).subscribe(
             item => {
                 //
-                this.pointer.id = item.id;
-                this.pointer.code = item.code;
-                this.pointer.name = item.name;
-                this.pointer.description = item.description;
-
-                //
+                this.pointer = item;
                 this.modalRef = this.modalService.show(template);
             },
             error => {
@@ -118,9 +115,9 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
         this.localService.delete(row.id).subscribe(value => this.deleteSuccessHelper(row), error => this.deleteFailedHelper(error));
     }
 
-    private deleteSuccessHelper(row: FeatureGroups) {
+    private deleteSuccessHelper(row: Support) {
         this.getFromServer();
-        this.alertService.showMessage("Success", `Class \"${row.name}\" was deleted successfully`, MessageSeverity.success);
+        this.alertService.showMessage("Success", `Class \"${row.supportName}\" was deleted successfully`, MessageSeverity.success);
         if (this.changesSavedCallback)
             this.changesSavedCallback();
     }
@@ -134,8 +131,9 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-   
+
     onSearchChanged(value: string) {
+        this.filterValue = value;
         this.getFromServer();
     }
 
@@ -163,7 +161,7 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
     }
 
 
-    private onDataLoadSuccessful(resulted: Results<FeatureGroups>) {
+    private onDataLoadSuccessful(resulted: Results<Support>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
@@ -176,7 +174,7 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
 
     }
 
-    private saveSuccessHelper(user?: FeatureGroups) {
+    private saveSuccessHelper(user?: Support) {
         this.alertService.stopLoadingMessage();
         //this.resetForm();
         this.modalRef.hide();
@@ -184,7 +182,7 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
         this.getFromServer();
         //
         //if (this.isNewUser)
-        this.alertService.showMessage("Success", `User \"${this.pointer.name}\" was created successfully`, MessageSeverity.success);
+        this.alertService.showMessage("Success", `User \"${this.pointer.supportName}\" was created successfully`, MessageSeverity.success);
         //else if (!this.isEditingSelf)
         //    this.alertService.showMessage("Success", `Changes to user \"${this.pointer.name}\" was saved successfully`, MessageSeverity.success);
 
@@ -201,7 +199,7 @@ export class FeatureGroupsComponent implements OnInit, OnDestroy {
         if (this.changesFailedCallback)
             this.changesFailedCallback();
     }
-    
+
     close() {
         this.modalRef.hide();
     }

@@ -8,7 +8,7 @@
 
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
-import { AccessRightsService } from "../../../services/access-rights.service";
+import { AccessRightsService } from "../../../share/services/access-rights.service";
 @Component({
     selector: 'mn_main_stock',
     templateUrl: './mn-main-stock.component.html',

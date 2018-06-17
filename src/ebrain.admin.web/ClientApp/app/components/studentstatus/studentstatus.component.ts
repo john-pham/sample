@@ -16,7 +16,7 @@ import { Utilities } from '../../services/utilities';
 import { Studentstatus } from '../../models/Studentstatus.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 @Component({
     selector: 'studentstatus',
     templateUrl: './studentstatus.component.html',

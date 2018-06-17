@@ -22,7 +22,7 @@ import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
 import { GrpDocumentsService } from "../../services/grpdocuments.service";
 import { GrpDocument } from "../../models/grpdocument.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 
 @Component({
     selector: 'documents',

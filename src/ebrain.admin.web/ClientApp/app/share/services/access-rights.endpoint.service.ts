@@ -15,14 +15,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 
-import { EndpointFactory } from './endpoint-factory.service';
-import { ConfigurationService } from './configuration.service';
+import { EndpointFactory } from '../../services/endpoint-factory.service';
+import { ConfigurationService } from '../../services/configuration.service';
+import { Branch } from '../../models/branch.model';
 
 
 @Injectable()
-export class UserRolesEndpoint extends EndpointFactory {
+export class AccessRightsEndpoint extends EndpointFactory {
 
-    private readonly _serviceUrl: string = "/api/userroles";
+    private readonly _serviceUrl: string = "/api/accessrights";
     private get serviceUrl() { return this.configurations.baseUrl + this._serviceUrl; }
 
 
@@ -30,34 +31,35 @@ export class UserRolesEndpoint extends EndpointFactory {
         super(http, configurations, injector);
     }
 
-  
-    getall(): Observable<Response> {
-        let url = this.getUrl('getall');
+    search(groupId: string, featureGroupId: string, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrl('search?groupId=' + groupId + '&featureGroupId=' + featureGroupId + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getall());
+                return this.handleError(error, () => this.search(groupId, featureGroupId, page, size));
             });
     }
 
-    search(filter: string, value: string, page: number, size: number): Observable<Response> {
+    getAll(): Observable<Response> {
 
-        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        let url = this.getUrl('getall?hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.search(filter, value, page, size));
+                return this.handleError(error, () => this.getAll());
             });
     }
 
     get(index: string): Observable<Response> {
 
-        let url = this.getUrl('get?userId=' + index + '&hash_id=' + Math.random());
+        let url = this.getUrl('get?index=' + index + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
@@ -68,8 +70,49 @@ export class UserRolesEndpoint extends EndpointFactory {
             });
     }
 
+    getAccessRightPerson(featureId: string, filterValue: string): Observable<Response> {
+
+        let url = this.getUrl('accessrightperson?featureId=' + featureId + '&filterValue=' + filterValue + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getAccessRightPerson(featureId, filterValue));
+            });
+    }
+
+    saveAccessRightPerson(value: any): Observable<Response> {
+        let url = this.getUrl('updateaccessrightperson');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
     save(value: any): Observable<Response> {
         let url = this.getUrl('update');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
+    saveHead(value: any): Observable<Response> {
+        let url = this.getUrl('savehead');
         let header = this.getAuthHeader(true);
         let params = JSON.stringify(value);
 
@@ -96,10 +139,23 @@ export class UserRolesEndpoint extends EndpointFactory {
             });
     }
 
+    getBranchHead(index: string): Observable<Response> {
+
+        let url = this.getUrl('getbranchheads?branchId=' + index + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.get(index));
+            });
+    }
+
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {
-
+            
         }
 
         if (error.url && error.url.toLowerCase().includes(this.serviceUrl.toLowerCase())) {

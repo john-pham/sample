@@ -11,15 +11,15 @@ import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from "./components/login/login.component";
 import { HomeComponent } from "./components/home/home.component";
-import { AccessRightsComponent } from "./components/access-rights/access-rights";
-import { UserRolesComponent } from "./components/userroles/userroles.component";
-import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
-import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
+// import { AccessRightsComponent } from "./components/access-rights/access-rights";
+// import { UserRolesComponent } from "./components/userroles/userroles.component";
+// import { FeatureGroupsComponent } from "./components/featuregroups/featuregroups.component";
+// import { UserGroupsComponent } from "./components/usergroups/usergroups.component";
 import { UserInfoComponent } from "./components/controls/user-info.component";
 import { UsersManagementComponent } from "./components/controls/users-management.component";
 
 import { MessengerComponent } from "./components/messengers/messengers.component";
-import { SupportComponent } from "./components/supports/supports.component";
+// import { SupportComponent } from "./components/supports/supports.component";
 import { BranchesComponent } from "./components/branches/branches.component";
 import { StocksComponent } from "./components/stocks/stocks.component";
 
@@ -141,8 +141,8 @@ import { AuthGuard } from './services/auth-guard.service';
 
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot([
+  imports: [
+    RouterModule.forChild([
             { path: "", component: HomeComponent, canActivate: [AuthGuard], data: { title: "Home" } },
             { path: "login", component: LoginComponent, data: { title: "Login" } },
             { path: "mn-stocks", component: mn_stocksComponent, canActivate: [AuthGuard], data: { title: "stocks" } },
@@ -186,13 +186,18 @@ import { AuthGuard } from './services/auth-guard.service';
 
             { path: "sms", component: SMSComponent, canActivate: [AuthGuard], data: { title: "SMS" } },
             { path: "smssend", component: SMSSendComponent, canActivate: [AuthGuard], data: { title: "Send SMS" } },
-            { path: "accessrights", component: AccessRightsComponent, canActivate: [AuthGuard], data: { title: "Access Rights" } },
-            { path: "userroles", component: UserRolesComponent, canActivate: [AuthGuard], data: { title: "User Roles" } },
+        
+            {
+                path: 'users',
+                loadChildren: 'app/users/users.module#UsersModule'
+            },
+            // { path: "accessrights", component: AccessRightsComponent, canActivate: [AuthGuard], data: { title: "Access Rights" } },
+            //  { path: "userroles", component: UserRolesComponent, canActivate: [AuthGuard], data: { title: "User Roles" } },
             { path: "messengers", component: MessengerComponent, canActivate: [AuthGuard], data: { title: "Messenger" } },
-            { path: "supports", component: SupportComponent, canActivate: [AuthGuard], data: { title: "Supports" } },
+            //  { path: "supports", component: SupportComponent, canActivate: [AuthGuard], data: { title: "Supports" } },
 
-            { path: "featuregroups", component: FeatureGroupsComponent, canActivate: [AuthGuard], data: { title: "Feature Groups" } },
-            { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },
+            // { path: "featuregroups", component: FeatureGroupsComponent, canActivate: [AuthGuard], data: { title: "Feature Groups" } },
+            // { path: "usergroups", component: UserGroupsComponent, canActivate: [AuthGuard], data: { title: "User Groups" } },
             { path: "user-info", component: UserInfoComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
             { path: "users-management", component: UsersManagementComponent, canActivate: [AuthGuard], data: { title: "User Infos" } },
 

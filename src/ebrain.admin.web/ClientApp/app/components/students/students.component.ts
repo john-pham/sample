@@ -29,7 +29,7 @@ import { Supplier } from "../../models/supplier.model";
 import { Studentstatus } from "../../models/studentstatus.model";
 import { GenderStudent } from "../../models/genderstudent.model";
 import { Class } from "../../models/class.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 @Component({
     selector: 'students',
     templateUrl: './students.component.html',

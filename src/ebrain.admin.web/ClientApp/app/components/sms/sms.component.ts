@@ -20,7 +20,7 @@ import { File } from '../../models/file.model';
 import { SMS } from '../../models/sms.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 @Component({
     selector: 'sms',
     templateUrl: './sms.component.html',

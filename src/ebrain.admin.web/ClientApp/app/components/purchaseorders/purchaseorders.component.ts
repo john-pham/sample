@@ -32,7 +32,7 @@ import { PurchaseOrder } from "../../models/PurchaseOrder.model";
 import { User } from "../../models/user.model";
 import { Material } from "../../models/material.model";
 import { PurchaseOrderDetail } from "../../models/PurchaseOrderdetail.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Results } from "../../models/results.model";
 import { PurchaseOrderService } from "../../services/purchaseorders.service";
 @Component({

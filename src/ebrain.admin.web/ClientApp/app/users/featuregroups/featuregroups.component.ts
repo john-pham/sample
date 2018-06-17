@@ -20,17 +20,18 @@ import { File } from '../../models/file.model';
 import { SMS } from '../../models/sms.model';
 import { Results } from '../../models/results.model';
 import { Page } from '../../models/page.model';
-import { UserGroups } from "../../models/usergroups.model";
-import { UserGroupsService } from "../../services/usergroup.service";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { FeatureGroups } from "../../models/featuregroups.model";
+import { FeatureGroupsService } from "../services/featuregroup.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
+
 @Component({
-    selector: 'usergroups',
-    templateUrl: './usergroups.component.html',
-    styleUrls: ['./usergroups.component.css'],
+    selector: 'featuregroups',
+    templateUrl: './featuregroups.component.html',
+    styleUrls: ['./featuregroups.component.css'],
     animations: [fadeInOut]
 })
 
-export class UserGroupsComponent implements OnInit, OnDestroy {
+export class FeatureGroupsComponent implements OnInit, OnDestroy {
     rows = [];
     columns = [];
 
@@ -43,7 +44,7 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
     filterValue: string;
     phone: string;
 
-    private pointer: UserGroups;
+    private pointer: FeatureGroups;
     private page: Page;
 
     public changesSavedCallback: () => void;
@@ -53,10 +54,11 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
     modalHeadRef: BsModalRef;
 
-    constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: UserGroupsService, public accessRightService: AccessRightsService, private modalService: BsModalService) {
-        this.pointer = new UserGroups();
+    constructor(private alertService: AlertService, private translationService: AppTranslationService, 
+        private localService: FeatureGroupsService, public accessRightService: AccessRightsService,
+        private modalService: BsModalService) {
+        this.pointer = new FeatureGroups();
         this.page = new Page();
-
         this.filterName = "";
         this.filterValue = "";
         //
@@ -70,8 +72,8 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
 
         this.columns = [
          
-            { headerClass: "text-center", prop: 'name', name: gT('label.usergroup.Name'), width: 100, cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'description', name: gT('label.usergroup.Note'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'name', name: gT('label.featuregroup.Name'), width: 100, cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'description', name: gT('label.featuregroup.Note'), cellTemplate: this.nameTemplate },
             { name: '', width: 140, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
@@ -86,12 +88,6 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
     add(template: TemplateRef<any>) {
         this.pointer.id = "";
         this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
-    }
-
-    private save() {
-        this.alertService.startLoadingMessage("Saving changes...");
-
-        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
     }
 
     edit(template: TemplateRef<any>, index: string) {
@@ -122,7 +118,7 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
         this.localService.delete(row.id).subscribe(value => this.deleteSuccessHelper(row), error => this.deleteFailedHelper(error));
     }
 
-    private deleteSuccessHelper(row: UserGroups) {
+    private deleteSuccessHelper(row: FeatureGroups) {
         this.getFromServer();
         this.alertService.showMessage("Success", `Class \"${row.name}\" was deleted successfully`, MessageSeverity.success);
         if (this.changesSavedCallback)
@@ -160,7 +156,14 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private onDataLoadSuccessful(resulted: Results<UserGroups>) {
+    private save() {
+        this.alertService.startLoadingMessage("Saving changes...");
+
+        this.localService.save(this.pointer).subscribe(value => this.saveSuccessHelper(value), error => this.saveFailedHelper(error));
+    }
+
+
+    private onDataLoadSuccessful(resulted: Results<FeatureGroups>) {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
@@ -173,7 +176,7 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
 
     }
 
-    private saveSuccessHelper(user?: UserGroups) {
+    private saveSuccessHelper(user?: FeatureGroups) {
         this.alertService.stopLoadingMessage();
         //this.resetForm();
         this.modalRef.hide();

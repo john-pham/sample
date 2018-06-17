@@ -12,37 +12,37 @@ import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { UserGroupsEndpoint } from './usergroup-endpoint.service';
-import { ConfigurationService } from './configuration.service';
-import { JwtHelper } from './jwt-helper';
-import { UserGroups } from "../models/usergroups.model";
-import { Results } from "../models/results.model";
+import { ConfigurationService } from '../../services/configuration.service';
+import { JwtHelper } from '../../services/jwt-helper';
+import { FeatureGroups } from "../../models/featuregroups.model";
+import { FeatureGroupsEndpoint } from "./featuregroup-endpoint.service";
+import { Results } from "../../models/results.model";
 
 @Injectable()
-export class UserGroupsService {
+export class FeatureGroupsService {
 
-    constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: UserGroupsEndpoint) {
+    constructor(private router: Router, private configurations: ConfigurationService, private endpointFactory: FeatureGroupsEndpoint) {
         this.initializeStatus();
     }
 
     getAll() {
         return this.endpointFactory.getall()
-            .map((response: Response) => <UserGroups[]>response.json());
+            .map((response: Response) => <FeatureGroups[]>response.json());
     }
 
     search(filter: string, value: string, page: number, size: number) {
         return this.endpointFactory.search(filter, value, page, size)
-            .map((response: Response) => <Results<UserGroups>>response.json());
+            .map((response: Response) => <Results<FeatureGroups>>response.json());
     }
 
     get(index: string) {
         return this.endpointFactory.get(index)
-            .map((response: Response) => <UserGroups>response.json());
+            .map((response: Response) => <FeatureGroups>response.json());
     }
 
-    save(value: UserGroups) {
+    save(value: FeatureGroups) {
         return this.endpointFactory.save(value)
-            .map((response: Response) => <UserGroups>response.json());
+            .map((response: Response) => <FeatureGroups>response.json());
     }
 
 

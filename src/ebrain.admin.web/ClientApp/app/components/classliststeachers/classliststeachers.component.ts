@@ -27,7 +27,7 @@ import { SuppliersService } from "../../services/suppliers.service";
 import { ClassStatusService } from "../../services/classstatus.service";
 import { Supplier } from "../../models/supplier.model";
 import { ClassStatus } from "../../models/classstatus.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 

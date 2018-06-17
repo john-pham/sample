@@ -21,7 +21,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { IOStockReport } from "../../models/iostockreport.model";
 import { ProfitsService } from "../../services/profits.service";
 import { Profit } from "../../models/profits.model";
-import { AccessRightsService } from "../../services/access-rights.service";
+import { AccessRightsService } from "../../share/services/access-rights.service";
 @Component({
     selector: 'profits',
     templateUrl: './profits.component.html',
