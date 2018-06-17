@@ -44,11 +44,12 @@ export class SMSSendComponent implements OnInit, OnDestroy {
         return this.phone;
     }
 
+    @Input() modalRef: BsModalRef;
+    
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
 
-    modalRef: BsModalRef;
    
     constructor(private alertService: AlertService, private translationService: AppTranslationService, private localService: SMSService, private modalService: BsModalService) {
         this.pointer = new SMS();

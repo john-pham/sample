@@ -153,6 +153,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
                 this.pointer.name = item.name;
                 this.pointer.email = item.email;
                 this.pointer.address = item.address;
+                this.pointer.branchZalo = item.branchZalo;
                 this.src = item.logo.name; 
                 //
                 this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
