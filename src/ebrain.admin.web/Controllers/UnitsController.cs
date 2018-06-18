@@ -17,7 +17,6 @@ using ebrain.admin.bc.Models;
 using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using DinkToPdf;
 
 namespace Ebrain.Controllers
 {
@@ -155,26 +154,7 @@ namespace Ebrain.Controllers
 
         private byte[] generatePdf(string contents)
         {
-            var converter = new SynchronizedConverter(new PdfTools());
-
-            var doc = new HtmlToPdfDocument()
-            {
-                GlobalSettings = {
-        ColorMode = ColorMode.Color,
-        Orientation = Orientation.Landscape,
-        PaperSize = PaperKind.A4Plus,
-    },
-                Objects = {
-        new ObjectSettings() {
-            PagesCount = true,
-            HtmlContent = contents,
-            WebSettings = { DefaultEncoding = "utf-8" },
-            HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
-        }
-    }
-            };
-
-            byte[] pdf = converter.Convert(doc);
+            byte[] pdf = System.Text.Encoding.UTF8.GetBytes(contents);
 
             return pdf;
         }

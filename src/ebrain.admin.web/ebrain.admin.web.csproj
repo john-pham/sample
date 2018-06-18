@@ -6863,7 +6863,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ebrain.admin.bc\ebrain.admin.bc.csproj" />
-    <ProjectReference Include="..\ebrain.dinkToPdf\DinkToPdf.csproj" />
   </ItemGroup>
 
   <ItemGroup>
