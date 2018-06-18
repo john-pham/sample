@@ -20,6 +20,7 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 import { saveAs } from "file-saver";
+import { jsreport } from "jsreport-core";
 
 @Component({
     selector: 'units',
@@ -118,12 +119,21 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
     onOutputPdf() {
         //
-        this.localService.outputPdf(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
+        //this.localService.outputPdf(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
 
-            var blob = new Blob([result], { type: "application/pdf" });
-            saveAs(blob, "output.units.pdf");
+        //    var blob = new Blob([result], { type: "application/pdf" });
+        //    saveAs(blob, "output.units.pdf");
 
-        }, error => {
+        //}, error => {
+        //});
+        jsreport.render({
+            template: {
+                content: '',
+                engine: 'jsrender',
+                recipe: 'phantom-pdf'
+            }
+        }).then(function (resp) {
+            //callback(/* error */ null, resp.content.toJSON().data);
         });
     }
 
