@@ -8,6 +8,10 @@
             <a id="exTab" [routerLink]="[]" fragment="ex" href="#ex" data-toggle="tab">
                 <i class="fa fa-sliders fa-fw" aria-hidden="true"></i>{{'menu.class.ClassEx' | translate}}</a>
         </li>
+        <li>
+            <a id="scheduleTab" [routerLink]="[]" fragment="schedule" href="#schedule" data-toggle="tab">
+                <i class="fa fa-clock fa-fw" aria-hidden="true"></i>{{'menu.class.Schedule' | translate}}</a>
+        </li>
     </ul>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-10">
@@ -35,6 +39,19 @@
             <hr class="separator-hr" />
             <div [@fadeInOut] *ngIf="isExActive" class="content-container">
                 <classex [classId]="classId" [studentId]="studentId"></classex>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="schedule">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="branch-modalLabel">{{'menu.class.Schedule' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isScheduleActive" class="content-container">
+                <schedulestudents [classId]="classId" [studentId]="studentId"></schedulestudents>
             </div>
         </div>
     </div>

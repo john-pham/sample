@@ -33,7 +33,7 @@ export class ClassesEndpoint extends EndpointFactory {
 
     search(filter: string, value: string, isUsageTeacher: number): Observable<Response> {
 
-        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&isUsageTeacher=' + isUsageTeacher);
+        let url = this.getUrl('search?filter=' + filter + '&value=' + value + '&isUsageTeacher=' + isUsageTeacher + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
@@ -41,6 +41,19 @@ export class ClassesEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.search(filter, value, isUsageTeacher));
+            });
+    }
+
+    getClassCurrent(studentId: string): Observable<Response> {
+
+        let url = this.getUrl('getclasscurrent?studentId=' + studentId + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getClassCurrent(studentId));
             });
     }
 
@@ -166,7 +179,7 @@ export class ClassesEndpoint extends EndpointFactory {
 
     getClassOffset(studentId: string, classId: string): Observable<Response> {
 
-        let url = this.getUrl('getclassoffset?studentId=' + studentId + '&classId=' + classId + '&hash_id='  + Math.random());
+        let url = this.getUrl('getclassoffset?studentId=' + studentId + '&classId=' + classId + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
@@ -178,7 +191,7 @@ export class ClassesEndpoint extends EndpointFactory {
 
     getClassEx(studentId: string, classId: string): Observable<Response> {
 
-        let url = this.getUrl('getclassex?studentId=' + studentId + '&classId=' + classId + '&hash_id='+ Math.random());
+        let url = this.getUrl('getclassex?studentId=' + studentId + '&classId=' + classId + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
@@ -213,6 +226,19 @@ export class ClassesEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.getsummaries(filter, value, statusId, supplierId, classId, isUsageTeacher, page, size));
+            });
+    }
+
+    getScheduleStudent(classId: string, studentId: string, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrl('getschedulestudent?classId=' + classId + '&studentId=' + studentId
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getScheduleStudent(classId, studentId, page, size));
             });
     }
 
