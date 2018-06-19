@@ -17,6 +17,8 @@ using ebrain.admin.bc.Models;
 using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using jsreport.AspNetCore;
+using jsreport.Types;
 
 namespace Ebrain.Controllers
 {
@@ -142,14 +144,35 @@ namespace Ebrain.Controllers
             return Json(contents);
         }
 
-        [HttpGet("pdf")]
-        //[Produces("application/pdf")]
+        //[HttpGet("pdf")]
+        ////[Produces("application/pdf")]
+        //public async Task<IActionResult> OutputPDF(string filter, string value, int page, int size)
+        //{
+        //    var contents = await this.generateOutputContent(filter, value, page, size);
+        //    var output = generatePdf(contents);
+
+        //    return File(output, "application/pdf");
+        //}
+
+        [MiddlewareFilter(typeof(JsReportPipeline))]
         public async Task<IActionResult> OutputPDF(string filter, string value, int page, int size)
         {
-            var contents = await this.generateOutputContent(filter, value, page, size);
-            var output = generatePdf(contents);
+            HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf)
+                .OnAfterRender((r) => HttpContext.Response.Headers["Content-Disposition"] = "attachment; filename=\"myReport.pdf\"");
 
-            return File(output, "application/pdf");
+            var userID = Utilities.GetUserId(this.User);
+
+            var unit = this._unitOfWork.Units;
+            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userID), page, size)
+                select new UnitViewModel
+                {
+                    ID = c.UnitId,
+                    Code = c.UnitCode,
+                    Name = c.UnitName,
+                    Note = c.Note
+                };
+
+            return View("Report.PDF", ret);
         }
 
         private byte[] generatePdf(string contents)

@@ -20,7 +20,7 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 import { saveAs } from "file-saver";
-import { jsreport } from "jsreport-core";
+import { Reporter } from "jsreport-core";
 
 @Component({
     selector: 'units',
@@ -126,15 +126,15 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
         //}, error => {
         //});
-        jsreport.render({
-            template: {
-                content: '',
-                engine: 'jsrender',
-                recipe: 'phantom-pdf'
-            }
-        }).then(function (resp) {
-            //callback(/* error */ null, resp.content.toJSON().data);
-        });
+        //jsreport.render({
+        //    template: {
+        //        content: '',
+        //        engine: 'jsrender',
+        //        recipe: 'phantom-pdf'
+        //    }
+        //}).then(function (resp) {
+        //    //callback(/* error */ null, resp.content.toJSON().data);
+        //});
     }
 
     delete(row) {
