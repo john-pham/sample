@@ -298,10 +298,27 @@ namespace ebrain.admin.bc.Repositories
 
         public async Task<bool> Delete(string id)
         {
-            var itemExist = appContext.Class.FirstOrDefault(p => p.ClassId.Equals(new Guid(id)));
+            var classId = new Guid(id);
+            //delete class
+            var itemExist = appContext.Class.FirstOrDefault(p => p.ClassId.Equals(classId));
             if (itemExist != null)
             {
                 itemExist.IsDeleted = true;
+                itemExist.CreatedDate = DateTime.Now;
+            }
+            // delete time
+            var itemTimes = this.appContext.ClassTime.Where(p => !p.IsDeleted && p.ClassId.Equals(classId));
+            foreach(var item in itemTimes)
+            {
+                item.IsDeleted = true;
+                item.CreatedDate = DateTime.Now;
+            }
+            // delete student
+            var itemStudents = this.appContext.ClassStudent.Where(p => !p.IsDeleted && p.ClassId.Equals(classId));
+            foreach (var item in itemStudents)
+            {
+                item.IsDeleted = true;
+                item.CreatedDate = DateTime.Now;
             }
             await appContext.SaveChangesAsync();
             return true;
