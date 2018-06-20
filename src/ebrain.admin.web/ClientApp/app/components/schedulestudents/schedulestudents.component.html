@@ -1,0 +1,62 @@
+﻿<div class="row control-box" *ngIf="classes?.length > 0">
+    <div class="col-sm-6">
+        <div class="form-group has-feedback">
+            <label class="control-label col-md-4">{{'label.classstudent.ClassName' | translate}}</label>
+            <div class="col-md-8">
+                <select class="form-control" [(ngModel)]="classId" (change)="getFromServer()" data-live-search="true" data-actions-box="false"
+                    data-live-search-placeholder="Search..." title="">
+                    <option *ngFor="let grp of classes" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                        {{grp.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="text-right">
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()" 
+                [isShowAddNew]="false"
+                (addNewTemplate)="showAddNew(template)" 
+                [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"></search-chart>
+        </div>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table table-bordered table-responsive" [loadingIndicator]="loadingIndicator"
+            [rows]="rows" [columns]="columns" [columnMode]="'force'" [scrollbarV]="verticalScrollbar" [headerHeight]="50" [footerHeight]="50"
+            [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+            (page)='setPage($event)' (activate)="onActivateMaterial($event)">
+        </ngx-datatable>
+
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
+
+        <ng-template #statusTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #totalPriceTemplate let-row="row" let-value="value">
+            <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                {{value}}
+            </span>
+        </ng-template>
+    </div>
+</div>

@@ -167,7 +167,7 @@ export class ClassStudentExComponent implements OnInit, OnDestroy {
         else if (item.endDate == null) err = "Vui lòng chọn kết thúc";
 
         if (err.length > 0) {
-            this.alertService.showStickyMessage("Save Error", err, MessageSeverity.error);
+            this.alertService.showStickyMessage("Superbrain thông báo", err, MessageSeverity.error);
         } else {
             var cls = [];
 

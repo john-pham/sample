@@ -264,7 +264,7 @@ export class BranchesComponent implements OnInit, OnDestroy {
 
     private saveFailedHelper(error: any) {
         this.alertService.stopLoadingMessage();
-        this.alertService.showStickyMessage("Save Error", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
+        this.alertService.showStickyMessage("Superbrain thông báo", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
         this.alertService.showStickyMessage(error, null, MessageSeverity.error);
 
         if (this.changesFailedCallback)

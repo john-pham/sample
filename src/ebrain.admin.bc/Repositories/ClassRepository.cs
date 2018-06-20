@@ -32,6 +32,25 @@ namespace ebrain.admin.bc.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<Class>> GetClassCurrent(Guid? studentId)
+        {
+            var dt = DateTime.Now.Date;
+            var list = new List<Class>();
+            // get current date between fromDate and toDate
+            var classes = this.appContext.ClassStudent.Where
+                (p => !p.IsDeleted
+                 && p.StudentId == studentId && p.StartDate.HasValue && p.StartDate.Value.Date <= dt
+                 && p.EndDate.HasValue && p.EndDate.Value.Date >= dt);
+            foreach(var item in classes)
+            {
+                var cl = this.appContext.Class.FirstOrDefault(p => p.ClassId == item.ClassId);
+                if (cl != null)
+                {
+                    list.Add(cl);
+                }
+            }
+            return list;
+        }
         public async Task<IEnumerable<Class>> Search(string filter, string value, Guid? userLogin, string branchIds)
         {
             var cls = await this.appContext.Class.Where(p => p.IsDeleted == false &&
@@ -298,10 +317,27 @@ namespace ebrain.admin.bc.Repositories
 
         public async Task<bool> Delete(string id)
         {
-            var itemExist = appContext.Class.FirstOrDefault(p => p.ClassId.Equals(new Guid(id)));
+            var classId = new Guid(id);
+            //delete class
+            var itemExist = appContext.Class.FirstOrDefault(p => p.ClassId.Equals(classId));
             if (itemExist != null)
             {
                 itemExist.IsDeleted = true;
+                itemExist.CreatedDate = DateTime.Now;
+            }
+            // delete time
+            var itemTimes = this.appContext.ClassTime.Where(p => !p.IsDeleted && p.ClassId.Equals(classId));
+            foreach (var item in itemTimes)
+            {
+                item.IsDeleted = true;
+                item.CreatedDate = DateTime.Now;
+            }
+            // delete student
+            var itemStudents = this.appContext.ClassStudent.Where(p => !p.IsDeleted && p.ClassId.Equals(classId));
+            foreach (var item in itemStudents)
+            {
+                item.IsDeleted = true;
+                item.CreatedDate = DateTime.Now;
             }
             await appContext.SaveChangesAsync();
             return true;
@@ -449,6 +485,34 @@ namespace ebrain.admin.bc.Repositories
                                {
                                    someTypeList = handler.ReadToList<ClassExamineList>().ToList();
                                });
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public List<ClassList> GetScheduleStudent(Guid? classId, Guid? studentId, int page, int size)
+        {
+            try
+            {
+                List<ClassList> someTypeList = new List<ClassList>();
+                this.appContext.LoadStoredProc("dbo.sp_ScheduleStudent")
+                               .WithSqlParam("@classId", classId)
+                               .WithSqlParam("@studentId", studentId)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<ClassList>().ToList();
+                               });
+
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
 
                 return someTypeList;
             }

@@ -528,5 +528,57 @@ namespace Ebrain.Controllers
             }
             return Ok(null);
         }
+
+        [HttpGet("getclasscurrent")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetClassCurrent(Guid? studentId)
+        {
+            if (ModelState.IsValid)
+            {
+                var list = await this._unitOfWork.Classes.GetClassCurrent(studentId);
+
+                return Ok(list.Select(c => new ClassViewModel
+                {
+                    ID = c.ClassId,
+                    Code = c.ClassCode,
+                    Name = c.ClassName,
+                    Note = c.Note,
+                    StartDate = c.StartDate
+                }));
+            }
+            return Ok(null);
+        }
+
+        [HttpGet("getschedulestudent")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetScheduleStudent(Guid? classId, Guid? studentId, int page, int size)
+        {
+            var list = this._unitOfWork.Classes.GetScheduleStudent(
+                    classId,
+                    studentId, page, size);
+            var results = new List<ClassList>();
+
+            if (list != null && list.Count > 0)
+            {
+                results = list.Select(p => new ClassList
+                {
+                    ClassId = p.ClassId,
+                    ClassName = p.ClassName,
+                    LearnDate = p.LearnDate,
+                    NoteClass = p.NoteClass,
+                    TodayName = p.TodayName,
+                    StudentId = p.StudentId,
+                    MaterialId = p.StudentId,
+                    MaterialCode = p.MaterialCode,
+                    MaterialName = p.MaterialName
+                }).ToList();
+            }
+
+            return Json(new
+            {
+                Total = this._unitOfWork.Classes.Total,
+                List = results
+            });
+        }
     }
 }
