@@ -20,6 +20,7 @@ using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using ebrain.admin.bc.Utilities;
 using ebrain.admin.bc.Report;
+using ebrain.admin.bc.Utilities;
 
 namespace Ebrain.Controllers
 {
@@ -545,6 +546,19 @@ namespace Ebrain.Controllers
                     Note = c.Note,
                     StartDate = c.StartDate
                 }));
+            }
+            return Ok(null);
+        }
+
+        [HttpGet("getclassenddate")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetClassEndDate(Guid? studentId, Guid? classId, string fromDate)
+        {
+            if (ModelState.IsValid)
+            {
+                var dt = this._unitOfWork.Classes.GetClassEndDate(studentId, classId, fromDate.BuildLastDateTimeFromSEFormat());
+
+                return Ok(dt);
             }
             return Ok(null);
         }

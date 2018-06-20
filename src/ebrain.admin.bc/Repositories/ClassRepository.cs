@@ -41,7 +41,7 @@ namespace ebrain.admin.bc.Repositories
                 (p => !p.IsDeleted
                  && p.StudentId == studentId && p.StartDate.HasValue && p.StartDate.Value.Date <= dt
                  && p.EndDate.HasValue && p.EndDate.Value.Date >= dt);
-            foreach(var item in classes)
+            foreach (var item in classes)
             {
                 var cl = this.appContext.Class.FirstOrDefault(p => p.ClassId == item.ClassId);
                 if (cl != null)
@@ -51,6 +51,32 @@ namespace ebrain.admin.bc.Repositories
             }
             return list;
         }
+
+        public DateTime? GetClassEndDate(Guid? studentId, Guid? classId, DateTime? fromDate)
+        {
+            var toDate = fromDate.HasValue ? fromDate.Value.AddMonths(4) : DateTime.Now;
+
+            try
+            {
+                List<ClassList> someTypeList = new List<ClassList>();
+                this.appContext.LoadStoredProc("dbo.sp_ScheduleStudent_EndDate")
+                               .WithSqlParam("@studentId", (studentId != null ? studentId.ToString() : null))
+                               .WithSqlParam("@classId", (classId != null ? classId.ToString() : null))
+                               .WithSqlParam("@fromDate", fromDate)
+                               .WithSqlParam("@toDate", toDate)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<ClassList>().ToList();
+                               });
+
+                return someTypeList.Count > 0 ? someTypeList.FirstOrDefault().EndDate.Value : (DateTime?)null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<IEnumerable<Class>> Search(string filter, string value, Guid? userLogin, string branchIds)
         {
             var cls = await this.appContext.Class.Where(p => p.IsDeleted == false &&
@@ -164,6 +190,8 @@ namespace ebrain.admin.bc.Repositories
         {
             try
             {
+                Guid? studentId = Guid.Empty;
+                Guid? classId = Guid.Empty;
                 foreach (var item in classes)
                 {
                     var itemExist = this.appContext.ClassOffset.FirstOrDefault(p => p.ClassOffsetId == item.ClassOffsetId && p.IsDeleted == false);
@@ -172,6 +200,22 @@ namespace ebrain.admin.bc.Repositories
                         item.CreatedDate = DateTime.Now;
                         item.UpdatedDate = DateTime.Now;
                         this.appContext.ClassOffset.Add(item);
+                    }
+                    else
+                    {
+                        studentId = item.StudentId;
+                        classId = item.ClassId;
+                    }
+                }
+
+                // update endDate
+                var itemStudent = this.appContext.ClassStudent.FirstOrDefault(p => p.StudentId == studentId && p.ClassId == classId && !p.IsDeleted);
+                if(itemStudent != null)
+                {
+                    var endDate = this.GetClassEndDate(studentId, classId, itemStudent.StartDate);
+                    if (endDate.HasValue)
+                    {
+                        itemStudent.EndDate = endDate;
                     }
                 }
                 return appContext.SaveChanges() > 0;

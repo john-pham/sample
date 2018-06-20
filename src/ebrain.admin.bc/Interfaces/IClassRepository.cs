@@ -34,6 +34,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         List<ClassList> GetClassStudent(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, Guid? studentId);
         List<ClassExamineList> GetClassExamine(string branchIds, Guid? classId, Guid? studentId);
         List<ClassList> GetScheduleStudent(Guid? classId, Guid? studentId, int page, int size);
+        DateTime? GetClassEndDate(Guid? studentId, Guid? classId, DateTime? fromDate);
         void SaveClassExamine(ClassExamine[] examines);
     }
 }

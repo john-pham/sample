@@ -104,6 +104,12 @@ export class ClassesService {
         return this.endpointFactory.getsummaries(filter, value, statusId, supplierId, classId, isUsageTeacher, page, size)
             .map((response: Response) => <Results<ClassList>>response.json());
     }
+
+    getClassEndDate(classId: string, studentId: string, fromDate: string) {
+        return this.endpointFactory.getClassEndDate(classId, studentId, fromDate)
+        .map((response: Response) => <Date>response.json());
+    }
+
     getScheduleStudent(classId: string, studentId: string, page: number, size: number) {
         return this.endpointFactory.getScheduleStudent(classId, studentId, page, size)
             .map((response: Response) => <Results<ClassList>>response.json());
