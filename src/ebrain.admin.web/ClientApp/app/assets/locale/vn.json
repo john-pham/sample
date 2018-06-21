@@ -1104,7 +1104,10 @@
       "ClassEx": "Học phụ đạo",
       "Schedule": "Lịch học",
       "Pending": "Tạm nghỉ",
-      "Mark": "Điểm"
+      "Mark": "Điểm",
+      "Category":"Danh mục",
+      "Operate":"Thao Tác",
+      "Report":"Báo Cáo"
     },
     "student": {
       "Categories": {
