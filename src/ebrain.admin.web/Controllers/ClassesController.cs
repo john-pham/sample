@@ -552,11 +552,11 @@ namespace Ebrain.Controllers
 
         [HttpGet("getclassenddate")]
         [Produces(typeof(UserViewModel))]
-        public IActionResult GetClassEndDate(Guid? studentId, Guid? classId, string fromDate)
+        public IActionResult GetClassEndDate(Guid? materialId, Guid? classId, string fromDate)
         {
             if (ModelState.IsValid)
             {
-                var dt = this._unitOfWork.Classes.GetClassEndDate(studentId, classId, fromDate.BuildLastDateTimeFromSEFormat());
+                var dt = this._unitOfWork.Classes.GetClassEndDate(materialId, classId, fromDate.BuildLastDateTimeFromSEFormat());
 
                 return Ok(dt);
             }
@@ -584,7 +584,9 @@ namespace Ebrain.Controllers
                     StudentId = p.StudentId,
                     MaterialId = p.StudentId,
                     MaterialCode = p.MaterialCode,
-                    MaterialName = p.MaterialName
+                    MaterialName = p.MaterialName,
+                    IsLearnMain = p.IsLearnMain,
+                    Absent = p.LearnAbsent == true ? 2 : p.LearnAbsent == false ? 1 : 0
                 }).ToList();
             }
 

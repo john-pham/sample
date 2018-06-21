@@ -103,7 +103,7 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
         if (item.learnDate == null) err = "Vui lòng chọn thời gian học";
         else if (item.shiftId == null || item.shiftId.length == 0) err = "Vui lòng chọn ca học";
         else if (this.rows !== undefined && 
-            this.rows.filter(p => p.learnDate.getDate() === item.learnDate.getDate())[0] !== undefined &&
+            this.rows.filter(p => new Date(p.learnDate).getDate() === new Date(item.learnDate).getDate())[0] !== undefined &&
             this.rows.filter(p => p.shiftId === item.shiftId)[0] !== undefined) {
             err = "Ca học và thời gian đã tồn tại";
         }

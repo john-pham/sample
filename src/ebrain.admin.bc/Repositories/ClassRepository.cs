@@ -52,7 +52,7 @@ namespace ebrain.admin.bc.Repositories
             return list;
         }
 
-        public DateTime? GetClassEndDate(Guid? studentId, Guid? classId, DateTime? fromDate)
+        public DateTime? GetClassEndDate(Guid? materialId, Guid? classId, DateTime? fromDate)
         {
             var toDate = fromDate.HasValue ? fromDate.Value.AddMonths(4) : DateTime.Now;
 
@@ -60,7 +60,7 @@ namespace ebrain.admin.bc.Repositories
             {
                 List<ClassList> someTypeList = new List<ClassList>();
                 this.appContext.LoadStoredProc("dbo.sp_ScheduleStudent_EndDate")
-                               .WithSqlParam("@studentId", (studentId != null ? studentId.ToString() : null))
+                               .WithSqlParam("@materialId", (materialId != null ? materialId.ToString() : null))
                                .WithSqlParam("@classId", (classId != null ? classId.ToString() : null))
                                .WithSqlParam("@fromDate", fromDate)
                                .WithSqlParam("@toDate", toDate)
@@ -210,12 +210,12 @@ namespace ebrain.admin.bc.Repositories
 
                 // update endDate
                 var itemStudent = this.appContext.ClassStudent.FirstOrDefault(p => p.StudentId == studentId && p.ClassId == classId && !p.IsDeleted);
-                if(itemStudent != null)
+                if (itemStudent != null)
                 {
-                    var endDate = this.GetClassEndDate(studentId, classId, itemStudent.StartDate);
-                    if (endDate.HasValue)
+                    var dt = this.GetClassEndDate(itemStudent.MaterialId, classId, itemStudent.StartDate);
+                    if (dt.HasValue)
                     {
-                        itemStudent.EndDate = endDate;
+                        itemStudent.EndDate = dt;
                     }
                 }
                 return appContext.SaveChanges() > 0;
@@ -239,6 +239,16 @@ namespace ebrain.admin.bc.Repositories
                 }
             }
             return appContext.SaveChanges() > 0;
+        }
+
+        private DateTime? GetLastEndDateOfClass(Guid? classId, Guid? studentId)
+        {
+            var list = this.GetScheduleStudent(classId, studentId, 0, 0);
+            if (list.Count > 0)
+            {
+                return  list.OrderByDescending(p => p.LearnDate).First().LearnDate;
+            }
+            return null;
         }
 
         public async Task<Class> Save(Class value, ClassTime[] classTimes, ClassStudent[] classStudents, Guid? index)
@@ -557,7 +567,7 @@ namespace ebrain.admin.bc.Repositories
                 {
                     someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
                 }
-
+                
                 return someTypeList;
             }
             catch (Exception ex)

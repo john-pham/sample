@@ -45,4 +45,5 @@ export class Class {
     public ioStockId: string;
     public ioStockDetailId: string;
     public learnDate: Date;
+    public absent: number;
 }
