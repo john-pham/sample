@@ -1099,7 +1099,10 @@
       "WaitingClass": "Chờ xếp lớp",
       "OffSet": "Học bù",
       "ClassEx": "Học phụ đạo",
-      "Schedule": "Lịch học"
+      "Schedule": "Lịch học",
+      "Category":"Danh mục",
+      "Operate":"Thao Tác",
+      "Report":"Báo Cáo"
     },
     "student": {
       "Categories": {
