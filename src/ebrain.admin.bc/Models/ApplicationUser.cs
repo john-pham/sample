@@ -17,7 +17,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ebrain.admin.bc.Models
 {
-    public class ApplicationUser : IdentityUser, IAuditableEntity
+    public class ApplicationUser : IdentityUser
     {
         public virtual string FriendlyName
         {
