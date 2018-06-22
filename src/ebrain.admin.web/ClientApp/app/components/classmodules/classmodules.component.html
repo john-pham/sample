@@ -10,7 +10,15 @@
         </li>
         <li>
             <a id="scheduleTab" [routerLink]="[]" fragment="schedule" href="#schedule" data-toggle="tab">
-                <i class="fa fa-clock fa-fw" aria-hidden="true"></i>{{'menu.class.Schedule' | translate}}</a>
+                <i class="fa fa-bell fa-fw" aria-hidden="true"></i>{{'menu.class.Schedule' | translate}}</a>
+        </li>
+        <li>
+            <a id="pendingTab" [routerLink]="[]" fragment="pending" href="#pending" data-toggle="tab">
+                <i class="fa fa-pause fa-fw" aria-hidden="true"></i>{{'menu.class.Pending' | translate}}</a>
+        </li>
+        <li>
+            <a id="markTab" [routerLink]="[]" fragment="mark" href="#mark" data-toggle="tab">
+                <i class="fa fa-pause fa-fw" aria-hidden="true"></i>{{'menu.class.Mark' | translate}}</a>
         </li>
     </ul>
 </div>
@@ -52,6 +60,32 @@
             <hr class="separator-hr" />
             <div [@fadeInOut] *ngIf="isScheduleActive" class="content-container">
                 <schedulestudents [classId]="classId" [studentId]="studentId"></schedulestudents>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="pending">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="branch-modalLabel">{{'menu.class.Pending' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isPendingActive" class="content-container">
+                Not yet
+            </div>
+        </div>
+
+        <div class="tab-pane" id="mark">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="branch-modalLabel">{{'menu.class.Mark' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isMarkActive" class="content-container">
+                <classexamines [StudentId]="studentId" [ClassId]="classId"></classexamines>
             </div>
         </div>
     </div>

@@ -229,15 +229,15 @@ export class ClassesEndpoint extends EndpointFactory {
             });
     }
 
-    getClassEndDate(classId: string, studentId: string, fromDate: string): Observable<Response> {
+    getClassEndDate(classId: string, materialId: string, fromDate: string): Observable<Response> {
 
-        let url = this.getUrl('getclassenddate?classId=' + classId + '&studentId=' + studentId + '&fromDate=' + fromDate + '&hash_id=' + Math.random());
+        let url = this.getUrl('getclassenddate?classId=' + classId + '&materialId=' + materialId + '&fromDate=' + fromDate + '&hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getClassEndDate(classId, studentId, fromDate));
+                return this.handleError(error, () => this.getClassEndDate(classId, materialId, fromDate));
             });
     }
 

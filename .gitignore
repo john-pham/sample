@@ -15,3 +15,16 @@
 src/ebrain.admin.web/node_modules/
 /src/ebrain.admin.web/Properties/PublishProfiles
 /src/node_modules/@types/file-saver
+src/ebrain.dinkToPdf/obj/project.assets.json
+src/ebrain.dinkToPdf/obj/DinkToPdf.csproj.nuget.g.targets
+src/ebrain.dinkToPdf/obj/DinkToPdf.csproj.nuget.g.props
+src/ebrain.dinkToPdf/obj/Debug/netstandard1.6/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+src/ebrain.dinkToPdf/obj/Debug/netstandard1.6/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+src/ebrain.dinkToPdf/obj/Debug/netstandard1.6/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+src/ebrain.dinkToPdf/obj/Debug/netstandard1.6/DinkToPdf.xml
+src/ebrain.dinkToPdf/obj/Debug/netstandard1.6/DinkToPdf.csproj.FileListAbsolute.txt
+src/ebrain.dinkToPdf/obj/Debug/netstandard1.6/DinkToPdf.AssemblyInfo.cs
+src/ebrain.dinkToPdf/obj/Debug/DinkToPdf.1.0.8.nuspec
+src/ebrain.dinkToPdf/bin/Debug/netstandard1.6/DinkToPdf.xml
+src/ebrain.dinkToPdf/bin/Debug/netstandard1.6/DinkToPdf.deps.json
+src/ebrain.dinkToPdf/bin/Debug/DinkToPdf.1.0.8.nupkg

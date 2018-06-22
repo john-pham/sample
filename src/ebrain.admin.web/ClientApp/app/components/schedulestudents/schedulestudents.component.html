@@ -14,9 +14,7 @@
     </div>
     <div class="col-sm-6">
         <div class="text-right">
-            <search-chart [isShowSearch]="true" (searchTemplate)="search()" 
-                [isShowAddNew]="false"
-                (addNewTemplate)="showAddNew(template)" 
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()" [isShowAddNew]="false" (addNewTemplate)="showAddNew(template)"
                 [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"></search-chart>
         </div>
     </div>
@@ -32,6 +30,12 @@
         </ngx-datatable>
 
         <!-- TEMPLATEs -->
+        <ng-template  #statusLearnTemplate let-value="value" let-rowIndex="rowIndex" let-row="row">
+            <span *ngIf="row.absent === 2" class="label label-success">{{'label.classstudent.Learned' | translate}}</span>
+            <span *ngIf="row.absent === 1" class="label label-warning">{{'label.classstudent.Absent' | translate}}</span>
+            <span *ngIf="row.absent === 0" class="label label-info">{{'label.classstudent.NotLearned' | translate}}</span>
+        </ng-template>
+
         <ng-template #statusHeaderTemplate>
             <i class="fa fa-check-square-o"></i>
         </ng-template>

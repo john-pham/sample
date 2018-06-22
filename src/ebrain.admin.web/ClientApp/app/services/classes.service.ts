@@ -105,8 +105,8 @@ export class ClassesService {
             .map((response: Response) => <Results<ClassList>>response.json());
     }
 
-    getClassEndDate(classId: string, studentId: string, fromDate: string) {
-        return this.endpointFactory.getClassEndDate(classId, studentId, fromDate)
+    getClassEndDate(classId: string, materialId: string, fromDate: string) {
+        return this.endpointFactory.getClassEndDate(classId, materialId, fromDate)
         .map((response: Response) => <Date>response.json());
     }
 

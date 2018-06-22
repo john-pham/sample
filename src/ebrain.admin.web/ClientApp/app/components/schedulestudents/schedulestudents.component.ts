@@ -78,6 +78,7 @@ export class ScheduleStudentComponent implements OnInit, OnDestroy {
         let gT = (key: string) => this.translationService.getTranslation(key);
 
         this.columns = [
+            { headerClass: "text-center", prop: 'absent', name: '', cellTemplate: this.statusLearnTemplate },
             { headerClass: "text-center", prop: 'className', name: gT('label.classlist.ClassName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'learnDate', name: gT('label.classlist.LearnDate'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'todayName', name: gT('label.classlist.TodayName'), cellTemplate: this.nameTemplate },
@@ -158,4 +159,7 @@ export class ScheduleStudentComponent implements OnInit, OnDestroy {
 
     @ViewChild('template')
     template: TemplateRef<any>;
+
+    @ViewChild('statusLearnTemplate')
+    statusLearnTemplate: TemplateRef<any>;
 }
