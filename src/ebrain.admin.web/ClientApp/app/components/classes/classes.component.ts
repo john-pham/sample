@@ -90,7 +90,6 @@ export class ClassesComponent implements OnInit, OnDestroy {
         private shiftService: ShiftclassesService, private route: ActivatedRoute, private router: Router) {
 
         this.pointer = new Class();
-        this.pointer.startDate = this.pointer.endDate = new Date();
     }
 
     ngOnInit() {
@@ -106,7 +105,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
         this.columnStudents = [
             { headerClass: "text-center", prop: "fullName", name: gT('label.class.Student'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'address', name: gT('label.class.Address'), cellTemplate: this.nameTemplate },
+            //{ headerClass: "text-center", prop: 'address', name: gT('label.class.Address'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'startDate', name: gT('label.class.StartDate'), cellTemplate: this.nameTemplate, pipe: new DateOnlyPipe('en-US'), cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'endDate', name: gT('label.class.EndDate'), cellTemplate: this.descriptionTemplate, pipe: new DateOnlyPipe('en-US'), cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'materialName', name: gT('label.class.MaterialLearn'), cellTemplate: this.descriptionTemplate },
@@ -170,6 +169,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.alertService.showMessage("Success", `Class \"${this.pointer.name}\" was deleted successfully`, MessageSeverity.success);
         if (this.changesSavedCallback)
             this.changesSavedCallback();
+        this.ioStockId = "";
         this.getDefault('', false);
     }
 
@@ -312,9 +312,16 @@ export class ClassesComponent implements OnInit, OnDestroy {
         if (item != null) {
             this.pointer = item;
             this.mappingDetail(item);
+            this.resetDate();
         }
     }
 
+    private resetDate() {
+        if (this.pointer !== undefined) {
+            this.pointer.startDate = null;
+            this.pointer.endDate = null;
+        }
+    }
     private mappingDetail(item?: Class) {
         if (item != null) {
             this.pointer.id = item.id;
@@ -375,11 +382,12 @@ export class ClassesComponent implements OnInit, OnDestroy {
         itemPointer.materialId = "";
         itemPointer.ioStockId = "";
         itemPointer.ioStockDetailId = "";
+        this.resetDate();
     }
 
     private saveFailedHelper(error: any) {
         this.alertService.stopLoadingMessage();
-        this.alertService.showStickyMessage("Save Error", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
+        this.alertService.showStickyMessage("Superbrain thông báo", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
         this.alertService.showStickyMessage(error, null, MessageSeverity.error);
 
         if (this.changesFailedCallback)
@@ -392,9 +400,18 @@ export class ClassesComponent implements OnInit, OnDestroy {
         if (item.todayId == null || item.todayId.length == 0) err = "Vui lòng chọn thứ";
         else if (item.roomId == null || item.roomId.length == 0) err = "Vui lòng chọn phòng học";
         else if (item.shiftId == null || item.shiftId.length == 0) err = "Vui lòng chọn ca học";
+        else if (this.rowTimes !== undefined && this.rowTimes.length > 0) {
+            var itemTodayExist = this.rowTimes.filter(x => x.onTodayId === item.todayId)[0];
+            var itemShiftExist = this.rowTimes.filter(x => x.shiftId === item.shiftId)[0];
+            if (itemTodayExist !== undefined && itemShiftExist !== undefined) {
+                err = "Ngày học của ca học đã tồn tại, vui lòng chọn thời gian khác.";
+            }
+        }
+
 
         if (err.length > 0) {
-            this.alertService.showStickyMessage("Save Error", err, MessageSeverity.error);
+            this.alertService.showStickyMessage("Superbrain thông báo", err, MessageSeverity.error);
+            this.alertService.stopLoadingMessage();
         }
         else {
             var itemNew = new ClassTime();
@@ -443,9 +460,21 @@ export class ClassesComponent implements OnInit, OnDestroy {
         else if (item.startDate == null) err = "Vui lòng chọn bắt đầu";
         else if (item.endDate == null) err = "Vui lòng chọn kết thúc";
         else if (item.ioStockId == null || item.ioStockId.length == 0) err = "Vui lòng chọn học viên từ danh sách chờ xét lớp.";
-
+        else if (this.rowStudents !== undefined && this.rowStudents.length > 0) {
+            var itemStudentExist = this.rowStudents.filter(x => x.studentId === item.studentId)[0];
+            if (itemStudentExist !== undefined && itemStudentExist !== null) {
+                err = "Học viên đã tồn tại, vui lòng chọn học viên khác.";
+            }
+        } else if (this.rowTimes !== undefined) {
+            this.rowTimes.forEach(item => {
+                if (item.id === undefined || item.id.length === 0) {
+                    err = "Thời gian học chưa được lưu, vui lòng chọn lưu trước khi thao tác.";
+                    return;
+                }
+            })
+        }
         if (err.length > 0) {
-            this.alertService.showStickyMessage("Save Error", err, MessageSeverity.error);
+            this.alertService.showStickyMessage("Superbrain thông báo", err, MessageSeverity.error);
         } else {
             var itemNew = new ClassStudent();
             itemNew.studentId = item.studentId;
@@ -528,6 +557,33 @@ export class ClassesComponent implements OnInit, OnDestroy {
                 this.classId = this.pointer.id;
                 this.classRef = this.modalService.show(template, { class: 'modal-lg' });
             }
+        }
+    }
+
+    onStartDateChange(value: string) {
+        let err = "";
+
+        var item = this.pointer;
+
+        if (item.studentId == null || item.studentId.length == 0) err = "Vui lòng chọn học viên";
+        else if (item.materialId == null || item.materialId.length == 0) err = "Vui lòng chọn khóa học";
+        else if (this.rowTimes !== undefined) {
+            this.rowTimes.forEach(item => {
+                if (item.id === undefined || item.id.length === 0) {
+                    err = "Thời gian học chưa được lưu, vui lòng chọn lưu trước khi thao tác.";
+                    return;
+                }
+            })
+        }
+        
+        if (err.length > 0) {
+            this.alertService.showStickyMessage("Superbrain thông báo", err, MessageSeverity.error);
+        } else {
+            this.localService.getClassEndDate(this.pointer.id, this.pointer.materialId, value).subscribe(
+                todate => {
+                    this.pointer.endDate = todate
+                },
+                error => this.onDataLoadFailed(error));
         }
     }
 

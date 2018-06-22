@@ -19,6 +19,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
     {
         int Total { get; }
         IEnumerable<Class> GetTopActive(int count);
+        Task<IEnumerable<Class>> GetClassCurrent(Guid? studentId);
         Task<IEnumerable<Class>> Search(string filter, string value, Guid? userLogin, string branchIds);
         Task<bool> SaveClassOffset(ClassOffset[] classes);
         Task<bool> SaveClassEx(ClassEx[] classes);
@@ -32,6 +33,8 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         List<ClassList> GetClassSummary(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, string userLogin, int page, int size);
         List<ClassList> GetClassStudent(string branchIds, string value, Guid? statusId, Guid? supplierId, Guid? classId, Guid? studentId);
         List<ClassExamineList> GetClassExamine(string branchIds, Guid? classId, Guid? studentId);
+        List<ClassList> GetScheduleStudent(Guid? classId, Guid? studentId, int page, int size);
+        DateTime? GetClassEndDate(Guid? materialId, Guid? classId, DateTime? fromDate);
         void SaveClassExamine(ClassExamine[] examines);
     }
 }

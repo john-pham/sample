@@ -15,5 +15,6 @@ namespace ebrain.admin.bc.Models
         public string TodayCode { get; set; }
         [MaxLength(256)]
         public string TodayName { get; set; }
+        public string TodayNameEn { get; set; }
     }
 }

@@ -29,5 +29,10 @@ namespace ebrain.admin.bc.Report
         public DateTime? CreatedDate { get; set; }
         public int CountStudent { get; set; }
         public DateTime? LearnDate { get; set; }
+        public string NoteClass { get; set; }
+        public string TodayName { get; set; }
+        public bool IsLearnMain { get; set; }
+        public bool? LearnAbsent { get; set; }
+        public int Absent { get; set; }
     }
 }

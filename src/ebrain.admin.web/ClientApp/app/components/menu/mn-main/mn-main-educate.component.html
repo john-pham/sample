@@ -15,7 +15,152 @@
     <div [@fadeInOut]>
         <div class="statistic">
             <div class="row">
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE9E')">
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                    <a routerLink="/mn_main_educate" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-university icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.class.Category' | translate}}</span>
+                            <small class="text-muted text-u-c">{{'menu.class.Category' | translate}}</small>
+                        </span>
+                    </a>
+                    <div class="dropdown-content">
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE9E')">
+                            <a routerLink="/typemateriallearns">
+                                <span class="fa fa-bandcamp"></span>
+                                <span class="text-muted text-u-c"> {{'menu.class.Learning' | translate}} </span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE91')">
+                            <a routerLink="/grpmateriallearns">
+                                <span class="fa fa-css3"></span>
+                                <span class="text-muted text-u-c"> {{'menu.class.Levelclass' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE92')">
+                            <a routerLink="/materiallearns">
+                                <span class="fa fa-balance-scale"></span>
+                                <span class="text-muted text-u-c"> {{'menu.class.MaterialLearn' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE93')">
+                            <a routerLink="/shiftclasses">
+                                <span class="fa fa-bell"></span>
+                                <span class="text-muted text-u-c"> {{'menu.class.Shiftclass' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE97')">
+                            <a routerLink="/consultants">
+                                <span class="fa fa-bullhorn"></span>
+                                <span class="text-muted text-u-c"> {{'menu.class.Consultant' | translate}} </span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE94')">
+                            <a routerLink="/examines">
+                                <span class="fa fa-binoculars"></span>
+                                <span class="text-muted text-u-c"> {{'menu.student.Categories.Detail.Examine' | translate}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                    <a routerLink="/mn_main_educate" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-black-tie icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.class.Operate' | translate}}</span>
+                            <span class="text-muted text-u-c">{{'menu.class.Operate' | translate}}</span>
+                        </span>
+                    </a>
+                    <div class="dropdown-content">
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
+                            <a routerLink="/classes">
+                                <span class="fa fa-braille icon"></span>
+                                <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.Class' | translate}}</span>
+                            </a>
+                        </div>
+                        <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')">
+                            <a routerLink="/classlists">
+                                <span class="fa fa-braille icon"></span>
+                                <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.ClassList' | translate}}</span>
+                            </a>
+                        </div>
+                        <!-- <div *ngIf="accessRightService.isViewFeature('8aa6b971-1c3d-4835-b154-d662ce12ae96')">
+                            <a routerLink="/classliststeachers">
+                                <span class="fa fa-braille icon"></span>
+                                <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.Teacher' | translate}}</span>
+                            </a>
+                        </div>
+                        <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE98')">
+                            <a routerLink="/students">
+                                <span class="fa fa-child icon"></span>
+                                <span class="text-muted text-u-c">{{'menu.class.Student' | translate}}</span>
+                            </a>
+                        </div> -->
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE99')">
+                            <a routerLink="/iostudents">
+                                <span class="fa fa-cubes icon"></span>
+                                <span class="text-muted text-u-c">{{'menu.class.IOStudent' | translate}}</span>
+                            </a>
+                        </div>
+                        <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE12')">
+                            <a routerLink="/iostudentlist">
+                                <span class="fa fa-check-circle"></span>
+                                <span class="text-muted text-u-c">{{'menu.class.IOStudentList' | translate}}</span>
+                            </a>
+                        </div>
+                       <div *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9e39-d5b0c22be233')">
+                     <a routerLink="/iostudentlistswaitingclass">
+                                <span class="fa fa-user-circle icon"></span>
+                                <span class="text-muted text-u-c">{{'menu.class.WaitingClass' | translate}}</span>
+                            </a>
+                        </div>
+
+                        <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE13')">
+                            <a routerLink="/attendances" class="block padder-v hover">
+                                <span class="fa fa fa-bar-chart-o"></span>
+                                <span class="text-muted text-u-c">{{'menu.student.manage.CheckClass' | translate}}</span>
+                            </a>
+                        </div>
+                        <div  *ngIf="accessRightService.isViewFeature('8aa6e971-1c3d-4835-b154-d662ce12be14')">
+                            <a routerLink="/attendanceteaches" class="block padder-v hover">
+                                <span class="fa fa fa-bar-chart-o"></span>
+                                <span class="text-muted text-u-c">{{'menu.student.manage.Teacher' | translate}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                    <a routerLink="/mn_main_educate" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-university icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.class.Report' | translate}}</span>
+                            <span class="text-muted text-u-c">{{'menu.class.Report' | translate}}</span>
+                        </span>
+                    </a>
+                    <div class="dropdown-content">
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE14')">
+                            <a routerLink="/studentbirthdays">
+                                <span class="fa fa-birthday-cake"></span>
+                                <span class="text-muted text-u-c">{{'menu.student.manage.BirthdayStudent' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('8aa6e971-1c3d-4835-b154-d662ce12a100')">
+                            <a routerLink="/studentendclass">
+                                <span class="fa fa-expeditedssl"></span>
+                                <span class="text-muted text-u-c">{{'label.student.EndClass' | translate}}</span>
+                            </a>
+                        </div>                       
+                    </div>
+                </div>
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE9E')">
                     <a routerLink="/typemateriallearns" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -26,8 +171,8 @@
                             <small class="text-muted text-u-c">"{{'menu.class.Learning' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE91')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE91')">
                     <a routerLink="/grpmateriallearns" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -37,7 +182,7 @@
                             <span class="h3 block m-t-xs text-warning">{{'menu.class.Levelclass' | translate}}</span>
                             <small class="text-muted text-u-c">"{{'menu.class.Levelclass' | translate}}"</small>
                         </span>
-                    </a>
+                    </a>                  
                 </div>
 
                 <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE92')">
@@ -50,9 +195,9 @@
                             <span class="h3 block m-t-xs text-warning">{{'menu.class.MaterialLearn' | translate}}</span>
                             <small class="text-muted text-u-c">"{{'menu.class.MaterialLearn' | translate}}"</small>
                         </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE93')">
+                    </a>                 
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE93')">
                     <a routerLink="/shiftclasses" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -63,8 +208,8 @@
                             <small class="text-muted text-u-c">"{{'menu.class.Shiftclass' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE94')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE94')">
                     <a routerLink="/examines" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -75,8 +220,10 @@
                             <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Examine' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
+                </div> -->
+
+
+                 <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
                     <a routerLink="/classes" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -87,8 +234,8 @@
                             <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Class' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')">
                     <a routerLink="/classlists" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -99,9 +246,9 @@
                             <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.ClassListDes' | translate}}"</small>
                         </span>
                     </a>
-                </div>
+                </div> -->
 
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8aa6b971-1c3d-4835-b154-d662ce12ae96')">
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8aa6b971-1c3d-4835-b154-d662ce12ae96')">
                     <a routerLink="/classliststeachers" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -112,9 +259,8 @@
                             <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Teacher' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE97')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE97')">
                     <a routerLink="/consultants" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -125,8 +271,8 @@
                             <small class="text-muted text-u-c">"{{'menu.class.Consultant' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE98')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE98')">
                     <a routerLink="/students" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -137,8 +283,8 @@
                             <small class="text-muted text-u-c">{{'menu.class.Student' | translate}}</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE99')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE99')">
                     <a routerLink="/iostudents" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -161,8 +307,8 @@
                             <small class="text-muted text-u-c">{{'menu.class.IOStudentList' | translate}}</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9e39-d5b0c22be233')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9e39-d5b0c22be233')">
                     <a routerLink="/iostudentlistswaitingclass" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -173,8 +319,8 @@
                             <small class="text-muted text-u-c">{{'menu.class.WaitingClass' | translate}}</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE13')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE13')">
                     <a routerLink="/attendances" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -198,9 +344,9 @@
                             <small class="text-muted text-u-c">{{'menu.student.manage.Teacher' | translate}}</small>
                         </span>
                     </a>
-                </div>
+                </div> -->
 
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager>" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE14')">
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager>" *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE14')">
                     <a routerLink="/studentbirthdays" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"> </i>
@@ -224,7 +370,7 @@
                             <small class="text-muted text-u-c">{{'label.student.EndClass' | translate}}</small>
                         </span>
                     </a>
-                </div>
+                </div> -->
 
             </div>
         </div>

@@ -91,7 +91,7 @@ export class UserPreferencesComponent implements OnInit, OnDestroy {
             },
             error => {
                 this.alertService.stopLoadingMessage();
-                this.alertService.showStickyMessage("Save Error", `An error occured whilst saving configuration defaults.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
+                this.alertService.showStickyMessage("Superbrain thông báo", `An error occured whilst saving configuration defaults.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
                     MessageSeverity.error, error);
             });
     }
@@ -116,7 +116,7 @@ export class UserPreferencesComponent implements OnInit, OnDestroy {
             },
             error => {
                 this.alertService.stopLoadingMessage();
-                this.alertService.showStickyMessage("Save Error", `An error occured whilst resetting configuration defaults.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
+                this.alertService.showStickyMessage("Superbrain thông báo", `An error occured whilst resetting configuration defaults.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
                     MessageSeverity.error, error);
             });
     }

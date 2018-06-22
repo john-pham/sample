@@ -34,6 +34,11 @@ export class ClassesService {
             .map((response: Response) => <Class[]>response.json());
     }
 
+    getClassCurrent(studentId: string) {
+        return this.endpointFactory.getClassCurrent(studentId)
+            .map((response: Response) => <Class[]>response.json());
+    }
+
     save(value: Class) {
         return this.endpointFactory.save(value)
             .map((response: Response) => <Class>response.json());
@@ -96,7 +101,17 @@ export class ClassesService {
     getsummaries(filter: string, value: string, statusId: string, supplierId: string, classId: string,
         isUsageTeacher: number,
         page: number, size: number) {
-        return this.endpointFactory.getsummaries(filter, value, statusId, supplierId, classId,isUsageTeacher, page, size)
+        return this.endpointFactory.getsummaries(filter, value, statusId, supplierId, classId, isUsageTeacher, page, size)
+            .map((response: Response) => <Results<ClassList>>response.json());
+    }
+
+    getClassEndDate(classId: string, materialId: string, fromDate: string) {
+        return this.endpointFactory.getClassEndDate(classId, materialId, fromDate)
+        .map((response: Response) => <Date>response.json());
+    }
+
+    getScheduleStudent(classId: string, studentId: string, page: number, size: number) {
+        return this.endpointFactory.getScheduleStudent(classId, studentId, page, size)
             .map((response: Response) => <Results<ClassList>>response.json());
     }
 

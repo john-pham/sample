@@ -192,7 +192,10 @@
       "ClassCode": "Mã lớp",
       "MaterialLearn": "Khóa học",
       "MaxStudent": "Tối đa",
-      "LearnStudent": "Đã đăng ký"
+      "LearnStudent": "Đã đăng ký",
+      "Learned": "Đã học",
+      "Absent": "Vắng",
+      "NotLearned": "Chưa học"
     },
     "classlist": {
       "Code": "Mã lớp",
@@ -211,7 +214,12 @@
       "Supplier": "Giáo viên",
       "AllFiles": "Tất cả",
       "MaxStudent": "Sỉ số",
-      "LearnStudent": "Đăng ký"
+      "LearnStudent": "Đăng ký",
+
+      "ClassName": "Lớp học",
+      "LearnDate": "Ngày học",
+      "TodayName": "Thời gian",
+      "NoteClass": "Trạng thái"
     },
     "sms": {
       "BranchName": "Chi nhánh",
@@ -1093,7 +1101,13 @@
       "Payment": "Phiếu thu",
       "WaitingClass": "Chờ xếp lớp",
       "OffSet": "Học bù",
-      "ClassEx": "Học phụ đạo"
+      "ClassEx": "Học phụ đạo",
+      "Schedule": "Lịch học",
+      "Pending": "Tạm nghỉ",
+      "Mark": "Điểm",
+      "Category":"Danh mục",
+      "Operate":"Thao Tác",
+      "Report":"Báo Cáo"
     },
     "student": {
       "Categories": {

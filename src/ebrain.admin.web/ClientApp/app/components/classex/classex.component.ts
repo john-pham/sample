@@ -114,9 +114,14 @@ export class ClassExComponent implements OnInit, OnDestroy {
         var item = this.pointer;
         if (item.learnDate == null) err = "Vui lòng chọn thời gian học";
         else if (item.shiftId == null || item.shiftId.length == 0) err = "Vui lòng chọn ca học";
+        else if (this.rows !== undefined && 
+            this.rows.filter(p => p.learnDate.getDate() === item.learnDate.getDate())[0] !== undefined &&
+            this.rows.filter(p => p.shiftId === item.shiftId)[0] !== undefined) {
+            err = "Ca học và thời gian đã tồn tại";
+        }
 
         if (err.length > 0) {
-            this.alertService.showStickyMessage("Save Error", err, MessageSeverity.error);
+            this.alertService.showStickyMessage("Superbrain thông báo", err, MessageSeverity.error);
         }
         else {
             var itemNew = new ClassEx();
@@ -157,7 +162,7 @@ export class ClassExComponent implements OnInit, OnDestroy {
 
     private saveFailedHelper(error: any) {
         this.alertService.stopLoadingMessage();
-        this.alertService.showStickyMessage("Save Error", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
+        this.alertService.showStickyMessage("Superbrain thông báo", "The below errors occured whilst saving your changes:", MessageSeverity.error, error);
         this.alertService.showStickyMessage(error, null, MessageSeverity.error);
         this.loadingIndicator = false;
     }
