@@ -20,7 +20,7 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 import { saveAs } from "file-saver";
-import { Reporter } from "jsreport-core";
+import { fs, conversion } from "phantom-html-to-pdf";
 
 @Component({
     selector: 'units',
@@ -135,6 +135,16 @@ export class UnitsComponent implements OnInit, OnDestroy {
         //}).then(function (resp) {
         //    //callback(/* error */ null, resp.content.toJSON().data);
         //});
+
+        conversion({ html: "<h1>Hello World</h1>" }, (err, pdf) => {
+            var output = fs.createWriteStream('/path/to/output.pdf');
+            console.log(pdf.logs);
+            console.log(pdf.numberOfPages);
+            // since pdf.stream is a node.js stream you can use it
+            // to save the pdf to a file (like in this example) or to
+            // respond an http request.
+            pdf.stream.pipe(output);
+        });
     }
 
     delete(row) {

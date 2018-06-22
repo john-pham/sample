@@ -154,6 +154,7 @@ namespace Ebrain.Controllers
         //    return File(output, "application/pdf");
         //}
 
+        [HttpGet("pdf")]
         [MiddlewareFilter(typeof(JsReportPipeline))]
         public async Task<IActionResult> OutputPDF(string filter, string value, int page, int size)
         {
