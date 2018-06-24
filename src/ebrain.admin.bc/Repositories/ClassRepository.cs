@@ -52,7 +52,7 @@ namespace ebrain.admin.bc.Repositories
             return list;
         }
 
-        public DateTime? GetClassEndDate(Guid? materialId, Guid? classId, DateTime? fromDate)
+        public DateTime? GetClassEndDate(Guid? materialId, Guid? classId, Guid? studentId, DateTime? fromDate)
         {
             var toDate = fromDate.HasValue ? fromDate.Value.AddMonths(4) : DateTime.Now;
 
@@ -62,6 +62,7 @@ namespace ebrain.admin.bc.Repositories
                 this.appContext.LoadStoredProc("dbo.sp_ScheduleStudent_EndDate")
                                .WithSqlParam("@materialId", (materialId != null ? materialId.ToString() : null))
                                .WithSqlParam("@classId", (classId != null ? classId.ToString() : null))
+                               .WithSqlParam("@studentId", (studentId != null ? studentId.ToString() : null))
                                .WithSqlParam("@fromDate", fromDate)
                                .WithSqlParam("@toDate", toDate)
                                .ExecuteStoredProc((handler) =>
@@ -192,6 +193,21 @@ namespace ebrain.admin.bc.Repositories
             {
                 Guid? studentId = Guid.Empty;
                 Guid? classId = Guid.Empty;
+
+                var classIds = classes.Select(p => p.ClassOffsetId).ToArray();
+                var iodStNotExists = this.appContext.ClassOffset.Where(p => !classIds.Contains(p.ClassOffsetId));
+
+                //Isdeleted = true 
+                foreach (var itemDetail in iodStNotExists)
+                {
+                    var itemNot = this.appContext.ClassOffset.FirstOrDefault(p => p.ClassOffsetId == itemDetail.ClassOffsetId);
+                    if (itemNot != null)
+                    {
+                        itemNot.IsDeleted = true;
+                    }
+                }
+
+                //updated values
                 foreach (var item in classes)
                 {
                     var itemExist = this.appContext.ClassOffset.FirstOrDefault(p => p.ClassOffsetId == item.ClassOffsetId && p.IsDeleted == false);
@@ -212,7 +228,7 @@ namespace ebrain.admin.bc.Repositories
                 var itemStudent = this.appContext.ClassStudent.FirstOrDefault(p => p.StudentId == studentId && p.ClassId == classId && !p.IsDeleted);
                 if (itemStudent != null)
                 {
-                    var dt = this.GetClassEndDate(itemStudent.MaterialId, classId, itemStudent.StartDate);
+                    var dt = this.GetClassEndDate(itemStudent.MaterialId, classId, studentId, itemStudent.StartDate);
                     if (dt.HasValue)
                     {
                         itemStudent.EndDate = dt;
@@ -228,6 +244,19 @@ namespace ebrain.admin.bc.Repositories
 
         public async Task<bool> SaveClassEx(ClassEx[] classes)
         {
+            var classIds = classes.Select(p => p.ClassExId).ToArray();
+            var iodStNotExists = this.appContext.ClassEx.Where(p => !classIds.Contains(p.ClassExId));
+
+            //Isdeleted = true 
+            foreach (var itemDetail in iodStNotExists)
+            {
+                var itemNot = this.appContext.ClassEx.FirstOrDefault(p => p.ClassExId == itemDetail.ClassExId);
+                if (itemNot != null)
+                {
+                    itemNot.IsDeleted = true;
+                }
+            }
+
             foreach (var item in classes)
             {
                 var itemExist = this.appContext.ClassEx.FirstOrDefault(p => p.ClassExId == item.ClassExId && p.IsDeleted == false);
@@ -236,6 +265,34 @@ namespace ebrain.admin.bc.Repositories
                     item.CreatedDate = DateTime.Now;
                     item.UpdatedDate = DateTime.Now;
                     this.appContext.ClassEx.Add(item);
+                }
+            }
+            return appContext.SaveChanges() > 0;
+        }
+
+        public async Task<bool> SaveClassPending(ClassPending[] classes)
+        {
+            var classIds = classes.Select(p => p.ClassPendingId).ToArray();
+            var iodStNotExists = this.appContext.ClassPending.Where(p => !classIds.Contains(p.ClassPendingId));
+
+            //Isdeleted = true 
+            foreach (var itemDetail in iodStNotExists)
+            {
+                var itemNot = this.appContext.ClassPending.FirstOrDefault(p => p.ClassPendingId == itemDetail.ClassPendingId);
+                if (itemNot != null)
+                {
+                    itemNot.IsDeleted = true;
+                }
+            }
+
+            foreach (var item in classes)
+            {
+                var itemExist = this.appContext.ClassPending.FirstOrDefault(p => p.ClassPendingId == item.ClassPendingId && p.IsDeleted == false);
+                if (itemExist == null)
+                {
+                    item.CreatedDate = DateTime.Now;
+                    item.UpdatedDate = DateTime.Now;
+                    this.appContext.ClassPending.Add(item);
                 }
             }
             return appContext.SaveChanges() > 0;
@@ -448,6 +505,19 @@ namespace ebrain.admin.bc.Repositories
                 StudentId = p.StudentId,
                 ShiftId = p.ShiftId,
                 LearnDate = p.LearnDate
+            }).ToList();
+        }
+
+        public List<ClassList> GetClassPending(Guid? classId, Guid? studentId)
+        {
+            var cls = appContext.ClassPending.Where(p => p.ClassId == classId && p.StudentId == studentId && p.IsDeleted == false);
+            return cls.Select(p => new ClassList
+            {
+                ClassPendingId = p.ClassPendingId,
+                ClassId = p.ClassId.HasValue ? p.ClassId.Value : Guid.Empty,
+                StudentId = p.StudentId,
+                FromDate = p.FromDate,
+                ToDate = p.ToDate
             }).ToList();
         }
 

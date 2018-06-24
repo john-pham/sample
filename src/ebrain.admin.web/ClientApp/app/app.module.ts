@@ -215,7 +215,7 @@ import { StudentDatesComponent } from "./components/studentdates/studentdates.co
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
 import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
 import { ClassStudentExComponent } from "./components/classstudentsex/classstudentsex.component";
-
+import { ClassPendingComponent } from "./components/classpending/classpending.component";
 import { StudentsComponent } from "./components/students/students.component";
 
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
@@ -391,6 +391,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         StudentBirthdaysComponent,
         StudentEndClassComponent,
         ClassStudentExComponent,
+        ClassPendingComponent,
         IOStudentsComponent,
         PurchaseOrdersComponent,
         PurSummarizesComponent,

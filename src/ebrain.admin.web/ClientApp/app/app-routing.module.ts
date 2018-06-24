@@ -66,6 +66,7 @@ import { IOStudenListPayDetailComponent } from "./components/iostudentlistspayde
 import { ScheduleStudentComponent } from "./components/schedulestudents/schedulestudents.component";
 import { IOStudenListWaitingClassComponent } from "./components/iostudentlistswaitingclass/iostudentlistswaitingclass.component";
 import { ClassStudentExComponent } from "./components/classstudentsex/classstudentsex.component";
+import { ClassPendingComponent } from "./components/classpending/classpending.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
 import { IOSummarizesComponent } from "./components/iosummarizes/iosummarizes.component";
 import { PurSummarizesComponent } from "./components/pursummarizes/pursummarizes.component";
@@ -247,6 +248,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "purchaseorders/:id", component: PurchaseOrdersComponent, canActivate: [AuthGuard], data: { title: "PurchaseOrders" } },
             { path: "purdetails", component: PurDetailsComponent, canActivate: [AuthGuard], data: { title: "PurDetails" } },
 
+            { path: "classpending", component: ClassPendingComponent, canActivate: [AuthGuard], data: { title: "Class" } },
             { path: "classstudentsex", component: ClassStudentExComponent, canActivate: [AuthGuard], data: { title: "Class" } },
             { path: "iostudentlistswaitingclass", component: IOStudenListWaitingClassComponent, canActivate: [AuthGuard], data: { title: "Waiting Class" } },
             { path: "iostudentlist", component: IOStudenListPayComponent, canActivate: [AuthGuard], data: { title: "iostudentlist" } },

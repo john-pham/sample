@@ -41,6 +41,7 @@ namespace ebrain.admin.bc
         public DbSet<Class> Class { get; set; }
         public DbSet<ClassOffset> ClassOffset { get; set; }
         public DbSet<ClassEx> ClassEx { get; set; }
+        public DbSet<ClassPending> ClassPending { get; set; }
         public DbSet<Today> Today { get; set; }
         public DbSet<ClassHead> ClassHead { get; set; }
         public DbSet<Consultant> Consultant { get; set; }
@@ -151,6 +152,7 @@ namespace ebrain.admin.bc
             builder.Entity<Class>().ToTable(nameof(this.Class));
             builder.Entity<ClassOffset>().ToTable(nameof(this.ClassOffset));
             builder.Entity<ClassEx>().ToTable(nameof(this.ClassEx));
+            builder.Entity<ClassPending>().ToTable(nameof(this.ClassPending));
             builder.Entity<Class>().ToTable(nameof(this.Class));
             builder.Entity<Today>().ToTable(nameof(this.Today));
             builder.Entity<ClassHead>().ToTable(nameof(this.ClassHead));

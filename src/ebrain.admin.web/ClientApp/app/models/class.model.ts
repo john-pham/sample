@@ -46,4 +46,6 @@ export class Class {
     public ioStockDetailId: string;
     public learnDate: Date;
     public absent: number;
+    public fromDate: Date;
+    public toDate: Date;
 }

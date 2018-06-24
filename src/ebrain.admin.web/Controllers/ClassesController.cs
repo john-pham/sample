@@ -345,6 +345,21 @@ namespace Ebrain.Controllers
             }));
         }
 
+        [HttpGet("getclasspending")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetClassPending(Guid? studentId, Guid? classId)
+        {
+            var list = this._unitOfWork.Classes.GetClassPending(classId, studentId);
+            return Ok(list.Select(p => new ClassPendingViewModel
+            {
+                ClassPendingId = p.ClassPendingId,
+                ClassId = p.ClassId,
+                StudentId = p.StudentId,
+                FromDate = p.FromDate,
+                ToDate = p.ToDate
+            }));
+        }
+
         [HttpGet("getclasses")]
         [Produces(typeof(UserViewModel))]
         public async Task<IActionResult> GetClasses(string filter, string value, Guid? statusId, Guid? supplierId)
@@ -487,6 +502,35 @@ namespace Ebrain.Controllers
             return null;
         }
 
+        [HttpPost("updateclasspending")]
+        public Task<IActionResult> SaveClassPending([FromBody]ClassPendingViewModel[] offsets)
+        {
+            if (ModelState.IsValid)
+            {
+                this._unitOfWork.Classes.SaveClassPending(offsets.Select(p => new ClassPending
+                {
+                    ClassPendingId = p.ClassPendingId.HasValue ? p.ClassPendingId.Value : Guid.Empty,
+                    ClassId = p.ClassId,
+                    StudentId = p.StudentId,
+                    CreatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    UpdatedBy = userId,
+                    UpdatedDate = DateTime.Now,
+                    FromDate = p.FromDate,
+                    ToDate = p.ToDate
+                }).ToArray());
+
+                if (offsets.Length > 0)
+                {
+                    var classId = offsets.FirstOrDefault().ClassId;
+                    var studentId = offsets.FirstOrDefault().StudentId;
+                    return this.GetClassPending(studentId, classId);
+                }
+
+            }
+            return null;
+        }
+
         [HttpPost("updateclassexamine")]
         public IActionResult SaveClassExamine([FromBody]ClassExamineViewModel[] examines)
         {
@@ -556,7 +600,7 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dt = this._unitOfWork.Classes.GetClassEndDate(materialId, classId, fromDate.BuildLastDateTimeFromSEFormat());
+                var dt = this._unitOfWork.Classes.GetClassEndDate(materialId, classId, null, fromDate.BuildLastDateTimeFromSEFormat());
 
                 return Ok(dt);
             }

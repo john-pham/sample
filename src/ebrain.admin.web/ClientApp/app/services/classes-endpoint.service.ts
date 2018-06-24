@@ -113,6 +113,21 @@ export class ClassesEndpoint extends EndpointFactory {
             });
     }
 
+    savePending(value: any): Observable<Response> {
+        let url = this.getUrl('updateclasspending');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.save(value));
+            });
+    }
+
+
     saveEx(value: any): Observable<Response> {
         let url = this.getUrl('updateclassex');
         let header = this.getAuthHeader(true);
@@ -174,6 +189,18 @@ export class ClassesEndpoint extends EndpointFactory {
             })
             .catch(error => {
                 return this.handleError(error, () => this.get(index));
+            });
+    }
+
+    getClassPending(studentId: string, classId: string): Observable<Response> {
+
+        let url = this.getUrl('getclasspending?studentId=' + studentId + '&classId=' + classId + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getClassPending(studentId, classId));
             });
     }
 

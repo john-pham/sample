@@ -21,6 +21,7 @@ import { ClassExamine } from "../models/classexamine.model";
 import { Results } from "../models/results.model";
 import { ClassOffset } from "../models/classoffset.model";
 import { ClassEx } from "../models/classex.model";
+import { ClassPending } from '../models/classpending.model';
 
 @Injectable()
 export class ClassesService {
@@ -59,6 +60,11 @@ export class ClassesService {
             .map((response: Response) => <ClassOffset[]>response.json());
     }
 
+    savePending(value: ClassPending[]) {
+        return this.endpointFactory.savePending(value)
+            .map((response: Response) => <ClassPending[]>response.json());
+    }
+
     saveEx(value: ClassEx[]) {
         return this.endpointFactory.saveEx(value)
             .map((response: Response) => <ClassEx[]>response.json());
@@ -91,6 +97,11 @@ export class ClassesService {
     getClassOffset(studentId: string, classId: string) {
         return this.endpointFactory.getClassOffset(studentId, classId)
             .map((response: Response) => <ClassOffset[]>response.json());
+    }
+
+    getClassPending(studentId: string, classId: string) {
+        return this.endpointFactory.getClassPending(studentId, classId)
+            .map((response: Response) => <ClassPending[]>response.json());
     }
 
     getClasses(filter: string, value: string, statusId: string, supplierId: string) {

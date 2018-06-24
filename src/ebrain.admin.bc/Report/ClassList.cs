@@ -8,6 +8,7 @@ namespace ebrain.admin.bc.Report
     {
         public Guid ClassId { get; set; }
         public Guid? ClassOffsetId { get; set; }
+        public Guid? ClassPendingId { get; set; }
         public Guid? ClassExId { get; set; }
         public Guid? StudentId { get; set; }
         public string ClassCode { get; set; }
@@ -34,5 +35,7 @@ namespace ebrain.admin.bc.Report
         public bool IsLearnMain { get; set; }
         public bool? LearnAbsent { get; set; }
         public int Absent { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
     }
 }
