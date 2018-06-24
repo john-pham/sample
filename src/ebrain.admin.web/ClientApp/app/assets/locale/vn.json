@@ -195,7 +195,8 @@
       "LearnStudent": "Đã đăng ký",
       "Learned": "Đã học",
       "Absent": "Vắng",
-      "NotLearned": "Chưa học"
+      "NotLearned": "Chưa học",
+      "Paused": "Tạm nghỉ"
     },
     "classlist": {
       "Code": "Mã lớp",

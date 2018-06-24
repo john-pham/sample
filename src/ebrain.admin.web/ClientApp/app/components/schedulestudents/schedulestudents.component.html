@@ -31,6 +31,7 @@
 
         <!-- TEMPLATEs -->
         <ng-template  #statusLearnTemplate let-value="value" let-rowIndex="rowIndex" let-row="row">
+            <span *ngIf="row.absent === 4" class="label label-danger">{{'label.classstudent.Paused' | translate}}</span>
             <span *ngIf="row.absent === 2" class="label label-success">{{'label.classstudent.Learned' | translate}}</span>
             <span *ngIf="row.absent === 1" class="label label-warning">{{'label.classstudent.Absent' | translate}}</span>
             <span *ngIf="row.absent === 0" class="label label-info">{{'label.classstudent.NotLearned' | translate}}</span>

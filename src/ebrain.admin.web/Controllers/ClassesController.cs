@@ -449,6 +449,16 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
+                Guid? classId = Guid.Empty;
+                Guid? studentId = Guid.Empty;
+                if (offsets.Length > 0)
+                {
+                    classId = offsets.First().ClassId;
+                    studentId = offsets.First().StudentId;
+                }
+
+                offsets = offsets.Where(p => p.LearnDate.HasValue && p.ShiftId.HasValue).ToArray();
+
                 this._unitOfWork.Classes.SaveClassOffset(offsets.Select(p => new ClassOffset
                 {
                     ClassOffsetId = p.ClassOffsetId.HasValue ? p.ClassOffsetId.Value : Guid.Empty,
@@ -460,12 +470,10 @@ namespace Ebrain.Controllers
                     UpdatedDate = DateTime.Now,
                     LearnDate = p.LearnDate,
                     ShiftId = p.ShiftId
-                }).ToArray());
+                }).ToArray(), classId, studentId);
 
                 if (offsets.Length > 0)
                 {
-                    var classId = offsets.FirstOrDefault().ClassId;
-                    var studentId = offsets.FirstOrDefault().StudentId;
                     return this.GetClassOffset(studentId, classId);
                 }
 
@@ -478,6 +486,16 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
+                Guid? classId = Guid.Empty;
+                Guid? studentId = Guid.Empty;
+                if (offsets.Length > 0)
+                {
+                    classId = offsets.First().ClassId;
+                    studentId = offsets.First().StudentId;
+                }
+
+                offsets = offsets.Where(p => p.LearnDate.HasValue && p.ShiftId.HasValue).ToArray();
+
                 this._unitOfWork.Classes.SaveClassEx(offsets.Select(p => new ClassEx
                 {
                     ClassExId = p.ClassExId.HasValue ? p.ClassExId.Value : Guid.Empty,
@@ -489,12 +507,10 @@ namespace Ebrain.Controllers
                     UpdatedDate = DateTime.Now,
                     LearnDate = p.LearnDate,
                     ShiftId = p.ShiftId
-                }).ToArray());
+                }).ToArray(), classId, studentId);
 
                 if (offsets.Length > 0)
                 {
-                    var classId = offsets.FirstOrDefault().ClassId;
-                    var studentId = offsets.FirstOrDefault().StudentId;
                     return this.GetClassEx(studentId, classId);
                 }
 
@@ -507,6 +523,16 @@ namespace Ebrain.Controllers
         {
             if (ModelState.IsValid)
             {
+                Guid? classId = Guid.Empty;
+                Guid? studentId = Guid.Empty;
+                if (offsets.Length > 0)
+                {
+                    classId = offsets.First().ClassId;
+                    studentId = offsets.First().StudentId;
+                }
+
+                offsets = offsets.Where(p => p.FromDate.HasValue && p.ToDate.HasValue).ToArray();
+
                 this._unitOfWork.Classes.SaveClassPending(offsets.Select(p => new ClassPending
                 {
                     ClassPendingId = p.ClassPendingId.HasValue ? p.ClassPendingId.Value : Guid.Empty,
@@ -518,12 +544,10 @@ namespace Ebrain.Controllers
                     UpdatedDate = DateTime.Now,
                     FromDate = p.FromDate,
                     ToDate = p.ToDate
-                }).ToArray());
+                }).ToArray(), classId, studentId);
 
                 if (offsets.Length > 0)
                 {
-                    var classId = offsets.FirstOrDefault().ClassId;
-                    var studentId = offsets.FirstOrDefault().StudentId;
                     return this.GetClassPending(studentId, classId);
                 }
 
@@ -630,8 +654,9 @@ namespace Ebrain.Controllers
                     MaterialCode = p.MaterialCode,
                     MaterialName = p.MaterialName,
                     IsLearnMain = p.IsLearnMain,
-                    Absent = p.LearnAbsent == true ? 2 : p.LearnAbsent == false ? 1 : 0
+                    Absent = p.IsPause == true ? 4 : (p.LearnAbsent == true ? 2 : p.LearnAbsent == false ? 1 : 0)
                 }).ToList();
+
             }
 
             return Json(new

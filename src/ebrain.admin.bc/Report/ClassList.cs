@@ -37,5 +37,6 @@ namespace ebrain.admin.bc.Report
         public int Absent { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
+        public bool? IsPause { get; set; }
     }
 }

@@ -134,9 +134,17 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
     }
 
     private save() {
+        let arrs = this.rows;
+        if (this.rows === undefined || this.rows.length === 0) {
+            var itemNew = new ClassOffset();
+            itemNew.studentId = this.studentId;
+            itemNew.classId = this.classId;
+            arrs.push(itemNew);
+        }
+
         this.alertService.startLoadingMessage("Saving changes...");
         this.loadingIndicator = false;
-        this.localService.saveOffset(this.rows).subscribe(value => {
+        this.localService.saveOffset(arrs).subscribe(value => {
             this.rows = [...value];
             this.mappingData();
             this.alertService.showMessage("Success", `Lưu dữ liệu thành công.`, MessageSeverity.success);

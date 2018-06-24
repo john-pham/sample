@@ -187,54 +187,53 @@ namespace ebrain.admin.bc.Repositories
             this.appContext.SaveChanges();
         }
 
-        public async Task<bool> SaveClassOffset(ClassOffset[] classes)
+        public async Task<bool> SaveClassOffset(ClassOffset[] classes, Guid? classId, Guid? studentId)
         {
             try
             {
-                Guid? studentId = Guid.Empty;
-                Guid? classId = Guid.Empty;
-
-                var classIds = classes.Select(p => p.ClassOffsetId).ToArray();
-                var iodStNotExists = this.appContext.ClassOffset.Where(p => !classIds.Contains(p.ClassOffsetId));
-
-                //Isdeleted = true 
-                foreach (var itemDetail in iodStNotExists)
+                if (classes != null && classes.Length > 0)
                 {
-                    var itemNot = this.appContext.ClassOffset.FirstOrDefault(p => p.ClassOffsetId == itemDetail.ClassOffsetId);
-                    if (itemNot != null)
+                    var classIds = classes.Select(p => p.ClassOffsetId).ToArray();
+                    var iodStNotExists = this.appContext.ClassOffset.Where(p => !classIds.Contains(p.ClassOffsetId));
+
+                    //Isdeleted = true 
+                    foreach (var itemDetail in iodStNotExists)
+                    {
+                        var itemNot = this.appContext.ClassOffset.FirstOrDefault(p => p.ClassOffsetId == itemDetail.ClassOffsetId);
+                        if (itemNot != null)
+                        {
+                            itemNot.IsDeleted = true;
+                        }
+                    }
+
+                    //updated values
+                    foreach (var item in classes)
+                    {
+                        var itemExist = this.appContext.ClassOffset.FirstOrDefault(p => p.ClassOffsetId == item.ClassOffsetId && p.IsDeleted == false);
+                        if (itemExist == null)
+                        {
+                            item.CreatedDate = DateTime.Now;
+                            item.UpdatedDate = DateTime.Now;
+                            this.appContext.ClassOffset.Add(item);
+                        }
+
+                        studentId = item.StudentId;
+                        classId = item.ClassId;
+
+                    }
+                }
+                else
+                {
+                    var iodStNotExists = this.appContext.ClassOffset.Where(p => p.ClassId == classId && p.StudentId == studentId);
+                    foreach (var itemNot in iodStNotExists)
                     {
                         itemNot.IsDeleted = true;
                     }
                 }
 
-                //updated values
-                foreach (var item in classes)
-                {
-                    var itemExist = this.appContext.ClassOffset.FirstOrDefault(p => p.ClassOffsetId == item.ClassOffsetId && p.IsDeleted == false);
-                    if (itemExist == null)
-                    {
-                        item.CreatedDate = DateTime.Now;
-                        item.UpdatedDate = DateTime.Now;
-                        this.appContext.ClassOffset.Add(item);
-                    }
-                    else
-                    {
-                        studentId = item.StudentId;
-                        classId = item.ClassId;
-                    }
-                }
-
+                appContext.SaveChanges();
                 // update endDate
-                var itemStudent = this.appContext.ClassStudent.FirstOrDefault(p => p.StudentId == studentId && p.ClassId == classId && !p.IsDeleted);
-                if (itemStudent != null)
-                {
-                    var dt = this.GetClassEndDate(itemStudent.MaterialId, classId, studentId, itemStudent.StartDate);
-                    if (dt.HasValue)
-                    {
-                        itemStudent.EndDate = dt;
-                    }
-                }
-                return appContext.SaveChanges() > 0;
+                return this.UpdateEndDate(studentId, classId);
             }
             catch (Exception ex)
             {
@@ -242,60 +241,101 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
-        public async Task<bool> SaveClassEx(ClassEx[] classes)
+        private bool UpdateEndDate(Guid? studentId, Guid? classId)
         {
-            var classIds = classes.Select(p => p.ClassExId).ToArray();
-            var iodStNotExists = this.appContext.ClassEx.Where(p => !classIds.Contains(p.ClassExId));
-
-            //Isdeleted = true 
-            foreach (var itemDetail in iodStNotExists)
+            // update endDate
+            var itemStudent = this.appContext.ClassStudent.FirstOrDefault(p => p.StudentId == studentId && p.ClassId == classId && !p.IsDeleted);
+            if (itemStudent != null)
             {
-                var itemNot = this.appContext.ClassEx.FirstOrDefault(p => p.ClassExId == itemDetail.ClassExId);
-                if (itemNot != null)
+                var dt = this.GetClassEndDate(itemStudent.MaterialId, classId, studentId, itemStudent.StartDate);
+                if (dt.HasValue)
                 {
-                    itemNot.IsDeleted = true;
-                }
-            }
-
-            foreach (var item in classes)
-            {
-                var itemExist = this.appContext.ClassEx.FirstOrDefault(p => p.ClassExId == item.ClassExId && p.IsDeleted == false);
-                if (itemExist == null)
-                {
-                    item.CreatedDate = DateTime.Now;
-                    item.UpdatedDate = DateTime.Now;
-                    this.appContext.ClassEx.Add(item);
+                    itemStudent.EndDate = dt;
                 }
             }
             return appContext.SaveChanges() > 0;
         }
 
-        public async Task<bool> SaveClassPending(ClassPending[] classes)
+        public async Task<bool> SaveClassEx(ClassEx[] classes, Guid? classId, Guid? studentId)
         {
-            var classIds = classes.Select(p => p.ClassPendingId).ToArray();
-            var iodStNotExists = this.appContext.ClassPending.Where(p => !classIds.Contains(p.ClassPendingId));
-
-            //Isdeleted = true 
-            foreach (var itemDetail in iodStNotExists)
+            if (classes != null && classes.Length > 0)
             {
-                var itemNot = this.appContext.ClassPending.FirstOrDefault(p => p.ClassPendingId == itemDetail.ClassPendingId);
-                if (itemNot != null)
+                var classIds = classes.Select(p => p.ClassExId).ToArray();
+                var iodStNotExists = this.appContext.ClassEx.Where(p => !classIds.Contains(p.ClassExId));
+
+                //Isdeleted = true 
+                foreach (var itemDetail in iodStNotExists)
+                {
+                    var itemNot = this.appContext.ClassEx.FirstOrDefault(p => p.ClassExId == itemDetail.ClassExId);
+                    if (itemNot != null)
+                    {
+                        itemNot.IsDeleted = true;
+                    }
+                }
+
+                foreach (var item in classes)
+                {
+                    var itemExist = this.appContext.ClassEx.FirstOrDefault(p => p.ClassExId == item.ClassExId && p.IsDeleted == false);
+                    if (itemExist == null)
+                    {
+                        item.CreatedDate = DateTime.Now;
+                        item.UpdatedDate = DateTime.Now;
+                        this.appContext.ClassEx.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                var iodStNotExists = this.appContext.ClassPending.Where(p => p.ClassId == classId && p.StudentId == studentId);
+                foreach (var itemNot in iodStNotExists)
                 {
                     itemNot.IsDeleted = true;
                 }
             }
+            return appContext.SaveChanges() > 0;
+        }
 
-            foreach (var item in classes)
+        public async Task<bool> SaveClassPending(ClassPending[] classes, Guid? classId, Guid? studentId)
+        {
+            if (classes != null && classes.Length > 0)
             {
-                var itemExist = this.appContext.ClassPending.FirstOrDefault(p => p.ClassPendingId == item.ClassPendingId && p.IsDeleted == false);
-                if (itemExist == null)
+                var classIds = classes.Select(p => p.ClassPendingId).ToArray();
+                var iodStNotExists = this.appContext.ClassPending.Where(p => !classIds.Contains(p.ClassPendingId));
+
+                //Isdeleted = true 
+                foreach (var itemDetail in iodStNotExists)
                 {
-                    item.CreatedDate = DateTime.Now;
-                    item.UpdatedDate = DateTime.Now;
-                    this.appContext.ClassPending.Add(item);
+                    var itemNot = this.appContext.ClassPending.FirstOrDefault(p => p.ClassPendingId == itemDetail.ClassPendingId);
+                    if (itemNot != null)
+                    {
+                        itemNot.IsDeleted = true;
+                    }
+                }
+
+                foreach (var item in classes)
+                {
+                    var itemExist = this.appContext.ClassPending.FirstOrDefault(p => p.ClassPendingId == item.ClassPendingId && p.IsDeleted == false);
+                    if (itemExist == null)
+                    {
+                        item.CreatedDate = DateTime.Now;
+                        item.UpdatedDate = DateTime.Now;
+                        this.appContext.ClassPending.Add(item);
+                    }
+                    studentId = item.StudentId;
+                    classId = item.ClassId;
                 }
             }
-            return appContext.SaveChanges() > 0;
+            else
+            {
+                var iodStNotExists = this.appContext.ClassPending.Where(p => p.ClassId == classId && p.StudentId == studentId);
+                foreach (var itemNot in iodStNotExists)
+                {
+                    itemNot.IsDeleted = true;
+                }
+            }
+            appContext.SaveChanges();
+            // update endDate
+            return this.UpdateEndDate(studentId, classId);
         }
 
         private DateTime? GetLastEndDateOfClass(Guid? classId, Guid? studentId)
@@ -303,7 +343,7 @@ namespace ebrain.admin.bc.Repositories
             var list = this.GetScheduleStudent(classId, studentId, 0, 0);
             if (list.Count > 0)
             {
-                return  list.OrderByDescending(p => p.LearnDate).First().LearnDate;
+                return list.OrderByDescending(p => p.LearnDate).First().LearnDate;
             }
             return null;
         }
@@ -632,13 +672,23 @@ namespace ebrain.admin.bc.Repositories
                                    someTypeList = handler.ReadToList<ClassList>().ToList();
                                });
 
-                this.Total = someTypeList.Count();
+                var results = someTypeList.ToList();
+                //paused => remove datas learning
+                var listPaused = someTypeList.Where(p => p.IsPause == true);
+                foreach (var item in listPaused)
+                {
+                    var itemExists = someTypeList.Where(p => p.LearnDate.Value.Date == item.LearnDate.Value.Date && p.IsPause == false);
+                    foreach (var itemE in itemExists)
+                        results.Remove(itemE);
+                }
+
+                this.Total = results.Count();
                 if (size > 0 && page >= 0)
                 {
-                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                    results = (from c in results select c).Skip(page * size).Take(size).ToList();
                 }
-                
-                return someTypeList;
+
+                return results;
             }
             catch (Exception ex)
             {

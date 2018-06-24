@@ -151,9 +151,17 @@ export class ClassExComponent implements OnInit, OnDestroy {
     }
 
     private save() {
+        let arrs = this.rows;
+        if (this.rows === undefined || this.rows.length === 0) {
+            var itemNew = new ClassEx();
+            itemNew.studentId = this.studentId;
+            itemNew.classId = this.classId;
+            arrs.push(itemNew);
+        }
+
         this.alertService.startLoadingMessage("Saving changes...");
         this.loadingIndicator = false;
-        this.localService.saveEx(this.rows).subscribe(value => {
+        this.localService.saveEx(arrs).subscribe(value => {
             this.rows = [...value];
             this.mappingData();
             this.alertService.showMessage("Success", `Lưu dữ liệu thành công.`, MessageSeverity.success);

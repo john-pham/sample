@@ -31,6 +31,7 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 import { Class } from '../../models/class.model';
+import { DateOnlyPipe } from "../../directives/dateonlypipe.directive";
 
 @Component({
     selector: 'schedulestudents',
@@ -80,7 +81,7 @@ export class ScheduleStudentComponent implements OnInit, OnDestroy {
         this.columns = [
             { headerClass: "text-center", prop: 'absent', name: '', cellTemplate: this.statusLearnTemplate },
             { headerClass: "text-center", prop: 'className', name: gT('label.classlist.ClassName'), cellTemplate: this.nameTemplate },
-            { headerClass: "text-center", prop: 'learnDate', name: gT('label.classlist.LearnDate'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'learnDate', name: gT('label.classlist.LearnDate'), cellTemplate: this.nameTemplate, pipe: new DateOnlyPipe('en-US'), cellClass: 'text-right' },
             { headerClass: "text-center", prop: 'todayName', name: gT('label.classlist.TodayName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'noteClass', name: gT('label.classlist.NoteClass'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'materialName', name: gT('label.classlist.MaterialName'), cellTemplate: this.nameTemplate },
