@@ -39,6 +39,7 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
     filterValue: string;
     fromDate: Date;
     toDate: Date;
+    ioStockId: any = "";
 
     private pointer: Grpsupplier;
     private chart: Chart;
@@ -59,6 +60,7 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
         this.page = new Page();
         this.page.pageNumber = 0;
         this.page.size = 20;
+        this.ioStockId = "";
     }
 
     setPage(pageInfo) {
@@ -91,18 +93,6 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
 
     addGrpsupplier(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template);
-    }
-
-    imageFinishedUploading(file: any) {
-        console.log(JSON.stringify(file.serverResponse));
-    }
-
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
     }
 
     onSearchChanged(value: string) {
@@ -147,10 +137,9 @@ export class IOStudenListComponent implements OnInit, OnDestroy {
 
     }
 
-    goDetails(value: IOStockReport) {
-        var url = '';
-        if (value != null && value.ioTypeId == 1) { url = '/iooutput'; } else { url = '/ioinput'; }
-        this.router.navigate([url, value.id]);
+    goDetails(value: IOStockReport, template: TemplateRef<any>) {
+        this.ioStockId = value.id;
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
     showChart(template: TemplateRef<any>) {

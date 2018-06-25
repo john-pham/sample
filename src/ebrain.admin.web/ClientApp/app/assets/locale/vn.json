@@ -989,7 +989,8 @@
     "Excel": "Excel",
     "Pdf": "PDF",
     "Export": "Xuất",
-    "OrderClass": "Xếp lớp"
+    "OrderClass": "Xếp lớp",
+    "ExportInput": "Xuất hàng"
   },
   "menu": {
     "document": {
@@ -1106,6 +1107,7 @@
       "ClassEx": "Học phụ đạo",
       "Schedule": "Lịch học",
       "Pending": "Tạm nghỉ",
+      "Dept": "Tài liệu",
       "Mark": "Điểm",
       "Category": "Danh mục",
       "Operate": "Thao Tác",
@@ -1121,7 +1123,7 @@
           "Class": "Lớp học",
           "ClassList": "DS lớp học",
           "ClassListDes": "Danh sách lớp học",
-          "StudentDept":"Nợ vật tư học viên",
+          "StudentDept": "Nợ vật tư học viên",
           "ClassListDesTeacher": "Danh sách lớp học - Giáo viên",
           "Teacher": "Giáo viên",
           "Room": "Phòng học",

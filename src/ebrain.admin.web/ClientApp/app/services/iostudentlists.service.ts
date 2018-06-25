@@ -22,6 +22,7 @@ import { IOStudentListEndpoint } from "./iostudentlists-endpoint.service";
 import { IOStockReport } from "../models/iostockreport.model";
 import { Results } from "../models/results.model";
 import { Chart } from "../models/chart.model";
+import { IOStockDetailSmall } from '../models/iostockdetailsmall.model';
 
 @Injectable()
 export class IOStudentListService {
@@ -53,6 +54,11 @@ export class IOStudentListService {
     getiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.getiobyiotypeid(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Results<IOStockReport>>response.json());
+    }
+
+    saveDept(value: IOStockDetailSmall[]) {
+        return this.endpointFactory.saveDept(value)
+            .map((response: Response) => <boolean>response.json());
     }
 
     getIOStockDetailDept(filter: string, value: string, studentId: string, ioStockId: string,

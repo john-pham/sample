@@ -17,9 +17,14 @@
                 <i class="fa fa-pause fa-fw" aria-hidden="true"></i>{{'menu.class.Pending' | translate}}</a>
         </li>
         <li>
+            <a id="deptTab" [routerLink]="[]" fragment="dept" href="#dept" data-toggle="tab">
+                <i class="fa fa-pause fa-fw" aria-hidden="true"></i>{{'menu.class.Dept' | translate}}</a>
+        </li>
+        <li>
             <a id="markTab" [routerLink]="[]" fragment="mark" href="#mark" data-toggle="tab">
                 <i class="fa fa-pause fa-fw" aria-hidden="true"></i>{{'menu.class.Mark' | translate}}</a>
         </li>
+
     </ul>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-10">
@@ -88,5 +93,19 @@
                 <classexamines [StudentId]="studentId" [ClassId]="classId"></classexamines>
             </div>
         </div>
+
+        <div class="tab-pane" id="dept">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeClass()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="branch-modalLabel">{{'menu.class.Dept' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isDeptActive" class="content-container">
+                <iosummarizesdept [studentId]="studentId" [isShowHeader]="false"></iosummarizesdept>
+            </div>
+        </div>
+
     </div>
 </div>

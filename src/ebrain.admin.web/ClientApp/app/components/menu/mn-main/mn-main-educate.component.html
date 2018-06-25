@@ -98,7 +98,7 @@
                         </div>
                         <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')">
                             <a routerLink="/iosummarizesdept">
-                                <span class="fa fa-braille icon"></span>
+                                <span class="fa fa-child icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.StudentDept' | translate}}</span>
                             </a>
                         </div>
@@ -115,19 +115,19 @@
                             </a>
                         </div> -->
                         <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE99')">
-                            <a routerLink="/iostudents">
+                            <a routerLink="/iostudentlist">
                                 <span class="fa fa-cubes icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.class.IOStudent' | translate}}</span>
                             </a>
                         </div>
-                        <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE12')">
+                        <!-- <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE12')">
                             <a routerLink="/iostudentlist">
                                 <span class="fa fa-check-circle"></span>
                                 <span class="text-muted text-u-c">{{'menu.class.IOStudentList' | translate}}</span>
                             </a>
-                        </div>
+                        </div> -->
                        <div *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9e39-d5b0c22be233')">
-                     <a routerLink="/iostudentlistswaitingclass">
+                            <a routerLink="/iostudentlistswaitingclass">
                                 <span class="fa fa-user-circle icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.class.WaitingClass' | translate}}</span>
                             </a>

@@ -210,7 +210,7 @@ namespace ebrain.admin.bc.Repositories
         }
 
         public IEnumerable<IOStockListPayment> GetIOStockPaymentListDetail
-            (DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput, 
+            (DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput,
             bool isWaitingClass, bool isLearning, string branchIds, int page, int size)
         {
             try
@@ -245,6 +245,20 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public async Task<bool> SaveDept(IOStockDetail[] iosd)
+        {
+            foreach (var item in iosd)
+            {
+                var itemExistD = this.appContext.IOStockDetail.FirstOrDefault(p => p.IOStockDetailId == item.IOStockDetailId);
+                if (itemExistD != null)
+                {
+                    itemExistD.InputExport = item.InputExport;
+                    itemExistD.ByExport = item.UpdatedBy;
+                    itemExistD.DateExport = item.UpdatedDate;
+                }
+            }
+            return appContext.SaveChanges() > 0;
+        }
         public async Task<IOStock> Save(IOStock value, IOStockDetail[] iosd, Guid? index)
         {
             try
@@ -301,7 +315,7 @@ namespace ebrain.admin.bc.Repositories
                 await appContext.SaveChangesAsync();
                 return item;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

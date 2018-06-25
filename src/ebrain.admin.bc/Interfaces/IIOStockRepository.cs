@@ -23,6 +23,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<IEnumerable<IOStock>> Search(string filter, string value, string branchIds);
         Task<IEnumerable<IOStock>> GetAlls(string branchIds);
         Task<IOStock> Save(IOStock value, IOStockDetail[] iosd, Guid? id);
+        Task<bool> SaveDept(IOStockDetail[] iosd);
         Task<Boolean> Delete(string id);
         Task<IEnumerable<IOStockDetail>> GetDetailByIOId(Guid? id);
         Task<Boolean> DeleteMaster(Guid? id);

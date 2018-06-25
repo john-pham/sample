@@ -23,10 +23,12 @@ import { Page } from '../../models/page.model';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { Results } from "../../models/results.model";
 import { Chart } from "../../models/chart.model";
+import { IOStockDetail } from '../../models/iostockdetail.model';
+import { IOStockDetailSmall } from '../../models/iostockdetailsmall.model';
 @Component({
     selector: 'iosummarizesdept',
-    templateUrl: './iosummarizes.component.html',
-    styleUrls: ['./iosummarizes.component.css'],
+    templateUrl: './iosummarizesdept.component.html',
+    styleUrls: ['./iosummarizesdept.component.css'],
     animations: [fadeInOut]
 })
 
@@ -37,13 +39,13 @@ export class IOSummarizesDeptComponent implements OnInit, OnDestroy {
 
     filterName: string;
     filterValue: string;
-    fromDate: Date;
-    toDate: Date;
     private page: Page;
 
-    @Input() studentId: any;
-    @Input() ioStockId: any;
-    @Input() dept: any;
+    @Input() studentId: any = '';
+    @Input() ioStockId: any = '';
+    @Input() dept: any = 1;
+    @Input() isShowHeader: any = true;
+    @Input() isShowEdit: any = false;
 
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
@@ -64,7 +66,7 @@ export class IOSummarizesDeptComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        
+
 
         let gT = (key: string) => this.translationService.getTranslation(key);
 
@@ -73,8 +75,9 @@ export class IOSummarizesDeptComponent implements OnInit, OnDestroy {
             { headerClass: "text-center", prop: 'createDate', name: gT('label.iostudentlist.CreateDate'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'fullName', name: gT('label.iostudentlist.CreateUser'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'studentName', name: gT('label.iostudentlist.Student'), cellTemplate: this.nameTemplate },
+            { headerClass: "text-center", prop: 'materialName', name: gT('label.iostudentlist.MaterialName'), cellTemplate: this.nameTemplate },
             { headerClass: "text-center", prop: 'quantity', name: gT('label.iostudentlist.Quantity'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
-            { headerClass: "text-center", prop: 'inputExport', name: gT('label.iostudentlist.QuantityDept'), cellTemplate: this.totalPriceTemplate, cellClass: 'text-right' },
+            { headerClass: "text-center", prop: 'inputExport', name: gT('label.iostudentlist.QuantityDept'), cellTemplate: this.inputTemplate, cellClass: 'text-right' },
             { name: '', width: 80, cellTemplate: this.actionsTemplate, resizeable: false, canAutoResize: false, sortable: false, draggable: false }
         ];
 
@@ -97,13 +100,40 @@ export class IOSummarizesDeptComponent implements OnInit, OnDestroy {
         this.loadingIndicator = true;
         //
         var disp = this.localService.getIOStockDetailDept
-        (this.filterName, this.filterValue, this.studentId, this.ioStockId, this.dept, this.page.pageNumber, this.page.size).subscribe(
-            list => this.onDataLoadSuccessful(list),
+            (this.filterName, this.filterValue, this.studentId, this.ioStockId, this.dept, this.page.pageNumber, this.page.size).subscribe(
+                list => this.onDataLoadSuccessful(list),
+                error => this.onDataLoadFailed(error),
+                () => {
+                    disp.unsubscribe();
+                    setTimeout(() => { this.loadingIndicator = false; }, 1500);
+                });
+    }
+
+    save() {
+
+        var arrs = [];
+        this.rows.forEach(row => {
+            var iod = new IOStockDetailSmall();
+            iod.ioStockId = row.id;
+            iod.ioStockDetailId = row.ioStockDetailId;
+            iod.inputExport = row.inputExport;
+            arrs.push(iod);
+        });
+
+        var disp = this.localService.saveDept(arrs).subscribe(
+            items => {
+                this.alertService.showMessage("Success", `Lưu dữ liệu thành công`, MessageSeverity.success);
+               
+            },
             error => this.onDataLoadFailed(error),
             () => {
                 disp.unsubscribe();
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
             });
+    }
+
+    updateValue(row, event, rowIndex) {
+        row.inputExport = event.target.value;
     }
 
     private onDataLoadSuccessful(resulted: Results<IOStockReport>) {
@@ -145,4 +175,8 @@ export class IOSummarizesDeptComponent implements OnInit, OnDestroy {
 
     @ViewChild('totalPriceTemplate')
     totalPriceTemplate: TemplateRef<any>;
+
+    @ViewChild('inputTemplate')
+    inputTemplate: TemplateRef<any>;
+    
 }

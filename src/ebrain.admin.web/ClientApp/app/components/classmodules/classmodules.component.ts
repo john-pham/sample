@@ -62,6 +62,7 @@ export class ClassModuleComponent implements OnInit, OnDestroy {
     readonly scheduleTab = "schedule";
     readonly pendingTab = "pending";
     readonly markTab = "mark";
+    readonly deptTab = "dept";
 
     activeTab: string = this.offsetTab;
     isOffsetActive = true;
@@ -69,6 +70,7 @@ export class ClassModuleComponent implements OnInit, OnDestroy {
     isScheduleActive = false;
     isPendingActive = false;
     isMarkActive = false;
+    isDeptActive = false;
 
     constructor(private alertService: AlertService, private translationService: AppTranslationService,
         private localService: ClassesService,
@@ -111,6 +113,9 @@ export class ClassModuleComponent implements OnInit, OnDestroy {
                 break;
             case this.markTab:
                 this.isMarkActive = true;
+                break;
+            case this.deptTab:
+                this.isDeptActive = true;
                 break;
             default:
                 throw new Error("Selected bootstrap tab is unknown. Selected Tab: " + this.activeTab);

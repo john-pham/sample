@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -64,7 +64,9 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
     private pointer: Payment;
     private isEditMode = true;
-
+    @Input() ioStockId: any = false;
+    @Input() isShowHeader: any = true;
+    
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
@@ -190,7 +192,8 @@ export class PaymentsComponent implements OnInit, OnDestroy {
             .switchMap((params: ParamMap) => {
                 var id = '';
                 if (isReset == false) {
-                    id = params.get('id');
+                    if (this.ioStockId != null && this.ioStockId.length > 0) id = this.ioStockId
+                    else id = params.get('id');
                 }
                 return this.localService.getdefault(id);
             })

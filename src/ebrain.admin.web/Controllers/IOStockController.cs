@@ -414,5 +414,25 @@ namespace Ebrain.Controllers
                 List = list
             });
         }
+
+        [HttpPost("updatioedept")]
+        public async Task<IActionResult> SaveIOStockDept([FromBody]List<IOStockDetailSmallViewModel> ios)
+        {
+            if (ModelState.IsValid)
+            {
+                this._unitOfWork.IOStocks.SaveDept(ios.Select(p => new IOStockDetail
+                {
+                    IOStockId = p.IOStockId.HasValue ? p.IOStockId.Value : Guid.Empty,
+                    IOStockDetailId = p.IOStockDetailId.HasValue ? p.IOStockDetailId.Value : Guid.Empty,
+                    InputExport = p.InputExport,
+                    CreatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    UpdatedBy = userId,
+                    UpdatedDate = DateTime.Now
+                }).ToArray());
+                return Ok(new ClassExamineViewModel());
+            }
+            return Ok(null);
+        }
     }
 }
