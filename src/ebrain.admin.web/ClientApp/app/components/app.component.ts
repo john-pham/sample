@@ -113,7 +113,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.shouldShowLoginModal = false;
 
         if (this.authService.isSessionExpired)
-            this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again to renew your session", MessageSeverity.warn);
+            //this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again to renew your session", MessageSeverity.warn);
+            this.logout();
     }
 
 
