@@ -140,6 +140,15 @@ export class ScheduleStudentComponent implements OnInit, OnDestroy {
         this.getFromServer();
     }
 
+    getRowClass(row) {
+        return {
+            'bg-danger': row.absent == 4,
+            'bg-success': row.absent == 2,
+            'bg-warning': row.absent == 1,
+            'bg-info': row.absent == 0,
+        };
+    }
+
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
 
