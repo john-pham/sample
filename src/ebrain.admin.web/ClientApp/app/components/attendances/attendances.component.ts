@@ -126,6 +126,12 @@ export class AttendancesComponent implements OnInit, OnDestroy {
         this.search();
     }
 
+    getRowClass(row) {
+        return {
+            'row-hightlight': row.absent == false
+        };
+    }
+
     private onChangeDate(value: any) {
         this.search();
     }
