@@ -29,6 +29,8 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<Boolean> CancelMaster(Guid? id);
         IEnumerable<IOStockList> GetIOStockList(DateTime fromDate, DateTime toDate, string ioNumber, int ioTypeId, string branchIds, int page, int size);
         IEnumerable<IOStockDetailList> GetIOStockDetailList(DateTime fromDate, DateTime toDate, string ioNumber, int ioTypeId, string branchIds, int page, int size);
+        IEnumerable<IOStockDetailList> GetIOStockDetailListDept
+            (Guid? studentId, Guid? ioStockId, string filterValue, bool isGetDept, string branchIds, int page, int size);
         IEnumerable<IOStockDetailList> GetWarehouseCard(DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds, int page, int size);
         IEnumerable<IOStockListPayment> GetIOStockPaymentList(DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId,
             bool isInput, bool isWaitingClass, string branchIds, int page, int size);

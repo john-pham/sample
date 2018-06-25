@@ -33,5 +33,8 @@ namespace ebrain.admin.bc.Models
         public decimal? TotalPrice { get; set; }
 
         public decimal? TotalPriceBeforeVAT { get; set; }
+        public decimal? InputExport { get; set; }
+        public DateTime? DateExport { get; set; }
+        public Guid? ByExport { get; set; }
     }
 }

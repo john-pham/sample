@@ -55,6 +55,12 @@ export class IOStudentListService {
             .map((response: Response) => <Results<IOStockReport>>response.json());
     }
 
+    getIOStockDetailDept(filter: string, value: string, studentId: string, ioStockId: string,
+        dept: number, page: number, size: number) {
+        return this.endpointFactory.getIOStockDetailDept(filter, value, studentId, ioStockId, dept, page, size)
+            .map((response: Response) => <Results<IOStockReport>>response.json());
+    }
+
     reportiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
         return this.endpointFactory.reportiobyiotypeid(filter, value, fromDate, toDate, page, size)
             .map((response: Response) => <Chart>response.json());

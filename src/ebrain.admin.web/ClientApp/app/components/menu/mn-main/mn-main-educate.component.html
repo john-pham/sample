@@ -45,6 +45,13 @@
                                 <span class="text-muted text-u-c"> {{'menu.class.MaterialLearn' | translate}}</span>
                             </a>
                         </div>
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE98')">
+                            <a routerLink="/students">
+                                <span class="fa fa-child"></span>
+                                <span class="text-muted text-u-c"> {{'menu.class.Student' | translate}}</span>
+                            </a>
+                        </div>
+                        
                         <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE93')">
                             <a routerLink="/shiftclasses">
                                 <span class="fa fa-bell"></span>
@@ -77,16 +84,22 @@
                         </span>
                     </a>
                     <div class="dropdown-content">
-                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
+                        <!-- <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
                             <a routerLink="/classes">
                                 <span class="fa fa-braille icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.Class' | translate}}</span>
                             </a>
-                        </div>
+                        </div> -->
                         <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')">
                             <a routerLink="/classlists">
                                 <span class="fa fa-braille icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.ClassList' | translate}}</span>
+                            </a>
+                        </div>
+                        <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')">
+                            <a routerLink="/iosummarizesdept">
+                                <span class="fa fa-braille icon"></span>
+                                <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.StudentDept' | translate}}</span>
                             </a>
                         </div>
                         <!-- <div *ngIf="accessRightService.isViewFeature('8aa6b971-1c3d-4835-b154-d662ce12ae96')">

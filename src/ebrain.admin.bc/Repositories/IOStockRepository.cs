@@ -83,6 +83,37 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public IEnumerable<IOStockDetailList> GetIOStockDetailListDept
+            (Guid? studentId, Guid? ioStockId, string filterValue, bool isGetDept, string branchIds, int page, int size)
+        {
+            try
+            {
+                List<IOStockDetailList> someTypeList = new List<IOStockDetailList>();
+                this.appContext.LoadStoredProc("dbo.sp_IOStockListDetailDept")
+                               .WithSqlParam("@studentId", studentId)
+                               .WithSqlParam("@ioStockId", ioStockId)
+                               .WithSqlParam("@isGetDept", isGetDept)
+                               .WithSqlParam("branchIds", branchIds)
+                               .WithSqlParam("filterValue", filterValue).ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<IOStockDetailList>().ToList();
+                               });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+                return someTypeList;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IEnumerable<IOStockDetailList> GetWarehouseCard(
             DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds, int page, int size)
         {

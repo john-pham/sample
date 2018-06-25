@@ -1,0 +1,90 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a></li>
+                <li>{{'menu.student.Categories.Detail.StudentDept' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-8">
+        <div class="form-group search-box">
+            <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.iostudentlist.searchBox' | translate}}">></search-box>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="text-right">
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          ></search-chart>
+        </div>
+    </div>
+</div>
+
+<div [@fadeInOut]>
+    <!--DATA TABLE-->
+    <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [columns]="columns"
+                       [columnMode]="'force'"
+                       [scrollbarV]="verticalScrollbar"
+                       
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="'auto'"
+                       [externalPaging]="true"
+                       [count]="page.totalElements"
+                       [offset]="page.pageNumber"
+                       [limit]="page.size"
+                       (page)='setPage($event)'
+                   >
+    </ngx-datatable>
+    <div [@fadeInOut]>
+        <page-controller></page-controller>
+    </div>
+    <!-- TEMPLATEs -->
+    <ng-template #statusHeaderTemplate>
+        <i class="fa fa-check-square-o"></i>
+    </ng-template>
+
+    <ng-template #statusTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #nameTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+
+    <ng-template #descriptionTemplate let-row="row" let-value="value">
+        <span attr.title="{{value}}">
+            {{value}}
+        </span>
+    </ng-template>
+    <ng-template #totalPriceTemplate let-row="row" let-value="value">
+        <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+            {{value | currencypipe}}
+        </span>
+    </ng-template>
+    <ng-template #actionsTemplate let-row="row">
+        <a class="btn btn-link btn-xs" routerLink="/iostudent/?id={{value}}" (click)="goDetails(template, row)"
+           *ngIf="accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A4')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
+    </ng-template>
+</div>
+
+<ng-template #template>
+    <div class="modal-body">
+        <statistics-chart [modalRef]="modalRef" [chart]="chart"></statistics-chart>
+    </div>
+</ng-template>
+

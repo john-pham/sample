@@ -69,6 +69,7 @@ import { ClassStudentExComponent } from "./components/classstudentsex/classstude
 import { ClassPendingComponent } from "./components/classpending/classpending.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
 import { IOSummarizesComponent } from "./components/iosummarizes/iosummarizes.component";
+import { IOSummarizesDeptComponent } from "./components/iosummarizesdept/iosummarizesdept.component";
 import { PurSummarizesComponent } from "./components/pursummarizes/pursummarizes.component";
 import { PurDetailsComponent } from "./components/purdetails/purdetails.component";
 
@@ -256,6 +257,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "schedulestudents", component: ScheduleStudentComponent, canActivate: [AuthGuard], data: { title: "iostudentlistspaydetail" } },
             { path: "ioinputs", component: IOInputsComponent, canActivate: [AuthGuard], data: { title: "ioinputs" } },
             { path: "iosummarizes", component: IOSummarizesComponent, canActivate: [AuthGuard], data: { title: "iosummarizes" } },
+            { path: "iosummarizesdept", component: IOSummarizesDeptComponent, canActivate: [AuthGuard], data: { title: "iosummarizesdept" } },
             { path: "iodetails", component: IODetailsComponent, canActivate: [AuthGuard], data: { title: "iodetails" } },
             { path: "warehousecards", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },
             { path: "warehousecards/:id", component: WarehouseCardsComponent, canActivate: [AuthGuard], data: { title: "Warehouse Cards" } },

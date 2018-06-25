@@ -217,6 +217,48 @@ namespace Ebrain.Controllers
             return list;
         }
 
+        [HttpGet("getiostockdetaildept")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetIOStockDetailDept(string filter, string value, Guid? studentId, Guid? ioStockId, int dept, int page, int size)
+        {
+            var unit = this._unitOfWork.IOStocks;
+            var results = unit.GetIOStockDetailListDept(
+                            studentId,
+                            ioStockId,
+                            value,
+                            dept > 1 ? true : false,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page, size
+                        );
+            var list = new List<IOStockViewModel>();
+            foreach (var item in results)
+            {
+                list.Add(new IOStockViewModel
+                {
+                    ID = item.IOStockId,
+                    Code = item.IONumber,
+                    FullName = item.FullName,
+                    StudentName = item.StudentName,
+                    CreateDate = item.CreatedDate,
+                    Note = item.Note,
+                    StudentId = item.StudentId,
+                    IOStockDetailId = item.IOStockDetailId,
+                    MaterialId = item.MaterialId,
+                    MaterialCode = item.MaterialCode,
+                    MaterialName = item.MaterialName,
+                    Quantity = item.InputQuantity,
+                    FullNameExport = item.FullNameExport,
+                    InputExport = item.InputExport,
+                    ByExport = item.ByExport
+                });
+            }
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+        }
+
         [HttpGet("getwarehousecard")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> GetWarehouseCard(string filter, string value, string fromDate, string toDate, int page, int size)
