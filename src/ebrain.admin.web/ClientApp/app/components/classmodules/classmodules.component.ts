@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -56,6 +56,7 @@ export class ClassModuleComponent implements OnInit, OnDestroy {
     @Input() classId: any = "";
     @Input() studentId: any = "";
     @Input() classRef: any;
+    @Output() private funcReloadData = new EventEmitter<any>();
     readonly offsetTab = "offset";
     readonly exTab = "ex";
     readonly scheduleTab = "schedule";
@@ -75,6 +76,12 @@ export class ClassModuleComponent implements OnInit, OnDestroy {
         private modalService: BsModalService,
         private route: ActivatedRoute, private router: Router) {
 
+    }
+
+    private funcReloadDataClass() {
+        if (this.funcReloadData !== undefined) {
+            this.funcReloadData.emit();
+        }
     }
 
     ngOnInit() {

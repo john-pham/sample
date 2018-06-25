@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -77,6 +77,7 @@ export class ClassesComponent implements OnInit, OnDestroy {
     public changesCancelledCallback: () => void;
     @Input() ioStockId: any = false;
     @Input() isShowHeader: any = true;
+    
     modalRef: BsModalRef;
     classExamineRef: BsModalRef;
     waitingClassRef: BsModalRef;
