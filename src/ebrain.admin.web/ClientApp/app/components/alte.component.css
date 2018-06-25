@@ -342,7 +342,7 @@ messengerlists .ngx-datatable .datatable-body {
     width: 230px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    border-radius: 2px;
+    border-radius: 6px;
     max-height: 60vh;
     overflow-y: auto;
 }
@@ -356,14 +356,13 @@ messengerlists .ngx-datatable .datatable-body {
         z-index: 2;
         text-decoration: none;
         color: #a1a8ac;
-        border-bottom: 1px solid;
+        border-bottom: 1px solid #a1a8ac;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
     }
 
         .dropdown-content a:hover {
-            border-bottom: 0px;
             color: #fff;
         }
 
@@ -374,7 +373,6 @@ messengerlists .ngx-datatable .datatable-body {
             top: 0;
             width: 0px;
             position: absolute;
-            border-bottom: 1px solid #a1a8ac;
             transition: all 0.3s ease 0s;
             -webkit-transition: all 0.3s ease 0s;
             z-index: -1;
