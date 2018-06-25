@@ -136,6 +136,18 @@ label.control-label {
     border-bottom: 1px solid #ddd;
 }
 
+.ngx-datatable.material .datatable-body datatable-body-row.datatable-body-row.row-hightlight {
+    background-color: rebeccapurple;
+}
+
+    .ngx-datatable.material .datatable-body datatable-body-row.datatable-body-row.row-hightlight:hover .datatable-body-cell {
+        color: #000;
+    }
+
+    .ngx-datatable.material .datatable-body datatable-body-row.datatable-body-row.row-hightlight datatable-body-cell.datatable-body-cell {
+        color: #fff;
+    }
+
 .ngx-datatable .datatable-body .datatable-body-row .datatable-body-cell {
     border-right: 1px solid #ddd;
     border-top: 1px solid #ddd !important;
