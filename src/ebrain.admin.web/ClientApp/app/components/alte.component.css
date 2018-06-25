@@ -343,27 +343,56 @@ messengerlists .ngx-datatable .datatable-body {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 2px;
-    max-height: 302px;
+    max-height: 60vh;
     overflow-y: auto;
 }
 
     .dropdown-content a {
-        color: #a1a8ac;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: flex;
-        border-bottom: 1px solid;
         background-color: white;
+        display: flex;
+        width: 100%;
+        padding: 10px 20px;
+        position: relative;
+        z-index: 2;
+        text-decoration: none;
+        color: #a1a8ac;
+        border-bottom: 1px solid;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
     }
 
-        .dropdown-content a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-content a span.link {
-            margin-left: 10px;
-        }
-
         .dropdown-content a:hover {
-            background-color: #ddd;
+            border-bottom: 0px;
+            color: #fff;
+        }
+
+        .dropdown-content a:after {
+            content: "";
+            height: 100%;
+            left: 0;
+            top: 0;
+            width: 0px;
+            position: absolute;
+            border-bottom: 1px solid #a1a8ac;
+            transition: all 0.3s ease 0s;
+            -webkit-transition: all 0.3s ease 0s;
+            z-index: -1;
+        }
+
+        .dropdown-content a:hover:after {
+            width: 100%;
+        }
+
+        .dropdown-content a:after {
+            background: #9fc343;
+        }
+
+        .dropdown-content a > span:first-child {
+            line-height: 1.5;
+            margin-right: 10px;
+        }
+
+        .dropdown-content a:hover > span:last-child {
+            color: #fff;
         }
