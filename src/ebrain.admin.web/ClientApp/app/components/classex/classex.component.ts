@@ -151,7 +151,7 @@ export class ClassExComponent implements OnInit, OnDestroy {
     }
 
     private save() {
-        let arrs = this.rows;
+        let arrs = this.rows.slice();
         if (this.rows === undefined || this.rows.length === 0) {
             var itemNew = new ClassEx();
             itemNew.studentId = this.studentId;

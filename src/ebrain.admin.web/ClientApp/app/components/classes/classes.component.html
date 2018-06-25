@@ -388,8 +388,8 @@
                                     <div class="form-group has-feedback">
                                         <label class="control-label col-md-2">{{'label.class.EndDate' | translate}}</label>
                                         <div class="col-md-10" [ngClass]="{'has-success': f.submitted && endDate.valid, 'has-error' : f.submitted && !endDate.valid}">
-                                            <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endDate" disabled
-                                                name="endDate" #endDate="ngModel" attr.id="endDate-{{uniqueId}}" />
+                                            <input type="text" class="form-control" placeholder="{{'label.class.EndDate' | translate}}" bsDatepicker [(ngModel)]="pointer.endDate"
+                                                disabled name="endDate" #endDate="ngModel" attr.id="endDate-{{uniqueId}}" />
                                         </div>
                                     </div>
                                 </div>
@@ -418,7 +418,7 @@
                             <div class="wrap-table">
                                 <div [@fadeInOut]>
                                     <!--DATA TABLE-->
-                                    <ngx-datatable class="material colored-header sm table-hover" [loadingIndicator]="loadingIndicator" [rows]="rowStudents"
+                                    <ngx-datatable class="material colored-header sm table-hover row-pointer" [loadingIndicator]="loadingIndicator" [rows]="rowStudents"
                                         [rowHeight]="auto" [columns]="columnStudents" [scrollbarV]="verticalScrollbar" [columnMode]="'force'"
                                         (activate)="onActivateClass($event, classoffsettemplate)">
                                     </ngx-datatable>
@@ -434,7 +434,7 @@
                                         </span>
                                     </ng-template>
                                     <ng-template #actionStudentsTemplate let-row="row">
-                                        <a #markExamine class="btn btn-link btn-xs" href="javascript:;" (click)="markExamine(row, templateExamine)"  *ngIf="pointer.id?.length > 0">
+                                        <a #markExamine class="btn btn-link btn-xs" href="javascript:;" (click)="markExamine(row, templateExamine)" *ngIf="pointer.id?.length > 0">
                                             <i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Mark' | translate}}
                                         </a>
                                         <a #deleteStudent class="btn btn-link btn-xs" href="javascript:;" (click)="deleteStudent(row)">
@@ -477,5 +477,5 @@
 </ng-template>
 
 <ng-template #classoffsettemplate>
-    <classmodules [classId]="classId" [studentId]="studentId" [classRef]="classRef"></classmodules>
+    <classmodules [classId]="classId" [studentId]="studentId" [classRef]="classRef" (funcReloadData)="getDefault('',false)"></classmodules>
 </ng-template>

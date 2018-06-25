@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -55,6 +55,7 @@ export class ClassPendingComponent implements OnInit, OnDestroy {
 
     @Input() classId: any = "";
     @Input() studentId: any = "";
+    @Output() private funcReloadData = new EventEmitter<any>();
 
     public pointer: Class;
     private columns = [];
@@ -123,7 +124,7 @@ export class ClassPendingComponent implements OnInit, OnDestroy {
     }
 
     private save() {
-        let arrs = this.rows;
+        let arrs = this.rows.slice();
         if (this.rows === undefined || this.rows.length === 0) {
             var itemNew = new ClassPending();
             itemNew.studentId = this.studentId;
@@ -137,6 +138,9 @@ export class ClassPendingComponent implements OnInit, OnDestroy {
             this.loadingIndicator = false;
             this.alertService.stopLoadingMessage();
             this.alertService.showMessage("Success", `Lưu dữ liệu thành công.`, MessageSeverity.success);
+            if(this.funcReloadData !== undefined){
+                this.funcReloadData.emit();
+            }
         }, error => this.saveFailedHelper(error));
     }
 

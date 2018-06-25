@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -55,7 +55,8 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
 
     @Input() classId: any = "";
     @Input() studentId: any = "";
-
+    @Output() private funcReloadData = new EventEmitter<any>();
+    
     public pointer: Class;
     private columns = [];
     private rows = [];
@@ -134,7 +135,7 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
     }
 
     private save() {
-        let arrs = this.rows;
+        let arrs = this.rows.slice();
         if (this.rows === undefined || this.rows.length === 0) {
             var itemNew = new ClassOffset();
             itemNew.studentId = this.studentId;
@@ -147,6 +148,9 @@ export class ClassOffsetComponent implements OnInit, OnDestroy {
         this.localService.saveOffset(arrs).subscribe(value => {
             this.rows = [...value];
             this.mappingData();
+            if(this.funcReloadData !== undefined){
+                this.funcReloadData.emit();
+            }
             this.alertService.showMessage("Success", `Lưu dữ liệu thành công.`, MessageSeverity.success);
         }, error => this.saveFailedHelper(error));
     }

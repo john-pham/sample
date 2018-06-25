@@ -472,10 +472,7 @@ namespace Ebrain.Controllers
                     ShiftId = p.ShiftId
                 }).ToArray(), classId, studentId);
 
-                if (offsets.Length > 0)
-                {
-                    return this.GetClassOffset(studentId, classId);
-                }
+                return this.GetClassOffset(studentId, classId);
 
             }
             return null;
@@ -509,11 +506,7 @@ namespace Ebrain.Controllers
                     ShiftId = p.ShiftId
                 }).ToArray(), classId, studentId);
 
-                if (offsets.Length > 0)
-                {
-                    return this.GetClassEx(studentId, classId);
-                }
-
+                return this.GetClassEx(studentId, classId);
             }
             return null;
         }
@@ -546,11 +539,7 @@ namespace Ebrain.Controllers
                     ToDate = p.ToDate
                 }).ToArray(), classId, studentId);
 
-                if (offsets.Length > 0)
-                {
-                    return this.GetClassPending(studentId, classId);
-                }
-
+                return this.GetClassPending(studentId, classId);
             }
             return null;
         }

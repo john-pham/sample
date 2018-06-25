@@ -33,7 +33,7 @@
             </div>
             <hr class="separator-hr" />
             <div [@fadeInOut] *ngIf="isOffsetActive" class="content-container">
-                <classoffset [classId]="classId" [studentId]="studentId"></classoffset>
+                <classoffset [classId]="classId" [studentId]="studentId" (funcReloadData)="funcReloadDataClass()"></classoffset>
             </div>
         </div>
 
@@ -72,7 +72,7 @@
             </div>
             <hr class="separator-hr" />
             <div [@fadeInOut] *ngIf="isPendingActive" class="content-container">
-                <classpending [classId]="classId" [studentId]="studentId"></classpending>
+                <classpending [classId]="classId" [studentId]="studentId" (funcReloadData)="funcReloadDataClass()"></classpending>
             </div>
         </div>
 
