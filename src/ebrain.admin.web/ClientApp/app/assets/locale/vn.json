@@ -920,7 +920,9 @@
     "student": {
       "header": "Danh sách học viên",
       "searchBox": "Tìm kiếm học viên",
-      "newStudent": "Tạo mới"
+      "newStudent": "Tạo mới",
+      "potential": "Học viên tiềm năng",
+      "learning": "Đang học"
     },
     "iostudent": {
       "header": "Thu phí học viên",
@@ -1154,7 +1156,8 @@
         "CheckClassTeacher": "Điểm danh - Giáo viên",
         "Teacher": "Giáo viên",
         "BirthdayStudent": "Sinh nhật",
-        "IOStudent": "Học phí"
+        "IOStudent": "Học phí",
+        "StudentModule": "Học viên"
       },
       "report": {
         "Summarize": "Thống kê",
@@ -1175,7 +1178,10 @@
       "Student": "Học viên",
       "Manage": "Quản trị học viên",
       "Report": "Thống kê",
-      "SMS": "SMS"
+      "SMS": "SMS",
+      "Potential": "Tiềm năng",
+      "Learning": "Đang học",
+      "EndClass": "Kết thúc khóa"
     }
   },
   "pageHeader": {

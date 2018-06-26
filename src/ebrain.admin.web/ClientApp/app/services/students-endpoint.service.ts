@@ -122,6 +122,32 @@ export class StudentsEndpoint extends EndpointFactory {
             });
     }
 
+    getStudentPotential(filterValue: string, page: number, size: number): Observable<Response> {
+        let url = this.getUrl('getstudentpotential?filterValue=' + filterValue
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getStudentPotential(filterValue, page, size));
+            });
+    }
+
+    getStudentLearning(filterValue: string, studentId: string, classId: string, learning: number, page: number, size: number): Observable<Response> {
+        let url = this.getUrl('getstudentlearning?filterValue=' + filterValue
+            + '&studentId=' + studentId + '&classId=' + classId
+            + '&learning=' + learning
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getStudentLearning(filterValue, studentId, classId, learning, page, size));
+            });
+    }
+
     getNewStudent(): Observable<Response> {
         let url = this.getUrl('getnewstudent?hash_id=' + Math.random());
         return this.http.get(url, this.getAuthHeader())

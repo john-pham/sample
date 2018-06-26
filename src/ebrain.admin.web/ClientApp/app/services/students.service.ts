@@ -85,6 +85,13 @@ export class StudentsService {
         return this.endpointFactory.getStudentEndClass(classId, toDate, page, size).map((response: Response) => <Results<Student>>response.json());
     }
 
+    getStudentPotential(filterValue: string, page: number, size: number) {
+        return this.endpointFactory.getStudentPotential(filterValue, page, size).map((response: Response) => <Results<Student>>response.json());
+    }
+    getStudentLearning(filterValue: string, studentId: string, classId: string, learning: number, page: number, size: number) {
+        return this.endpointFactory.getStudentLearning(filterValue, studentId, classId, learning, page, size).map((response: Response) => <Results<Student>>response.json());
+    }
+
     delete(id: string) {
         return this.endpointFactory.delete(id);
     }

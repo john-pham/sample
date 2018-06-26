@@ -29,5 +29,18 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         List<StudentList> GetStudentByCreateDate(string branchIds, DateTime? fromDate, DateTime? toDate, int page, int size);
         List<StudentList> GetStudentCourse(string filterValue, string studentId, string branchIds, int page, int size);
         List<StudentList> GetTeacherCourse(string filterValue, string branchIds, int page, int size);
+        List<StudentList> GetStudentPotential(string filterValue, string branchIds, int page, int size);
+        /// <summary>
+        /// Get student learning
+        /// </summary>
+        /// <param name="filterValue"></param>
+        /// <param name="studentId"></param>
+        /// <param name="classId"></param>
+        /// <param name="isLearning">true: learning, false: endClass, null: all</param>
+        /// <param name="branchIds"></param>
+        /// <param name="page"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        List<StudentList> GetStudentLearning(string filterValue,Guid? studentId, Guid? classId, bool? isLearning, string branchIds, int page, int size);
     }
 }

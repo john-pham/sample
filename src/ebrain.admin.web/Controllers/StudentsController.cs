@@ -385,5 +385,80 @@ namespace Ebrain.Controllers
                 List = list
             });
         }
+
+        [HttpGet("getstudentpotential")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetStudentPotential(string filterValue, int page, int size)
+        {
+            var unit = this._unitOfWork.Students;
+            var results = unit.GetStudentPotential
+                        (
+                            filterValue,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page,
+                            size
+                        );
+            var list = results.Select(p => new StudentViewModel
+            {
+                ID = p.StudentId,
+                Code = p.StudentCode,
+                Name = p.StudentName,
+                Birthday = p.Birthday,
+                Phone = p.Phone,
+                GenderName = p.GenderName
+            });
+
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+        }
+
+        [HttpGet("getstudentlearning")]
+        [Produces(typeof(UserViewModel))]
+        public IActionResult GetStudentLearning(string filterValue, string studentId, string classId, int learning, int page, int size)
+        {
+            var unit = this._unitOfWork.Students;
+            bool? isLearning = learning == 0 ? (bool?)null : learning == 1 ? true : false;
+            var results = unit.GetStudentLearning
+                        (
+                            filterValue,
+                            string.IsNullOrEmpty(studentId) ? (Guid?)null : Guid.Parse(studentId),
+                            string.IsNullOrEmpty(classId) ? (Guid?)null : Guid.Parse(classId),
+                            isLearning,
+                            this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                            page,
+                            size
+                        );
+            var list = results.Select(p => new StudentViewModel
+            {
+                ID = p.StudentId,
+                Code = p.StudentCode,
+                Name = p.StudentName,
+                Birthday = p.Birthday,
+                ClassId = p.ClassId,
+                ClassName = p.ClassName,
+                ClassCode = p.ClassCode,
+                StartDate = p.StartDate,
+                EndDate = p.EndDate,
+                Phone = p.Phone,
+                Email = p.Email,
+                GenderName = p.GenderName,
+                TotalDay = p.TotalDay,
+                MaterialName = p.MaterialName,
+                SupplierCode = p.SupplierCode,
+                SupplierName = p.SupplierName,
+                SupplierId = p.SupplierId
+            });
+
+
+            return Json(new
+            {
+                Total = unit.Total,
+                List = list
+            });
+        }
     }
 }

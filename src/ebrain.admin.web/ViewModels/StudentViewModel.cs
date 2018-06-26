@@ -34,6 +34,7 @@ namespace Ebrain.ViewModels
         public string Username { get; set; }
         public string Password { get; set; }
         public string SchoolName { get; set; }
+        public Guid? ClassId { get; set; }
         public string ClassName { get; set; }
         public string ClassCode { get; set; }
         public DateTime? StartDate { get; set; }

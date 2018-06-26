@@ -1,0 +1,100 @@
+﻿<header *ngIf="isShowHeader">
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li>
+                    <a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a>
+                </li>
+                <li>{{'pageMain.student.potential' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-9">
+        <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.student.searchBox' | translate}}">></search-box>
+    </div>
+    <div class="col-sm-3" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE98')">
+        <div class="text-right">
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()" [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
+        </div>
+    </div>
+</div>
+
+<div class="row control-box">
+    <div class="col-sm-6 no-pd-r">
+        <div class="form-group has-feedback">
+            <label class="control-label col-sm-4 col-md-4">{{'label.attendance.Class' | translate}}</label>
+            <div class="col-sm-8 col-md-8">
+                <select id="classes-info" name="allstudents" [(ngModel)]="classId" class="form-control" (change)="onChangeClass($event.target.value)"
+                    data-actions-box="false" data-live-search-placeholder="Search...">
+                    <option [value]="">{{'label.classlist.AllFiles' | translate}}</option>
+                    <option *ngFor="let class of classes" attr.data-content="<span title='{{class.name}}' class='badge'>{{class.name}}</span>"
+                        attr.value="{{class.id}}">
+                        {{class.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table-hover row-pointer" [loadingIndicator]="loadingIndicator" [rows]="rows" [rowHeight]="auto"
+            [columns]="columns" [columnMode]="'force'"
+            (activate)="onActivateClass($event, classmodulesTemplate)">
+        </ngx-datatable>
+
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
+
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span currencyMask type="tel" attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <!-- <ng-template #actionsTemplate let-row="row">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"
+               *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+            |
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"
+               *ngIf="accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+        </ng-template> -->
+    </div>
+</div>
+
+<!--[@fadeInOut] *ngIf="isProfileActived"-->
+
+<ng-template #templateStudent>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closeStudent()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <classstudents [StudentId]="studentId"></classstudents>
+    </div>
+</ng-template>
+
+<ng-template #classmodulesTemplate>
+    <classmodules [classId]="classId" [studentId]="studentId" [classRef]="modalRef"></classmodules>
+</ng-template>
