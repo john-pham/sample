@@ -31,7 +31,7 @@
                     routerLink="/paymentio/?ioid={{pointer.id}}" (click)="goPayment(pointer.id)">
                 <span class="glyphicon glyphicon-user"></span> {{'button.PaymentReceipt' | translate}}
             </button>
-            <button type="button" class="btn btn-info" (click)="showExportInput(templateDept)">
+            <button type="button" *ngIf="pointer.id?.length > 0" class="btn btn-info" (click)="showExportInput(templateDept)">
                 <span class="glyphicon glyphicon-search"></span> {{'button.ExportInput' | translate}}
             </button>
             <button *ngIf="pointer.id?.length > 0 && (accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE99') || accessRightService.isDelete('9ECBD467-7642-467B-AAE2-96484AD182A3'))"  type="button" class="btn btn-warning" (click)="deletemaster()">
