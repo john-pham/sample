@@ -20,6 +20,7 @@ namespace ebrain.admin.bc.Report
         public string Username { get; set; }
         public string Password { get; set; }
         public string SchoolName { get; set; }
+        public Guid? ClassId { get; set; }
         public string ClassName { get; set; }
         public DateTime Birthday { get; set; }
         public string Avatar { get; set; }

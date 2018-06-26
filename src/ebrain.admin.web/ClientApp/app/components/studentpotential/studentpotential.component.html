@@ -1,0 +1,401 @@
+﻿<header *ngIf="isShowHeader">
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li><a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a></li>
+                <li>{{'pageMain.student.potential' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="row control-box">
+    <div class="col-sm-9">
+        <search-box (searchChange)="onSearchChanged($event)" placeholder="{{'pageMain.student.searchBox' | translate}}">></search-box>
+    </div>
+    <div class="col-sm-3" *ngIf="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE98')">
+        <div class="text-right">
+            <search-chart [isShowSearch]="true" (searchTemplate)="search()"
+                          [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
+                          [isShowTemplate]="false" (showTemplate)="showChart(template)"></search-chart>
+        </div>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <div [@fadeInOut]>
+        <!--DATA TABLE-->
+        <ngx-datatable class="material colored-header sm table-hover"
+                       [loadingIndicator]="loadingIndicator"
+                       [rows]="rows"
+                       [rowHeight]="auto"
+                       [columns]="columns"
+                       [columnMode]="'force'">
+        </ngx-datatable>
+
+        <!-- TEMPLATEs -->
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
+
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span currencyMask type="tel" attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <!-- <ng-template #actionsTemplate let-row="row">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="edit(template, row.id)"
+               *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Edit' | translate}}</a>
+            |
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"
+               *ngIf="accessRightService.isDelete('8AA6E971-1C3D-4835-B154-D662CE12AE98')"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+        </ng-template> -->
+    </div>
+</div>
+
+<!--[@fadeInOut] *ngIf="isProfileActived"-->
+
+<ng-template #templateStudent>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="closeStudent()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <classstudents [StudentId]="studentId"></classstudents>
+    </div>
+</ng-template>
+
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="branch-modalLabel">{{'label.student.HeaderAdd' | translate}}</h4>
+    </div>
+
+    <form class="form-horizontal" name="branchForm" #f="ngForm"
+          novalidate
+          (ngSubmit)="f.form.valid ? save() :
+          (showErrorAlert('Input is required', 'Please enter at controls'));">
+
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Avatar' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.avatar" name="avatar">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Code' | translate}}</label>
+                        <div class="col-md-8" [ngClass]="{'has-success': f.submitted && code.valid, 'has-error' : f.submitted && !code.valid}">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.code" name="code" required
+                                   #code="ngModel"
+                                   attr.id="code-{{uniqueId}}" minlength="2" maxlength="200">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Name' | translate}}</label>
+                        <div class="col-md-8" [ngClass]="{'has-success': f.submitted && name.valid, 'has-error' : f.submitted && !name.valid}">
+                            <input type="text" class="form-control" [(ngModel)]="pointer.name" name="name" required
+                                   #name="ngModel"
+                                   attr.id="name-{{uniqueId}}" minlength="2" maxlength="200">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Birthday' | translate}}</label>
+                        <div class="col-md-8" [ngClass]="{'has-success': f.submitted && birthday.valid, 'has-error' : f.submitted && !birthday.valid}">
+                            <input type="text" class="form-control" placeholder="{{'label.student.Birthday' | translate}}" bsDatepicker [(ngModel)]="pointer.birthday"
+                                   name="birthday" #birthday="ngModel" minlength="2" maxlength="200"
+                                   attr.id="birthday-{{uniqueId}}" />
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Gender' | translate}}</label>
+                        <div class="col-md-8" [ngClass]="{'has-success': f.submitted && gender.valid, 'has-error' : f.submitted && !gender.valid}">
+                            <select id="grps-user-info" name="gender" [(ngModel)]="pointer.genderId" class="form-control" required
+                                    data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title=""
+                                    #gender="ngModel"
+                                    attr.id="gender-{{uniqueId}}">
+                                <option *ngFor="let grp of allGenders" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                    {{grp.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Phone' | translate}}</label>
+                        <div class="col-md-8" [ngClass]="{'has-success': f.submitted && phone.valid, 'has-error' : f.submitted && !phone.valid}">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.phone" minlength="2" maxlength="200"
+                                   name="phone" #phone="ngModel" attr.id="phone-{{uniqueId}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.SchoolName' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" name="schoolName" type="text" [(ngModel)]="pointer.schoolName">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Classname' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.className" name="className">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.UserName' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.username" name="username">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Password' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.password" name="password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-2">{{'label.student.Note' | translate}}</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" [(ngModel)]="pointer.note" name="note"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                    <h3 class="col-md-8">{{'label.student.FaHeader' | translate}}</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.FaUserName' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.faUsername" name="faUsername">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.FaBirthday' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="{{'label.student.Birthday' | translate}}" bsDatepicker [(ngModel)]="pointer.faBirthday"
+                                   name="faBirthday"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.FaPhone' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.faPhone" name="faPhone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.FaFacebook' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.faFacebook" name="faFacebook">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.FaAddress' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.faAddress" name="faAddress">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.FaFacebook' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.faFacebook" name="faFacebook">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-2">{{'label.student.FaAddress' | translate}}</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" [(ngModel)]="pointer.faAddress" name="faAddress"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.FaEmail' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.faEmail" name="faEmail">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.FaJob' | translate}}</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" [(ngModel)]="pointer.fajob" name="fajob">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-4">{{'label.student.Status' | translate}}</label>
+                        <div class="col-md-8">
+                            <select id="grps-user-info" name="grps" [(ngModel)]="pointer.studentStatusId" class="form-control" required
+                                    data-live-search="true" data-actions-box="false" data-live-search-placeholder="Search..." title="Select Group Suppliers">
+                                <option *ngFor="let grp of allStuStatus" attr.data-content="<span title='{{grp.note}}' class='badge'>{{grp.name}}</span>" attr.value="{{grp.id}}">
+                                    {{grp.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">{{'button.Close' | translate}}</button>
+                <button type="submit" class="btn btn-primary" >{{'button.Save' | translate}}</button>
+            </div>
+        </div>
+
+    </form>
+</ng-template>

@@ -1,0 +1,64 @@
+﻿<header *ngIf="!isUsageTeacher">
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li>
+                    <a routerLink="/mn_main_educate">{{'menu.main.Educate' | translate}}</a>
+                </li>
+                <li>{{'menu.student.manage.StudentModule' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<div class="col-xs-12 col-sm-12 col-md-2 side-menu">
+    <ul bootstrapTab #tab="bootstrap-tab" class="nav nav-tabs tabs-left" (showBSTab)="onShowTab($event)">
+        <li class="active">
+            <a id="potentialTab" [routerLink]="[]" fragment="potential" href="#potential" data-toggle="tab">
+                <i class="fa fa-user-circle-o fa-fw" aria-hidden="true"></i> {{'menu.student.Potential' | translate}}</a>
+        </li>
+        <li>
+            <a id="learningTab" [routerLink]="[]" fragment="learning" href="#learning" data-toggle="tab">
+                <i class="fa fa-user-circle-o fa-fw" aria-hidden="true"></i> {{'menu.student.Learning' | translate}}</a>
+        </li>
+        <li>
+            <a id="endClassTab" [routerLink]="[]" fragment="endClass" href="#endClass" data-toggle="tab">
+                <i class="fa fa-user-circle-o fa-fw" aria-hidden="true"></i> {{'menu.student.EndClass' | translate}}</a>
+        </li>
+
+    </ul>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-10">
+    <div class="tab-content">
+        <div class="tab-pane active" id="potential">
+            <div class="modal-header">
+                <h4 class="modal-title" id="branch-modalLabel">{{'pageMain.student.potential' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isPotentialActive" class="content-container">
+                <studentpotential></studentpotential>
+            </div>
+        </div>
+        <div class="tab-pane" id="learning">
+            <div class="modal-header">
+                <h4 class="modal-title" id="branch-modalLabel">{{'menu.student.Learning' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isLearningActive" class="content-container">
+                <studentlearning [learning]="1"></studentlearning>
+            </div>
+        </div>
+        <div class="tab-pane" id="endClass">
+            <div class="modal-header">
+                <h4 class="modal-title" id="branch-modalLabel">{{'menu.student.EndClass' | translate}}</h4>
+            </div>
+            <hr class="separator-hr" />
+            <div [@fadeInOut] *ngIf="isEndClassActive" class="content-container">
+                <studentlearning [learning]="2"></studentlearning>
+            </div>
+        </div>
+    </div>
+</div>

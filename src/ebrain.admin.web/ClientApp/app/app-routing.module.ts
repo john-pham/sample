@@ -42,6 +42,9 @@ import { StudentsComponent } from "./components/students/students.component";
 import { StudentDatesComponent } from "./components/studentdates/studentdates.component";
 import { StudentBirthdaysComponent } from "./components/studentbirthdays/studentbirthdays.component";
 import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
+import { StudentPotentialComponent } from "./components/studentpotential/studentpotential.component";
+import { StudentLearningComponent } from "./components/studentlearning/studentlearning.component";
+import { StudentModuleComponent } from "./components/studentmodules/studentmodules.component";
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
 import { PurchaseOrdersComponent } from "./components/purchaseorders/purchaseorders.component";
 import { PurHistoriesComponent } from "./components/purhistories/purhistories.component";
@@ -222,7 +225,9 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "studentbirthdays", component: StudentBirthdaysComponent, canActivate: [AuthGuard], data: { title: "studentbirthdays" } },
             { path: "studentdates", component: StudentDatesComponent, canActivate: [AuthGuard], data: { title: "studentdates" } },
             { path: "studentendclass", component: StudentEndClassComponent, canActivate: [AuthGuard], data: { title: "students end classes" } },
-
+            { path: "studentpotential", component: StudentPotentialComponent, canActivate: [AuthGuard], data: { title: "students end classes" } },
+            { path: "studentlearning", component: StudentLearningComponent, canActivate: [AuthGuard], data: { title: "StudentLearningComponent" } },
+            { path: "studentmodules", component: StudentModuleComponent, canActivate: [AuthGuard], data: { title: "studentmodules" } },
 
             { path: "payments", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
             { path: "payment/:id", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment Details" } },

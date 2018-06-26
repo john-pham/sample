@@ -263,6 +263,73 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public List<StudentList> GetStudentPotential(string filterValue, string branchIds, int page, int size)
+        {
+            try
+            {
+                List<StudentList> someTypeList = new List<StudentList>();
+                this.appContext.LoadStoredProc("dbo.sp_Students_Potential")
+                               .WithSqlParam("@filterValue", filterValue)
+                               .WithSqlParam("@branchIds", branchIds)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<StudentList>().ToList();
+                               });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+                return someTypeList;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<StudentList> GetStudentLearning(string filterValue, Guid? studentId, Guid? classId, bool? isLearning, string branchIds, int page, int size)
+        {
+            try
+            {
+                List<StudentList> someTypeList = new List<StudentList>();
+                this.appContext.LoadStoredProc("dbo.sp_Students_Learning")
+                               .WithSqlParam("@filterValue", filterValue)
+                               .WithSqlParam("@studentId", studentId != null ? studentId.ToString() : null)
+                               .WithSqlParam("@classId", classId != null ? classId.ToString() : null)
+                               .WithSqlParam("@branchIds", branchIds)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<StudentList>().ToList();
+                               });
+
+                if (isLearning == true)
+                {
+                    someTypeList = someTypeList.Where(p => p.EndDate.Value.Date > DateTime.Now.Date).ToList();
+                }
+                else if (isLearning == false)
+                {
+                    someTypeList = someTypeList.Where(p => p.EndDate.Value.Date <= DateTime.Now.Date).ToList();
+                }
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+                return someTypeList;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private ApplicationDbContext appContext
         {
             get { return (ApplicationDbContext)_context; }

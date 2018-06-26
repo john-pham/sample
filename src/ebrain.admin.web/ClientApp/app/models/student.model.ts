@@ -31,6 +31,7 @@ export class Student {
     public username: string;
     public password: string;
     public schoolName: string;
+    public classId: string;
     public className: string;
     public birthday: Date;
     public avatar: string;

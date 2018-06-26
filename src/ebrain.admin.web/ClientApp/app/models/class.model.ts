@@ -18,6 +18,8 @@ export class Class {
     public id: string;
     public name: string;
     public code: string;
+    public classCode: string;
+    public className: string;
     public note: string;
     public materialId: string;
     public materialName: string;
