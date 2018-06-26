@@ -1017,6 +1017,8 @@
       "Overview": "TỔNG QUAN"
     },
     "stock": {
+      "object":"Đối Tượng",
+      "asset":"Vật tư",
       "Branch": "Cơ sở",
       "Stock": "Kho hàng",
       "TypeMaterial": "Loại hàng",
