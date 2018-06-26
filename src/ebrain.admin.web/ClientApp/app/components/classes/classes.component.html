@@ -420,7 +420,7 @@
                                     <!--DATA TABLE-->
                                     <ngx-datatable class="material colored-header sm table-hover row-pointer" [loadingIndicator]="loadingIndicator" [rows]="rowStudents"
                                         [rowHeight]="auto" [columns]="columnStudents" [scrollbarV]="verticalScrollbar" [columnMode]="'force'"
-                                        (activate)="onActivateClass($event, classoffsettemplate)">
+                                        (activate)="onActivateClass($event, classoffsettemplate)" [rowClass]="getRowClass">
                                     </ngx-datatable>
 
                                     <!-- TEMPLATEs -->
