@@ -25,7 +25,7 @@ export class IOStockReport {
     public createBy: string;
     public createByName: string;
     public totalPrice: number;
-    public Quantity: number;
+    public quantity: number;
     public quantityInput: number;
     public quantityOutput: number;
     public SellPrice: number;
@@ -37,5 +37,6 @@ export class IOStockReport {
     public materialCode: string;
     public materialName: string;
     public ioStockDetailId: string;
+    public inputExport: number;
     public ioDetails: IOStockDetail[];
 }

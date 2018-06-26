@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -60,9 +60,11 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
     allSups: Supplier[] = [];
     allUsers: User[] = [];
     allstudents: Student[] = [];
-
+    studentId: string;
     private pointer: IOStock;
     private isEditMode = true;
+    @Input() ioStockId: any = false;
+    @Input() isShowHeader: any = true;
 
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
@@ -216,7 +218,8 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
             .switchMap((params: ParamMap) => {
                 var id = '';
                 if (isReset == false) {
-                    id = params.get('id');
+                    if (this.ioStockId != null && this.ioStockId.length > 0) id = this.ioStockId
+                    else id = params.get('id');
                 }
                 return this.localService.getdefault(id, false);
             })
@@ -392,6 +395,12 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
 
     private close() {
         this.modalRef.hide();
+    }
+
+    showExportInput(template: TemplateRef<any>) {
+        this.ioStockId = this.pointer.id;
+        this.studentId = this.pointer.studentId;
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
     @ViewChild('f')

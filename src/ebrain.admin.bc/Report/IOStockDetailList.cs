@@ -23,5 +23,9 @@ namespace ebrain.admin.bc.Report
         public Guid StudentId { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Note { get; set; }
+        public decimal? InputExport { get; set; }
+        public DateTime? DateExport { get; set; }
+        public Guid? ByExport { get; set; }
+        public string FullNameExport { get; set; }
     }
 }

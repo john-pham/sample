@@ -611,6 +611,14 @@ export class ClassesComponent implements OnInit, OnDestroy {
         this.alertService.showMessage(caption, message, MessageSeverity.error);
     }
 
+    getRowClass(row) {
+        const dt = new Date();
+        const toDate = new Date(row.endDate);
+        return {
+            'bg-danger': dt > toDate
+        };
+    }
+
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
 

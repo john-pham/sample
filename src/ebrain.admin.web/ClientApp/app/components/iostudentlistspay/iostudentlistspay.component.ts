@@ -38,8 +38,9 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     @Input() isWaitingClass: any = false;
     @Input() isShowButtonOnGrid: any = false;
     @Input() isShowButtonPaymentOnGrid: any = true;
-    @Output() private activeDoubleClick = new EventEmitter<any>();
+    @Output() activeDoubleClick: any;
 
+    ioStockId: any = "";
     rows = [];
     columns = [];
     loadingIndicator: boolean = true;
@@ -48,7 +49,6 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     filterValue: string;
     fromDate: Date;
     toDate: Date;
-    ioStockId: string;
     studentId: string;
 
     private pointer: Grpsupplier;
@@ -72,6 +72,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
         this.page = new Page();
         this.page.pageNumber = 0;
         this.page.size = 20;
+        this.ioStockId = "";
     }
 
     setPage(pageInfo) {
@@ -94,7 +95,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     addGrpsupplier(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template);
     }
-    
+
     onSearchChanged(value: string) {
         this.filterValue = value;
         this.getFromServer();
@@ -139,20 +140,26 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     }
 
-    goPayment(ioid: string) {
-        this.router.navigate(['/paymentio', ioid]);
+    goPayment(ioid: string, template: TemplateRef<any>) {
+        this.ioStockId = ioid;
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
-    goDetails(value: IOStockReport) {
-        var url = '';
-        if (value != null && value.ioTypeId == 1) { url = '/iooutput'; } else { url = '/ioinput'; }
-        this.router.navigate([url, value.id]);
+    goDetails(value: IOStockReport, template: TemplateRef<any>) {
+        this.ioStockId = value !== null && value !== undefined ? value.id : "";
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
     onActivateMaterial(event) {
         if (event.type == 'dblclick') {
-            var row = event.row;
-            this.activeDoubleClick.emit(row);
+            if (this.activeDoubleClick !== undefined) {
+                var row = event.row;
+                this.activeDoubleClick.emit(row);
+            } else {
+                if (this.accessRightService.isEdit("8AA6E971-1C3D-4835-B154-D662CE12AE99")) {
+                    this.goDetails(event.row, this.templateNew);
+                }
+            }
         }
     }
 
@@ -196,4 +203,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     @ViewChild('totalPriceTemplate')
     totalPriceTemplate: TemplateRef<any>;
+
+    @ViewChild('templateNew')
+    templateNew: TemplateRef<any>;
 }

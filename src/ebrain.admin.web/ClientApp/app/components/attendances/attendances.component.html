@@ -63,7 +63,7 @@
             <ngx-datatable class="material colored-header sm table table-bordered table-responsive" [loadingIndicator]="loadingIndicator"
                 [rows]="rows" [columns]="columns" [columnMode]="'force'" [scrollbarV]="verticalScrollbar" [headerHeight]="50"
                 [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber"
-                [limit]="page.size" (page)='setPage($event)'>
+                [limit]="page.size" (page)='setPage($event)' [rowClass]="getRowClass">
 
                 <ngx-datatable-column headerClass="text-center" name="{{'label.attendance.Status' | translate}}">
                     <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">

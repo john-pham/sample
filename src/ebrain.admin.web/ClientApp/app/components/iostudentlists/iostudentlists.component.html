@@ -21,7 +21,7 @@
     <div class="col-sm-4">
         <div class="text-right">
             <search-chart [isShowSearch]="true" (searchTemplate)="search()"
-                          [isShowAddNew]="false" (addNewTemplate)="addGrpsupplier(template)"
+                          [isShowAddNew]="accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99')" (addNewTemplate)="showAddNew(template)"
                           [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
                           [isShowTemplate]="rows?.length > 0" (showTemplate)="showChart(template)"></search-chart>
         </div>
@@ -95,7 +95,7 @@
             </span>
         </ng-template>
         <ng-template #actionsTemplate let-row="row">
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row)"
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="goDetails(row, templateNew)"
                *ngIf="accessRightService.isEdit('8AA6E971-1C3D-4835-B154-D662CE12AE12') || accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A2')">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{'button.Detail' | translate}}</a>
         </ng-template>
@@ -107,4 +107,11 @@
     <div class="modal-body">
         <statistics-chart [modalRef]="modalRef" [chart]="chart"></statistics-chart>
     </div>
+</ng-template>
+
+<ng-template #templateNew>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <iostudents [ioStockId]="ioStockId" [isShowHeader]="false"></iostudents>
 </ng-template>

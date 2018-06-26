@@ -232,6 +232,7 @@ import { ScheduleStudentComponent } from "./components/schedulestudents/schedule
 import { IOStudenListComponent } from "./components/iostudentlists/iostudentlists.component";
 import { IOInputsComponent } from "./components/ioinputs/ioinputs.component";
 import { IOSummarizesComponent } from "./components/iosummarizes/iosummarizes.component";
+import { IOSummarizesDeptComponent } from "./components/iosummarizesdept/iosummarizesdept.component";
 import { IODetailsComponent } from "./components/iodetails/iodetails.component";
 import { WarehouseCardsComponent } from "./components/warehousecards/warehousecards.component";
 
@@ -421,6 +422,7 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         IOStudenListWaitingClassComponent,
 
         IOSummarizesComponent,
+        IOSummarizesDeptComponent,
         IODetailsComponent,
         WarehouseCardsComponent,
 

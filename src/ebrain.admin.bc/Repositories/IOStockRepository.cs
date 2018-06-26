@@ -83,6 +83,37 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public IEnumerable<IOStockDetailList> GetIOStockDetailListDept
+            (Guid? studentId, Guid? ioStockId, string filterValue, bool isGetDept, string branchIds, int page, int size)
+        {
+            try
+            {
+                List<IOStockDetailList> someTypeList = new List<IOStockDetailList>();
+                this.appContext.LoadStoredProc("dbo.sp_IOStockListDetailDept")
+                               .WithSqlParam("@studentId", studentId)
+                               .WithSqlParam("@ioStockId", ioStockId)
+                               .WithSqlParam("@isGetDept", isGetDept)
+                               .WithSqlParam("branchIds", branchIds)
+                               .WithSqlParam("filterValue", filterValue).ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<IOStockDetailList>().ToList();
+                               });
+
+                //paging
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+                return someTypeList;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IEnumerable<IOStockDetailList> GetWarehouseCard(
             DateTime fromDate, DateTime toDate, string filterValue, int ioTypeId, string branchIds, int page, int size)
         {
@@ -179,7 +210,7 @@ namespace ebrain.admin.bc.Repositories
         }
 
         public IEnumerable<IOStockListPayment> GetIOStockPaymentListDetail
-            (DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput, 
+            (DateTime fromDate, DateTime toDate, string filterValue, string ioId, int ioTypeId, bool isInput,
             bool isWaitingClass, bool isLearning, string branchIds, int page, int size)
         {
             try
@@ -214,6 +245,20 @@ namespace ebrain.admin.bc.Repositories
             }
         }
 
+        public async Task<bool> SaveDept(IOStockDetail[] iosd)
+        {
+            foreach (var item in iosd)
+            {
+                var itemExistD = this.appContext.IOStockDetail.FirstOrDefault(p => p.IOStockDetailId == item.IOStockDetailId);
+                if (itemExistD != null)
+                {
+                    itemExistD.InputExport = item.InputExport;
+                    itemExistD.ByExport = item.UpdatedBy;
+                    itemExistD.DateExport = item.UpdatedDate;
+                }
+            }
+            return appContext.SaveChanges() > 0;
+        }
         public async Task<IOStock> Save(IOStock value, IOStockDetail[] iosd, Guid? index)
         {
             try
@@ -270,7 +315,7 @@ namespace ebrain.admin.bc.Repositories
                 await appContext.SaveChangesAsync();
                 return item;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

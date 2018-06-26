@@ -71,6 +71,35 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
+    getIOStockDetailDept(filter: string, value: string, studentId: string, ioStockId: string, 
+        dept: number, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrlIO('getiostockdetaildept?filter=' + filter + '&value=' + value + '&studentId=' + studentId
+            + '&ioStockId=' + ioStockId + '&dept=' + dept
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getIOStockDetailDept(filter, value, studentId, ioStockId, dept, page, size));
+            });
+    }
+
+    saveDept(value: any): Observable<Response> {
+        let url = this.getUrlIO('updatioedept');
+        let header = this.getAuthHeader(true);
+        let params = JSON.stringify(value);
+
+        return this.http.post(url, params, header)
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.saveDept(value));
+            });
+    }
+
     reportiobyiotypeid(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
         let url = this.getUrlIO('reportiobyiotypeid?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate

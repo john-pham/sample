@@ -44,6 +44,10 @@ namespace Ebrain.ViewModels
         public string PurchaseOrderCode { get; set; }
         public Guid? PurchaseOrderId { get; set; }
         public string BranchName { get; set; }
+        public string FullNameExport { get; set; }
+        public decimal? InputExport { get; set; }
+        public DateTime? DateExport { get; set; }
+        public Guid? ByExport { get; set; }
         public string CreateDate_MMYY
         {
             get

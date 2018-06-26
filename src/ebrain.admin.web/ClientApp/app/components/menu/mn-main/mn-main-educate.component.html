@@ -45,6 +45,13 @@
                                 <span class="text-muted text-u-c"> {{'menu.class.MaterialLearn' | translate}}</span>
                             </a>
                         </div>
+                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE98')">
+                            <a routerLink="/students">
+                                <span class="fa fa-child"></span>
+                                <span class="text-muted text-u-c"> {{'menu.class.Student' | translate}}</span>
+                            </a>
+                        </div>
+                        
                         <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE93')">
                             <a routerLink="/shiftclasses">
                                 <span class="fa fa-bell"></span>
@@ -77,16 +84,22 @@
                         </span>
                     </a>
                     <div class="dropdown-content">
-                        <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
+                        <!-- <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE95')">
                             <a routerLink="/classes">
                                 <span class="fa fa-braille icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.Class' | translate}}</span>
                             </a>
-                        </div>
+                        </div> -->
                         <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')">
                             <a routerLink="/classlists">
                                 <span class="fa fa-braille icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.ClassList' | translate}}</span>
+                            </a>
+                        </div>
+                        <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE96')">
+                            <a routerLink="/iosummarizesdept">
+                                <span class="fa fa-child icon"></span>
+                                <span class="text-muted text-u-c">{{'menu.student.Categories.Detail.StudentDept' | translate}}</span>
                             </a>
                         </div>
                         <!-- <div *ngIf="accessRightService.isViewFeature('8aa6b971-1c3d-4835-b154-d662ce12ae96')">
@@ -102,19 +115,19 @@
                             </a>
                         </div> -->
                         <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE99')">
-                            <a routerLink="/iostudents">
+                            <a routerLink="/iostudentlist">
                                 <span class="fa fa-cubes icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.class.IOStudent' | translate}}</span>
                             </a>
                         </div>
-                        <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE12')">
+                        <!-- <div  *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE12')">
                             <a routerLink="/iostudentlist">
                                 <span class="fa fa-check-circle"></span>
                                 <span class="text-muted text-u-c">{{'menu.class.IOStudentList' | translate}}</span>
                             </a>
-                        </div>
+                        </div> -->
                        <div *ngIf="accessRightService.isViewFeature('0e74bc15-9188-4cd9-9e39-d5b0c22be233')">
-                     <a routerLink="/iostudentlistswaitingclass">
+                            <a routerLink="/iostudentlistswaitingclass">
                                 <span class="fa fa-user-circle icon"></span>
                                 <span class="text-muted text-u-c">{{'menu.class.WaitingClass' | translate}}</span>
                             </a>
