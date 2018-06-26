@@ -15,7 +15,7 @@
 
     <div [@fadeInOut]>
         <div class="statistic">
-            <div class="row" >
+            <div class="row">
                 <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D7-4A8C3F73D535')">
                     <a routerLink="/branches" class="block padder-v hover">
                         <span class="i-s i-s-2x">
@@ -28,7 +28,109 @@
                         </span>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D533')">
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                    <a routerLink="/mn_main_categories" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-bold icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.object' | translate}}</span>
+                            <small class="text-muted text-u-c">{{'menu.stock.object' | translate}}</small>
+                        </span>
+                    </a>
+                    <div class="dropdown-content">
+                        <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D533')">
+                            <a routerLink="/rooms">
+                                <span class="fa fa-university icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.student.Categories.Detail.Room' | translate}} </span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D4-4A8C3F73D521')">
+                            <a routerLink="/shiftclasses">
+                                <span class="fa fa-hourglass icon "></span>
+                                <span class="text-muted text-u-c"> {{'menu.student.Categories.Detail.Shiftclass' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D523')">
+                            <a routerLink="/grpsuppliers">
+                                <span class="fa fa-address-card icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.Grpsupplier' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D524')">
+                            <a routerLink="/suppliers">
+                                <span class="fa fa-bell"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.Supplier' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D525')">
+                            <a routerLink="/suppliercus">
+                                <span class="fa fa-users icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.accountant.Customer' | translate}} </span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D526')">
+                            <a routerLink="/supplieremps">
+                                <span class="fa fa-user icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.accountant.Employee' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D527')">
+                            <a routerLink="/supplierteachs">
+                                <span class="fa fa-user icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.accountant.Teacher' | translate}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                        <a routerLink="/mn_main_categories" class="block padder-v hover">
+                            <span class="i-s i-s-2x">
+                                <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                                <i class="fa fa-bold icon text-white"></i>
+                            </span>
+                            <span class="clear">
+                                <span class="h3 block m-t-xs text-warning">{{'menu.stock.asset' | translate}}</span>
+                                <small class="text-muted text-u-c">{{'menu.stock.asset' | translate}}</small>
+                            </span>
+                        </a>
+                        <div class="dropdown-content">
+                            <div *ngIf="accessRightService.isViewFeature('D7239079-E67A-42FA-86D6-4A8C3F73D534')">
+                                <a routerLink="/stocks">
+                                    <span class="fa fa-home icon"></span>
+                                    <span class="text-muted text-u-c"> {{'menu.stock.Stock'  | translate}} </span>
+                                </a>
+                            </div>
+                            <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-32FA-86D6-4A8C3F73D522')">
+                                <a routerLink="/units">
+                                    <span class="fa fa-buysellads icon"></span>
+                                    <span class="text-muted text-u-c">{{'menu.stock.UnitDes' | translate}}</span>
+                                </a>
+                            </div>
+                            <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D571')">
+                                <a routerLink="/typematerials">
+                                    <span class="fa fa-tumblr icon"></span>
+                                    <span class="text-muted text-u-c"> {{'menu.stock.TypeMaterial' | translate}}</span>
+                                </a>
+                            </div>
+                            <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D735')">
+                                <a routerLink="/grpmaterials">
+                                    <span class="fa fa-object-group icon"></span>
+                                    <span class="text-muted text-u-c"> {{'menu.stock.GrpMaterial' | translate}}</span>
+                                </a>
+                            </div>
+
+                            <div *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D544')">
+                                <a routerLink="/materials">
+                                    <span class="fa fa-product-hunt icon"></span>
+                                    <span class="text-muted text-u-c">{{'menu.stock.Material' | translate}} </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D533')">
                     <a routerLink="/rooms" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -39,8 +141,8 @@
                             <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Room' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D4-4A8C3F73D521')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D4-4A8C3F73D521')">
                     <a routerLink="/shiftclasses" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -51,8 +153,8 @@
                             <small class="text-muted text-u-c">"{{'menu.student.Categories.Detail.Shiftclass' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239079-E67A-42FA-86D6-4A8C3F73D534')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239079-E67A-42FA-86D6-4A8C3F73D534')">
                     <a routerLink="/stocks" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -63,8 +165,8 @@
                             <small class="text-muted text-u-c">"{{'menu.stock.Stock' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-32FA-86D6-4A8C3F73D522')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-32FA-86D6-4A8C3F73D522')">
                     <a routerLink="/units" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -75,8 +177,8 @@
                             <small class="text-muted text-u-c">"{{'menu.stock.UnitDes' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D571')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D571')">
                     <a routerLink="/typematerials" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -87,8 +189,8 @@
                             <small class="text-muted text-u-c">"{{'menu.stock.TypeMaterial' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D735')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D735')">
                     <a routerLink="/grpmaterials" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -99,8 +201,8 @@
                             <small class="text-muted text-u-c">"{{'menu.stock.GrpMaterial' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D544')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D544')">
                     <a routerLink="/materials" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -111,8 +213,8 @@
                             <small class="text-muted text-u-c">"{{'menu.stock.Material' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D523')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D523')">
                     <a routerLink="/grpsuppliers" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -123,8 +225,8 @@
                             <small class="text-muted text-u-c">"{{'menu.stock.Grpsupplier' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D524')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D524')">
                     <a routerLink="/suppliers" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -135,8 +237,8 @@
                             <small class="text-muted text-u-c">"{{'menu.stock.Supplier' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-4 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D525')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-4 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D525')">
                     <a routerLink="/suppliercus" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -147,9 +249,9 @@
                             <small class="text-muted text-u-c">"{{'menu.accountant.Customer' | translate}}"</small>
                         </span>
                     </a>
-                </div>
+                </div> -->
 
-                <div class="col-lg-3 col-md-4 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D526')">
+                <!-- <div class="col-lg-3 col-md-4 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D526')">
                     <a routerLink="/supplieremps" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -160,9 +262,9 @@
                             <small class="text-muted text-u-c">"{{'menu.accountant.Employee' | translate}}"</small>
                         </span>
                     </a>
-                </div>
+                </div> -->
 
-                <div class="col-lg-3 col-md-4 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D527')">
+                <!-- <div class="col-lg-3 col-md-4 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('D7239078-E67A-42FA-86D6-4A8C3F73D527')">
                     <a routerLink="/supplierteachs" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -173,7 +275,7 @@
                             <small class="text-muted text-u-c">"{{'menu.accountant.Teacher' | translate}}"</small>
                         </span>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

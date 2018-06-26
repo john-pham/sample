@@ -15,139 +15,94 @@
     <div [@fadeInOut]>
         <div class="statistic">
             <div class="row">
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
-                    <a routerLink="/purchaseorders" class="block padder-v hover" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')">
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                    <a routerLink="/mn_main_stock" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-shopping-cart icon text-white"></i>
+                            <i class="fa fa-bold icon text-white"></i>
                         </span>
                         <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrder' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrder' | translate}}"</small>
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.OperateStock' | translate}}</span>
+                            <small class="text-muted text-u-c">{{'menu.stock.OperateStock' | translate}}</small>
                         </span>
                     </a>
+                    <div class="dropdown-content">
+                        <div *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')">
+                            <a routerLink="/purchaseorders">
+                                <span class="fa fa-shopping-cart icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.PurchaseOrder' | translate}} </span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18217')">
+                            <a routerLink="/pursummarizes">
+                                <span class="fa fa-tasks icon "></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.PurchaseOrderList' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad182a1')">
+                            <a routerLink="/ioinputs">
+                                <span class="fa fa-cart-plus icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.InputStock' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A2')">
+                            <a routerLink="/iostudentlist">
+                                <span class="fa fa-tasks icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.OutputStockList' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A3')">
+                            <a routerLink="/iostudents">
+                                <span class="fa fa-delicious icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.OutputStock' | translate}} </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18217')">
-                    <a routerLink="/pursummarizes" class="block padder-v hover">
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                    <a routerLink="/mn_main_stock" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-tasks icon text-white"></i>
+                            <i class="fa fa-bold icon text-white"></i>
                         </span>
                         <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrderList' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrderListDes' | translate}}"</small>
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.Report' | translate}}</span>
+                            <small class="text-muted text-u-c">{{'menu.stock.Report' | translate}}</small>
                         </span>
                     </a>
+                    <div class="dropdown-content">
+                        <div *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18318')">
+                            <a routerLink="/purhistories">
+                                <span class="fa fa-dropbox icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.PurchaseOrderListHistory' | translate}} </span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A4')">
+                            <a routerLink="/iosummarizes">
+                                <span class="fa fa-dribbble icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.SumaryInput' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A5')">
+                            <a routerLink="/iodetails">
+                                <span class="fa fa-dropbox icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.DetailInput' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A6')">
+                            <a routerLink="/warehousecards">
+                                <span class="fa fa-balance-scale icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.StockCard' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A8')">
+                            <a routerLink="/inventorieslist">
+                                <span class="fa fa-suitcase icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.StockInventory' | translate}} </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18218')">
-                    <a routerLink="/purdetails" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-dropbox icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrderListDetail' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrderListDetailDes' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18318')">
-                    <a routerLink="/purhistories" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-dropbox icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrderListHistory' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrderListHistory' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad182a1')">
-                    <a routerLink="/ioinputs" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-cart-plus icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.InputStock' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.InputStock' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A2')">
-                    <a routerLink="/iostudentlist" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-tasks icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.OutputStockList' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.OutputStockList' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A3')">
-                    <a routerLink="/iostudents" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-delicious icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.OutputStock' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.OutputStock' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A4')">
-                    <a routerLink="/iosummarizes" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-dribbble icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.SumaryInput' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.SumaryInput' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A5')">
-                    <a routerLink="/iodetails" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-dropbox icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.DetailInput' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.DetailInput' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A6')">
-                    <a routerLink="/warehousecards" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-balance-scale icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.StockCard' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.StockCard' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A8')">
-                    <a routerLink="/inventorieslist" class="block padder-v hover">
-                        <span class="i-s i-s-2x">
-                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                            <i class="fa fa-suitcase icon text-white"></i>
-                        </span>
-                        <span class="clear">
-                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.StockInventory' | translate}}</span>
-                            <small class="text-muted text-u-c">"{{'menu.stock.StockInventoryDes' | translate}}"</small>
-                        </span>
-                    </a>
-                </div>
-
                 <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A9')">
                     <a routerLink="/inventories" class="block padder-v hover">
                         <span class="i-s i-s-2x">
@@ -160,6 +115,138 @@
                         </span>
                     </a>
                 </div>
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager">
+                    <a routerLink="/purchaseorders" class="block padder-v hover" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-shopping-cart icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrder' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrder' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18217')">
+                    <a routerLink="/pursummarizes" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-tasks icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrderList' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrderListDes' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18218')">
+                    <a routerLink="/purdetails" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-dropbox icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrderListDetail' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrderListDetailDes' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18318')">
+                    <a routerLink="/purhistories" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-dropbox icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.PurchaseOrderListHistory' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.PurchaseOrderListHistory' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad182a1')">
+                    <a routerLink="/ioinputs" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-cart-plus icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.InputStock' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.InputStock' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A2')">
+                    <a routerLink="/iostudentlist" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-tasks icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.OutputStockList' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.OutputStockList' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A3')">
+                    <a routerLink="/iostudents" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-delicious icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.OutputStock' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.OutputStock' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A4')">
+                    <a routerLink="/iosummarizes" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-dribbble icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.SumaryInput' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.SumaryInput' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A5')">
+                    <a routerLink="/iodetails" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-dropbox icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.DetailInput' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.DetailInput' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A6')">
+                    <a routerLink="/warehousecards" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-balance-scale icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.StockCard' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.StockCard' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A8')">
+                    <a routerLink="/inventorieslist" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-suitcase icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.stock.StockInventory' | translate}}</span>
+                            <small class="text-muted text-u-c">"{{'menu.stock.StockInventoryDes' | translate}}"</small>
+                        </span>
+                    </a>
+                </div> -->
             </div>
         </div>
     </div>

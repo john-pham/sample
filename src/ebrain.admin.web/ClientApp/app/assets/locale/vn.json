@@ -1021,6 +1021,10 @@
       "Overview": "TỔNG QUAN"
     },
     "stock": {
+      "OperateStock":"Thao Tác",
+      "Report":"Báo cáo",
+      "object":"Đối Tượng",
+      "asset":"Vật tư",
       "Branch": "Cơ sở",
       "Stock": "Kho hàng",
       "TypeMaterial": "Loại hàng",
