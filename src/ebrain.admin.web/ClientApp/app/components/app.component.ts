@@ -134,10 +134,11 @@ export class AppComponent implements OnInit, AfterViewInit {
             if (this.isUserLoggedIn) {
                 this.alertService.resetStickyMessage();
 
-                //if (!this.authService.isSessionExpired)
-                this.alertService.showMessage("Login", `Welcome back ${this.userName}!`, MessageSeverity.default);
-                //else
-                //    this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again", MessageSeverity.warn);
+                if (!this.authService.isSessionExpired)
+                    this.alertService.showMessage("Login", `Welcome back ${this.userName}!`, MessageSeverity.default);
+                else
+                    this.logout();
+                //   this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again", MessageSeverity.warn);
             }
         }, 2000);
 

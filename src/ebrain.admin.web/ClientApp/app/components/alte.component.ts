@@ -177,11 +177,11 @@ export class AlteComponent implements OnInit, AfterViewInit {
             if (this.isUserLoggedIn) {
                 this.alertService.resetStickyMessage();
 
-                //if (!this.authService.isSessionExpired)
-                this.alertService.showMessage("Login", `Welcome back ${this.userName}!`, MessageSeverity.default);
-                //else
-                //    this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again", MessageSeverity.warn);
-                //
+                if (!this.authService.isSessionExpired)
+                    this.alertService.showMessage("Login", `Welcome back ${this.userName}!`, MessageSeverity.default);
+                else
+                    //   this.alertService.showStickyMessage("Session Expired", "Your Session has expired. Please log in again", MessageSeverity.warn);
+                    this.logout();
             }
         }, 2000);
 
@@ -250,7 +250,7 @@ export class AlteComponent implements OnInit, AfterViewInit {
         //load messenger
         this.getData();
     }
-    
+
     getData() {
         this.messengerService.getnewmessenger().subscribe(
             resulted => this.onMessengerLoadSuccessful(resulted),

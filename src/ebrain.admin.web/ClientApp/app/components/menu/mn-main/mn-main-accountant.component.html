@@ -11,11 +11,74 @@
             </div>
         </div>
     </header>
-
     <div [@fadeInOut]>
         <div class="statistic">
             <div class="row">
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                    <a routerLink="/mn_main_accountant" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-bold icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.accountant.Operate' | translate}}</span>
+                            <small class="text-muted text-u-c">{{'menu.accountant.Operate' | translate}}</small>
+                        </span>
+                    </a>
+                    <div class="dropdown-content">
+                        <div *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
+                            <a routerLink="/payments">
+                                <span class="fa fa-fax icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.accountant.IsPayment' | translate}} </span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B32')">
+                            <a routerLink="/paymentvouchers">
+                                <span class="fa fa-fax icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.accountant.IsPaymentFalse' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B33')">
+                            <a routerLink="/paymentlist">
+                                <span class="fa fa-tasks icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.accountant.ReportSummarize' | translate}}</span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B34')">
+                            <a routerLink="/paymentdetaillist">
+                                <span class="fa fa-tasks icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.accountant.ReportDetailDes' | translate}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 m-t text-center btn-manager dropdown">
+                    <a routerLink="/mn_main_accountant" class="block padder-v hover">
+                        <span class="i-s i-s-2x">
+                            <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                            <i class="fa fa-bold icon text-white"></i>
+                        </span>
+                        <span class="clear">
+                            <span class="h3 block m-t-xs text-warning">{{'menu.accountant.ReportAccountant' | translate}}</span>
+                            <small class="text-muted text-u-c">{{'menu.accountant.ReportAccountant' | translate}}</small>
+                        </span>
+                    </a>
+                    <div class="dropdown-content">
+                        <div *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B35')">
+                            <a routerLink="/deptslist">
+                                <span class="fa fa-suitcase icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.stock.DeptDes' | translate}} </span>
+                            </a>
+                        </div>
+                        <div *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B36')">
+                            <a routerLink="/profitslist">
+                                <span class="fa fa-money icon"></span>
+                                <span class="text-muted text-u-c"> {{'menu.accountant.Profit' | translate}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
                     <a routerLink="/payments" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -26,9 +89,9 @@
                             <small class="text-muted text-u-c">"{{'menu.accountant.IsPayment' | translate}}"</small>
                         </span>
                     </a>
-                </div>
+                </div> -->
 
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B32')">
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B32')">
                     <a routerLink="/paymentvouchers" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -39,8 +102,8 @@
                             <small class="text-muted text-u-c">"{{'menu.accountant.IsPaymentFalse' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B33')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B33')">
                     <a routerLink="/paymentlist" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -51,8 +114,8 @@
                             <small class="text-muted text-u-c">"{{'menu.accountant.ReportSummarizeDes' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B34')">
+                 </div> -->
+                <!-- <div class="col-lg-3 col-md-6 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B34')">
                     <a routerLink="/paymentdetaillist" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -63,8 +126,8 @@
                             <small class="text-muted text-u-c">"{{'menu.accountant.ReportDetailDes' | translate}}"</small>
                         </span>
                     </a>
-                </div>
-                <div class="col-lg-3 col-md-4 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B35')">
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-4 m-t text-center btn-manager" *ngIf="accessRightService.isViewFeature('376F3FFE-408A-49A8-B0EA-B69654E11B35')">
                     <a routerLink="/deptslist" class="block padder-v hover">
                         <span class="i-s i-s-2x">
                             <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
@@ -87,7 +150,7 @@
                             <small class="text-muted text-u-c">"{{'menu.accountant.Profit' | translate}}"</small>
                         </span>
                     </a>
-                </div>
+                </div> -->
                 <!--<div class="col-lg-3 col-md-4 m-t text-center btn-manager">
                     <a routerLink="/mn_accountant_main_accountant" class="block padder-v hover">
                         <span class="i-s i-s-2x">
