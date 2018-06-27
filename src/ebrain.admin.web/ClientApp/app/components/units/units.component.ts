@@ -20,7 +20,7 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 import { saveAs } from "file-saver";
-// import { fs, conversion } from "phantom-html-to-pdf";
+import { jsPDF } from "jspdf";
 
 @Component({
     selector: 'units',
@@ -121,30 +121,24 @@ export class UnitsComponent implements OnInit, OnDestroy {
         //
         //this.localService.outputPdf(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
 
-        //    var blob = new Blob([result], { type: "application/pdf" });
-        //    saveAs(blob, "output.units.pdf");
+        let doc = new jsPDF();
 
-        //}, error => {
-        //});
-        //jsreport.render({
-        //    template: {
-        //        content: '',
-        //        engine: 'jsrender',
-        //        recipe: 'phantom-pdf'
-        //    }
-        //}).then(function (resp) {
-        //    //callback(/* error */ null, resp.content.toJSON().data);
-        //});
+        // We'll make our own renderer to skip this editor
+        let specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            },
+            '.controls': function (element, renderer) {
+                return true;
+            }
+        };
 
-        // conversion({ html: "<h1>Hello World</h1>" }, (err, pdf) => {
-        //     var output = fs.createWriteStream('/path/to/output.pdf');
-        //     console.log(pdf.logs);
-        //     console.log(pdf.numberOfPages);
-        //     // since pdf.stream is a node.js stream you can use it
-        //     // to save the pdf to a file (like in this example) or to
-        //     // respond an http request.
-        //     pdf.stream.pipe(output);
-        // });
+        // All units are in the set measurement for the document
+        // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
+        doc.fromHTML($('body').get(0), 15, 15, {
+            'width': 170,
+            'elementHandlers': specialElementHandlers
+        });
     }
 
     delete(row) {
