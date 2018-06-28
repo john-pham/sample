@@ -140,6 +140,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
             'width': 170,
             'elementHandlers': specialElementHandlers
         });
+        doc.save('export.units.pdf');
     }
 
     delete(row) {
