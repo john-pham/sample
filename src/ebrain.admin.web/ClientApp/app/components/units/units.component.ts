@@ -20,7 +20,7 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 import { saveAs } from "file-saver";
-import { jsPDF } from "jspdf";
+import * as jsPDF from 'jspdf'; 
 
 @Component({
     selector: 'units',
@@ -135,7 +135,8 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
         // All units are in the set measurement for the document
         // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
-        doc.fromHTML($('body').get(0), 15, 15, {
+        //document.getElementsByClassName('jsPDF').item(0).innerHTML
+        doc.fromHTML(document.getElementsByClassName('jsPDF').item(0).innerHTML, 15, 15, {
             'width': 170,
             'elementHandlers': specialElementHandlers
         });
