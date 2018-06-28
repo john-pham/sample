@@ -136,6 +136,10 @@ export class ClassesService {
             .map((response: Response) => <ClassExamine[]>response.json());
     }
 
+    getStudentMaterialDept(filterValue: string, page: number, size: number) {
+        return this.endpointFactory.getStudentMaterialDept(filterValue, page, size).map((response: Response) => <Results<ClassList>>response.json());
+    }
+
     private initializeStatus() {
 
     }

@@ -44,6 +44,7 @@ import { StudentBirthdaysComponent } from "./components/studentbirthdays/student
 import { StudentEndClassComponent } from "./components/studentendclass/studentendclass.component";
 import { StudentPotentialComponent } from "./components/studentpotential/studentpotential.component";
 import { StudentLearningComponent } from "./components/studentlearning/studentlearning.component";
+import { StudentScheduleLearningComponent } from "./components/studentschedulelearning/studentschedulelearning.component";
 import { StudentModuleComponent } from "./components/studentmodules/studentmodules.component";
 import { IOStudentsComponent } from "./components/iostudents/iostudents.component";
 import { PurchaseOrdersComponent } from "./components/purchaseorders/purchaseorders.component";
@@ -227,6 +228,7 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "studentendclass", component: StudentEndClassComponent, canActivate: [AuthGuard], data: { title: "students end classes" } },
             { path: "studentpotential", component: StudentPotentialComponent, canActivate: [AuthGuard], data: { title: "students end classes" } },
             { path: "studentlearning", component: StudentLearningComponent, canActivate: [AuthGuard], data: { title: "StudentLearningComponent" } },
+            { path: "studentschedulelearning", component: StudentScheduleLearningComponent, canActivate: [AuthGuard], data: { title: "studentschedulelearning" } },
             { path: "studentmodules", component: StudentModuleComponent, canActivate: [AuthGuard], data: { title: "studentmodules" } },
 
             { path: "payments", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "payments" } },

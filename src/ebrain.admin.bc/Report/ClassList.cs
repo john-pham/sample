@@ -6,6 +6,17 @@ namespace ebrain.admin.bc.Report
 {
     public class ClassList
     {
+        public Guid? IOStockId { get; set; }
+        public Guid? IOStockDetailId { get; set; }
+        public string IONumber { get; set; }
+        public string StudentName { get; set; }
+        public decimal? TotalPrice { get; set; }
+        public decimal? NumberHourse { get; set; }
+        public decimal? OneHourMoney { get; set; }
+        public decimal? TotalRemain { get; set; }
+        public decimal? NumberRemain { get; set; }
+        public decimal? TotalPriceLearning { get; set; }
+        public int NumberLearning { get; set; }
         public Guid ClassId { get; set; }
         public Guid? ClassOffsetId { get; set; }
         public Guid? ClassPendingId { get; set; }

@@ -306,6 +306,20 @@ export class ClassesEndpoint extends EndpointFactory {
             });
     }
 
+    
+
+    getStudentMaterialDept(filterValue: string, page: number, size: number): Observable<Response> {
+        let url = this.getUrl('getstudentmaterialdept?filterValue=' + filterValue
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.getStudentMaterialDept(filterValue, page, size));
+            });
+    }
+
     protected handleError(error, continuation: () => Observable<any>) {
 
         if (error.status == 401) {

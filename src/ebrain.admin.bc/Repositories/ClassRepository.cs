@@ -697,6 +697,35 @@ namespace ebrain.admin.bc.Repositories
 
         }
 
+        public List<ClassList> GetStudentMaterialDept(string branchIds, string filterValue, string studentId, int page, int size)
+        {
+            try
+            {
+                List<ClassList> someTypeList = new List<ClassList>();
+                this.appContext.LoadStoredProc("dbo.sp_Students_MaterialDept")
+                               .WithSqlParam("@branchIds", branchIds)
+                               .WithSqlParam("@filterValue", filterValue)
+                               .WithSqlParam("@studentId", studentId)
+                               .ExecuteStoredProc((handler) =>
+                               {
+                                   someTypeList = handler.ReadToList<ClassList>().ToList();
+                               });
+
+                this.Total = someTypeList.Count();
+                if (size > 0 && page >= 0)
+                {
+                    someTypeList = (from c in someTypeList select c).Skip(page * size).Take(size).ToList();
+                }
+
+                return someTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
         private ApplicationDbContext appContext
         {
             get { return (ApplicationDbContext)_context; }

@@ -16,6 +16,18 @@ export class ClassList {
     public name: string;
     public code: string;
     public note: string;
+    public iOStockId: string;
+    public iOStockDetailId: string;
+    public ioNumber: string;
+    public studentName: string;
+    public materialName: string;
+    public totalPrice: number;
+    public totalPriceLearning: number;
+    public numberHourse: number;
+    public oneHourMoney: number;
+    public totalRemain: number;
+    public numberLearning: number;
+    public numberRemain: number;
     public materialId: string;
     public longLearn: number;
     public statusId: string;
@@ -33,6 +45,5 @@ export class ClassList {
     public supplierName: string;
     public address: string;
     public fullName: string;
-    public materialName: string;
     public countStudent: number;
 }

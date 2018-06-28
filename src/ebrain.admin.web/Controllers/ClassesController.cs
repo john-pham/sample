@@ -654,5 +654,49 @@ namespace Ebrain.Controllers
                 List = results
             });
         }
+
+        [HttpGet("getstudentmaterialdept")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<JsonResult> GetStudentMaterialDept(string filterValue, int page, int size)
+        {
+            var list = this._unitOfWork.Classes.GetStudentMaterialDept(
+                    this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
+                    filterValue,
+                    null, page, size);
+            var results = new List<ClassList>();
+
+            if (list != null && list.Count > 0)
+            {
+                results = list.Select(p => new ClassList
+                {
+                    IOStockDetailId = p.IOStockDetailId,
+                    IOStockId = p.IOStockId,
+                    IONumber = p.IONumber,
+                    StudentName = p.StudentName,
+                    TotalPrice = p.TotalPrice,
+                    TotalRemain = p.TotalPrice - (p.NumberLearning * p.OneHourMoney),
+                    TotalPriceLearning = p.NumberLearning * p.OneHourMoney,
+                    NumberHourse = p.NumberHourse,
+                    NumberRemain = p.NumberHourse - p.NumberLearning,
+                    OneHourMoney = p.OneHourMoney,
+                    NumberLearning = p.NumberLearning,
+                    StartDate = p.StartDate,
+                    EndDate = p.EndDate,
+                    ClassId = p.ClassId,
+                    ClassName = p.ClassName,
+                    StudentId = p.StudentId,
+                    MaterialId = p.StudentId,
+                    MaterialCode = p.MaterialCode,
+                    MaterialName = p.MaterialName
+                }).ToList();
+
+            }
+
+            return Json(new
+            {
+                Total = this._unitOfWork.Classes.Total,
+                List = results
+            });
+        }
     }
 }

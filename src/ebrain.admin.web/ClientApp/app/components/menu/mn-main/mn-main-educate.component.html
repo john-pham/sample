@@ -165,6 +165,13 @@
                                 <span class="text-muted text-u-c">{{'menu.student.manage.StudentModule' | translate}}</span>
                             </a>
                         </div>
+                        <div>
+                            <a routerLink="/studentschedulelearning">
+                                <span class="fa fa-bell"></span>
+                                <span class="text-muted text-u-c">{{'pageMain.student.studentScheduleLearning' | translate}}</span>
+                            </a>
+                        </div>
+
                         <div *ngIf="accessRightService.isViewFeature('8AA6E971-1C3D-4835-B154-D662CE12AE14')">
                             <a routerLink="/studentbirthdays">
                                 <span class="fa fa-birthday-cake"></span>

@@ -515,6 +515,14 @@
       "HeaderAdd": "Quản lý hình thức tư vấn"
     },
     "student": {
+      "IONumber":"Số phiếu",
+      "StudentName":"Tên học viên",
+      "TotalPrice":"Tổng tiền",
+      "NumberHourse":"Số buổi học",
+      "NumberLearning":"Đã học",
+      "TotalPriceLearning":"TT đã học",
+      "NumberRemain":"Buổi nợ",
+      "TotalPriceRemain":"TT nợ",
       "EndClass": "Kết thúc khóa",
       "StartDate": "Ngày bắt đầu",
       "EndDate": "Ngày kết thúc",
@@ -922,6 +930,7 @@
       "searchBox": "Tìm kiếm học viên",
       "newStudent": "Tạo mới",
       "potential": "Học viên tiềm năng",
+      "studentScheduleLearning": "Chi tiết lịch học",
       "learning": "Đang học"
     },
     "iostudent": {
