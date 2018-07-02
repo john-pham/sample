@@ -5,33 +5,33 @@
                 <i class="fa fa-bars"></i>
             </a>
             <ol class="breadcrumb pull-left">
-                <li><a routerLink="/mn_main_accountant">{{'menu.main.Accountant' | translate}}</a></li>
+                <li>
+                    <a routerLink="/mn_main_accountant">{{'menu.main.Accountant' | translate}}</a>
+                </li>
                 <li>{{'pageMain.payment.header' | translate}}</li>
             </ol>
         </div>
     </div>
 </header>
 
-<div class="row control-box">
+<div class="control-box classes">
     <div class="col-sm-12 text-right">
-        <button type="button" class="btn btn-success" (click)="addnew()"
-                *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
+        <button type="button" class="btn btn-success" (click)="addnew()" *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
             <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
         </button>
-        <button type="button" class="btn btn-info" (click)="showpayment(template)">
+        <button type="button" class="btn btn-info" (click)="goExport(templatePay)">
             <span class="glyphicon glyphicon-search"></span> {{'button.IOStockOutput' | translate}}
         </button>
-        <button type="button" class="btn btn-primary" (click)="save()"
-                *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
+        <button type="button" class="btn btn-primary" (click)="save()" *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
             <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
         </button>
 
-        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')"
-                type="button" class="btn btn-warning" (click)="deletemaster()">
+        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')" type="button"
+            class="btn btn-warning" (click)="deletemaster()">
             <span class="glyphicon 	glyphicon glyphicon-removes"></span> {{'button.Delete' | translate}}
         </button>
-        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')"
-                type="button" class="btn btn-danger" (click)="cancelmaster()">
+        <button *ngIf="pointer.id?.length > 0 && accessRightService.isDelete('376F3FFE-408A-49A8-B0EA-B69654E11B31')" type="button"
+            class="btn btn-danger" (click)="cancelmaster()">
             <span class="glyphicon glyphicon glyphicon-trash"></span> {{'button.Cancel' | translate}}
         </button>
     </div>
@@ -73,14 +73,10 @@
             <div class="form-group has-feedback">
                 <label class="control-label col-md-2">{{'label.payment.PaymentTypeName' | translate}}</label>
                 <div class="col-md-10">
-                    <select name="allstudents" [(ngModel)]="pointer.paymentTypeId"
-                            class="form-control" required
-                            data-actions-box="false"
-                            data-live-search-placeholder="Search..."
-                            title="{{'label.payment.SelectStudent' | translate}}">
-                        <option *ngFor="let payment of allPaymentTypes"
-                                attr.data-content="<span title='{{payment.name}}' class='badge'>{{payment.name}}</span>"
-                                attr.value="{{payment.id}}">
+                    <select name="allstudents" [(ngModel)]="pointer.paymentTypeId" class="form-control" required data-actions-box="false" data-live-search-placeholder="Search..."
+                        title="{{'label.payment.SelectStudent' | translate}}">
+                        <option *ngFor="let payment of allPaymentTypes" attr.data-content="<span title='{{payment.name}}' class='badge'>{{payment.name}}</span>"
+                            attr.value="{{payment.id}}">
                             {{payment.name}}
                         </option>
                     </select>
@@ -91,14 +87,10 @@
             <div class="form-group has-feedback">
                 <label class="control-label col-md-2">{{'label.payment.CreateUser' | translate}}</label>
                 <div class="col-md-10">
-                    <select id="users-info" name="types" [(ngModel)]="pointer.createBy"
-                            class="form-control" required disabled
-                            data-live-search="true" data-actions-box="false"
-                            data-live-search-placeholder="Search..."
-                            title="{{'label.payment.SelectCreateUser' | translate}}">
-                        <option *ngFor="let user of allUsers"
-                                attr.data-content="<span title='{{user.userName}}' class='badge'>{{user.fullName}}</span>"
-                                attr.value="{{user.id}}">
+                    <select id="users-info" name="types" [(ngModel)]="pointer.createBy" class="form-control" required disabled data-live-search="true"
+                        data-actions-box="false" data-live-search-placeholder="Search..." title="{{'label.payment.SelectCreateUser' | translate}}">
+                        <option *ngFor="let user of allUsers" attr.data-content="<span title='{{user.userName}}' class='badge'>{{user.fullName}}</span>"
+                            attr.value="{{user.id}}">
                             {{user.fullName}}
                         </option>
                     </select>
@@ -133,14 +125,8 @@
 
     <div class="col-sm-12">
         <!--DATA TABLE-->
-        <ngx-datatable class="material colored-header sm table-hover row-pointer"
-                       [loadingIndicator]="loadingIndicator"
-                       [rows]="rows"
-                       [rowHeight]="auto"
-                       [columns]="columns"
-                       [scrollbarV]="verticalScrollbar"
-                       [columnMode]="'force'"
-                       (activate)="onActivateMaterial($event)">
+        <ngx-datatable class="material colored-header sm table-hover row-pointer" [loadingIndicator]="loadingIndicator" [rows]="rows"
+            [rowHeight]="auto" [columns]="columns" [scrollbarV]="verticalScrollbar" [columnMode]="'force'">
         </ngx-datatable>
 
         <!-- TEMPLATEs -->
@@ -159,9 +145,7 @@
             </span>
         </ng-template>
         <ng-template #totalPricePaymentTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
-            <input class="currency-pipe" value="{{value| currencypipe}}"
-                   autofocus
-                   (blur)="updateValue(row,$event,rowIndex)" />
+            <input class="currency-pipe" value="{{value| currencypipe}}" autofocus (blur)="updateValue(row,$event,rowIndex)" />
 
         </ng-template>
 
@@ -180,21 +164,24 @@
         </ng-template>
 
         <ng-template #actionsTemplate let-row="row">
-            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)"><i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}</a>
         </ng-template>
     </div>
 
 </div>
 
-<ng-template #template>
+<ng-template #templatePay>
     <div class="modal-header">
-        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="branch-modalLabel">{{'label.payment.HeaderPaymentReceipt' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <iostudentlistspay [isNotShowPrice]="false" [isShowButtonPaymentOnGrid]="false"  [isNotShowGetAll]="true" (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspay>
+        <iostudentlistspay [isNotShowPrice]="false" [isShowButtonPaymentOnGrid]="false" [isShowAddNew]="false" [isNotShowGetAll]="true"
+            (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspay>
 
     </div>
 
 </ng-template>
-

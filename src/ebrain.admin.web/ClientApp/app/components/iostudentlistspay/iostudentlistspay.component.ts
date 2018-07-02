@@ -35,10 +35,11 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     @Input() isNotShowPrice: any = true;
     @Input() isNotShowGetAll: any = false;
+    @Input() isShowAddNew: any = true;
     @Input() isWaitingClass: any = false;
     @Input() isShowButtonOnGrid: any = false;
     @Input() isShowButtonPaymentOnGrid: any = true;
-    @Output() activeDoubleClick: any;
+    @Output() activeDoubleClick: any = new EventEmitter<any>();;
 
     ioStockId: any = "";
     rows = [];
@@ -105,14 +106,15 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
         this.loadingIndicator = true;
         const isShow = this.isNotShowPrice;
 
-        var disp = this.localService.getiopayment(this.filterName, this.filterValue,
-            (this.isNotShowGetAll ? 0 : 1), (this.isWaitingClass ? 1 : 0), false, "", this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+       this.localService.getiopayment(this.filterName, this.filterValue,
+            (this.isNotShowGetAll ? 0 : 1), 
+            (this.isWaitingClass ? 1 : 0), 
+            false, "", 
+            this.fromDate, 
+            this.toDate, 
+            this.page.pageNumber, this.page.size).subscribe(
                 list => this.onDataLoadSuccessful(list),
-                error => this.onDataLoadFailed(error),
-                () => {
-                    disp.unsubscribe();
-                    setTimeout(() => { this.loadingIndicator = false; }, 1500);
-                });
+                error => this.onDataLoadFailed(error));
     }
 
     private getReport(template: TemplateRef<any>) {
@@ -130,7 +132,7 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         this.alertService.stopLoadingMessage();
-
+        this.loadingIndicator = false;
     }
 
     private onDataLoadFailed(error: any) {
@@ -152,8 +154,8 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     onActivateMaterial(event) {
         if (event.type == 'dblclick') {
-            if (this.activeDoubleClick !== undefined) {
-                var row = event.row;
+            if (this.isShowAddNew === false) {
+                var row = event.row as IOStockReport;
                 this.activeDoubleClick.emit(row);
             } else {
                 if (this.accessRightService.isEdit("8AA6E971-1C3D-4835-B154-D662CE12AE99")) {

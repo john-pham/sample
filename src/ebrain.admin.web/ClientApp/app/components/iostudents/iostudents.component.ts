@@ -146,8 +146,9 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
         }
     }
 
-    goPayment(ioid: string) {
-        this.router.navigate(['/paymentio', ioid]);
+    goPayment(ioid: string, template: TemplateRef<any>) {
+        this.ioStockId = ioid;
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
     updateValue(row, event, rowIndex) {
@@ -161,22 +162,6 @@ export class IOStudentsComponent implements OnInit, OnDestroy {
         rows[rowIndex] = row;
 
         this.rows = [...this.rows]
-    }
-
-    imageFinishedUploading(file: any) {
-        console.log(JSON.stringify(file.serverResponse));
-    }
-
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
-    }
-
-    onSearchChanged(value: string) {
-        //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
     }
 
     delete(row) {

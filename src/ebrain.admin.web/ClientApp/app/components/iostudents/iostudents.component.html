@@ -28,7 +28,7 @@
                 <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
             </button>
             <button *ngIf="pointer.id?.length > 0 && (accessRightService.isCreate('8AA6E971-1C3D-4835-B154-D662CE12AE99') ||accessRightService.isCreate('9ECBD467-7642-467B-AAE2-96484AD182A3'))" type="button" class="btn btn-success"
-                    routerLink="/paymentio/?ioid={{pointer.id}}" (click)="goPayment(pointer.id)">
+                    (click)="goPayment(pointer.id, templatePayment)">
                 <span class="glyphicon glyphicon-user"></span> {{'button.PaymentReceipt' | translate}}
             </button>
             <button type="button" *ngIf="pointer.id?.length > 0" class="btn btn-info" (click)="showExportInput(templateDept)">
@@ -261,4 +261,11 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'menu.student.Categories.Detail.StudentDept' | translate}}</h4>
     </div>
     <iosummarizesdept [ioStockId]="ioStockId" [studentId]="studentId" [isShowEdit]="true"  [isShowHeader]="false"></iosummarizesdept>
+</ng-template>
+
+<ng-template #templatePayment>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <payments [ioStockId]="ioStockId" [isShowHeader]="false"></payments>
 </ng-template>

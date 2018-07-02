@@ -64,9 +64,10 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
     private pointer: Payment;
     private isEditMode = true;
-    @Input() ioStockId: any = false;
+    @Input() ioStockId: any = "";
+    @Input() paymentId: any = "";
     @Input() isShowHeader: any = true;
-    
+
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
     public changesCancelledCallback: () => void;
@@ -109,28 +110,36 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         //this.saveToDisk();
     }
 
-    showpayment(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+    goExport(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
     onActivateMaterial(event) {
-        if (event instanceof IOStockReport) {
-            var row = event;
-            this.onMappingIOToPaymentDetail(row);
-        }
+        var row = event;
+        this.onMappingIOToPaymentDetail(row);
+        this.modalRef.hide();
     }
 
     onMappingIOToPaymentDetail(row) {
-        var iod = new PaymentDetail();
+        let strError = "";
+        if (this.rows !== null && this.rows !== undefined && this.rows.length > 0) {
+            const itemExist = this.rows.filter(p => p.code === row.code);
+            if (itemExist !== null && itemExist !== undefined) {
+                strError = "Đã tồn tại phiếu.";
+            }
+        }
+        if (strError.length === 0) {
+            var iod = new PaymentDetail();
 
-        iod.code = row.code;
-        iod.ioStockId = row.id;
+            iod.code = row.code;
+            iod.ioStockId = row.id;
 
-        iod.totalPrice = row.totalPriceExist;
-        iod.totalPricePayment = row.totalPriceExist;
-        row.totalPriceExist = row.totalPrice - row.totalPricePayment;
-        this.rows.push(iod);
-        this.rows = [...this.rows]
+            iod.totalPrice = row.totalPriceExist;
+            iod.totalPricePayment = row.totalPriceExist;
+            row.totalPriceExist = row.totalPrice - row.totalPricePayment;
+            this.rows.push(iod);
+            this.rows = [...this.rows]
+        }
     }
 
     updateValue(row, event, rowIndex) {
@@ -192,7 +201,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
             .switchMap((params: ParamMap) => {
                 var id = '';
                 if (isReset == false) {
-                    if (this.ioStockId != null && this.ioStockId.length > 0) id = this.ioStockId
+                    if (this.paymentId != null && this.paymentId.length > 0) id = this.paymentId
                     else id = params.get('id');
                 }
                 return this.localService.getdefault(id);
@@ -208,7 +217,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
             this.route.paramMap
                 .switchMap((params: ParamMap) => {
                     //get io
-                    var ioid = params.get('ioid');
+                    var ioid = this.ioStockId;// params.get('ioid');
                     if (ioid != null && ioid.length > 0) {
                         this.ioservice.getiopayment(this.filterName, this.filterValue, 0, 0, false, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
                             var results = resulted.list;
