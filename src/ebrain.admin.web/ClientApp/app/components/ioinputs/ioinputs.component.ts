@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -54,6 +54,9 @@ export class IOInputsComponent implements OnInit, OnDestroy {
     fromDate: Date;
     toDate: Date;
 
+    @Input() ioStockId: any = false;
+    @Input() isShowHeader: any = true;
+    
     rowmaterials = [];
     columnmaterials = [];
 
@@ -305,9 +308,10 @@ export class IOInputsComponent implements OnInit, OnDestroy {
             .switchMap((params: ParamMap) => {
                 var id = '';
                 if (isReset == false) {
-                    id = params.get('id');
+                    if (this.ioStockId != null && this.ioStockId.length > 0) id = this.ioStockId
+                    else id = params.get('id');
                 }
-                return this.localService.getdefault(id, false);
+                return this.localService.getdefault(id, true);
             })
             .subscribe(results => this.mappingHelper(results), error => this.onDataLoadFailed(error));
         this.alertService.stopLoadingMessage();
