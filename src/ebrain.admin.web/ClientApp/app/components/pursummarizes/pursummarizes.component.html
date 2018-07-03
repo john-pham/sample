@@ -126,7 +126,7 @@
 
     <div class="table-wrapper" *ngIf="!isShowSummarized">
         <!--DATA TABLE-->
-        <ngx-datatable class="material colored-header sm table table-bordered table-responsive"
+        <ngx-datatable class="material colored-header sm table-hover row-pointer"
                        [loadingIndicator]="loadingIndicator"
                        [rows]="rows"
                        [columns]="columns"
@@ -139,7 +139,8 @@
                        [count]="page.totalElements"
                        [offset]="page.pageNumber"
                        [limit]="page.size"
-                       (page)='setPage($event)'>
+                       (page)='setPage($event)'
+                       (activate)="onActivateMaterial($event)">
         </ngx-datatable>
     </div>
 
@@ -171,7 +172,7 @@
         </span>
     </ng-template>
     <ng-template #actionsTemplate let-row="row">
-        <a class="btn btn-link btn-xs" routerLink="/iostudent/?id={{value}}" (click)="goDetails(template, row)"
+        <a class="btn btn-link btn-xs" (click)="goDetails(templateNew, row)"
            *ngIf="accessRightService.isEdit('9ECBD467-7642-467B-AAE2-96484AD182A4')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'button.Detail' | translate}}</a>
     </ng-template>
 </div>
@@ -182,3 +183,9 @@
     </div>
 </ng-template>
 
+<ng-template #templateNew>
+    <div class="modal-header">
+        <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <purchaseorders [purchaseOrderId]="purchaseOrderId" [isShowHeader]="false"></purchaseorders>
+</ng-template>

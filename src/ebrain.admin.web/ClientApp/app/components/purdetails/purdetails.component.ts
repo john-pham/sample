@@ -51,6 +51,8 @@ export class PurDetailsComponent implements OnInit, OnDestroy {
     modalRef: BsModalRef;
 
     isAllIO: boolean = false;
+    @Input() purchaseOrderId: any = "";
+
     @Input()
     set IsAllIO(isMes: boolean) {
         this.isAllIO = (isMes) || null;
@@ -103,16 +105,16 @@ export class PurDetailsComponent implements OnInit, OnDestroy {
     }
 
     goDetails(template: TemplateRef<any>, value: PurchaseOrderReport) {
-        var url = '/purchaseorders';
-        this.router.navigate([url, value.id]);
+        this.purchaseOrderId = value.id;
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
+    onActivateMaterial(event) {
+        if (event.type == 'dblclick') {
+            if (this.accessRightService.isEdit("9ECBD467-7642-467B-AAE2-96484AD182A4")) {
+                this.goDetails(this.templateNew, event.row);
+            }
+        }
     }
 
     onSearchChanged(value: string) {
@@ -169,6 +171,9 @@ export class PurDetailsComponent implements OnInit, OnDestroy {
     close() {
         this.modalRef.hide();
     }
+
+    @ViewChild('templateNew')
+    templateNew: TemplateRef<any>;
 
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;

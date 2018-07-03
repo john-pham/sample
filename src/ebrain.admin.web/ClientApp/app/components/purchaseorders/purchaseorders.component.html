@@ -1,4 +1,4 @@
-﻿<header>
+﻿<header *ngIf="isShowHeader">
     <div class="row" style="padding-top: 15px;">
         <div class="col-xs-12" id="breadcrumb">
             <a class="show-sidebar pull-left" routerLink="/">
@@ -12,7 +12,7 @@
     </div>
 </header>
 
-<div class="row control-box">
+<div class="control-box classes">
 
     <div class="col-sm-12">
         <div class="text-right">

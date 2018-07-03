@@ -28,17 +28,17 @@
                     </a>
                     <div class="dropdown-content">
                         <div *ngIf="accessRightService.isViewFeature('9ECBD467-7642-467B-AAE2-96484AD182A7')">
-                            <a routerLink="/purchaseorders">
+                            <a routerLink="/pursummarizes">
                                 <span class="fa fa-shopping-cart icon"></span>
                                 <span class="text-muted text-u-c"> {{'menu.stock.PurchaseOrder' | translate}} </span>
                             </a>
                         </div>
-                        <div *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18217')">
+                        <!-- <div *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad18217')">
                             <a routerLink="/pursummarizes">
                                 <span class="fa fa-tasks icon "></span>
                                 <span class="text-muted text-u-c"> {{'menu.stock.PurchaseOrderList' | translate}}</span>
                             </a>
-                        </div>
+                        </div> -->
                         <div *ngIf="accessRightService.isViewFeature('9ecbd467-7642-467b-aae2-96484ad182a1')">
                             <a routerLink="/ioinputs">
                                 <span class="fa fa-cart-plus icon"></span>

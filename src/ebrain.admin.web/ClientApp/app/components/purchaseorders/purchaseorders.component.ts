@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -49,7 +49,9 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
     rowmaterials = [];
     columnmaterials = [];
 
-
+    @Input() purchaseOrderId: any = "";
+    @Input() isShowHeader: any = true;
+    
     loadingIndicator: boolean = true;
 
     filterName: string;
@@ -217,7 +219,8 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
             .switchMap((params: ParamMap) => {
                 var id = '';
                 if (isReset == false) {
-                    id = params.get('id');
+                    if (this.purchaseOrderId != null && this.purchaseOrderId.length > 0) id = this.purchaseOrderId
+                    else id = params.get('id');
                 }
                 return this.localService.getdefault(id, false);
             })
@@ -228,6 +231,7 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
 
     private onDataLoadSuccessfulDefault(io: PurchaseOrder) {
         this.pointer = io;
+        this.loadingIndicator = false;
     }
 
     private getStudent() {

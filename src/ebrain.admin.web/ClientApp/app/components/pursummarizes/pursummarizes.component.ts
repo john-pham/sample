@@ -52,6 +52,7 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
     private done: any;
 
     @Input() isShowSummarized: any = false;
+    @Input() purchaseOrderId: any = "";
 
     modalRef: BsModalRef;
 
@@ -107,16 +108,16 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
     }
 
     goDetails(template: TemplateRef<any>, value: PurchaseOrderReport) {
-        var url = '/purchaseorders';
-        this.router.navigate([url, value.id]);
+        this.purchaseOrderId = value.id;
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
+    onActivateMaterial(event) {
+        if (event.type == 'dblclick') {
+            if (this.accessRightService.isEdit("9ECBD467-7642-467B-AAE2-96484AD182A4")) {
+                this.goDetails(this.templateNew, event.row);
+            }
+        }
     }
 
     onSearchChanged(value: string) {
@@ -151,7 +152,7 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
         this.page.totalElements = resulted.total;
         this.rows = resulted.list;
         if (this.rows != null && this.rows.length > 0) {
-            this.done =  this.rows
+            this.done = this.rows
                 .map(c => c.remainQuantity)
                 .reduce((sum, current) => sum + current);
 
@@ -186,6 +187,9 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
     close() {
         this.modalRef.hide();
     }
+
+    @ViewChild('templateNew')
+    templateNew: TemplateRef<any>;
 
     @ViewChild('statusHeaderTemplate')
     statusHeaderTemplate: TemplateRef<any>;
