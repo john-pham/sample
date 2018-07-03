@@ -67,6 +67,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
     @Input() ioStockId: any = "";
     @Input() paymentId: any = "";
     @Input() isShowHeader: any = true;
+    @Input() isInput: any = false;
 
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
@@ -219,12 +220,13 @@ export class PaymentsComponent implements OnInit, OnDestroy {
                     //get io
                     var ioid = this.ioStockId;// params.get('ioid');
                     if (ioid != null && ioid.length > 0) {
-                        this.ioservice.getiopayment(this.filterName, this.filterValue, 0, 0, false, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
-                            var results = resulted.list;
-                            results.forEach(row => {
-                                this.onMappingIOToPaymentDetail(row);
-                            });
-                        }, error => this.onDataLoadFailed(error));
+                        this.ioservice.getiopayment(this.filterName, this.filterValue,
+                            (this.isInput ? 1 : 0), 0, 0, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
+                                var results = resulted.list;
+                                results.forEach(row => {
+                                    this.onMappingIOToPaymentDetail(row);
+                                });
+                            }, error => this.onDataLoadFailed(error));
                     }
                     return ioid;
                 })

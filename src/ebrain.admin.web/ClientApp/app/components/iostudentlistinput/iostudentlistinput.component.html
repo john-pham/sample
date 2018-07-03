@@ -1,0 +1,17 @@
+﻿<header>
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li>
+                    <a routerLink="/mn_main_stock">{{'menu.main.Stock' | translate}}</a>
+                </li>
+                <li>{{'pageMain.iostudentlist.headerInput' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<iostudentlistspay [isNotShowPrice]="false" [isShowButtonOnGrid]="true" [isInput]="true"></iostudentlistspay>

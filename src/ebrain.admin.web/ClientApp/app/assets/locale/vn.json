@@ -515,14 +515,14 @@
       "HeaderAdd": "Quản lý hình thức tư vấn"
     },
     "student": {
-      "IONumber":"Số phiếu",
-      "StudentName":"Tên học viên",
-      "TotalPrice":"Tổng tiền",
-      "NumberHourse":"Số buổi học",
-      "NumberLearning":"Đã học",
-      "TotalPriceLearning":"TT đã học",
-      "NumberRemain":"Buổi nợ",
-      "TotalPriceRemain":"TT nợ",
+      "IONumber": "Số phiếu",
+      "StudentName": "Tên học viên",
+      "TotalPrice": "Tổng tiền",
+      "NumberHourse": "Số buổi học",
+      "NumberLearning": "Đã học",
+      "TotalPriceLearning": "TT đã học",
+      "NumberRemain": "Buổi nợ",
+      "TotalPriceRemain": "TT nợ",
       "EndClass": "Kết thúc khóa",
       "StartDate": "Ngày bắt đầu",
       "EndDate": "Ngày kết thúc",
@@ -940,6 +940,8 @@
     },
     "iostudentlist": {
       "header": "Danh sách thu phí học viên",
+      "headerOutput": "Danh sách xuất kho",
+      "headerInput": "Danh sách nhập kho",
       "searchBox": "Tìm kiếm",
       "newIO": "Tạo mới"
     },
@@ -1030,10 +1032,10 @@
       "Overview": "TỔNG QUAN"
     },
     "stock": {
-      "OperateStock":"Thao Tác",
-      "Report":"Báo cáo",
-      "object":"Đối Tượng",
-      "asset":"Vật tư",
+      "OperateStock": "Thao Tác",
+      "Report": "Báo cáo",
+      "object": "Đối Tượng",
+      "asset": "Vật tư",
       "Branch": "Cơ sở",
       "Stock": "Kho hàng",
       "TypeMaterial": "Loại hàng",
@@ -1079,8 +1081,8 @@
       "UpdateDeptDes": "Cập nhật công nợ KH"
     },
     "accountant": {
-      "ReportAccountant":"Báo cáo",
-      "Operate":"Thao Tác",
+      "ReportAccountant": "Báo cáo",
+      "Operate": "Thao Tác",
       "Promotions": "Khuyến mãi",
       "PromotionDes": "Chương trình khuyến mãi",
       "Payment": "Thu chi",

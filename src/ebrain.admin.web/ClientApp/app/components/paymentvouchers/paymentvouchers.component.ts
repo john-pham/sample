@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -50,7 +50,7 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
     rowios = [];
     columnios = [];
 
-
+    @Input() isInput: any = true;
     loadingIndicator: boolean = true;
 
     filterName: string;
@@ -202,7 +202,9 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
 
     private getIO() {
         //load user
-        this.ioservice.getiopayment(this.filterName, this.filterValue, 0, 0, true, this.ioId, this.fromDate, this.toDate, 0, 0).subscribe(results => this.onDataLoadSuccessfulPayment(results), error => this.onDataLoadFailed(error));
+        this.ioservice.getiopayment(this.filterName, this.filterValue
+            , (this.isInput ? 1 : 0),
+            0, 0, this.ioId, this.fromDate, this.toDate, 0, 0).subscribe(results => this.onDataLoadSuccessfulPayment(results), error => this.onDataLoadFailed(error));
 
     }
 
@@ -229,12 +231,13 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
                     //get io
                     var ioid = params.get('ioid');
                     if (ioid != null && ioid.length > 0) {
-                        this.ioservice.getiopayment(this.filterName, this.filterValue, 0, 0, true, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
-                            var results = resulted.list;
-                            results.forEach(row => {
-                                this.onMappingIOToPaymentDetail(row);
-                            });
-                        }, error => this.onDataLoadFailed(error));
+                        this.ioservice.getiopayment(this.filterName, this.filterValue,
+                            (this.isInput ? 1 : 0), 0, 0, ioid, this.fromDate, this.toDate, 0, 0).subscribe(resulted => {
+                                var results = resulted.list;
+                                results.forEach(row => {
+                                    this.onMappingIOToPaymentDetail(row);
+                                });
+                            }, error => this.onDataLoadFailed(error));
                     }
                     return ioid;
                 })

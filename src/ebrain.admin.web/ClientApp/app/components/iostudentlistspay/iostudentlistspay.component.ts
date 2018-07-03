@@ -38,6 +38,8 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     @Input() isShowAddNew: any = true;
     @Input() isWaitingClass: any = false;
     @Input() isShowButtonOnGrid: any = false;
+    @Input() isInput: any = false;
+    
     @Input() isShowButtonPaymentOnGrid: any = true;
     @Output() activeDoubleClick: any = new EventEmitter<any>();;
 
@@ -106,12 +108,13 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
         this.loadingIndicator = true;
         const isShow = this.isNotShowPrice;
 
-       this.localService.getiopayment(this.filterName, this.filterValue,
-            (this.isNotShowGetAll ? 0 : 1), 
-            (this.isWaitingClass ? 1 : 0), 
-            false, "", 
-            this.fromDate, 
-            this.toDate, 
+        this.localService.getiopayment(this.filterName, this.filterValue,
+            (this.isInput ? 1 : 0),
+            (this.isNotShowGetAll ? 0 : 1),
+            (this.isWaitingClass ? 1 : 0),
+            "",
+            this.fromDate,
+            this.toDate,
             this.page.pageNumber, this.page.size).subscribe(
                 list => this.onDataLoadSuccessful(list),
                 error => this.onDataLoadFailed(error));

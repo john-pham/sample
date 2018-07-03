@@ -71,7 +71,7 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
-    getIOStockDetailDept(filter: string, value: string, studentId: string, ioStockId: string, 
+    getIOStockDetailDept(filter: string, value: string, studentId: string, ioStockId: string,
         dept: number, page: number, size: number): Observable<Response> {
 
         let url = this.getUrlIO('getiostockdetaildept?filter=' + filter + '&value=' + value + '&studentId=' + studentId
@@ -176,27 +176,22 @@ export class IOStudentListEndpoint extends EndpointFactory {
             });
     }
 
-    getiopayment(filter: string, value: string, isGetAll: number, isWaitingClass: number, ioid: string, isInput: boolean,
+    getiopayment(filter: string, value: string, isInput: number, isGetAll: number, isWaitingClass: number, ioid: string,
         fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
         let url = "";
-        if (isInput == false) {
-            url = this.getUrlIO('getiopayment?filter=' + filter + '&value=' + value + '&getAll=' + isGetAll
-                + '&isWaitingClass=' + isWaitingClass
-                + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
-                + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
-        }
-        else {
-            url = this.getUrlIO('getiopaymentvoucher?filter=' + filter + '&value=' + value + '&getAll=' + isGetAll + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
-                + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
-        }
+        url = this.getUrlIO('getiopayment?filter=' + filter + '&value=' + value + '&getAll=' + isGetAll
+            + '&isInput=' + isInput
+            + '&isWaitingClass=' + isWaitingClass
+            + '&ioid=' + ioid + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getiopayment(filter, value, isGetAll, isWaitingClass, ioid, isInput, fromDate, toDate, page, size));
+                return this.handleError(error, () => this.getiopayment(filter, value, isInput, isGetAll, isWaitingClass, ioid, fromDate, toDate, page, size));
             });
     }
 

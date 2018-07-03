@@ -230,6 +230,7 @@ import { PurDetailsComponent } from "./components/purdetails/purdetails.componen
 
 import { IOStudenListWaitingClassComponent } from "./components/iostudentlistswaitingclass/iostudentlistswaitingclass.component";
 import { IOStudenListPayComponent } from "./components/iostudentlistspay/iostudentlistspay.component";
+import { IOStudenListInputComponent } from "./components/iostudentlistinput/iostudentlistinput.component";
 import { IOStudenListPayDetailComponent } from "./components/iostudentlistspaydetail/iostudentlistspaydetail.component";
 import { ScheduleStudentComponent } from "./components/schedulestudents/schedulestudents.component";
 
@@ -425,6 +426,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
 
         IOStudenListComponent,
         IOStudenListPayComponent,
+        IOStudenListInputComponent,
+        
         IOStudenListPayDetailComponent,
         ScheduleStudentComponent,
         

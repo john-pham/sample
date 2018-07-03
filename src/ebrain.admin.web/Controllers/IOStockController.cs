@@ -311,14 +311,14 @@ namespace Ebrain.Controllers
 
         [HttpGet("getiopayment")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> GetIOPaymentReceipt(string filter, string value, int getAll, int isWaitingClass, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPaymentReceipt(string filter, string value, int isInput, int getAll, int isWaitingClass, string ioId, string fromDate, string toDate, int page, int size)
         {
-            return await GetIOPayment(filter, value, getAll, false, ioId, fromDate, toDate, (isWaitingClass > 0 ? true : false), page, size);
+            return await GetIOPayment(filter, value, getAll, (isInput > 0 ? true : false), ioId, fromDate, toDate, (isWaitingClass > 0 ? true : false), page, size);
         }
 
         [HttpGet("getiopaymentdetail")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> GetIOPaymentDetail(string filter, string value, int getAll, int isWaitingClass, int isLearning, string ioId, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> GetIOPaymentDetail(string filter, string value, int isInput, int getAll, int isWaitingClass, int isLearning, string ioId, string fromDate, string toDate, int page, int size)
         {
             var frDate = fromDate.BuildDateTimeFromSEFormat();
             var tDate = toDate.BuildLastDateTimeFromSEFormat();
@@ -338,7 +338,9 @@ namespace Ebrain.Controllers
                     tDate,
                     value,
                     ioId,
-                    0, false, (isWaitingClass > 0 ? true : false), (isLearning > 0 ? true : false)
+                    0,
+                    (isInput > 0 ? true : false),
+                    (isWaitingClass > 0 ? true : false), (isLearning > 0 ? true : false)
                  , this._unitOfWork.Branches.GetAllBranchOfUserString(userId), page, size);
 
             return await MappingIOStockList(results, getAll);
