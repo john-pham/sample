@@ -19,10 +19,13 @@
         <button type="button" class="btn btn-success" (click)="addnew()" *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
             <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
         </button>
-        <button type="button" class="btn btn-info" (click)="goExport(templatePay)">
+        <button *ngIf="!isInput" type="button" class="btn btn-info" (click)="goExport(templatePay)">
             <span class="glyphicon glyphicon-search"></span> {{'button.IOStockOutput' | translate}}
         </button>
-        <button type="button" class="btn btn-primary" (click)="save()" *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
+        <button *ngIf="isInput" type="button" class="btn btn-info" (click)="goExport(templatePay)">
+            <span class="glyphicon glyphicon-search"></span> {{'button.IOStockInput' | translate}}
+        </button>
+        <button  type="button" class="btn btn-primary" (click)="save()" *ngIf="accessRightService.isCreate('376F3FFE-408A-49A8-B0EA-B69654E11B31')">
             <span class="glyphicon glyphicon-floppy-disk"></span> {{'button.Save' | translate}}
         </button>
 
@@ -179,7 +182,9 @@
         <h4 class="modal-title" id="branch-modalLabel">{{'label.payment.HeaderPaymentReceipt' | translate}}</h4>
     </div>
     <div class="modal-body">
-        <iostudentlistspay [isNotShowPrice]="false" [isShowButtonPaymentOnGrid]="false" [isShowAddNew]="false" [isNotShowGetAll]="true"
+        <iostudentlistspay [isNotShowPrice]="false" 
+            [isInput]="isInput"
+            [isShowButtonPaymentOnGrid]="false" [isShowAddNew]="false" [isNotShowGetAll]="true"
             (activeDoubleClick)="onActivateMaterial($event)"></iostudentlistspay>
 
     </div>

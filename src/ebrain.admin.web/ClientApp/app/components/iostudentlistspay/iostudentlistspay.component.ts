@@ -151,6 +151,8 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
     }
 
     goDetails(value: IOStockReport, template: TemplateRef<any>) {
+        // detect input or output screen
+        template = this.isInput === true? this.templateInputNew : this.templateNew;
         this.ioStockId = value !== null && value !== undefined ? value.id : "";
         this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
@@ -211,4 +213,8 @@ export class IOStudenListPayComponent implements OnInit, OnDestroy {
 
     @ViewChild('templateNew')
     templateNew: TemplateRef<any>;
+
+    @ViewChild('templateInputNew')
+    templateInputNew: TemplateRef<any>;
+    
 }

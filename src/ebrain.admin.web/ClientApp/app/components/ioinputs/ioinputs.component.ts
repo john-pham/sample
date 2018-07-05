@@ -150,13 +150,14 @@ export class IOInputsComponent implements OnInit, OnDestroy {
         //this.saveToDisk();
     }
 
-    goPayment(ioid: string) {
-        this.router.navigate(['/paymentiovouchers', ioid]);
+    goPayment(ioid: string, template: TemplateRef<any>) {
+        this.ioStockId = ioid;
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
     addnew() {
         this.pointer = new IOStock();
-        this.router.navigate(["/ioinput", ""]);
+        this.ioStockId = "";
         this.getFromServer(true);
         this.rows = [];
     }
