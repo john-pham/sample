@@ -23,6 +23,8 @@ import { Page } from '../../models/page.model';
 import { AccessRightsService } from "../../services/access-rights.service";
 import { saveAs } from "file-saver";
 import { BranchZalo } from '../../models/branchzalo.model';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
     selector: 'branches',
@@ -176,6 +178,29 @@ export class BranchesComponent implements OnInit, OnDestroy {
         }, error => {
         });
 
+    }
+
+    onOutputPdf() {
+        //
+        let gT = (key: string) => this.translationService.getTranslation(key);
+        let doc = new jsPDF();
+
+        let columns = [
+            { title: gT('label.branch.Code'), dataKey: "code" },
+            { title: gT('label.branch.Name'), dataKey: "name" },
+            { title: gT('label.branch.Address'), dataKey: "address" }];
+
+        doc.autoTable(columns, this.rows, {
+            styles: { fillColor: [100, 255, 255] },
+            columnStyles: {
+                id: { fillColor: 255 }
+            },
+            margin: { top: 60 },
+            addPageContent: function (data) {
+                doc.text(gT("pageMain.branch.header"), 40, 30);
+            }
+        });
+        doc.save('export.branches.pdf');
     }
 
     //head

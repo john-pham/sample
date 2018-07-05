@@ -23,7 +23,7 @@
     <div class="col-sm-3" *ngIf="accessRightService.isCreate('D7239078-E67A-42FA-86D7-4A8C3F73D535')">
         <div class="text-right">
             <search-chart (searchTemplate)="search()" [isShowAddNew]="true" (addNewTemplate)="addBranch(template)" [isShowExport]="rows?.length > 0"
-                (exportExcelTemplate)="onOutputCSV()"></search-chart>
+                (exportExcelTemplate)="onOutputCSV()" (exportPdfTemplate)="onOutputPdf()"></search-chart>
         </div>
     </div>
 </div>
