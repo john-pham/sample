@@ -13,12 +13,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ebrain.admin.bc;
 using Ebrain.ViewModels;
-using ebrain.admin.bc.Models;
 using Microsoft.Extensions.Logging;
 using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using jsreport.AspNetCore;
-using jsreport.Types;
 
 namespace Ebrain.Controllers
 {
@@ -143,46 +140,7 @@ namespace Ebrain.Controllers
 
             return Json(contents);
         }
-
-        //[HttpGet("pdf")]
-        ////[Produces("application/pdf")]
-        //public async Task<IActionResult> OutputPDF(string filter, string value, int page, int size)
-        //{
-        //    var contents = await this.generateOutputContent(filter, value, page, size);
-        //    var output = generatePdf(contents);
-
-        //    return File(output, "application/pdf");
-        //}
-
-        [HttpGet("pdf")]
-        [MiddlewareFilter(typeof(JsReportPipeline))]
-        public async Task<IActionResult> OutputPDF(string filter, string value, int page, int size)
-        {
-            HttpContext.JsReportFeature().Recipe(Recipe.PhantomPdf)
-                .OnAfterRender((r) => HttpContext.Response.Headers["Content-Disposition"] = "attachment; filename=\"myReport.pdf\"");
-
-            var userID = Utilities.GetUserId(this.User);
-
-            var unit = this._unitOfWork.Units;
-            var ret = from c in await unit.Search(filter, value, this._unitOfWork.Branches.GetAllBranchOfUserString(userID), page, size)
-                select new UnitViewModel
-                {
-                    ID = c.UnitId,
-                    Code = c.UnitCode,
-                    Name = c.UnitName,
-                    Note = c.Note
-                };
-
-            return View("Report.PDF", ret);
-        }
-
-        private byte[] generatePdf(string contents)
-        {
-            byte[] pdf = System.Text.Encoding.UTF8.GetBytes(contents);
-
-            return pdf;
-        }
-
+        
         private async Task<string> generateOutputContent(string filter, string value, int page, int size)
         {
             var userID = Utilities.GetUserId(this.User);

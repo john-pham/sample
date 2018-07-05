@@ -20,7 +20,8 @@ import { AccessRightsService } from "../../services/access-rights.service";
 import { Page } from "../../models/page.model";
 import { Results } from "../../models/results.model";
 import { saveAs } from "file-saver";
-import * as jsPDF from 'jspdf'; 
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
     selector: 'units',
@@ -119,26 +120,24 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
     onOutputPdf() {
         //
-        //this.localService.outputPdf(this.filterName, this.filterValue, this.page.pageNumber, this.page.size).subscribe(result => {
 
+        let gT = (key: string) => this.translationService.getTranslation(key);
         let doc = new jsPDF();
 
-        // We'll make our own renderer to skip this editor
-        let specialElementHandlers = {
-            '#editor': function (element, renderer) {
-                return true;
-            },
-            '.controls': function (element, renderer) {
-                return true;
-            }
-        };
+        let columns = [
+            { title: gT('label.unit.Code'), dataKey: "code" },
+            {title: gT('label.unit.Name'), dataKey: "name"},
+            { title: gT('label.unit.Note'), dataKey: "note" }];
 
-        // All units are in the set measurement for the document
-        // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
-        //document.getElementsByClassName('jsPDF').item(0).innerHTML
-        doc.fromHTML(document.getElementsByClassName('jsPDF').item(0).innerHTML, 15, 15, {
-            'width': 170,
-            'elementHandlers': specialElementHandlers
+        doc.autoTable(columns, this.rows, {
+            styles: { fillColor: [100, 255, 255] },
+            columnStyles: {
+                id: { fillColor: 255 }
+            },
+            margin: { top: 60 },
+            addPageContent: function (data) {
+                doc.text(gT("pageMain.unit.header"), 40, 30);
+            }
         });
         doc.save('export.units.pdf');
     }

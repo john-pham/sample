@@ -18,10 +18,8 @@ using Ebrain.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net;
 using ebrain.admin.bc.Utilities;
+
 namespace Ebrain.Controllers
 {
     [Authorize]
@@ -306,16 +304,6 @@ namespace Ebrain.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpGet("pdf")]
-        //[Produces("application/pdf")]
-        public async Task<IActionResult> OutputPDF(string filter, string value, int page, int size)
-        {
-            var contents = await this.generateOutputContent(filter, value, page, size);
-            var output = generatePdf(contents);
-
-            return File(output, "application/pdf");
-        }
-
         [HttpGet("csv")]
         [Produces(typeof(UserViewModel))]
         public async Task<JsonResult> OutputCSV(string filter, string value, int page, int size)
@@ -323,13 +311,6 @@ namespace Ebrain.Controllers
             var contents = await this.generateOutputContent(filter, value, page, size);
 
             return Json(contents);
-        }
-
-        private byte[] generatePdf(string contents)
-        {
-            byte[] pdf = System.Text.Encoding.UTF8.GetBytes(contents);
-
-            return pdf;
         }
 
         private async Task<string> generateOutputContent(string filter, string value, int page, int size)
