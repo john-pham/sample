@@ -176,6 +176,9 @@ namespace Ebrain
                 cfg.AddProfile<AutoMapperProfile>();
             });
 
+            // get config SmtpConfig
+            services.Configure<SmtpConfig>(Configuration.GetSection("SmtpConfigGmail"));
+
             // Repositories
             services.AddScoped<IUnitOfWork, HttpUnitOfWork>();
             services.AddScoped<IAccountManager, AccountManager>();

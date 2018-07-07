@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 using Ebrain.Policies;
 using ebrain.admin.bc.Core.Interfaces;
 using ebrain.admin.bc.Utilities;
+using Microsoft.Extensions.Options;
 
 namespace Ebrain.Controllers
 {
@@ -31,9 +32,11 @@ namespace Ebrain.Controllers
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
+        public readonly IOptions<SmtpConfig> _serviceSmtpConfig;
 
-        public IOStudentController(IUnitOfWork unitOfWork, ILogger<IOStudentController> logger) : base(unitOfWork, logger)
+        public IOStudentController(IUnitOfWork unitOfWork, ILogger<IOStudentController> logger, IOptions<SmtpConfig> serviceSmtpConfig) : base(unitOfWork, logger)
         {
+            _serviceSmtpConfig = serviceSmtpConfig;
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
@@ -277,10 +280,18 @@ namespace Ebrain.Controllers
                 io.TotalPriceBeforeVAT = ioDetails.Sum(p => p.TotalPriceBeforeVAT);
 
                 var ret = await this._unitOfWork.IOStocks.Save(io, ioDetails.ToArray(), value.ID);
-
+                var bodyHtml = EmailTemplates.GetTestEmail("MINHMH", DateTime.Now);
+                var configStmp = _serviceSmtpConfig.Value;
+                var result = await EmailSender.SendEmailAsync(
+                    "MINHMH",
+                    "qmvnn2000@gmail.com",
+                    "test send",
+                    bodyHtml,
+                    configStmp
+                    );
                 return await GetIOStock(ret.IOStockId);
             }
-
+           
             return BadRequest(ModelState);
         }
 
