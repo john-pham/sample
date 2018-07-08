@@ -194,6 +194,9 @@ namespace ebrain.admin.bc.Repositories
                 itemExist.TemplateEmail = feature.TemplateEmail;
                 itemExist.BranchId = branchId;
 
+            }else
+            {
+                this.appContext.FeatureNotification.Add(feature);
             }
             return this.appContext.SaveChanges() > 0;
         }
