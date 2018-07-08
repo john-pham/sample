@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Ebrain.Helpers
 {
@@ -30,6 +32,12 @@ namespace Ebrain.Helpers
             return await EmailSender.SendEmailAsync(from, new MailboxAddress[] { to }, subject, body, config, isHtml);
         }
 
+        public static async Task<(bool success, string errorMsg)> SendEmailAsync(MailboxAddress[] recepients,
+            string subject, string body, SmtpConfig config = null, bool isHtml = true)
+        {
+            var from = new MailboxAddress(Configuration.Name, Configuration.EmailAddress);
+            return await EmailSender.SendEmailAsync(from, recepients, subject, body, config, isHtml);
+        }
 
 
         public static async Task<(bool success, string errorMsg)> SendEmailAsync(string senderName, string senderEmail,
@@ -40,6 +48,16 @@ namespace Ebrain.Helpers
             var to = new MailboxAddress(recepientName, recepientEmail);
 
             return await EmailSender.SendEmailAsync(from, new MailboxAddress[] { to }, subject, body, config, isHtml);
+        }
+
+        public static List<MailboxAddress> GetMailboxAddress(string[] recepientEmails)
+        {
+            var recepients = new List<MailboxAddress>();
+            foreach(var item in recepientEmails)
+            {
+                recepients.Add(new MailboxAddress(item, item));
+            }
+            return recepients;
         }
 
 
@@ -81,6 +99,7 @@ namespace Ebrain.Helpers
                 return (false, ex.Message);
             }
         }
+        
     }
 
 

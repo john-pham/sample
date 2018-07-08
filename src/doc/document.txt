@@ -1,0 +1,1 @@
+1. Replace index.d.ts file to derection src\ebrain.admin.web\node_modules\@types\jspdf.

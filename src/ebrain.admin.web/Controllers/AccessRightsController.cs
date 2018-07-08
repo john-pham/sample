@@ -188,6 +188,63 @@ namespace Ebrain.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpGet("getfeaturenotification")]
+        [Produces(typeof(UserViewModel))]
+        public async Task<IActionResult> GetFeatureNotification(Guid featureId)
+        {
+            if (ModelState.IsValid)
+            {
+                //
+                var userId = Utilities.GetUserId(this.User);
+
+                var feature = new FeatureNotificationViewModel { FeatureId = featureId};
+
+                //commit
+                var ret = await this._unitOfWork.Features.GetFeatureNotification(userId, featureId);
+                if (ret != null)
+                {
+                    feature.FeatureId = ret.FeatureId;
+                    feature.Emails = ret.Emails;
+                    feature.TemplateEmail = ret.TemplateEmail;
+                }
+
+                //return client side
+                return Ok(feature);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost("updatefeaturenotification")]
+        public async Task<IActionResult> FeatureNotification([FromBody] FeatureNotificationViewModel value)
+        {
+            if (ModelState.IsValid)
+            {
+                //
+                var userId = Utilities.GetUserId(this.User);
+
+                var ar = new FeatureNotification
+                {
+                    FeatureNotificationId = Guid.NewGuid(),
+                    FeatureId = value.FeatureId,
+                    Emails = value.Emails,
+                    TemplateEmail = value.TemplateEmail,
+                    CreatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    UpdatedBy = userId,
+                    UpdatedDate = DateTime.Now
+                };
+
+                //commit
+                var ret = await this._unitOfWork.Features.SaveFeatureNotification(ar);
+
+                //return client side
+                return Ok(ret);
+            }
+
+            return BadRequest(ModelState);
+        }
+
         [HttpPost("remove")]
         public async Task<IActionResult> Remove([FromBody] Guid featureId, Guid groupId)
         {

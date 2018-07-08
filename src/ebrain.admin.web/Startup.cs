@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Identity;
 using Swashbuckle.AspNetCore.Swagger;
 using AppPermissions = ebrain.admin.bc.Core.ApplicationPermissions;
 using System;
+using Microsoft.Extensions.Options;
 
 namespace Ebrain
 {
@@ -206,14 +207,14 @@ namespace Ebrain
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<SmtpConfig> serviceSmtpConfig)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug(LogLevel.Warning);
             loggerFactory.AddFile(Configuration.GetSection("Logging"));
 
             Utilities.ConfigureLogger(loggerFactory);
-            EmailTemplates.Initialize(env);
+            EmailTemplates.Initialize(env, serviceSmtpConfig);
 
             if (env.IsDevelopment())
             {

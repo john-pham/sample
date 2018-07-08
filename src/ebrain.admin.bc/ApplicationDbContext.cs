@@ -101,7 +101,8 @@ namespace ebrain.admin.bc
         public DbSet<FeatureGroup> FeatureGroup { get; set; }//Chuc nang, Danh muc,..
         public DbSet<Feature> Feature { get; set; }//Phan tich hoat dong, Du doan dau tu,..
         public DbSet<UserGroup> UserGroup { get; set; }//admin, sales,..
-
+        public DbSet<FeatureNotification> FeatureNotification { get; set; }
+        public DbSet<FeatureNoResult> FeatureNoResult { get; set; }
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
 
@@ -220,6 +221,8 @@ namespace ebrain.admin.bc
             builder.Entity<FeatureGroup>().ToTable(nameof(this.FeatureGroup));
             builder.Entity<Feature>().ToTable(nameof(this.Feature));
             builder.Entity<UserGroup>().ToTable(nameof(this.UserGroup));
+            builder.Entity<FeatureNotification>().ToTable(nameof(this.FeatureNotification));
+            builder.Entity<FeatureNoResult>().ToTable(nameof(this.FeatureNoResult));
         }
 
 

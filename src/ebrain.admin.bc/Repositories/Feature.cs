@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ebrain.admin.bc.Utilities;
 
 /*
  * Author:          John Pham
@@ -145,20 +146,20 @@ namespace ebrain.admin.bc.Repositories
             var m_Ret = default(Report.Feature);
 
             var item = await (from f in appContext.Feature
-                        join fg in appContext.FeatureGroup on f.GroupID equals fg.ID into fgs
-                        from g in fgs.DefaultIfEmpty()
-                        where f.ID == index
-                        select new
-                        {
-                            f.ID,
-                            f.Reference,
-                            f.Name,
-                            f.Url,
-                            f.GroupID,
-                            Group = g != null ? g.Name : string.Empty,
-                            f.Description,
-                            f.CreatedDate
-                        }).FirstOrDefaultAsync();
+                              join fg in appContext.FeatureGroup on f.GroupID equals fg.ID into fgs
+                              from g in fgs.DefaultIfEmpty()
+                              where f.ID == index
+                              select new
+                              {
+                                  f.ID,
+                                  f.Reference,
+                                  f.Name,
+                                  f.Url,
+                                  f.GroupID,
+                                  Group = g != null ? g.Name : string.Empty,
+                                  f.Description,
+                                  f.CreatedDate
+                              }).FirstOrDefaultAsync();
 
             if (item != null)
             {
@@ -176,5 +177,25 @@ namespace ebrain.admin.bc.Repositories
             return m_Ret;
         }
 
+        public Task<FeatureNotification> GetFeatureNotification(Guid userId, Guid featureId)
+        {
+            var branchId = userId.GetBranchOfCurrentUser(this.appContext);
+            return this.appContext.FeatureNotification.FirstOrDefaultAsync(p => p.FeatureId == featureId && p.BranchId == branchId);
+        }
+
+        public async Task<bool> SaveFeatureNotification(FeatureNotification feature)
+        {
+            var branchId = feature.CreatedBy.Value.GetBranchOfCurrentUser(this.appContext);
+            var itemExist = this.appContext.FeatureNotification.FirstOrDefault(p => p.FeatureId == feature.FeatureId && p.BranchId == branchId);
+            if (itemExist != null)
+            {
+                itemExist.UpdatedDate = DateTime.Now;
+                itemExist.Emails = feature.Emails;
+                itemExist.TemplateEmail = feature.TemplateEmail;
+                itemExist.BranchId = branchId;
+
+            }
+            return this.appContext.SaveChanges() > 0;
+        }
     }
 }

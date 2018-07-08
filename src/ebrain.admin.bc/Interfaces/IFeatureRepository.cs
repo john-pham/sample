@@ -25,5 +25,7 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<IList<Report.Feature>> Search(string value, int page, int size);
 
         Task<Report.Feature> GetItem(Guid Index);
+        Task<FeatureNotification> GetFeatureNotification(Guid userId, Guid featureId);
+        Task<bool> SaveFeatureNotification(FeatureNotification feature);
     }
 }

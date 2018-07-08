@@ -10,6 +10,8 @@ using System;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace Ebrain.Helpers
 {
@@ -18,11 +20,12 @@ namespace Ebrain.Helpers
         static IHostingEnvironment _hostingEnvironment;
         static string testEmailTemplate;
         static string plainTextTestEmailTemplate;
+        static IOptions<SmtpConfig> _serviceSmtpConfig;
 
-
-        public static void Initialize(IHostingEnvironment hostingEnvironment)
+        public static void Initialize(IHostingEnvironment hostingEnvironment, IOptions<SmtpConfig> serviceSmtpConfig)
         {
             _hostingEnvironment = hostingEnvironment;
+            _serviceSmtpConfig = serviceSmtpConfig;
         }
 
 
@@ -73,6 +76,21 @@ namespace Ebrain.Helpers
                     return sr.ReadToEnd();
                 }
             }
+        }
+
+        public static async Task<(bool success, string errorMsg)> GenerateSendEmail(Func<string> Func_GetBodyHtml, string[] recepientEmails, 
+            string subject)
+        {
+            // get body html
+            var bodyHtml = Func_GetBodyHtml?.Invoke();
+            var configStmp = _serviceSmtpConfig.Value;
+            var result = await EmailSender.SendEmailAsync(
+                EmailSender.GetMailboxAddress(recepientEmails).ToArray(), //"qmvnn2000@gmail.com",
+                subject,
+                bodyHtml,
+                configStmp
+                );
+            return result;
         }
     }
 }
