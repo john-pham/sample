@@ -331,6 +331,7 @@ import { NotFoundComponent } from "./components/not-found/not-found.component";
 
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
+import { ExampleComponent } from "./components/exampleTemplate/example.component";
 
 import { PageControllerComponent } from "./components/controls/page-controller.component";
 import { BannerDemoComponent } from "./components/controls/banner-demo.component";
@@ -538,7 +539,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         GroupByPipe,
         CurrencyPipe,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        ExampleComponent
     ],
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl },

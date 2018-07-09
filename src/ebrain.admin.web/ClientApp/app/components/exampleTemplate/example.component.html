@@ -1,0 +1,134 @@
+﻿<div class="control-box classes">
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.iostudent.Code' | translate}}</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.iostudent.CreateDate' | translate}}</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" bsDatepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.iostudent.PurchaseOrder' | translate}}</label>
+                <div class="col-md-10 no-pd wrap-input-search">
+                    <div class="col-sm-10 col-md-10 wrap-input">
+                        <input class="form-control" type="text" disabled>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <button type="button" class="btn btn-info float-right" title="{{'menu.stock.PurchaseOrderListDes' | translate}}">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-2">{{'label.iostudent.CreateUser' | translate}}</label>
+                <div class="col-md-10">
+                    <select id="users-info" name="types" class="form-control" required disabled data-live-search="true"
+                            data-actions-box="false" data-live-search-placeholder="Search..." title="{{'label.iostudent.SelectCreateUser' | translate}}">
+                        <option *ngFor="let user of allUsers" attr.data-content="<span title='{{user.userName}}' class='badge'>{{user.fullName}}</span>"
+                                attr.value="{{user.id}}">
+                            full name
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group has-feedback">
+                <label class="control-label col-md-1 col-sm-2">{{'label.iostudent.Note' | translate}}</label>
+                <div class="col-md-11 col-sm-10">
+                    <textarea class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr [class.separator-hr]="!isEditMode" [class.edit-separator-hr]="isEditMode" />
+
+        </div>
+    </div>
+
+    <!--
+    <div class="col-sm-12">
+        <ngx-datatable class="material colored-header sm table-hover" [loadingIndicator]="loadingIndicator" [rows]="rows" [rowHeight]="auto"
+                       [columns]="columns" [scrollbarV]="verticalScrollbar" [columnMode]="'force'" (activate)="onActivateMaterial($event)">
+        </ngx-datatable>
+
+        <ng-template #statusHeaderTemplate>
+            <i class="fa fa-check-square-o"></i>
+        </ng-template>
+
+        <ng-template #nameTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #descriptionTemplate let-row="row" let-value="value">
+            <span attr.title="{{value}}">
+                {{value}}
+            </span>
+        </ng-template>
+        <ng-template #quantityTemplate let-rowIndex="rowIndex" let-row="row" let-value="value">
+            <input class="currency-pipe" value="{{value| currencypipe}}" autofocus (blur)="updateValue(row,$event,rowIndex)" />
+
+        </ng-template>
+
+        <ng-template #priceTemplate let-row="row" let-value="value">
+            <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                {{value | currencypipe}}
+            </span>
+        </ng-template>
+
+        <ng-template #totalPriceTemplate let-row="row" let-value="value">
+            <span class="currency-pipe" attr.title="{{value | currencypipe}}">
+                {{value | currencypipe}}
+            </span>
+        </ng-template>
+
+        <ng-template #actionsTemplate let-row="row">
+            <a class="btn btn-link btn-xs" href="javascript:;" (click)="delete(row)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i> {{'button.Delete' | translate}}
+            </a>
+        </ng-template>
+    </div>
+    -->
+</div>
