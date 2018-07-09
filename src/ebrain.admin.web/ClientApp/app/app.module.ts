@@ -329,6 +329,9 @@ import { SettingsComponent } from "./components/settings/settings.component";
 import { AboutComponent } from "./components/about/about.component";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 
+import { HeaderComponent } from "./components/header/header.component";
+import { FooterComponent } from "./components/footer/footer.component";
+
 import { PageControllerComponent } from "./components/controls/page-controller.component";
 import { BannerDemoComponent } from "./components/controls/banner-demo.component";
 import { TodoDemoComponent } from "./components/controls/todo-demo.component";
@@ -533,7 +536,9 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         BootstrapSelectDirective,
         BootstrapDatepickerDirective,
         GroupByPipe,
-        CurrencyPipe
+        CurrencyPipe,
+        HeaderComponent,
+        FooterComponent
     ],
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl },

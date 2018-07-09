@@ -1,5 +1,5 @@
 ﻿<header *ngIf="isShowHeader">
-    <div class="row" style="padding-top: 15px;">
+    <div class="row">
         <div class="col-xs-12" id="breadcrumb">
             <a class="show-sidebar pull-left" routerLink="/">
                 <i class="fa fa-bars"></i>
@@ -15,7 +15,8 @@
 </header>
 
 <div class="control-box classes">
-    <div class="text-right">
+    <header-common></header-common>
+    <div class="controls text-right">
         <button type="button" class="btn btn-success" (click)="addnew()" *ngIf="accessRightService.isCreate('9ecbd467-7642-467b-aae2-96484ad182a1')">
             <span class="glyphicon glyphicon-plus"></span> {{'button.AddNew' | translate}}
         </button>

@@ -177,6 +177,7 @@ label.control-label {
     max-height: calc(100vh - 60px);
     overflow-y: auto;
     overflow-x: hidden;
+    padding-bottom: 20px;
 }
 
 .modal-footer {

@@ -102,3 +102,7 @@ input.form-control {
 .classes .wrap-table .datatable-header-cell-wrapper {
     color: #FFF;
 }
+
+.control-box .controls {
+    margin: 10px 15px 5px;
+}
