@@ -30,5 +30,6 @@ namespace ebrain.admin.bc.Utilities
     public enum EnumPayment
     {
         PaymentIOOUT = 1,
+        PaymentIOINPUT = 2,
     }
 }

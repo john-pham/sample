@@ -158,18 +158,6 @@ export class PaymentsComponent implements OnInit, OnDestroy {
         this.rows = [...this.rows]
     }
 
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
-    }
-
-    onSearchChanged(value: string) {
-        //this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.name, r.description) || value == 'important' && r.important || value == 'not important' && !r.important);
-    }
-
     delete(row) {
         this.alertService.showDialog('Are you sure you want to delete the row?', DialogType.confirm, () => this.deleteHelper(row));
     }
@@ -205,7 +193,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
                     if (this.paymentId != null && this.paymentId.length > 0) id = this.paymentId
                     else id = params.get('id');
                 }
-                return this.localService.getdefault(id);
+                return this.localService.getdefault(id, (this.isInput === true ? 1 : 0));
             })
             .subscribe(results => this.mappingHelper(results), error => this.onDataLoadFailed(error));
         //
@@ -239,7 +227,7 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
     private getPaymentTypes() {
         //load user
-        this.localService.getPaymentTypes(false).subscribe(results => this.onDataLoadSuccessfulStudents(results), error => this.onDataLoadFailed(error));
+        this.localService.getPaymentTypes(this.isInput).subscribe(results => this.onDataLoadSuccessfulStudents(results), error => this.onDataLoadFailed(error));
     }
 
     private onDataLoadSuccessfulStudents(types: PaymentType[]) {
@@ -285,6 +273,9 @@ export class PaymentsComponent implements OnInit, OnDestroy {
 
     private save() {
         if (this.rows != null && this.rows.length > 0) {
+            if(this.pointer.paymentTypeId === undefined ||this.pointer.paymentTypeId === 0){
+                this.showErrorAlert("Superbrain thông báo", "Vui lòng chọn loại phiếu.");
+            }
             this.alertService.startLoadingMessage("Saving changes...");
             this.pointer.ioDetails = this.rows;
 

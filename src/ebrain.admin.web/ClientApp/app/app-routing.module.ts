@@ -50,7 +50,9 @@ import { IOStudentsComponent } from "./components/iostudents/iostudents.componen
 import { PurchaseOrdersComponent } from "./components/purchaseorders/purchaseorders.component";
 import { PurHistoriesComponent } from "./components/purhistories/purhistories.component";
 import { PaymentsComponent } from "./components/payments/payments.component";
+import { PaymentListFalseComponent } from "./components/paymentlistfalse/paymentlistfalse.component";
 import { PaymentVouchersComponent } from "./components/paymentvouchers/paymentvouchers.component";
+import { PaymentListTrueComponent } from "./components/paymentlisttrue/paymentlisttrue.component";
 import { PaymentListsComponent } from "./components/paymentlists/paymentlists.component";
 import { PaymentDetailListsComponent } from "./components/paymentdetaillists/paymentdetaillists.component";
 import { InventoriesListsComponent } from "./components/inventorieslists/inventorieslists.component";
@@ -233,10 +235,10 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "studentschedulelearning", component: StudentScheduleLearningComponent, canActivate: [AuthGuard], data: { title: "studentschedulelearning" } },
             { path: "studentmodules", component: StudentModuleComponent, canActivate: [AuthGuard], data: { title: "studentmodules" } },
 
-            { path: "payments", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "payments" } },
+            { path: "payments", component: PaymentListFalseComponent, canActivate: [AuthGuard], data: { title: "payments" } },
             { path: "payment/:id", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment Details" } },
             { path: "paymentio/:ioid", component: PaymentsComponent, canActivate: [AuthGuard], data: { title: "Payment" } },
-            { path: "paymentvouchers", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "payments" } },
+            { path: "paymentvouchers", component: PaymentListTrueComponent, canActivate: [AuthGuard], data: { title: "payments" } },
             { path: "paymentvouchers/:id", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "Receipt" } },
             { path: "paymentiovouchers/:ioid", component: PaymentVouchersComponent, canActivate: [AuthGuard], data: { title: "Receipt" } },
             { path: "paymentlist", component: PaymentListsComponent, canActivate: [AuthGuard], data: { title: "payments" } },

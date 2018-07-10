@@ -1,0 +1,17 @@
+﻿<header>
+    <div class="row">
+        <div class="col-xs-12" id="breadcrumb">
+            <a class="show-sidebar pull-left" routerLink="/">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ol class="breadcrumb pull-left">
+                <li>
+                    <a routerLink="/mn_main_accountant">{{'menu.main.Accountant' | translate}}</a>
+                </li>
+                <li>{{'pageMain.payment.header' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<paymentlist [isShowHeader]="false" [paymentTypeId]="1" [isInput]="false"></paymentlist>

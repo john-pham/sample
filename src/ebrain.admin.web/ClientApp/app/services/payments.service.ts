@@ -53,13 +53,13 @@ export class PaymentsService {
             .map((response: Response) => <Student[]>response.json());
     }
 
-    searchSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
-        return this.endpointFactory.searchSummarize(filter, value, fromDate, toDate, page, size)
+    searchSummarize(filter: string, value: string,isInput: number, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.searchSummarize(filter, value,isInput, fromDate, toDate, page, size)
             .map((response: Response) => <Results<Payment>>response.json());
     }
 
-    repotSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number) {
-        return this.endpointFactory.repotSummarize(filter, value, fromDate, toDate, page, size)
+    repotSummarize(filter: string, value: string, isInput: number, fromDate: Date, toDate: Date, page: number, size: number) {
+        return this.endpointFactory.repotSummarize(filter, value, isInput, fromDate, toDate, page, size)
             .map((response: Response) => <Chart>response.json());
     }
 
@@ -114,8 +114,8 @@ export class PaymentsService {
             .map((response: Response) => <Payment>response.json());
     }
 
-    getdefault(index) {
-        return this.endpointFactory.getdefault(index)
+    getdefault(index, isInput) {
+        return this.endpointFactory.getdefault(index, isInput)
             .map((response: Response) => <Payment>response.json());
     }
 

@@ -216,7 +216,7 @@ export class PaymentVouchersComponent implements OnInit, OnDestroy {
                 if (isReset == false) {
                     id = params.get('id');
                 }
-                return this.localService.getdefault(id);
+                return this.localService.getdefault(id, 1);
             })
             .subscribe(results => this.mappingHelper(results), error => this.onDataLoadFailed(error));
         //

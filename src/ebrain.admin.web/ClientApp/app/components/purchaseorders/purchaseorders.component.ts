@@ -367,6 +367,7 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
             this.rows.push(iod);
             this.rows = [...this.rows];
         });
+        this.loadingIndicator = false;
     }
 
     private saveSuccessHelper(io?: PurchaseOrder) {

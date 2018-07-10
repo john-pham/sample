@@ -87,9 +87,9 @@ namespace Ebrain.Controllers
 
         [HttpGet("reportpaymentsummarize")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IActionResult> ReportPaymentSummarize(string filter, string value, string fromDate, string toDate, int page, int size)
+        public async Task<IActionResult> ReportPaymentSummarize(string filter, string value, int isInput, string fromDate, string toDate, int page, int size)
         {
-            var list = await GetPaymentSummarizeMain(filter, value, fromDate, toDate, 0, 0);
+            var list = await GetPaymentSummarizeMain(filter, value, null, isInput, fromDate, toDate, 0, 0);
             var item = new ChartViewModel();
             if (list != null && list.Count > 0)
             {
@@ -116,9 +116,11 @@ namespace Ebrain.Controllers
 
         [HttpGet("searchpaymentsummarize")]
         [Produces(typeof(UserViewModel))]
-        public async Task<JsonResult> SearchPaymentSummarize(string filter, string value, string fromDate, string toDate, int page, int size)
+        public async Task<JsonResult> SearchPaymentSummarize(string filter, string value, int isInput, string fromDate, string toDate, int page, int size)
         {
-            var list = await GetPaymentSummarizeMain(filter, value, fromDate, toDate, page, size);
+            var isPayment = isInput == 1 ? true : isInput == 2 ? (bool?)null : false;
+            var typeId = isInput >= 0 ? (int)EnumPayment.PaymentIOINPUT : (int)EnumPayment.PaymentIOOUT;
+            var list = await GetPaymentSummarizeMain(filter, value, isPayment, isInput, fromDate, toDate, page, size);
             return Json(new
             {
                 Total = this._unitOfWork.Payments.Total,
@@ -126,7 +128,8 @@ namespace Ebrain.Controllers
             });
         }
 
-        private async Task<List<PaymentViewModel>> GetPaymentSummarizeMain(string filter, string value, string fromDate, string toDate, int page, int size)
+        private async Task<List<PaymentViewModel>> GetPaymentSummarizeMain(string filter, string value, bool? isPayment, int paymentTypeId,
+            string fromDate, string toDate, int page, int size)
         {
             //get userId accessRightPerson
             var userAccessRightPerson = await this._unitOfWork.AccessRightPersons.GetUserIdFromAccessRightPerson(Guid.Parse(Constants.PAYMENTLIST), userId);
@@ -135,7 +138,7 @@ namespace Ebrain.Controllers
                 fromDate.BuildDateTimeFromSEFormat(),
                 toDate.BuildLastDateTimeFromSEFormat(),
                 value,
-                0, false,
+                paymentTypeId, isPayment,
                 userAccessRightPerson,
                 this._unitOfWork.Branches.GetAllBranchOfUserString(userId),
                 page, size);
@@ -224,18 +227,19 @@ namespace Ebrain.Controllers
 
         [HttpGet("getdefault")]
         [Produces(typeof(UserViewModel))]
-        public async Task<IActionResult> GetDefaultAsync(Guid? index)
+        public async Task<IActionResult> GetDefaultAsync(Guid? index, int isInput)
         {
             if (index.IsNullOrDefault())
             {
-                var ioNumber = this._unitOfWork.ConfigNumberOfCodes.GenerateCodePayment((int)EnumPayment.PaymentIOOUT, userId.ToString());
+                var typeId = isInput >= 0 ? (int)EnumPayment.PaymentIOINPUT : (int)EnumPayment.PaymentIOOUT;
+                var ioNumber = this._unitOfWork.ConfigNumberOfCodes.GenerateCodePayment(typeId, userId.ToString());
 
                 var itemNew = new PaymentViewModel
                 {
                     Code = ioNumber,
                     CreateDate = DateTime.Now,
                     CreateBy = userId,
-                    PaymentTypeId = (int)EnumPayment.PaymentIOOUT
+                    PaymentTypeId = typeId
                 };
 
                 itemNew.IODetails = new PaymentDetailViewModel[0];
@@ -339,7 +343,7 @@ namespace Ebrain.Controllers
             if (ModelState.IsValid)
             {
                 var ret = await this._unitOfWork.Payments.DeleteMaster(id);
-                return await GetDefaultAsync(null);
+                return await GetDefaultAsync(null, (int)ret.PaymentTypeId);
             }
 
             return BadRequest(ModelState);
@@ -351,7 +355,7 @@ namespace Ebrain.Controllers
             if (ModelState.IsValid)
             {
                 var ret = await this._unitOfWork.Payments.CancelMaster(id);
-                return await GetDefaultAsync(null);
+                return await GetDefaultAsync(null, (int)ret.PaymentTypeId);
             }
 
             return BadRequest(ModelState);

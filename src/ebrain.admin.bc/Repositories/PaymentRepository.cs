@@ -54,7 +54,7 @@ namespace ebrain.admin.bc.Repositories
         }
 
         public IEnumerable<PaymentList> GetPaymentList
-            (DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds
+            (DateTime fromDate, DateTime toDate, string filterValue, int paymentTypeId, bool? isPayment, Guid? userAccessRightPerson, string branchIds
             , int page, int size)
         {
             try
@@ -197,7 +197,7 @@ namespace ebrain.admin.bc.Repositories
             await appContext.SaveChangesAsync();
             return true;
         }
-        public async Task<Boolean> DeleteMaster(Guid? id)
+        public async Task<Payment> DeleteMaster(Guid? id)
         {
             var itemExist = appContext.Payment.FirstOrDefault(p => p.PaymentId == id);
             if (itemExist != null)
@@ -205,9 +205,9 @@ namespace ebrain.admin.bc.Repositories
                 itemExist.IsDeleted = true;
             }
             await appContext.SaveChangesAsync();
-            return true;
+            return itemExist;
         }
-        public async Task<Boolean> CancelMaster(Guid? id)
+        public async Task<Payment> CancelMaster(Guid? id)
         {
             var itemExist = appContext.Payment.FirstOrDefault(p => p.PaymentId == id);
             if (itemExist != null)
@@ -215,7 +215,7 @@ namespace ebrain.admin.bc.Repositories
                 itemExist.IsDeleted = true;
             }
             await appContext.SaveChangesAsync();
-            return true;
+            return itemExist;
 
         }
 

@@ -65,23 +65,10 @@ export class PaymentsEndpoint extends EndpointFactory {
             });
     }
 
-    searchSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+    searchSummarize(filter: string, value: string, isInput: number, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
 
-        let url = this.getUrl('searchpaymentsummarize?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
-            + '&page='+ page + '&size=' + size + '&hash_id=' + Math.random());
-
-        return this.http.get(url, this.getAuthHeader())
-            .map((response: Response) => {
-                return response;
-            })
-            .catch(error => {
-                return this.handleError(error, () => this.searchSummarize(filter, value, fromDate, toDate, page, size));
-            });
-    }
-
-    repotSummarize(filter: string, value: string, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
-
-        let url = this.getUrl('reportpaymentsummarize?filter=' + filter + '&value=' + value + '&fromDate=' + fromDate + '&toDate=' + toDate
+        let url = this.getUrl('searchpaymentsummarize?filter=' + filter
+            + '&value=' + value + '&isInput=' + isInput + '&fromDate=' + fromDate + '&toDate=' + toDate
             + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
@@ -89,7 +76,22 @@ export class PaymentsEndpoint extends EndpointFactory {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.repotSummarize(filter, value, fromDate, toDate, page, size));
+                return this.handleError(error, () => this.searchSummarize(filter, value, isInput, fromDate, toDate, page, size));
+            });
+    }
+
+    repotSummarize(filter: string, value: string, isInput: number, fromDate: Date, toDate: Date, page: number, size: number): Observable<Response> {
+
+        let url = this.getUrl('reportpaymentsummarize?filter=' + filter
+            + '&value=' + value + '&isInput=' + isInput + '&fromDate=' + fromDate + '&toDate=' + toDate
+            + '&page=' + page + '&size=' + size + '&hash_id=' + Math.random());
+
+        return this.http.get(url, this.getAuthHeader())
+            .map((response: Response) => {
+                return response;
+            })
+            .catch(error => {
+                return this.handleError(error, () => this.repotSummarize(filter, value, isInput, fromDate, toDate, page, size));
             });
     }
 
@@ -176,16 +178,16 @@ export class PaymentsEndpoint extends EndpointFactory {
             });
     }
 
-    getdefault(index): Observable<Response> {
+    getdefault(index, isInput): Observable<Response> {
 
-        let url = this.getUrl('getdefault?index=' + index + '&hash_id=' + Math.random());
+        let url = this.getUrl('getdefault?index=' + index + '&isInput=' + isInput + '&hash_id=' + Math.random());
 
         return this.http.get(url, this.getAuthHeader())
             .map((response: Response) => {
                 return response;
             })
             .catch(error => {
-                return this.handleError(error, () => this.getdefault(index));
+                return this.handleError(error, () => this.getdefault(index, isInput));
             });
     }
 

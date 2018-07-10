@@ -21,7 +21,7 @@
     <div class="col-sm-4">
         <div class="text-right">
             <search-chart [isShowSearch]="true" (searchTemplate)="search()"
-                          [isShowAddNew]="false" (addNewTemplate)="addMessenger(template)"
+                          [isShowAddNew]="true" (addNewTemplate)="goDetails(templateNew)"
                           [isShowExport]="rows?.length > 0" (exportExcelTemplate)="onOutputCSV()"
                           [isShowTemplate]="rows?.length > 0" (showTemplate)="showChart(template)"></search-chart>
         </div>

@@ -108,7 +108,7 @@ export class PurSummarizesComponent implements OnInit, OnDestroy {
     }
 
     goDetails(template: TemplateRef<any>, value: PurchaseOrderReport) {
-        this.purchaseOrderId = value.id;
+        this.purchaseOrderId = value !== undefined && value !== null? value.id : "";
         this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 

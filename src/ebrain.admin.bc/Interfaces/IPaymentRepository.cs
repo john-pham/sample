@@ -25,10 +25,10 @@ namespace ebrain.admin.bc.Repositories.Interfaces
         Task<Payment> Save(Payment value, PaymentDetail[] iosd, Guid? id);
         Task<Boolean> Delete(string id);
         Task<IEnumerable<PaymentDetail>> GetDetailByIOId(Guid? id);
-        Task<Boolean> DeleteMaster(Guid? id);
-        Task<Boolean> CancelMaster(Guid? id);
+        Task<Payment> DeleteMaster(Guid? id);
+        Task<Payment> CancelMaster(Guid? id);
         IEnumerable<PaymentList> GetPaymentList(DateTime fromDate, DateTime toDate, string ioNumber, 
-            int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds, int page, int size);
+            int paymentTypeId, bool? isPayment, Guid? userAccessRightPerson, string branchIds, int page, int size);
         IEnumerable<PaymentDetailList> GetPaymentDetailList(DateTime fromDate, DateTime toDate, string ioNumber, 
             int paymentTypeId, bool isPayment, Guid? userAccessRightPerson, string branchIds, int page, int size);
         Task<IEnumerable<PaymentType>> GetAllPaymentTypes(bool isPayment, string branchIds);

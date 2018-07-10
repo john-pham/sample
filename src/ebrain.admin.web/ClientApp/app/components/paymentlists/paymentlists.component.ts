@@ -6,7 +6,7 @@
 // ==> Contact Us: supperbrain@outlook.com
 // ======================================
 
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { fadeInOut } from '../../services/animations';
@@ -43,8 +43,14 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
     fromDate: Date;
     toDate: Date;
 
+    paymentId: string;
+
     private pointer: Grpsupplier;
     private chart: Chart;
+
+    @Input() isShowHeader: any = true;
+    @Input() isInput: any = false;
+    @Input() paymentTypeId: any = 3;
 
     public changesSavedCallback: () => void;
     public changesFailedCallback: () => void;
@@ -91,20 +97,6 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
         //this.saveToDisk();
     }
 
-    goDetails(template: TemplateRef<any>, value: Payment) {
-        var url = '';
-        if (value != null && value.paymentTypeId == 1) url = '/payment'; else '/paymentvouchers';
-        this.router.navigate([url, value.id]);
-    }
-
-    onRemoved(file: any) {
-        // do some stuff with the removed file.
-    }
-
-    onUploadStateChanged(state: boolean) {
-        console.log(JSON.stringify(state));
-    }
-
     onSearchChanged(value: string) {
         this.filterValue = value;
         this.getFromServer();
@@ -112,14 +104,15 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
 
     private getFromServer() {
         this.loadingIndicator = true;
-        //
-        var disp = this.localService.searchSummarize(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+        const isInput = this.isInput === true ? 1 : 0;
+        var disp = this.localService.searchSummarize(this.filterName, this.filterValue, this.paymentTypeId, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             list => this.onDataLoadSuccessful(list),
             error => this.onDataLoadFailed(error));
     }
 
     private getReport(template: TemplateRef<any>) {
-        this.localService.repotSummarize(this.filterName, this.filterValue, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
+        const isInput = this.isInput === true ? 1 : 0;
+        this.localService.repotSummarize(this.filterName, this.filterValue, this.paymentTypeId, this.fromDate, this.toDate, this.page.pageNumber, this.page.size).subscribe(
             resulted => {
                 this.chart = resulted;
                 this.alertService.stopLoadingMessage();
@@ -128,7 +121,7 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
             },
             error => this.onDataLoadFailed(error));
     }
-    
+
 
     private onDataLoadSuccessful(resulted: Results<Payment>) {
         this.page.totalElements = resulted.total;
@@ -142,6 +135,11 @@ export class PaymentListsComponent implements OnInit, OnDestroy {
         this.alertService.showStickyMessage("Load Error", `Unable to retrieve user data from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
             MessageSeverity.error, error);
         this.loadingIndicator = false;
+    }
+
+    goDetails(template: TemplateRef<any>, value: Payment) {
+        this.paymentId = value !== undefined && value !== null ? value.id : "";
+        this.modalRef = this.modalService.show(template, { class: 'modal-large' });
     }
 
     search() {

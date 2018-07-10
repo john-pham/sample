@@ -243,6 +243,8 @@ import { IODetailsComponent } from "./components/iodetails/iodetails.component";
 import { WarehouseCardsComponent } from "./components/warehousecards/warehousecards.component";
 
 import { PaymentsComponent } from "./components/payments/payments.component";
+import { PaymentListTrueComponent } from "./components/paymentlisttrue/paymentlisttrue.component";
+import { PaymentListFalseComponent } from "./components/paymentlistfalse/paymentlistfalse.component";
 import { PaymentVouchersComponent } from "./components/paymentvouchers/paymentvouchers.component";
 import { PaymentListsComponent } from "./components/paymentlists/paymentlists.component";
 import { PaymentDetailListsComponent } from "./components/paymentdetaillists/paymentdetaillists.component";
@@ -417,6 +419,8 @@ import { CustomCurrencyMaskConfig } from "./currency-mask/currency-mask.config";
         IOInputsComponent,
 
         PaymentsComponent,
+        PaymentListTrueComponent,
+        PaymentListFalseComponent,
         PaymentVouchersComponent,
         PaymentListsComponent,
         PaymentDetailListsComponent,
