@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style>
+			body {
+				font-size: 12px
+			}
+			.no-pd {
+				padding: 0;
+			}
+			hr {
+				border-top-style: dashed;
+			}
+			.wrap-table {
+				margin: 10px 30px;
+			}
+			.row.no-mr {
+				margin: 0;
+			}
+			textarea {
+				resize: vertical;
+				min-height: 60px;
+			}
+			table.table {
+				border: 1px solid #9fc343;
+			}
+			thead {
+				color: #fff;
+			    background-color: #027FF4;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="control-box classes">
+			<hr />
+
+			<div class="row no-mr">
+				<div class="col-sm-6">
+					<div class="form-group has-feedback">
+						<label class="control-label col-md-2">Mã phiếu</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" required>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6">
+					<div class="form-group has-feedback">
+						<label class="control-label col-md-2">Ngày tạo</label>
+						<div class="col-md-10">
+							<input class="form-control" type="text" bsDatepicker>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr />
+
+			<div class="row no-mr">
+				<div class="col-sm-6">
+					<div class="form-group has-feedback">
+						<label class="control-label col-md-2">Đặt hàng</label>
+						<div class="col-md-10 no-pd">
+							<div class="col-sm-10 col-md-10 wrap-input">
+								<input class="form-control" type="text">
+							</div>
+							<div class="col-sm-2 col-md-2 text-right">
+								<button type="button" class="btn btn-info float-right">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group has-feedback">
+						<label class="control-label col-md-2">Người tạo</label>
+						<div class="col-md-10">
+							<select id="users-info" name="types" class="form-control" required data-live-search="true"
+									data-actions-box="false" data-live-search-placeholder="Search..." title="{{'label.iostudent.SelectCreateUser' | translate}}">
+								<option>
+									Option 1
+								</option>
+								<option>
+									Option 2
+								</option>
+								<option>
+									Option 3
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr />
+
+			<div class="row no-mr">
+				<div class="col-sm-12">
+					<div class="form-group has-feedback">
+						<label class="control-label col-md-1 col-sm-2">Ghi chú</label>
+						<div class="col-md-11 col-sm-10">
+							<textarea class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<div class="wrap-table">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Loại hàng</th>
+						<th class="text-center">Nhóm hàng</th>
+						<th class="text-center">Mã hàng</th>
+						<th class="text-center">Tên hàng</th>
+						<th class="text-center" style="width: 100px">Số lượng</th>
+						<th class="text-center">Giá</th>
+						<th class="text-center">Tổng tiền</th>
+						<th class="text-center">Ghi chú</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Loại 1</td>
+						<td>Nhóm A</td>
+						<td>A1</td>
+						<td>Việt Nam</td>
+						<td class="text-right"><input class="currency-pipe text-right" value="2" /></td>
+						<td class="text-right">10</td>
+						<td class="text-right">20</td>
+						<td>Hàng tốt</td>
+					</tr>
+					<tr>
+						<td>Loại 2</td>
+						<td>Nhóm B</td>
+						<td>B2</td>
+						<td>Thái Lan</td>
+						<td class="text-right"><input class="text-right" value="10" /></td>
+						<td class="text-right">5</td>
+						<td class="text-right">50</td>
+						<td>Hàng trung bình</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
